@@ -1,0 +1,41 @@
+name: Deploy React App to Hostinger
+
+on:
+  push:
+    branches:
+      - main # Trigger the workflow on push to the 'main' branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.10.0" # Updated to match your Node.js version
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Step 4: Build project
+      - name: Build project
+        run: npm run build
+
+      # Step 5: Deploy to Hostinger via FTP
+      - name: Deploy to Hostinger via FTP
+        uses: SamKirkland/FTP-Deploy-Action@4.3.2
+        with:
+          server: ${{ secrets.FTP_HOST }} # FTP host provided in GitHub secrets
+          username: ${{ secrets.FTP_USERNAME }} # FTP username stored in GitHub secrets
+          password: ${{ secrets.FTP_PASSWORD }} # FTP password stored in GitHub secrets
+          port: ${{ secrets.FTP_PORT }} # FTP port (usually 21 for FTP or 22 for SFTP)
+          protocol: ftp # Use 'ftp' for FTP or 'sftp' for SFTP
+          local-dir: ./dist/ # Directory for Vite production build
+          server-dir: ./ # Change to your remote directory (where files should be uploaded)
