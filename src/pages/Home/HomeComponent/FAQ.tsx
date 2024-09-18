@@ -1,36 +1,55 @@
 import { useEffect, useState } from "react";
-
+import SectionTitle from "../../../components/SectionTitle";
 
 const FAQ = () => {
   const initialData = {
     title: "updating",
-    description: ["coming soon"]
-  }
-  const [faq, setFaq] = useState([initialData])
+    description: ["coming soon"],
+  };
+  const [faq, setFaq] = useState([initialData]);
   useEffect(() => {
     try {
-      fetch('/faq.json')
-        .then(response => response.json())
-        .then(json => setFaq(json))
+      fetch("/faq.json")
+        .then((response) => response.json())
+        .then((json) => setFaq(json));
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (e) {
-      // 
+      //
     }
-  }, [])
-  if (!faq.length) <p className="text-center">Loading</p>
+  }, []);
+  if (!faq.length) <p className="text-center">Loading</p>;
 
   return (
     <section className="max-w-6xl mx-auto">
-
+      <SectionTitle
+        title="frequently asked questions"
+        intro="FAQs"
+        content="Please checkout FAQs"
+      />
       <div className="join join-vertical w-full ">
-        {faq?.map((item, index) => <div key={index} className="collapse collapse-arrow join-item border-base-100 border">
-          <input type="radio" name="my-accordion-4" defaultChecked={index === 0} />
-          <div className="collapse-title text-xl font-medium"> <h5>{item.title}</h5></div>
-          <div className="collapse-content">
-            {item.description.map((e, i) => <p className="mb-3" key={i}>{e}</p>)}
+        {faq?.map((item, index) => (
+          <div
+            key={index}
+            className="collapse collapse-arrow join-item border-base-100 border"
+          >
+            <input
+              type="radio"
+              name="my-accordion-4"
+              defaultChecked={index === 0}
+            />
+            <div className="collapse-title text-xl font-medium">
+              {" "}
+              <h5>{item.title}</h5>
+            </div>
+            <div className="collapse-content">
+              {item.description.map((e, i) => (
+                <p className="mb-3" key={i}>
+                  {e}
+                </p>
+              ))}
+            </div>
           </div>
-        </div>)}
-
+        ))}
       </div>
     </section>
   );
