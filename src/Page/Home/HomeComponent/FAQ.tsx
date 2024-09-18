@@ -1,32 +1,39 @@
- 
+import { useEffect, useState } from "react";
+
+
 const FAQ = () => {
-    return (
-      <section className="max-w-6xl mx-auto">
-          <div className="join join-vertical w-full ">
-        <div className="collapse collapse-arrow join-item border-base-300 border">
-          <input type="radio" name="my-accordion-4" defaultChecked />
-          <div className="collapse-title text-xl font-medium">Click to open this one and close others</div>
+  const initialData = {
+    title: "updating",
+    description: ["coming soon"]
+  }
+  const [faq, setFaq] = useState([initialData])
+  useEffect(() => {
+    try {
+      fetch('/faq.json')
+        .then(response => response.json())
+        .then(json => setFaq(json))
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (e) {
+      // 
+    }
+  }, [])
+  if (!faq.length) <p className="text-center">Loading</p>
+
+  return (
+    <section className="max-w-6xl mx-auto">
+
+      <div className="join join-vertical w-full ">
+        {faq?.map((item, index) => <div key={index} className="collapse collapse-arrow join-item border-base-100 border">
+          <input type="radio" name="my-accordion-4" defaultChecked={index === 0} />
+          <div className="collapse-title text-xl font-medium"> <h5>{item.title}</h5></div>
           <div className="collapse-content">
-            <p>hello</p>
+            {item.description.map((e, i) => <p className="mb-3" key={i}>{e}</p>)}
           </div>
-        </div>
-        <div className="collapse collapse-arrow join-item border-base-300 border">
-          <input type="radio" name="my-accordion-4" />
-          <div className="collapse-title text-xl font-medium">Click to open this one and close others</div>
-          <div className="collapse-content">
-            <p>hello</p>
-          </div>
-        </div>
-        <div className="collapse collapse-arrow join-item border-base-300 border">
-          <input type="radio" name="my-accordion-4" />
-          <div className="collapse-title text-xl font-medium">Click to open this one and close others</div>
-          <div className="collapse-content">
-            <p>hello</p>
-          </div>
-        </div>
+        </div>)}
+
       </div>
-      </section>
-    );
+    </section>
+  );
 };
 
 // eslint-disable-next-line react-refresh/only-export-components

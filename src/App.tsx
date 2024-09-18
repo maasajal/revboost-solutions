@@ -6,9 +6,10 @@ const App = () => {
   return (
     <>
       <div className="container mx-auto">
-        <h1 className="text-5xl font-bold py-10 text-center">
+        <h1 className="  py-10 text-center">
           RevBoots Solutions
         </h1>
+        
         <Home />
       </div>
     </>
