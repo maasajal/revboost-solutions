@@ -1,4 +1,5 @@
-import Banner from "./AboutUsComponent/Banner";
+import Address from "./ContactUsComponent/Address";
+import Banner from "./ContactUsComponent/Banner";
 import FAQ from "./HomeComponent/FAQ";
 
  
@@ -10,6 +11,7 @@ const Home = () => {
         <div className="">
             <FAQ />
             <Banner></Banner>
+            <Address></Address>
         </div>
     );
 };
