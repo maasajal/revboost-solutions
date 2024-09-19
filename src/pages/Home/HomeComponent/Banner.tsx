@@ -11,26 +11,23 @@ const Banner = () => {
   return (
     <div>
       {/* red colored banner */}
-      <div className="hero bg-[#FF0000CC] py-20">
-        <div className="hero-content flex-col lg:flex-row justify-between w-3/4">
-          <h1 className="leading-relaxed">
-            Simplifying Revenue <br></br> Management for <br></br> Smarter
-            Growth.
-          </h1>
-          <div>
-            <div className="bg-white rounded-3xl">
-              <div className="py-10 px-32">
-                <ul className="text-center font-medium space-y-3">
-                  <li>Billing</li>
-                  <li>Expense</li>
-                  <li>Income</li>
-                  <li>Reporting</li>
-                  <li>Tax</li>
-                </ul>
-              </div>
-            </div>
+      <div>
+        <section className="relative bg-bannerImg bg-repeat bg-cover w-full h-[490px] ">
+        <div className="absolute inset-0 bg-black opacity-60"></div>
+        <div className="relative z-10 flex items-center justify-evenly h-full">
+          <p className="text-white text-5xl font-bold">Simplifying Revenue <br /> Management for <br />Smarter
+          Growth.</p>
+          <div className="">
+            <p className="bg-base-100 w-56 rounded-t-lg text-center h-16 items-center flex justify-center font-medium text-xl ">Billing</p>
+            <p className="bg-base-100 w-56 text-center h-16 items-center flex justify-center font-medium text-xl ">Expense</p>
+            <p className="bg-base-100 w-56 text-center h-16 items-center flex justify-center font-medium text-xl ">Income</p>
+            <p className="bg-base-100 w-56 text-center h-16 items-center flex justify-center font-medium text-xl ">Reporting</p>
+            <p className="bg-base-100 w-56 rounded-b-lg text-center h-16 items-center flex justify-center font-medium text-xl ">Tax</p>
           </div>
         </div>
+          
+        </section>
+
       </div>
 
       {/* companies */}
