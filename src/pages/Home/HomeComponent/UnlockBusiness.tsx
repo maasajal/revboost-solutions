@@ -1,4 +1,9 @@
 import SectionTitle from "../../../components/SectionTitle";
+import graphs from "../../../assets/features/Rectangle.png";
+import financial from "../../../assets/features/financial-kpis 1.png";
+import expense from "../../../assets/features/image 1.png";
+import income from "../../../assets/features/image 2.png";
+import role from "../../../assets/features/image 3.png";
 
 interface UnlockBusinessItem {
   offerName: string;
@@ -9,23 +14,23 @@ const UnlockBusiness = () => {
   const unlockBusiness: UnlockBusinessItem[] = [
     {
       offerName: "Income Tracking",
-      image: "https://static2.bigstockphoto.com/7/0/1/large1500/107546081.jpg",
+      image: income,
     },
     {
       offerName: "Expense Tracking",
-      image: "https://static2.bigstockphoto.com/7/0/1/large1500/107546081.jpg",
+      image: expense,
     },
     {
       offerName: "Financial Reporting",
-      image: "https://static2.bigstockphoto.com/7/0/1/large1500/107546081.jpg",
+      image: financial,
     },
     {
       offerName: "Charts & Graph",
-      image: "https://static2.bigstockphoto.com/7/0/1/large1500/107546081.jpg",
+      image: graphs,
     },
     {
       offerName: "Role based Control",
-      image: "https://static2.bigstockphoto.com/7/0/1/large1500/107546081.jpg",
+      image: role,
     },
   ];
 
@@ -42,7 +47,7 @@ const UnlockBusiness = () => {
             <div className="card-body items-center text-center">
               <h2 className="card-title">{item.offerName}</h2>
             </div>
-            <figure className="p-10">
+            <figure className="pb-10">
               <img
                 src={item.image}
                 alt={item.offerName}
