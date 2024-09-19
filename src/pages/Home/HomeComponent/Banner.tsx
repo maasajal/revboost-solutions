@@ -13,7 +13,7 @@ const Banner = () => {
       {/* red colored banner */}
       <div className="hero bg-[#FF0000CC] py-20">
         <div className="hero-content flex-col lg:flex-row justify-between w-3/4">
-          <h1 className="font-bold text-white leading-relaxed">
+          <h1 className="leading-relaxed">
             Simplifying Revenue <br></br> Management for <br></br> Smarter
             Growth.
           </h1>
