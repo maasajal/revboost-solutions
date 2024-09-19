@@ -30,15 +30,11 @@ const PageCover: FC<PageCoverProps> = ({
     >
       <section className="bg-black bg-opacity-50 my-14 md:my-24 py-5 md:py-20 mx-auto rounded-xl">
         <div className="px-3 py-10 text-white text-center space-y-3">
-          <h1 className="text-5xl font-bold uppercase">
-            {heading}
-          </h1>
+          <h1 className="text-5xl font-bold uppercase">{heading}</h1>
           {headingText && (
             <p className="max-w-3xl mx-auto uppercase">{headingText}</p>
           )}
-          <h2 className="text-5xl font-semibold uppercase">
-            {title}
-          </h2>
+          <h2 className="text-5xl font-semibold uppercase">{title}</h2>
           {content && <p className="max-w-3xl mx-auto">{content}</p>}
         </div>
       </section>
