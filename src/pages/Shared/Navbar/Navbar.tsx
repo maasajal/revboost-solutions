@@ -4,14 +4,25 @@ const Navbar = () => {
   const navItems = (
     <>
       <li>
-        <NavLink to="/home" className="hover:border-b-2 border-[#FF0000] pb-1">
+        <NavLink
+          to="/"
+          className={({ isActive }) =>
+            isActive
+              ? "border-b-2 border-[#FF0000] pb-1"
+              : "hover:border-b-2 border-[#FF0000] pb-1"
+          }
+        >
           Home
         </NavLink>
       </li>
       <li>
         <NavLink
           to="/pricing"
-          className="hover:border-b-2 border-[#FF0000] pb-1"
+          className={({ isActive }) =>
+            isActive
+              ? "border-b-2 border-[#FF0000] pb-1"
+              : "hover:border-b-2 border-[#FF0000] pb-1"
+          }
         >
           Pricing
         </NavLink>
@@ -19,7 +30,11 @@ const Navbar = () => {
       <li>
         <NavLink
           to="/report"
-          className="hover:border-b-2 border-[#FF0000] pb-1"
+          className={({ isActive }) =>
+            isActive
+              ? "border-b-2 border-[#FF0000] pb-1"
+              : "hover:border-b-2 border-[#FF0000] pb-1"
+          }
         >
           Report
         </NavLink>
@@ -27,21 +42,36 @@ const Navbar = () => {
       <li>
         <NavLink
           to="/products"
-          className="hover:border-b-2 border-[#FF0000] pb-1"
+          className={({ isActive }) =>
+            isActive
+              ? "border-b-2 border-[#FF0000] pb-1"
+              : "hover:border-b-2 border-[#FF0000] pb-1"
+          }
         >
           All Products
         </NavLink>
       </li>
       <li>
         <NavLink
-          to="/contact"
-          className="hover:border-b-2 border-[#FF0000] pb-1"
+          to="/contact-us"
+          className={({ isActive }) =>
+            isActive
+              ? "border-b-2 border-[#FF0000] pb-1"
+              : "hover:border-b-2 border-[#FF0000] pb-1"
+          }
         >
           Contact us
         </NavLink>
       </li>
       <li>
-        <NavLink to="/about" className="hover:border-b-2 border-[#FF0000] pb-1">
+        <NavLink
+          to="/about-us"
+          className={({ isActive }) =>
+            isActive
+              ? "border-b-2 border-[#FF0000] pb-1"
+              : "hover:border-b-2 border-[#FF0000] pb-1"
+          }
+        >
           About Us
         </NavLink>
       </li>
