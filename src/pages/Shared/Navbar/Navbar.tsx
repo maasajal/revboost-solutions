@@ -1,55 +1,78 @@
-import { NavLink } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
+  const location = useLocation();
+  const isActive = (path: string) => location.pathname === path;
   const navItems = (
     <>
       <li>
-        <NavLink to="/home" className="hover:border-b-2 border-[#FF0000] pb-1">
+        <Link to="/"
+          className={
+            isActive('/')
+              ? 'font-bold border-b-2 border-[#FF0000]'
+              : ' hover:text-slate-400'}
+        >
           Home
-        </NavLink>
+        </Link>
       </li>
       <li>
-        <NavLink
+        <Link
           to="/pricing"
-          className="hover:border-b-2 border-[#FF0000] pb-1"
+          className={
+            isActive('/pricing')
+              ? 'font-bold border-b-2 border-[#FF0000]'
+              : ' hover:text-slate-400'}
         >
           Pricing
-        </NavLink>
+        </Link>
       </li>
       <li>
-        <NavLink
+        <Link
           to="/report"
-          className="hover:border-b-2 border-[#FF0000] pb-1"
+          className={
+            isActive('/report')
+              ? ' font-bold border-b-2 border-[#FF0000]'
+              : 'hover:text-slate-400'}
         >
           Report
-        </NavLink>
+        </Link>
       </li>
       <li>
-        <NavLink
+        <Link
           to="/products"
-          className="hover:border-b-2 border-[#FF0000] pb-1"
+          className={
+            isActive('/products')
+              ? ' font-bold border-b-2 border-[#FF0000]'
+              : ' hover:text-slate-400'}
         >
           All Products
-        </NavLink>
+        </Link>
       </li>
       <li>
-        <NavLink
-          to="/contact"
-          className="hover:border-b-2 border-[#FF0000] pb-1"
+        <Link
+          to="/contact-us"
+          className={
+            isActive('/contact-us')
+              ? ' font-bold border-b-2 border-[#FF0000]'
+              : ' hover:text-slate-400'}
         >
           Contact us
-        </NavLink>
+        </Link>
       </li>
       <li>
-        <NavLink to="/about" className="hover:border-b-2 border-[#FF0000] pb-1">
+        <Link to="/about-us"
+          className={
+            isActive('/about-us')
+              ? ' font-bold border-b-2 border-[#FF0000]'
+              : ' hover:text-slate-400'}>
           About Us
-        </NavLink>
+        </Link>
       </li>
     </>
   );
 
   return (
-    <div className="navbar bg-base-100 px-20">
+    <div className="navbar bg-base-100 px-0 md:px-10 lg:px-20">
       <div className="mr-3">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
