@@ -3,9 +3,8 @@ import img1 from "../../assets/aboutUs/image 17.png";
 import img2 from "../../assets/aboutUs/image 19.png";
 import img3 from "../../assets/aboutUs/image 18.png";
 import img4 from "../../assets/aboutUs/image 20.png";
-import circle from '../../assets/aboutUs/Vector.svg';
-import choose from '../../assets/aboutUs/image 21.png'
-
+import circle from "../../assets/aboutUs/image 20.png";
+import choose from "../../assets/aboutUs/image 20.png";
 
 const About = () => {
   return (
@@ -108,14 +107,13 @@ const About = () => {
               <p className="text-white font-medium text-2xl">Total Reviews</p>
             </div>
           </div>
-
         </div>
-
       </div>
 
-
       <div className="mt-10 md:mt-10 lg:mt-16">
-        <p className="text-center font-montserrat font-bold text-2xl md:text-4xl">Our mission</p>
+        <p className="text-center font-montserrat font-bold text-2xl md:text-4xl">
+          Our mission
+        </p>
         <div className="flex justify-center mt-2 md:mt-6">
           <div className="text-xl font-normal">
             <div className="flex items-center gap-2">
@@ -138,21 +136,43 @@ const About = () => {
         </div>
       </div>
 
-
       <div className="mt-10 md:mt-10 lg:mt-16">
-        <p className="text-center font-montserrat font-bold text-2xl md:text-4xl mb-10">Why choose us</p>
+        <p className="text-center font-montserrat font-bold text-2xl md:text-4xl mb-10">
+          Why choose us
+        </p>
         <div className="w-full h-auto  drop-shadow-md bg-[#F6F4FA] rounded-xl p-6 md:p-10 lg:p-16">
           <div className="flex flex-col md:flex-col-reverse lg:flex-row justify-between items-center">
             <div>
-              <p className="font-montserrat text-xl md:text-3xl font-semibold md:font-bold mb-4">With knowledge,skills<br />and hard work</p>
-              <p className="text-lg font-normal mb-4  lg:w-[577px]">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.</p>
-              <p className="font-montserrat font-semibold md:font-semibold text-xl md:text-2xl mb-4">Your road to success</p>
-              <p className="text-lg font-normal lg:w-[577px]">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
+              <p className="font-montserrat text-xl md:text-3xl font-semibold md:font-bold mb-4">
+                With knowledge,skills
+                <br />
+                and hard work
+              </p>
+              <p className="text-lg font-normal mb-4  lg:w-[577px]">
+                It is a long established fact that a reader will be distracted
+                by the readable content of a page when looking at its layout.
+                The point of using Lorem Ipsum is that it has a more-or-less
+                normal distribution of letters, as opposed to using 'Content
+                here, content here', making it look like readable English. Many
+                desktop publishing packages and web page editors now use Lorem
+                Ipsum as their default model text, and a search for 'lorem
+                ipsum' will uncover many web sites still in their infancy.
+              </p>
+              <p className="font-montserrat font-semibold md:font-semibold text-xl md:text-2xl mb-4">
+                Your road to success
+              </p>
+              <p className="text-lg font-normal lg:w-[577px]">
+                It is a long established fact that a reader will be distracted
+                by the readable content of a page when looking at its layout.
+              </p>
             </div>
 
-
             <div>
-              <img src={choose} alt="" className="w-full h-full md:mb-10 lg:mb-0 mt-5 md:mt-0" />
+              <img
+                src={choose}
+                alt=""
+                className="w-full h-full md:mb-10 lg:mb-0 mt-5 md:mt-0"
+              />
             </div>
           </div>
         </div>
