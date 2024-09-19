@@ -2,7 +2,7 @@
 const ErrorPage = () => {
     return (
         <div>
-            this is an error page.
+            this is will be an error page
         </div>
     );
 };
