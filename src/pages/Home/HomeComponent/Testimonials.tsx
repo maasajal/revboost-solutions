@@ -14,7 +14,7 @@ import SectionTitle from "../../../components/SectionTitle";
 
 const Testimonials = () => {
   return (
-    <section className="max-w-6xl mx-auto">
+    <section className="max-w-6xl mx-auto px-5">
       <SectionTitle
         title="What’s our client says"
         intro="Testimonials"
@@ -35,9 +35,9 @@ const Testimonials = () => {
         className="mySwiper"
       >
         <SwiperSlide>
-          <div className="flex items-center bg-white py-10 px-16 rounded-xl shadow-lg gap-10">
-            <img src={person} className="" alt="" />
-            <p className="font-medium px-10">
+          <div className="flex flex-col lg:flex-row items-center bg-white py-10 px-16 rounded-xl shadow-lg gap-10">
+            <img src={person} alt="" />
+            <p className="font-medium px-10 mt-6 md:mt-0">
               It is a long established fact that a reader will be distracted by
               the readable content of a page when looking at its layout. The
               point of using Lorem Ipsum is that it has a more-or-less normal
@@ -52,9 +52,9 @@ const Testimonials = () => {
           </div>
         </SwiperSlide>
         <SwiperSlide>
-          <div className="flex items-center bg-white py-10 px-16 rounded-xl shadow-lg gap-10">
-            <img src={person} className="" alt="" />
-            <p className="font-medium px-10">
+          <div className="flex flex-col lg:flex-row items-center bg-white py-10 px-16 rounded-xl shadow-lg gap-10">
+            <img src={person} alt="" />
+            <p className="font-medium px-10 mt-6 md:mt-0">
               It is a long established fact that a reader will be distracted by
               the readable content of a page when looking at its layout. The
               point of using Lorem Ipsum is that it has a more-or-less normal
@@ -69,9 +69,9 @@ const Testimonials = () => {
           </div>
         </SwiperSlide>
         <SwiperSlide>
-          <div className="flex items-center bg-white py-10 px-16 rounded-xl shadow-lg gap-10">
-            <img src={person} className="" alt="" />
-            <p className="font-medium px-10">
+          <div className="flex flex-col lg:flex-row items-center bg-white py-10 px-16 rounded-xl shadow-lg gap-10">
+            <img src={person} alt="" />
+            <p className="font-medium px-10 mt-6 md:mt-0">
               It is a long established fact that a reader will be distracted by
               the readable content of a page when looking at its layout. The
               point of using Lorem Ipsum is that it has a more-or-less normal

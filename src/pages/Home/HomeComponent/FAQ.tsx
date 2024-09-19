@@ -20,7 +20,7 @@ const FAQ = () => {
   if (!faq.length) <p className="text-center">Loading</p>;
 
   return (
-    <section className="max-w-6xl mx-auto">
+    <section className="max-w-6xl mx-auto px-5">
       <SectionTitle
         title="frequently asked questions"
         intro="FAQs"
