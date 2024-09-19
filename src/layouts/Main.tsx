@@ -5,7 +5,7 @@ import Footer from "../pages/Shared/footer/Footer";
 const Main = () => {
   return (
     <div>
-      <Navbar />
+        <Navbar />
       <main className="font-roboto">
         <Outlet />
       </main>
