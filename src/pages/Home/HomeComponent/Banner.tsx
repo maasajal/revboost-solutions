@@ -11,10 +11,11 @@ const Banner = () => {
   return (
     <div>
       {/* red colored banner */}
-      <div className="hero bg-[#FF0000CC] min-h-screen">
+      <div className="hero bg-[#FF0000CC] py-20">
         <div className="hero-content flex-col lg:flex-row justify-between w-3/4">
-          <h1 className="text-5xl font-bold text-white">
-            Your Personal <br></br> Billing Operator
+          <h1 className="text-6xl font-bold text-white">
+            Simplifying Revenue <br></br> Management for <br></br> Smarter
+            Growth.
           </h1>
           <div>
             <div className="bg-white rounded-3xl">
