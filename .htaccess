@@ -1,0 +1,9 @@
+# Enable rewrite engine
+
+RewriteEngine On
+
+# Serve index.html for any request that doesn't match a file or directory
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.\*)$ /index.html [L,QSA]
