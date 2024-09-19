@@ -1,5 +1,6 @@
 import Banner from "./HomeComponent/Banner";
 import FAQ from "./HomeComponent/FAQ";
+import Sectors from "./HomeComponent/Sectors";
 import Testimonials from "./HomeComponent/Testimonials";
 import UnlockBusiness from "./HomeComponent/UnlockBusiness";
 
@@ -9,6 +10,7 @@ const Home = () => {
       <Banner></Banner>
       <UnlockBusiness />
       <Testimonials></Testimonials>
+      <Sectors></Sectors>
       <FAQ />
     </div>
   );
