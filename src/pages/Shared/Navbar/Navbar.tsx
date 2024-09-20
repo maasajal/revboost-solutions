@@ -1,17 +1,28 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const Navbar = () => {
   const navItems = (
     <>
       <li>
-        <NavLink to="/home" className="hover:border-b-2 border-[#FF0000] pb-1">
+        <NavLink
+          to="/"
+          className={({ isActive }) =>
+            isActive
+              ? "border-b-2 border-[#FF0000] pb-1"
+              : "hover:border-b-2 border-[#FF0000] pb-1"
+          }
+        >
           Home
         </NavLink>
       </li>
       <li>
         <NavLink
           to="/pricing"
-          className="hover:border-b-2 border-[#FF0000] pb-1"
+          className={({ isActive }) =>
+            isActive
+              ? "border-b-2 border-[#FF0000] pb-1"
+              : "hover:border-b-2 border-[#FF0000] pb-1"
+          }
         >
           Pricing
         </NavLink>
@@ -19,7 +30,11 @@ const Navbar = () => {
       <li>
         <NavLink
           to="/report"
-          className="hover:border-b-2 border-[#FF0000] pb-1"
+          className={({ isActive }) =>
+            isActive
+              ? "border-b-2 border-[#FF0000] pb-1"
+              : "hover:border-b-2 border-[#FF0000] pb-1"
+          }
         >
           Report
         </NavLink>
@@ -27,21 +42,36 @@ const Navbar = () => {
       <li>
         <NavLink
           to="/products"
-          className="hover:border-b-2 border-[#FF0000] pb-1"
+          className={({ isActive }) =>
+            isActive
+              ? "border-b-2 border-[#FF0000] pb-1"
+              : "hover:border-b-2 border-[#FF0000] pb-1"
+          }
         >
           All Products
         </NavLink>
       </li>
       <li>
         <NavLink
-          to="/contact"
-          className="hover:border-b-2 border-[#FF0000] pb-1"
+          to="/contact-us"
+          className={({ isActive }) =>
+            isActive
+              ? "border-b-2 border-[#FF0000] pb-1"
+              : "hover:border-b-2 border-[#FF0000] pb-1"
+          }
         >
           Contact us
         </NavLink>
       </li>
       <li>
-        <NavLink to="/about" className="hover:border-b-2 border-[#FF0000] pb-1">
+        <NavLink
+          to="/about-us"
+          className={({ isActive }) =>
+            isActive
+              ? "border-b-2 border-[#FF0000] pb-1"
+              : "hover:border-b-2 border-[#FF0000] pb-1"
+          }
+        >
           About Us
         </NavLink>
       </li>
@@ -49,10 +79,14 @@ const Navbar = () => {
   );
 
   return (
-    <div className="navbar bg-base-100 px-20">
+    <div className="navbar bg-base-100 lg:px-20">
       <div className="mr-3">
         <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+          <div
+            tabIndex={0}
+            role="button"
+            className="btn btn-ghost lg:hidden pl-0"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -75,9 +109,9 @@ const Navbar = () => {
             {navItems}
           </ul>
         </div>
-        <a className="text-2xl font-bold mr-5">
+        <Link to="/" className="text-2xl font-bold mr-5">
           Rev<span className="text-[#FF0000]">Boost</span>{" "}
-        </a>
+        </Link>
       </div>
       <div className="hidden lg:flex">
         <ul className="menu-horizontal flex-nowrap flex-1 font-medium px-1 space-x-5">
