@@ -5,11 +5,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
 import "swiper/css";
-import "swiper/css/pagination";
 import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 // import required modules
-import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import SectionTitle from "../../../components/SectionTitle";
 
 const Testimonials = () => {
@@ -36,7 +36,7 @@ const Testimonials = () => {
       >
         <SwiperSlide>
           <div className="flex items-center bg-white py-10 px-16 rounded-xl shadow-lg gap-10">
-            <img src={person} className="" alt="" />
+            <img src={person}  className=""  alt="" />
             <p className="font-medium px-10">
               It is a long established fact that a reader will be distracted by
               the readable content of a page when looking at its layout. The
