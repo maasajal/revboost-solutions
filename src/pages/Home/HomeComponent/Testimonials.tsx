@@ -5,16 +5,16 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
 import "swiper/css";
-import "swiper/css/pagination";
 import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 // import required modules
-import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import SectionTitle from "../../../components/SectionTitle";
 
 const Testimonials = () => {
   return (
-    <section className="max-w-6xl mx-auto px-5">
+    <section className="container mx-auto px-5">
       <SectionTitle
         title="What’s our client says"
         intro="Testimonials"
