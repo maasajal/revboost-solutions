@@ -35,7 +35,7 @@ const UnlockBusiness = () => {
   ];
 
   return (
-    <section className="max-w-6xl mx-auto px-5">
+    <section className="container mx-auto px-5">
       <SectionTitle
         title="Unlock your business with us"
         intro="Why choose us"

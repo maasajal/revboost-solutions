@@ -5,7 +5,7 @@ import consultancy from "../../../assets/sectors/image 7.png";
 
 const Sectors = () => {
   return (
-    <div className="max-w-6xl mx-auto px-5">
+    <div className="container mx-auto px-5">
       <SectionTitle
         title="Tailor your business with us"
         intro="Sectors"

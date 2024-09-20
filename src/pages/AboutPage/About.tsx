@@ -8,7 +8,7 @@ import choose from "../../assets/aboutUs/image 20.png";
 
 const About = () => {
   return (
-    <div className=" md:px-14 lg:px-20 md:mt-10 lg:mt-16">
+    <div className="container mx-auto md:px-14 lg:px-20 md:mt-10 lg:mt-16">
       <div className="flex flex-col md:flex-row gap-6 md:gap-10 lg:gap-16 ">
         <div>
           <img
