@@ -25,16 +25,12 @@ const About = () => {
           <div className="flex flex-col space-y-4 justify-center p-6 text-center rounded-sm lg:max-w-md xl:max-w-lg lg:text-left">
             <h2>Who are we?</h2>
             <p>
-              It is a long established fact that a reader will be distracted by
-              the readable content of a page when looking at its layout. The
-              point of using Lorem Ipsum is that it has a more-or-less normal
-              distribution of letters, as opposed to using 'Content here,
-              content here', making it look like readable English. Many desktop
-              publishing packages and web page editors now use Lorem Ipsum as
-              their default model text, and a search for 'lorem ipsum' will
-              uncover many web sites still in their infancy. Various versions
-              have evolved over the years, sometimes by accident, sometimes on
-              purpose (injected humour and the like).
+              Revboost offers a streamlined, automated approach to financial
+              management, making it easier for businesses to track revenue
+              growth, forecast future performance, and comply with tax
+              regulations. This level of financial clarity and control can drive
+              more strategic decision-making and ultimately contribute to the
+              sustainable growth of the business.
             </p>
           </div>
         </div>
@@ -72,16 +68,11 @@ const About = () => {
               We provide best solution for your business
             </h2>
             <p className="dark:text-gray-600">
-              It is a long established fact that a reader will be distracted by
-              the readable content of a page when looking at its layout. The
-              point of using Lorem Ipsum is that it has a more-or-less normal
-              distribution of letters, as opposed to using 'Content here,
-              content here', making it look like readable English. Many desktop
-              publishing packages and web page editors now use Lorem Ipsum as
-              their default model text, and a search for 'lorem ipsum' will
-              uncover many web sites still in their infancy. Various versions
-              have evolved over the years, sometimes by accident, sometimes on
-              purpose (injected humour and the like).
+              We're proposing to build a web-based platform, "RevBoost,"
+              designed to help your business streamline and optimize its revenue
+              generation processes. The platform will be developed using Next.js
+              and TypeScript, two modern technologies known for their
+              performance, scalability, and reliability.
             </p>
           </div>
           <div className="grid items-center gap-4 xl:grid-cols-3">
@@ -92,12 +83,10 @@ const About = () => {
 
                   <div className="p-6 rounded shadow-md dark:bg-gray-50">
                     <p>
-                      An audire commodo habemus cum. Ne sed corrumpit
-                      repudiandae. Tota aliquip democritum pro in, nec
-                      democritum intellegam ne. Propriae volutpat dissentiet ea
-                      sit, nec at lorem inani tritani, an ius populo perfecto
-                      vituperatoribus. Eu cum case modus salutandi, ut eum
-                      vocent sensibus reprehendunt.
+                      Revboost generates detailed tax reports, outlining the
+                      total VAT collected and the taxes owed. This not only
+                      saves hours of manual work for the accounting team but
+                      also ensures compliance with local tax regulations.
                     </p>
                     <div className="flex items-center mt-4 space-x-4">
                       <img
@@ -106,7 +95,7 @@ const About = () => {
                         className="w-12 h-12 bg-center bg-cover rounded-full dark:bg-gray-500"
                       />
                       <div>
-                        <p className="text-lg font-semibold">Leroy Jenkins</p>
+                        <p className="text-lg font-semibold">Mr G</p>
                         <p className="text-sm dark:text-gray-600">
                           CTO of Company Co.
                         </p>
@@ -115,10 +104,9 @@ const About = () => {
                   </div>
                   <div className="p-6 rounded shadow-md dark:bg-gray-50">
                     <p>
-                      Sit wisi sapientem ut, pri civibus temporibus voluptatibus
-                      et, ius cu hinc fabulas. Nam meliore minimum et, regione
-                      convenire cum id. Ex pro eros mucius consectetuer, pro
-                      magna nulla nonumy ne, eam putent iudicabit consulatu cu.
+                      By reducing the risk of errors and potential fines, Aurora
+                      provides peace of mind to business owners, knowing that
+                      their tax filings are accurate and up-to-date.
                     </p>
                     <div className="flex items-center mt-4 space-x-4">
                       <img
@@ -127,7 +115,7 @@ const About = () => {
                         className="w-12 h-12 bg-center bg-cover rounded-full dark:bg-gray-500"
                       />
                       <div>
-                        <p className="text-lg font-semibold">Leroy Jenkins</p>
+                        <p className="text-lg font-semibold">Mr. X</p>
                         <p className="text-sm dark:text-gray-600">
                           CTO of Company Co.
                         </p>
@@ -138,12 +126,9 @@ const About = () => {
                 <div className="grid content-center gap-4">
                   <div className="p-6 rounded shadow-md dark:bg-gray-50">
                     <p>
-                      Putant omnium elaboraret per ut. Id dicta tritani nominavi
-                      quo, mea id justo errem elaboraret. Agam mollis scripserit
-                      ea his, ut nec postea verear persecuti. Ea noster senserit
-                      eam, ferri omittantur ei nec. Id mel solet libris
-                      efficiantur, commune explicari et eos. Case movet ad est,
-                      sed tota vocent appetere ea.
+                      This level of financial clarity and control can drive more
+                      strategic decision-making and ultimately contribute to the
+                      sustainable growth of the business.
                     </p>
                     <div className="flex items-center mt-4 space-x-4">
                       <img
@@ -152,7 +137,7 @@ const About = () => {
                         className="w-12 h-12 bg-center bg-cover rounded-full dark:bg-gray-500"
                       />
                       <div>
-                        <p className="text-lg font-semibold">Leroy Jenkins</p>
+                        <p className="text-lg font-semibold">Mr Chair Man</p>
                         <p className="text-sm dark:text-gray-600">
                           CTO of Company Co.
                         </p>
@@ -161,14 +146,10 @@ const About = () => {
                   </div>
                   <div className="p-6 rounded shadow-md dark:bg-gray-50">
                     <p>
-                      Te omnes virtute volutpat sed. Ei esse eros interesset
-                      vel, ei populo denique ocurreret vix, eu cum pertinax
-                      mandamus vituperatoribus. Solum nihil luptatum per ex, ei
-                      amet viderer eos. Ea illum labitur mnesarchum pro. Eius
-                      meis salutandi ei nam, alterum expetenda et nec. Expetenda
-                      intellegat at eum, per mazim sanctus honestatis ad. Ei
-                      noluisse invenire vix. Te ancillae patrioque qui, probo
-                      bonorum vivendum ex vim.
+                      Revboost generates detailed tax reports, outlining the
+                      total VAT collected and the taxes owed. This not only
+                      saves hours of manual work for the accounting team but
+                      also ensures compliance with local tax regulations.
                     </p>
                     <div className="flex items-center mt-4 space-x-4">
                       <img
@@ -177,7 +158,7 @@ const About = () => {
                         className="w-12 h-12 bg-center bg-cover rounded-full dark:bg-gray-500"
                       />
                       <div>
-                        <p className="text-lg font-semibold">Leroy Jenkins</p>
+                        <p className="text-lg font-semibold">Mr Y</p>
                         <p className="text-sm dark:text-gray-600">
                           CTO of Company Co.
                         </p>
@@ -186,14 +167,11 @@ const About = () => {
                   </div>
                   <div className="p-6 rounded shadow-md dark:bg-gray-50">
                     <p>
-                      Te omnes virtute volutpat sed. Ei esse eros interesset
-                      vel, ei populo denique ocurreret vix, eu cum pertinax
-                      mandamus vituperatoribus. Solum nihil luptatum per ex, ei
-                      amet viderer eos. Ea illum labitur mnesarchum pro. Eius
-                      meis salutandi ei nam, alterum expetenda et nec. Expetenda
-                      intellegat at eum, per mazim sanctus honestatis ad. Ei
-                      noluisse invenire vix. Te ancillae patrioque qui, probo
-                      bonorum vivendum ex vim.
+                      Revboost to accurately compute VAT for its invoices,
+                      taking into account varying VAT rates for different
+                      services. Additionally, Aurora generates detailed tax
+                      reports, outlining the total VAT collected and the taxes
+                      owed.
                     </p>
                     <div className="flex items-center mt-4 space-x-4">
                       <img
@@ -202,7 +180,7 @@ const About = () => {
                         className="w-12 h-12 bg-center bg-cover rounded-full dark:bg-gray-500"
                       />
                       <div>
-                        <p className="text-lg font-semibold">Leroy Jenkins</p>
+                        <p className="text-lg font-semibold">Mr T</p>
                         <p className="text-sm dark:text-gray-600">
                           CTO of Company Co.
                         </p>
@@ -313,43 +291,42 @@ const About = () => {
               <div className="col-span-12 space-y-12 relative px-4 sm:col-span-8 sm:space-y-8 sm:before:absolute sm:before:top-2 sm:before:bottom-0 sm:before:w-0.5 sm:before:-left-3 before:dark:bg-gray-300">
                 <div className="flex flex-col sm:relative sm:before:absolute sm:before:top-2 sm:before:w-4 sm:before:h-4 sm:before:rounded-full sm:before:left-[-35px] sm:before:z-[1] before:dark:bg-red-200">
                   <h3 className="text-xl font-semibold tracking-wide">
-                    Something about our mission
+                    Mission A
                   </h3>
                   <span className="text-xs tracking-wide uppercase dark:text-gray-600">
                     Jul 2024
                   </span>
                   <p className="mt-3">
-                    Pellentesque feugiat ante at nisl efficitur, in mollis orci
-                    scelerisque. Interdum et malesuada fames ac ante ipsum
-                    primis in faucibus.
+                    RevBoost Solutions is designed to be the all-in-one
+                    financial management solution for businesses, simplifying
+                    everything from daily financial tracking to complex tax and
+                    VAT compliance.
                   </p>
                 </div>
                 <div className="flex flex-col sm:relative sm:before:absolute sm:before:top-2 sm:before:w-4 sm:before:h-4 sm:before:rounded-full sm:before:left-[-35px] sm:before:z-[1] before:dark:bg-red-400">
                   <h3 className="text-xl font-semibold tracking-wide">
-                    Something about our mission
+                    Mission B
                   </h3>
 
                   <span className="text-xs tracking-wide uppercase dark:text-gray-600">
                     Jul 2025
                   </span>
                   <p className="mt-3">
-                    Morbi vulputate aliquam libero non dictum. Aliquam sit amet
-                    nunc ut diam aliquet tincidunt nec nec dui. Donec mollis
-                    turpis eget egestas sodales.
+                    RevBoost Solutions empowers businesses to track and analyze
+                    their revenue growth effortlessly.
                   </p>
                 </div>
                 <div className="flex flex-col sm:relative sm:before:absolute sm:before:top-2 sm:before:w-4 sm:before:h-4 sm:before:rounded-full sm:before:left-[-35px] sm:before:z-[1] before:dark:bg-red-600">
                   <h3 className="text-xl font-semibold tracking-wide">
-                    Something about our mission
+                    Mission C
                   </h3>
                   <span className="text-xs tracking-wide uppercase dark:text-gray-600">
                     Jul 2026
                   </span>
                   <p className="mt-3">
-                    Suspendisse tincidunt, arcu nec faucibus efficitur, justo
-                    velit consectetur nisl, sit amet condimentum lacus orci nec
-                    purus. Mauris quis quam suscipit, vehicula felis id,
-                    vehicula enim.
+                    The goal of the Aurora solution is to provide a
+                    comprehensive platform that simplifies various financial
+                    management tasks for businesses.
                   </p>
                 </div>
               </div>
@@ -387,8 +364,9 @@ const About = () => {
                   <span className="text-blue-500 ">Your road to success</span>
                 </h3>
                 <p className="mt-3 text-gray-600 dark:text-gray-400">
-                  It is a long established fact that a reader will be distracted
-                  by the readable content of a page when looking at its layout.
+                The proposed research aims to develop an advanced Company Revenue Generation Platform.
+                To integrate key features like lead management, sales tracking, and revenue analytics.
+                To explore the application of behavioral analytics in micro-segmentation for targeted revenue generation strategies.
                 </p>
                 <button className="w-full px-5 py-2 mt-6 text-sm tracking-wider text-white uppercase transition-colors duration-300 transform bg-blue-600 rounded-lg lg:w-auto hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
                   Details
