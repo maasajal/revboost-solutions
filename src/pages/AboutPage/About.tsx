@@ -3,8 +3,14 @@ import img1 from "../../assets/aboutUs/image 17.png";
 import img2 from "../../assets/aboutUs/image 19.png";
 import img3 from "../../assets/aboutUs/image 18.png";
 import img4 from "../../assets/aboutUs/image 20.png";
-import circle from "../../assets/aboutUs/image 20.png";
-import choose from "../../assets/aboutUs/image 20.png";
+import circle from "../../assets/aboutUs/circle.svg";
+import img21 from '../../assets/aboutUs/image 21.png';
+import member1 from "../../assets/aboutUs/IMG_2614-removebg-preview 1.png"
+import fb from '../../assets/aboutUs/fb.svg'
+import insta from '../../assets/aboutUs/insta.svg'
+import linkedin from '../../assets/aboutUs/linkedin.svg'
+import { Link } from "react-router-dom";
+
 
 const About = () => {
   return (
@@ -66,9 +72,9 @@ const About = () => {
         <img
           src={img3}
           alt=""
-          className="md:mt-10 lg:-mt-12 md:-ml-0 lg:-ml-4 md:w-[300px] lg:w-auto"
+          className="md:mt-10 lg:-mt-12 md:-ml-0 lg:-ml-10 md:w-[300px] lg:w-auto"
         />
-        <div className="md:w-[330px] lg:w-[390px] md:h-[210px] lg:h-[221px] bg-[#FF0000] rounded-2xl md:-ml-2 lg:ml-6 md:mt-10 lg:mt-7">
+        <div className="md:w-[330px] lg:w-[410px] md:h-[210px] lg:h-[221px] bg-[#FF0000] rounded-2xl md:-ml-2 lg:ml-3 md:mt-10 lg:mt-7">
           <p className="text-white text-4xl font-semibold flex text-center items-center h-[230px]">
             Your digital billing solution is here
           </p>
@@ -76,7 +82,7 @@ const About = () => {
         <img
           src={img4}
           alt=""
-          className="md:ml-36 lg:ml-4 w-full md:w-full lg:w-[315px] h-[221px] md:mt-6 lg:mt-7"
+          className="md:ml-36 lg:ml-10 w-full md:w-full lg:w-[420px] h-[221px] md:mt-6 lg:mt-7"
         />
       </div>
 
@@ -169,13 +175,116 @@ const About = () => {
 
             <div>
               <img
-                src={choose}
+                src={img21}
                 alt=""
                 className="w-full h-full md:mb-10 lg:mb-0 mt-5 md:mt-0"
               />
             </div>
           </div>
         </div>
+      </div>
+
+
+
+      <div className="mt-10 md:mt-10 lg:mt-16 max-w-5xl mx-auto flex justify-center items-center px-4 md:px-0">
+        <section>
+          <p className="text-center font-montserrat font-bold text-2xl md:text-4xl mb-10">
+            Our brilliant team members
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            <div className="mr-0 md:mr-10">
+              <div className="w-full md:w-[272px] h-[261px]  shadow-xl border-black border rounded-2xl flex justify-center items-center">
+                <img src={member1} alt="" />
+              </div>
+              <p className="font-semibold text-xl mt-5">Sakib Hasan</p>
+              <p className="font-semibold text-xl text-[#FF0000]">Web Developer</p>
+              <div className="flex gap-10 mt-2">
+                <Link to='https://www.facebook.com/sakibhasansufi'>
+                  <img src={fb} alt="" className="cursor-pointer" />
+                </Link>
+                <Link to='https://www.instagram.com/sakib.hasan.sufi/'>
+                  <img src={insta} alt="" className="cursor-pointer" />
+                </Link>
+                <Link to='https://www.linkedin.com/in/sakibhasansufi/'>
+                  <img src={linkedin} alt="" className="cursor-pointer" />
+                </Link>
+
+                
+              </div>
+            </div>
+
+
+            <div className="mt-7 md:mt-0">
+              <div className="w-full md:w-[272px] h-[261px]  shadow-xl border-black border rounded-2xl flex justify-center items-center">
+                <img src={member1} alt="" />
+              </div>
+              <p className="font-semibold text-xl mt-5">Sakib Hasan</p>
+              <p className="font-semibold text-xl text-[#FF0000]">Web Developer</p>
+              <div className="flex gap-10 mt-2">
+                <img src={fb} alt="" className="cursor-pointer" />
+                <img src={insta} alt="" className="cursor-pointer" />
+                <img src={linkedin} alt="" className="cursor-pointer" />
+              </div>
+            </div>
+
+
+            <div className="mt-7 md:mt-10 lg:mt-0">
+              <div className="w-full md:w-[272px] h-[261px]  shadow-xl border-black border rounded-2xl flex justify-center items-center">
+                <img src={member1} alt="" />
+              </div>
+              <p className="font-semibold text-xl mt-5">Sakib Hasan</p>
+              <p className="font-semibold text-xl text-[#FF0000]">Web Developer</p>
+              <div className="flex gap-10 mt-2">
+                <img src={fb} alt="" className="cursor-pointer" />
+                <img src={insta} alt="" className="cursor-pointer" />
+                <img src={linkedin} alt="" className="cursor-pointer" />
+              </div>
+            </div>
+
+
+            <div className="mt-10">
+              <div className="w-full md:w-[272px] h-[261px]  shadow-xl border-black border rounded-2xl flex justify-center items-center">
+                <img src={member1} alt="" />
+              </div>
+              <p className="font-semibold text-xl mt-5">Sakib Hasan</p>
+              <p className="font-semibold text-xl text-[#FF0000]">Web Developer</p>
+              <div className="flex gap-10 mt-2">
+                <img src={fb} alt="" className="cursor-pointer" />
+                <img src={insta} alt="" className="cursor-pointer" />
+                <img src={linkedin} alt="" className="cursor-pointer" />
+              </div>
+            </div>
+
+
+            <div className="mt-10">
+              <div className="w-full md:w-[272px] h-[261px]  shadow-xl border-black border rounded-2xl flex justify-center items-center">
+                <img src={member1} alt="" />
+              </div>
+              <p className="font-semibold text-xl mt-5">Sakib Hasan</p>
+              <p className="font-semibold text-xl text-[#FF0000]">Web Developer</p>
+              <div className="flex gap-10 mt-2">
+                <img src={fb} alt="" className="cursor-pointer" />
+                <img src={insta} alt="" className="cursor-pointer" />
+                <img src={linkedin} alt="" className="cursor-pointer" />
+              </div>
+            </div>
+
+            <div className="mt-10">
+              <div className="w-full md:w-[272px] h-[261px]  shadow-xl border-black border rounded-2xl flex justify-center items-center">
+                <img src={member1} alt="" />
+              </div>
+              <p className="font-semibold text-xl mt-5">Sakib Hasan</p>
+              <p className="font-semibold text-xl text-[#FF0000]">Web Developer</p>
+              <div className="flex gap-10 mt-2">
+                <img src={fb} alt="" className="cursor-pointer" />
+                <img src={insta} alt="" className="cursor-pointer" />
+                <img src={linkedin} alt="" className="cursor-pointer" />
+              </div>
+            </div>
+
+          </div>
+        </section>
+
       </div>
     </div>
   );
