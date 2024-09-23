@@ -7,7 +7,7 @@ const Contact = () => {
     <div>
       <section className="text-center border mt-3 mb-10">
         <img
-          className="h-[400px] w-full"
+          className="h-[180px] w-full lg:h-[400px]"
           src="https://i.postimg.cc/VNm4yd6L/image-13.png"
           alt="contact us"
         />
