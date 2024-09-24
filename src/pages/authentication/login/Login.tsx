@@ -1,8 +1,32 @@
 import moneyHome from "../../../assets/signup/MoneyHome-SignUp.png";
-import { FaGithub } from "react-icons/fa";
+import { FaGithub, FaRegEye } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
+import { useForm, SubmitHandler } from "react-hook-form";
+import toast from "react-hot-toast";
+import { TbEyeClosed } from "react-icons/tb";
+import { useState } from "react";
+
+type Inputs = {
+  email: string;
+  password: string;
+};
 
 const Login = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Inputs>();
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    console.log(data);
+    toast.success("Sign in Successful.");
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="flex flex-col lg:flex-row w-full">
@@ -23,7 +47,7 @@ const Login = () => {
 
         {/* Right Section (Form) */}
         <div className="flex-1 bg-white p-10 lg:pl-40 flex flex-col justify-center">
-          <form className="w-full">
+          <form onSubmit={handleSubmit(onSubmit)} className="w-full">
             <h2 className="text-3xl font-semibold text-center mb-6">
               Welcome back
             </h2>
@@ -36,20 +60,38 @@ const Login = () => {
                 type="email"
                 placeholder="Email"
                 className="input input-bordered w-full"
-                required
+                {...register("email", { required: true })}
               />
+              {errors.email && (
+                <small className="text-red-400 mt-2">
+                  This field is required
+                </small>
+              )}
             </div>
 
             <div className="form-control mt-4">
               <label className="label">
                 <span className="label-text">Password</span>
               </label>
-              <input
-                type="password"
-                placeholder="Password"
-                className="input input-bordered w-full"
-                required
-              />
+              <div className="flex items-center relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Password"
+                  className="input input-bordered w-full"
+                  {...register("password", { required: true })}
+                />
+                <div
+                  className="absolute right-0 mr-4 *:size-5 cursor-pointer"
+                  onClick={togglePasswordVisibility}
+                >
+                  {showPassword ? <TbEyeClosed /> : <FaRegEye />}
+                </div>
+              </div>
+              {errors.password && (
+                <small className="text-red-400 mt-2">
+                  This field is required
+                </small>
+              )}
               <label className="label">
                 <a href="#" className="label-text-alt link link-hover">
                   Forgot password?
