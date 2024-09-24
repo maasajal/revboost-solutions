@@ -110,7 +110,7 @@ const Navbar = () => {
           </ul>
         </div>
         <Link to="/" className="text-2xl font-bold mr-5">
-          Rev<span className="text-[#FF0000]">Boost</span>{" "}
+          Rev.{" "}
         </Link>
       </div>
       <div className="hidden lg:flex">
@@ -119,9 +119,11 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="ml-auto">
-        <button className="font-medium mr-5 text-[#FF0000] text-sm">
-          Sign In
-        </button>
+        <Link to="/login">
+          <button className="font-medium mr-5 text-[#FF0000] text-sm">
+            Sign In
+          </button>
+        </Link>
         <Link to="/register">
           <button className="bg-[#FF0000] font-medium py-1 px-2 rounded-3xl text-white text-sm">
             Sign Up
