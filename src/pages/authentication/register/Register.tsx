@@ -23,7 +23,7 @@ const Register = () => {
     formState: { errors },
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    const { firstName, lastName, email, password, confirmPassword } = data;
+    const { password, confirmPassword } = data;
     console.log(data);
 
     if (password !== confirmPassword)

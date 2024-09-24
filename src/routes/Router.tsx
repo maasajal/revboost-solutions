@@ -8,6 +8,7 @@ import Register from "../pages/authentication/register/Register";
 import Login from "../pages/authentication/login/Login";
 import Dashboard from "../layouts/Dashboard";
 import RevenueGrowth from "../pages/RevenueGrowth/RevenueGrowth";
+import Pricing from "../pages/PricingPage/Pricing";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/pricing",
+        element : <Pricing />
       },
       {
         path: "/about-us",
