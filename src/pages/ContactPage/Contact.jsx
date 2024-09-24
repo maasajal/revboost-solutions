@@ -1,8 +1,39 @@
 import { CiLinkedin, CiMail } from "react-icons/ci";
 import { FaFacebookF, FaInstagram } from "react-icons/fa";
 import { IoIosCall } from "react-icons/io";
+import emailjs from '@emailjs/browser';
+import { useRef } from "react";
+import Swal from "sweetalert2";
+
+
 
 const Contact = () => {
+  const form = useRef();
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs
+      .sendForm("service_nekib2p", "template_dbwc7yf", form.current, {
+        publicKey: "FsNGnEotqkFaNzhoE",
+      })
+      .then(
+        () => {
+          console.log('SUCCESS!');
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Thank's for your message",
+            showConfirmButton: false,
+            timer: 1500
+          });
+        },
+        (error) => {
+          console.log('FAILED...', error.text);
+        },
+      );
+  };
+ 
+
   return (
     <div>
       <section className="text-center border mt-3 mb-10">
@@ -47,30 +78,31 @@ const Contact = () => {
             Let’s Start a Conversation
           </h1>
 
-          <form className="mt-10 mb-5">
+          <form ref={form} onSubmit={sendEmail} className="mt-10 mb-5"> 
             <div className="mx-auto grid grid-cols-1 lg:flex lg:justify-between w-[80%]">
               <div>
                 <label>First Name</label> <br />
-                <input className="border border-black w-full" type="text" />
+                <input name="first_name"
+                className="border border-black w-full" type="text" />
               </div>
               <div>
                 <label>Last Name</label> <br />
-                <input className="border border-black w-full" type="text" />
+                <input name="last_name"  className="border border-black w-full" type="text" />
               </div>
             </div>
 
             <section className="w-[80%] mx-auto">
               <label>Company Name</label> <br />
-              <input className="border border-black w-full" type="text" />{" "}
+              <input name="company_name" className="border border-black w-full" type="text" />{" "}
               <br />
               <label>Company Email</label> <br />
-              <input className="border border-black w-full" type="text" />
+              <input name="company_email" className="border border-black w-full" type="text" />
               <label>Your message</label> <br />
-              <input
+              <input name="message_box" 
                 className="border border-black w-full h-[150px]"
                 type="text"
               />
-              <button className="border text-white bg-[#FF0000] h-[40px] w-[120px] mt-4 rounded-lg">
+              <button type="submit" className="border text-white bg-[#FF0000] h-[40px] w-[120px] mt-4 rounded-lg">
                 Send
               </button>
             </section>
