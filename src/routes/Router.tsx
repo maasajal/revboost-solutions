@@ -4,6 +4,7 @@ import Home from "../pages/Home/Home";
 import About from "../pages/AboutPage/About";
 import Contact from "../pages/ContactPage/Contact";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
+import Register from "../pages/authentication/register/Register";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
         element: <Contact />,
       },
     ],
+  },
+  {
+    path: "/register",
+    element: <Register></Register>,
   },
 ]);
 export default router;
