@@ -1,7 +1,7 @@
 import { CiLinkedin, CiMail } from "react-icons/ci";
 import { FaFacebookF, FaInstagram } from "react-icons/fa";
 import { IoIosCall } from "react-icons/io";
-import emailjs from '@emailjs/browser';
+import emailjs from "@emailjs/browser";
 import { useRef, FormEvent } from "react";
 import Swal from "sweetalert2";
 
@@ -13,15 +13,15 @@ const Contact: React.FC = () => {
 
     if (form.current) {
       emailjs
-      .sendForm(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID!,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID!,
-        form.current!,
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY!
-      )
+        .sendForm(
+          import.meta.env.VITE_EMAILJS_SERVICE_ID!,
+          import.meta.env.VITE_EMAILJS_TEMPLATE_ID!,
+          form.current!,
+          import.meta.env.VITE_EMAILJS_PUBLIC_KEY!
+        )
         .then(
           () => {
-            console.log('SUCCESS!');
+            console.log("SUCCESS!");
             Swal.fire({
               position: "top-end",
               icon: "success",
@@ -31,7 +31,7 @@ const Contact: React.FC = () => {
             });
           },
           (error) => {
-            console.log('FAILED...', error.text);
+            console.log("FAILED...", error.text);
           }
         );
     }
@@ -53,27 +53,35 @@ const Contact: React.FC = () => {
         <section className="grid grid-cols-1 md:grid md:grid-cols-1 gap-10 lg:flex lg:justify-evenly inter items-center mx-5 lg:mx-10">
           <div className="flex justify-evenly gap-[30px] text-2xl">
             <div className="pt-2">
-              <CiMail className="mb-3 text-3xl" />
-              <IoIosCall className="mb-3 text-3xl" />
-              <FaFacebookF className="mb-3 text-3xl" />
-              <FaInstagram className="mb-3 text-3xl" />
-              <CiLinkedin className="mb-3 text-3xl" />
+              <CiMail className="mb-[13px] text-2xl" />
+              <IoIosCall className="mb-[15px] text-2xl" />
+              <FaFacebookF className="mb-[15px] text-2xl" />
+              <FaInstagram className="mb-[15px] text-2xl" />
+              <CiLinkedin className="mb-[15px] text-2xl" />
             </div>
             <div>
-              <p className="font-medium mb-3 underline">
-                <a target="blank" href="mailto:revbostsolution@gmail.com">revboost@solution.com</a>
+              <p className="font-medium text-xl mb-3 underline">
+                <a target="blank" href="mailto:revbostsolution@gmail.com">
+                  revboost@solution.com
+                </a>
               </p>
-              <p className="font-medium mb-3">
+              <p className="font-medium text-xl mb-3">
                 <a href="tel:+1234567890">+880123456789</a>
               </p>
-              <p className="font-medium mb-3 underline">
-                <a target="blank" href="www.medium.com/reebboost_solution">facebook.com/reebboost_solution</a>
+              <p className="font-medium text-xl mb-3 underline">
+                <a target="blank" href="www.medium.com/reebboost_solution">
+                  facebook.com/reebboost_solution
+                </a>
               </p>
-              <p className="font-medium mb-3 underline">
-                <a href="www.instagram.com/reebboost_solution">instagram.com/reebboost_solution</a>
+              <p className="font-medium text-xl mb-3 underline">
+                <a href="www.instagram.com/reebboost_solution">
+                  instagram.com/reebboost_solution
+                </a>
               </p>
-              <p className="font-medium underline">
-                <a href="www.linkedin.com/reebboost_solution">linkedin.com/reebboost_solution</a>
+              <p className="font-medium text-xl underline">
+                <a href="www.linkedin.com/reebboost_solution">
+                  linkedin.com/reebboost_solution
+                </a>
               </p>
             </div>
           </div>
