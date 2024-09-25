@@ -10,6 +10,7 @@ import Dashboard from "../layouts/Dashboard";
 import RevenueGrowth from "../pages/RevenueGrowth/RevenueGrowth";
 import Pricing from "../pages/PricingPage/Pricing";
 import Expense from "../pages/Expense/Expense";
+import Invoice from "../pages/InvoiceAndBilling/Invoice";
 
 const router = createBrowserRouter([
   {
@@ -23,7 +24,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/pricing",
-        element : <Pricing />
+        element: <Pricing />,
       },
       {
         path: "/about-us",
@@ -52,11 +53,16 @@ const router = createBrowserRouter([
         path: "/dashboard/profile",
         element: <Home />, // User Profile component will be call here.
       },
+      // // Income tracking Route: Invoice Route
+      {
+        path: "/dashboard/invoice",
+        element: <Invoice></Invoice>, // User Profile component will be call here.
+      },
+      // Expense tracking Route
       {
         path: "/dashboard/company-expenses",
         element: <Expense />
       },
-      // Expense tracking Route
       // Revenue growth Route
       {
         path: "/dashboard/revenue-growth",
