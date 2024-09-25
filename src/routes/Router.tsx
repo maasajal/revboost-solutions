@@ -9,6 +9,7 @@ import Login from "../pages/authentication/login/Login";
 import Dashboard from "../layouts/Dashboard";
 import RevenueGrowth from "../pages/RevenueGrowth/RevenueGrowth";
 import Pricing from "../pages/PricingPage/Pricing";
+import Invoice from "../pages/InvoiceAndBilling/Invoice";
 
 const router = createBrowserRouter([
   {
@@ -22,7 +23,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/pricing",
-        element : <Pricing />
+        element: <Pricing />,
       },
       {
         path: "/about-us",
@@ -51,7 +52,13 @@ const router = createBrowserRouter([
         path: "/dashboard/profile",
         element: <Home />, // User Profile component will be call here.
       },
+      // Invoice Route
+      {
+        path: "/dashboard/invoice",
+        element: <Invoice></Invoice>, // User Profile component will be call here.
+      },
       // Income tracking Route
+      
       // Expense tracking Route
       // Revenue growth Route
       {
