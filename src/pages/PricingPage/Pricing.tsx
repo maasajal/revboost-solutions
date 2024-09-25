@@ -119,7 +119,7 @@ const Pricing: React.FC = () => {
 
         {/* Monthly Packages Tab */}
         <TabPanel>
-          <section className="grid grid-cols-1 md:grid-cols-3 gap-6 justify-center pt-10">
+          <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center pt-10">
             {monthlyPackages.map((pkg) => renderPackageCard(pkg))}
           </section>
         </TabPanel>
