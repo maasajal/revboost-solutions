@@ -9,6 +9,7 @@ import Login from "../pages/authentication/login/Login";
 import Dashboard from "../layouts/Dashboard";
 import RevenueGrowth from "../pages/RevenueGrowth/RevenueGrowth";
 import Pricing from "../pages/PricingPage/Pricing";
+import Expense from "../pages/Expense/Expense";
 
 const router = createBrowserRouter([
   {
@@ -51,7 +52,10 @@ const router = createBrowserRouter([
         path: "/dashboard/profile",
         element: <Home />, // User Profile component will be call here.
       },
-      // Income tracking Route
+      {
+        path: "/dashboard/company-expenses",
+        element: <Expense />
+      },
       // Expense tracking Route
       // Revenue growth Route
       {
