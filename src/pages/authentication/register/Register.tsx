@@ -7,8 +7,7 @@ import { TbEyeClosed } from "react-icons/tb";
 import { useState } from "react";
 
 type Inputs = {
-  firstName: string;
-  lastName: string;
+  companyName: string;
   email: string;
   password: string;
   confirmPassword: string;
@@ -61,40 +60,21 @@ const Register = () => {
               Create Account
             </h2>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">First Name</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="First Name"
-                  className="input input-bordered w-full"
-                  {...register("firstName", { required: true })}
-                />
-                {errors.firstName && (
-                  <small className="text-red-400 mt-2">
-                    This field is required
-                  </small>
-                )}
-              </div>
-
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Last Name</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Last Name"
-                  className="input input-bordered w-full"
-                  {...register("lastName", { required: true })}
-                />
-                {errors.lastName && (
-                  <small className="text-red-400 mt-2">
-                    This field is required
-                  </small>
-                )}
-              </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Company Name</span>
+              </label>
+              <input
+                type="text"
+                placeholder="Company Name"
+                className="input input-bordered w-full"
+                {...register("companyName", { required: true })}
+              />
+              {errors.companyName && (
+                <small className="text-red-400 mt-2">
+                  This field is required
+                </small>
+              )}
             </div>
 
             <div className="form-control mt-4">
