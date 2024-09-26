@@ -79,7 +79,7 @@ const Navbar = () => {
   );
 
   return (
-    <div className="navbar bg-base-100 px-2 md:px-14 lg:px-20">
+    <div className="navbar bg-base-100 px-2 md:px-14 lg:px-20 fixed z-20 shadow-lg">
       <div className="mr-3">
         <div className="dropdown">
           <div
@@ -120,12 +120,12 @@ const Navbar = () => {
       </div>
       <div className="ml-auto">
         <Link to="/login">
-          <button className="font-medium mr-5 text-[#FF0000] text-sm">
+          <button className="font-medium mr-5 text-[#FF0000] text-sm py-1 px-2 rounded-3xl hover:bg-[#FF0000] hover:text-white">
             Sign In
           </button>
         </Link>
         <Link to="/register">
-          <button className="bg-[#FF0000] font-medium py-1 px-2 rounded-3xl text-white text-sm">
+          <button className="hover:bg-[#FF0000] hover:text-white text-[#FF0000] font-medium py-1 px-2 rounded-3xl text-sm">
             Sign Up
           </button>
         </Link>
