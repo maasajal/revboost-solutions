@@ -1,5 +1,5 @@
-/* font Montserrat & Roboto */
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+/* font Montserrat, Bebas Neue & Roboto */
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 /*  */
 
 @tailwind base;
@@ -11,19 +11,19 @@ body {
 }
 
 h1 {
-  @apply text-xl sm:text-2xl md:text-3xl lg:text-5xl font-bold text-neutral;
+  @apply text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-neutral font-montserrat;
 }
 h2 {
-  @apply text-xl sm:text-2xl md:text-3xl lg:text-5xl font-semibold text-neutral;
+  @apply text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-neutral font-bebasNeue;
 }
 h3 {
-  @apply text-base sm:text-xl md:text-2xl lg:text-4xl font-semibold text-neutral;
+  @apply text-base sm:text-xl md:text-2xl lg:text-3xl font-semibold text-neutral font-bebasNeue;
 }
 h4 {
-  @apply text-sm sm:text-base md:text-xl lg:text-3xl font-medium text-neutral;
+  @apply text-sm sm:text-base md:text-xl lg:text-3xl font-medium text-neutral font-bebasNeue;
 }
 h5 {
-  @apply text-sm sm:text-base md:text-xl lg:text-2xl font-medium text-neutral;
+  @apply text-sm sm:text-base md:text-xl lg:text-2xl font-medium text-neutral font-bebasNeue;
 }
 p {
   @apply text-neutral;

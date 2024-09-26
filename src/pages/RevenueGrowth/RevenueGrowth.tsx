@@ -1,4 +1,5 @@
 import { useState } from "react";
+import RevButton from "../../components/RevButton";
 
 const RevenueGrowth = () => {
   // Data will be here from mongodb database
@@ -44,11 +45,8 @@ const RevenueGrowth = () => {
               placeholder="Enter company expenses"
             />
           </div>
-          <button
-            onClick={handleCalculation}
-            className="bg-blue-500 text-white px-4 py-2 rounded mt-4"
-          >
-            Calculate Growth
+          <button onClick={handleCalculation}>
+            <RevButton name="Revenue Growth" />
           </button>
           {growth !== null && (
             <div className="mt-6">
