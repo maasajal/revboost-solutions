@@ -5,6 +5,7 @@ import axios from "axios";
 import { auth } from "../../../firebase/firebase.config";
 import { AppDispatch } from "../../store/store";
 import { loginFailure, loginStart, loginSuccess } from "./authSlice";
+
 interface UserData {
   name: string | null;
   email: string | null;
@@ -21,7 +22,7 @@ export const loginWithGoogle = () => async (dispatch: AppDispatch) => {
 
     const name = result.user.displayName;
     const email = result.user.email;
-    const photo = result.user.photoURL; 
+    const photo = result.user.photoURL;
     const data: UserData = { name, email, photo };
 
     const response = await axios.post(`${import.meta.env.VITE_API}/api/v1/login`, data);
@@ -43,6 +44,6 @@ export const signInWithUserPassword = async (data:object)=>{
   // try {
   //   const result = await createUserWithEmailAndPassword(auth, email, password)
   // } catch (error) {
-  //   // 
+  //   //
   // }
 }
