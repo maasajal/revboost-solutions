@@ -12,7 +12,7 @@ const SectionTitle: FC<SectionTitleProps> = ({ title, intro, content }) => {
       <h2 className="text-4xl font-bold text-[#FF0000CC] uppercase py-3 w-fit px-10 mx-auto border-x-4 border-[#FF0000CC]">
         {title}
       </h2>
-      <p className="max-w-xl mx-auto   leading-tight">{content}</p>
+      <p className="text-xl max-w-xl mx-auto leading-tight">{content}</p>
     </div>
   );
 };

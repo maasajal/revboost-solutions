@@ -1,0 +1,26 @@
+{
+    "packages": [
+      {
+        "packageName": "Basic",
+        "price": 50,
+        "savePrice": 10,
+        "shortMessage": "per Organization per Month",
+        "description": "Best suited for businesses with one time andsubscription billing requirements"
+      },
+      {
+        "packageName": "Standard",
+        "price": 100,
+        "savePrice": 20,
+        "shortMessage": "per Organization per Month",
+        "description": "Best suited for businesses with one time andsubscription billing requirements"
+      },
+      {
+        "packageName": "Premium",
+        "price": 200,
+        "savePrice": 50,
+        "shortMessage": "per Organization per Month",
+        "description": "Best suited for businesses with one time andsubscription billing requirements"
+      }
+    ]
+  }
+  
