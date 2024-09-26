@@ -1,6 +1,9 @@
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../../assets/logo.png";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../app/store/store";
 const Navbar = () => {
+  const user = useSelector((state: RootState) => state.auth.user);
   const navItems = [
     {
       navName: "Home",
@@ -95,7 +98,18 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="ml-auto">
-        <Link to="/login">
+        {user ? (
+          <button className="hover:bg-secondary hover:text-white text-secondary font-bold px-5 py-2 rounded-3xl text-sm">
+            Sign Out
+          </button>
+        ) : (
+          <Link to="/login">
+            <button className="font-bold mr-1 md:mr-5 text-secondary text-sm px-5 py-2 rounded-3xl hover:bg-secondary hover:text-white">
+              Sign In
+            </button>
+          </Link>
+        )}
+        {/* <Link to="/login">
           <button className="font-medium mr-1 md:mr-5 text-[#FF0000] text-sm py-1 px-2 rounded-3xl hover:bg-[#FF0000] hover:text-white">
             Sign In
           </button>
@@ -104,7 +118,7 @@ const Navbar = () => {
           <button className="hover:bg-[#FF0000] hover:text-white text-[#FF0000] font-medium py-1 px-2 rounded-3xl text-sm">
             Sign Up
           </button>
-        </Link>
+        </Link> */}
       </div>
     </div>
   );

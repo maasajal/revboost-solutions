@@ -3,8 +3,13 @@ import logo from "../../assets/logo.png";
 import { FaHome } from "react-icons/fa";
 import { GiExpense, GiTreeGrowth } from "react-icons/gi";
 import { PiInvoiceBold } from "react-icons/pi";
+import { useSelector } from "react-redux";
+import { RootState } from "../../app/store/store";
 
 const DashboardNavbar = () => {
+  const user = useSelector((state: RootState) => state?.auth?.user?.user);
+  const { photoURL, displayName } = user;
+
   const navLinks = [
     {
       navName: "Company Profile",
@@ -32,12 +37,12 @@ const DashboardNavbar = () => {
       <div className="text-center">
         <Link to={"/"}>
           <img
-            src={logo}
+            src={user ? photoURL : logo}
             alt="company logo"
             className="mx-auto mb-5 max-w-48"
           />
           <h3 className="flex items-center justify-center gap-5">
-            Company Name
+            {displayName}
           </h3>
         </Link>
       </div>
