@@ -96,7 +96,7 @@ const Navbar = () => {
       </div>
       <div className="ml-auto">
         <Link to="/login">
-          <button className="font-medium mr-5 text-[#FF0000] text-sm py-1 px-2 rounded-3xl hover:bg-[#FF0000] hover:text-white">
+          <button className="font-medium mr-1 md:mr-5 text-[#FF0000] text-sm py-1 px-2 rounded-3xl hover:bg-[#FF0000] hover:text-white">
             Sign In
           </button>
         </Link>
