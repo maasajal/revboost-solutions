@@ -45,8 +45,8 @@ const Banner = () => {
       <div className="bg-white shadow-lg p-5 rounded-2xl w-3/4 mx-auto mt-10 md:-mt-10 relative z-10">
         <h1 className="text-center mb-7 leading-normal">
           Trusted By{" "}
-          <span className="text-primary">Businesses and Companies</span>{" "}
-          World Wide
+          <span className="text-primary">Businesses and Companies</span> World
+          Wide
         </h1>
         <div className="grid grid-cols-1 lg:grid-cols-4 space-y-7 md:space-y-0">
           <div className="flex flex-col items-center">
