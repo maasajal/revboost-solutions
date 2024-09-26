@@ -1,5 +1,6 @@
 import { useState } from "react";
 import RevenueForecastChart from "./RevenueForecastChart";
+import RevenueComparisonPieChart from "./RevenueComparisonPieChart";
 
 interface RevenueData {
   month: number;
@@ -18,7 +19,7 @@ const RevenueGrowth: React.FC = () => {
   const [totalRevenue, setTotalRevenue] = useState<number[]>([]);
 
   return (
-    <div className="container mx-auto p-5">
+    <div className="container mx-auto p-5 space-y-5">
       <h1 className="text-center mb-8">COMPANY NAME</h1>
 
       <div className="flex flex-wrap justify-center gap-8 mb-8">
@@ -41,6 +42,7 @@ const RevenueGrowth: React.FC = () => {
         <table className="table-auto border-collapse border border-gray-500 text-center mb-8">
           <thead>
             <tr>
+              <th className="border border-gray-400 px-4 py-2"></th>
               <th className="border border-gray-400 px-4 py-2">Month 1</th>
               <th className="border border-gray-400 px-4 py-2">Month 2</th>
               <th className="border border-gray-400 px-4 py-2">Month 3</th>
@@ -90,7 +92,7 @@ const RevenueGrowth: React.FC = () => {
         </table>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
         <div className="">
           <div className="h-full py-10 bg-gray-100 border">
             <RevenueForecastChart />
@@ -98,9 +100,8 @@ const RevenueGrowth: React.FC = () => {
         </div>
 
         <div className="">
-          <h3 className="text-lg font-bold mb-4">Revenue Distribution</h3>
-          <div className="h-64 bg-gray-100 border">
-            {/* Add chart component here */}
+          <div className="h-full py-10 bg-gray-100 border">
+            <RevenueComparisonPieChart />
           </div>
         </div>
       </div>
