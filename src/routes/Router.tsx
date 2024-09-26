@@ -10,7 +10,7 @@ import Dashboard from "../layouts/Dashboard";
 import RevenueGrowth from "../pages/RevenueGrowth/RevenueGrowth";
 import Pricing from "../pages/PricingPage/Pricing";
 import Expense from "../pages/Expense/Expense";
-import Invoice from "../pages/InvoiceAndBilling/Invoice";
+import Invoice from "../pages/CompanyIncomes/InvoiceAndBilling/Invoice";
 
 const router = createBrowserRouter([
   {

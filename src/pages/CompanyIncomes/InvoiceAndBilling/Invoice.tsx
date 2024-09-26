@@ -186,7 +186,8 @@ const Invoice = () => {
                     <th className="p-3">Issued</th>
                     <th className="p-3">Due</th>
                     <th className="p-3 text-right">Amount</th>
-                    <th className="p-3">Status</th>
+                    <th className="p-3 text-right"></th>
+                    
                   </tr>
                 </thead>
                 <tbody>
@@ -286,11 +287,15 @@ const Invoice = () => {
                       </span>
                     </td>
                   </tr>
+                  
                 </tbody>
+                
               </table>
+              
             </div>
           </div>
         </div>
+
       </section>
     </>
   );
