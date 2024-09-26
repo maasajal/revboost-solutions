@@ -7,8 +7,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../app/store/store";
 
 const DashboardNavbar = () => {
-  const user = useSelector((state: RootState) => state?.auth?.user?.user);
-  const { photoURL, displayName } = user;
+  const user = useSelector((state: RootState) => state?.auth?.user);
 
   const navLinks = [
     {
@@ -37,14 +36,14 @@ const DashboardNavbar = () => {
       <div className="text-center">
         <Link to={"/"}>
           <img
-            src={user ? photoURL : logo}
+            src={logo}
             alt="company logo"
             className="mx-auto mb-5 max-w-48"
           />
-          <h3 className="flex items-center justify-center gap-5">
-            {displayName}
-          </h3>
         </Link>
+        <h3 className="flex items-center justify-center gap-5">
+          {user ? "Company Dynamic Name" : "Company Name"}
+        </h3>
       </div>
       <hr className="w-3/4 mx-auto" />
       <ul className="menu space-y-2">
