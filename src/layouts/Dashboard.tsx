@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { RiMenuUnfold3Fill } from "react-icons/ri";
 import DashboardNavbar from "../pages/Shared/Navbar/DashboardNavbar";
+import BottomNavbar from "../pages/Shared/Navbar/BottomNavbar";
 
 const Dashboard = () => {
   return (
@@ -27,7 +28,9 @@ const Dashboard = () => {
           <DashboardNavbar />
         </div>
       </div>
-      <div className="flex md:hidden z-50">{/* <BottomNavbar /> */}</div>
+      <div className="flex md:hidden z-50">
+        <BottomNavbar />
+      </div>
     </div>
   );
 };
