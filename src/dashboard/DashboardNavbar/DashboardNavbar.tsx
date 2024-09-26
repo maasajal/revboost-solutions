@@ -1,5 +1,5 @@
 import { Link, NavLink } from "react-router-dom";
-import logo from "../../../assets/logo.png";
+import logo from "../../assets/logo.png";
 import { FaHome } from "react-icons/fa";
 import { GiExpense, GiTreeGrowth } from "react-icons/gi";
 import { PiInvoiceBold } from "react-icons/pi";
