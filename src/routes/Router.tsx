@@ -7,10 +7,10 @@ import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import Register from "../pages/authentication/register/Register";
 import Login from "../pages/authentication/login/Login";
 import Dashboard from "../layouts/Dashboard";
-import RevenueGrowth from "../pages/RevenueGrowth/RevenueGrowth";
 import Pricing from "../pages/PricingPage/Pricing";
-import Expense from "../pages/Expense/Expense";
-import Invoice from "../pages/InvoiceAndBilling/Invoice";
+import Incomes from "../dashboard/CompanyIncomes/Incomes";
+import Expense from "../dashboard/Expense/Expense";
+import RevenueGrowth from "../dashboard/RevenueGrowth/RevenueGrowth";
 
 const router = createBrowserRouter([
   {
@@ -55,13 +55,13 @@ const router = createBrowserRouter([
       },
       // // Income tracking Route: Invoice Route
       {
-        path: "/dashboard/invoice",
-        element: <Invoice></Invoice>, // User Profile component will be call here.
+        path: "/dashboard/company-incomes",
+        element: <Incomes />, // User Profile component will be call here.
       },
       // Expense tracking Route
       {
         path: "/dashboard/company-expenses",
-        element: <Expense />
+        element: <Expense />,
       },
       // Revenue growth Route
       {

@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { RiMenuUnfold3Fill } from "react-icons/ri";
-import DashboardNavbar from "../pages/Shared/Navbar/DashboardNavbar";
-import BottomNavbar from "../pages/Shared/Navbar/BottomNavbar";
+import DashboardNavbar from "../dashboard/DashboardNavbar/DashboardNavbar";
+import BottomNavbar from "../dashboard/DashboardNavbar/BottomNavbar";
 
 const Dashboard = () => {
   return (
