@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { RiMenuUnfold3Fill } from "react-icons/ri";
 import DashboardNavbar from "../pages/Shared/Navbar/DashboardNavbar";
+import BottomNavbar from "../pages/Shared/Navbar/BottomNavbar";
 
 const Dashboard = () => {
   return (
@@ -23,11 +24,13 @@ const Dashboard = () => {
           aria-label="close sidebar"
           className="drawer-overlay"
         ></label>
-        <div className="w-64 h-full pt-20 bg-[#FF0000] text-white">
+        <div className="h-full">
           <DashboardNavbar />
         </div>
       </div>
-      <div className="flex md:hidden z-50">{/* <BottomNavbar /> */}</div>
+      <div className="flex md:hidden z-50">
+        <BottomNavbar />
+      </div>
     </div>
   );
 };

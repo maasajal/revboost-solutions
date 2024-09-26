@@ -1,85 +1,35 @@
 import { Link, NavLink } from "react-router-dom";
-
+import logo from "../../../assets/logo.png";
 const Navbar = () => {
-  const navItems = (
-    <>
-      <li>
-        <NavLink
-          to="/"
-          className={({ isActive }) =>
-            isActive
-              ? "border-b-2 border-[#FF0000] pb-1"
-              : "hover:border-b-2 border-[#FF0000] pb-1"
-          }
-        >
-          Home
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/pricing"
-          className={({ isActive }) =>
-            isActive
-              ? "border-b-2 border-[#FF0000] pb-1"
-              : "hover:border-b-2 border-[#FF0000] pb-1"
-          }
-        >
-          Pricing
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/report"
-          className={({ isActive }) =>
-            isActive
-              ? "border-b-2 border-[#FF0000] pb-1"
-              : "hover:border-b-2 border-[#FF0000] pb-1"
-          }
-        >
-          Report
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/products"
-          className={({ isActive }) =>
-            isActive
-              ? "border-b-2 border-[#FF0000] pb-1"
-              : "hover:border-b-2 border-[#FF0000] pb-1"
-          }
-        >
-          All Products
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/contact-us"
-          className={({ isActive }) =>
-            isActive
-              ? "border-b-2 border-[#FF0000] pb-1"
-              : "hover:border-b-2 border-[#FF0000] pb-1"
-          }
-        >
-          Contact us
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/about-us"
-          className={({ isActive }) =>
-            isActive
-              ? "border-b-2 border-[#FF0000] pb-1"
-              : "hover:border-b-2 border-[#FF0000] pb-1"
-          }
-        >
-          About Us
-        </NavLink>
-      </li>
-    </>
-  );
+  const navItems = [
+    {
+      navName: "Home",
+      path: "/",
+    },
+    {
+      navName: "Pricing",
+      path: "/pricing",
+    },
+    {
+      navName: "Report",
+      path: "/report",
+    },
+    {
+      navName: "All Products",
+      path: "/products",
+    },
+    {
+      navName: "Contact Us",
+      path: "/contact-us",
+    },
+    {
+      navName: "About US",
+      path: "/about-us",
+    },
+  ];
 
   return (
-    <div className="navbar bg-base-100 px-2 md:px-14 lg:px-20 fixed z-20 shadow-lg">
+    <div className="navbar bg-base-100 px-2 md:px-14 lg:px-20 sticky top-0 z-20 shadow-lg">
       <div className="mr-3">
         <div className="dropdown">
           <div
@@ -89,7 +39,7 @@ const Navbar = () => {
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
+              className="h-5 w-5 text-primaryRed"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -104,18 +54,44 @@ const Navbar = () => {
           </div>
           <ul
             tabIndex={0}
-            className="menu-sm font-medium dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+            className="menu-sm font-medium dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow space-y-3"
           >
-            {navItems}
+            {navItems.map((nav) => (
+              <li key={nav.path}>
+                <NavLink
+                  to={nav.path}
+                  className={({ isActive }) =>
+                    isActive
+                      ? "border-b-2 border-primary pb-1 font-montserrat font-bold"
+                      : "hover:border-b-2 border-primary pb-1 font-montserrat"
+                  }
+                >
+                  {nav.navName}
+                </NavLink>
+              </li>
+            ))}
           </ul>
         </div>
         <Link to="/" className="text-2xl font-bold mr-5">
-          Rev.{" "}
+          <img src={logo} alt="RevBoost logo" className="w-52" />
         </Link>
       </div>
       <div className="hidden lg:flex">
         <ul className="menu-horizontal flex-nowrap flex-1 font-medium px-1 space-x-5">
-          {navItems}
+          {navItems.map((nav) => (
+            <li key={nav.path}>
+              <NavLink
+                to={nav.path}
+                className={({ isActive }) =>
+                  isActive
+                    ? "border-b-2 border-primary pb-1 font-montserrat font-bold"
+                    : "hover:border-b-2 border-primary pb-1 font-montserrat"
+                }
+              >
+                {nav.navName}
+              </NavLink>
+            </li>
+          ))}
         </ul>
       </div>
       <div className="ml-auto">
