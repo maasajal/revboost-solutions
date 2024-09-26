@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { IoCheckmarkDoneCircleOutline } from 'react-icons/io5';
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import '../../../src/pages/PricingPage/pricing.css';
 
 // Define types for the package data
@@ -15,6 +16,7 @@ interface Package {
 const Pricing: React.FC = () => {
   const [monthlyPackages, setMonthlyPackages] = useState<Package[]>([]);
   const [yearlyPackages, setYearlyPackages] = useState<Package[]>([]);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null); 
 
   // Fetch Monthly Packages
   useEffect(() => {
@@ -85,6 +87,38 @@ const Pricing: React.FC = () => {
     );
   };
 
+  // Function to toggle FAQ
+  const toggleQuestion = (index: number) => {
+    setActiveIndex(activeIndex === index ? null : index);
+  };
+
+  const questions = [
+    {
+      question: 'What payment methods do you accept?',
+      answer: 'We accept all major credit cards, PayPal, and bank transfers.',
+    },
+    {
+      question: 'Is there a free trial available?',
+      answer: 'Yes, we offer a 14-day free trial on all our plans. You can cancel anytime during the trial period.',
+    },
+    {
+      question: 'Can I change my plan later?',
+      answer: 'Absolutely! You can upgrade or downgrade your plan at any time to fit your business needs.',
+    },
+    {
+      question: 'Are there any setup fees?',
+      answer: 'No, there are no hidden fees or setup charges. You only pay for the plan you choose.',
+    },
+    {
+      question: 'Can I cancel my subscription anytime?',
+      answer: 'Yes, you can cancel your subscription at any time without any penalties or extra fees.',
+    },
+    {
+      question: 'Do you offer discounts for annual billing?',
+      answer: 'Yes, we offer significant discounts when you choose to pay annually instead of monthly.',
+    },
+  ];
+
   return (
     <div>
       {/* Hero Section */}
@@ -119,18 +153,78 @@ const Pricing: React.FC = () => {
 
         {/* Monthly Packages Tab */}
         <TabPanel>
-          <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center pt-10">
+          <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center pt-10 pl-[10px]">
             {monthlyPackages.map((pkg) => renderPackageCard(pkg))}
           </section>
         </TabPanel>
-
         {/* Yearly Packages Tab */}
         <TabPanel>
-          <section className="grid grid-cols-1 md:grid-cols-3 gap-6 justify-center pt-10">
+          <section className="grid grid-cols-1 md:grid-cols-3 gap-6 justify-center pt-[10px]">
             {yearlyPackages.map((pkg) => renderPackageCard(pkg))}
           </section>
         </TabPanel>
       </Tabs>
+
+      {/* Add-on Repository Section */}
+      <section>
+        <h1 className="text-center mt-12 text-4xl">Our Add-on Repository</h1>
+        <p className="text-center">(Billed annually)</p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 justify-center pt-10 pl-[10px]">
+          <div>
+            <div className="card bg-base-100 w-96 shadow-xl">
+              <h1 className="text-center text-xl font-normal uppercase py-3">Users</h1>
+              <hr className="pb-2" />
+              <div>
+                <p className="text-center text-4xl pt-4">$7.5</p>
+                <p className="text-center pb-12">user/month</p>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div className="card bg-base-100 w-96 shadow-xl">
+              <h1 className="text-center text-xl font-normal uppercase py-3">Timesheet user</h1>
+              <hr className="pb-2" />
+              <div>
+                <p className="text-center text-4xl pt-4">$2.5</p>
+                <p className="text-center pb-12">user/month</p>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div className="card bg-base-100 w-96 shadow-xl">
+              <h1 className="text-center text-xl font-normal uppercase py-3">Client</h1>
+              <hr className="pb-2" />
+              <div>
+                <p className="text-center text-4xl pt-4">$0.00</p>
+                <p className="text-center pb-12">user/month</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <div className="faq-section bg-gray-100 py-10 px-5 md:px-20">
+        <h2 className="text-center text-4xl font-bold mb-10">Frequently Asked Questions</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {questions.map((item, index) => (
+            <div key={index} className="faq-item">
+              <div
+                className="faq-question bg-white p-5 rounded-lg shadow-md cursor-pointer flex justify-between items-center"
+                onClick={() => toggleQuestion(index)}
+              >
+                <p className="text-lg font-semibold">{item.question}</p>
+                {activeIndex === index ? <IoIosArrowUp /> : <IoIosArrowDown />}
+              </div>
+              {activeIndex === index && (
+                <div className="faq-answer bg-white p-5 mt-2 rounded-lg shadow-inner">
+                  <p>{item.answer}</p>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
