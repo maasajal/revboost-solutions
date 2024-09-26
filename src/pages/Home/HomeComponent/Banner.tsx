@@ -10,24 +10,26 @@ import walmart from "../../../assets/companies-logo/walmart.svg";
 const Banner = () => {
   return (
     <div>
-      {/* red colored banner */}
+      {/* banner */}
       <div>
-        <section className="relative bg-bannerImg bg-repeat bg-cover w-full h-[490px] ">
-        <div className="absolute inset-0 bg-black opacity-60"></div>
-        <div className="relative z-10 flex items-center justify-evenly h-full">
-          <p className="text-white text-5xl font-bold">Simplifying Revenue <br /> Management for <br />Smarter
-          Growth.</p>
-          <div className="">
-            <p className="bg-base-100 w-56 rounded-t-lg text-center h-16 items-center flex justify-center font-medium text-xl ">Billing</p>
-            <p className="bg-base-100 w-56 text-center h-16 items-center flex justify-center font-medium text-xl ">Expense</p>
-            <p className="bg-base-100 w-56 text-center h-16 items-center flex justify-center font-medium text-xl ">Income</p>
-            <p className="bg-base-100 w-56 text-center h-16 items-center flex justify-center font-medium text-xl ">Reporting</p>
-            <p className="bg-base-100 w-56 rounded-b-lg text-center h-16 items-center flex justify-center font-medium text-xl ">Tax</p>
+        <section className="relative bg-bannerImg bg-repeat bg-cover w-full h-[490px] pt-16">
+          <div className="absolute inset-0 bg-black opacity-60"></div>
+          <div className="relative z-10 flex flex-col lg:flex-row items-center justify-center lg:justify-evenly gap-6 lg:gap-0 h-full">
+            <p className="text-white text-2xl text-center lg:text-5xl font-bold">
+              Simplifying Revenue <br className="hidden lg:grid" /> Management{" "}
+              <br className="grid lg:hidden" />
+              for <br className="hidden lg:grid" />
+              Smarter Growth.
+            </p>
+            <div className="*:bg-base-100 w-40 lg:*:w-56 *:h-10 lg:*:h-16 *:flex *:items-center *:justify-center *:font-medium lg:*:text-xl">
+              <p className="rounded-t-lg ">Billing</p>
+              <p className="">Expense</p>
+              <p className="">Income</p>
+              <p className="">Reporting</p>
+              <p className="rounded-b-lg ">Tax</p>
+            </div>
           </div>
-        </div>
-          
         </section>
-
       </div>
 
       {/* companies */}

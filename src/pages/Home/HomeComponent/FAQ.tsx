@@ -29,7 +29,7 @@ const FAQ = () => {
   if (faq.length === 0) return <p className="text-center">Loading</p>;
 
   return (
-    <section className="container mx-auto pb-24 px-2 md:px-4 lg:px-6">
+    <section className="container mx-auto px-2 md:px-4 lg:px-6">
       <SectionTitle
         title="Frequently Asked Questions"
         intro="FAQs"
@@ -46,9 +46,15 @@ const FAQ = () => {
           {faq.map((item, index) => (
             <div
               key={index}
-              className="collapse collapse-arrow join-item border-b"
+              className={`collapse collapse-arrow join-item ${
+                index !== faq.length - 1 ? "border-b" : ""
+              }`}
             >
-              <input type="radio" name="my-accordion-4" />
+              <input
+                type="radio"
+                name="my-accordion-4"
+                defaultChecked={index === 0}
+              />
               <div className="collapse-title text-xl font-medium">
                 {item.title}
               </div>
