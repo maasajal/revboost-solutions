@@ -1,20 +1,37 @@
-import { Link } from "react-router-dom";
-import image from "./noun-404-20804.svg";
+import { IoHome } from "react-icons/io5";
+import { MdKeyboardBackspace } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
+import picture from "../../assets/errorpage/404 error lost in space-cuate.svg";
+
 const ErrorPage = () => {
-    return (
-        <div className="min-h-screen flex justify-center items-center">
-            <div>
-                <img src={image} alt="" className="w-96 h-96" />
-                <div className="mt-5 md:mt-10 font-bold text-3xl flex flex-col md:flex-row justify-center gap-1 md:gap-2 px-3 md:px-0">
-                    <p className="font-medium text-lg md:font-bold md:text-3xl">Your requested page is not found.</p>
-                    Return to
-                    <p className="text-blue-600 hover:underline font-medium ml-0 md:ml-0 w-1/3 md:w-auto">
-                        <Link to='/'>Home</Link>
-                    </p>
-                </div>
-            </div>
+  const navigate = useNavigate();
+
+  return (
+    <section className="bg-[#f4d4cf]">
+      <div className="container flex items-center min-h-screen px-6 py-12 mx-auto">
+        <div className="flex flex-col items-center max-w-sm mx-auto text-center">
+          <img src={picture} className="w-96" alt="" />
+          <p className="text-gray-700 ">Here are some helpful links:</p>
+
+          <div className="flex items-center justify-center w-full mt-6 gap-x-3 shrink-0 sm:w-auto">
+            <button
+              onClick={() => navigate(-1)}
+              className="bg-[#f46653] hover:bg-opacity-90 text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+            >
+              <MdKeyboardBackspace />
+            </button>
+
+            <button
+              onClick={() => navigate("/")}
+              className="bg-[#f46653] hover:bg-opacity-90 text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+            >
+              <IoHome />
+            </button>
+          </div>
         </div>
-    );
+      </div>
+    </section>
+  );
 };
 
 export default ErrorPage;
