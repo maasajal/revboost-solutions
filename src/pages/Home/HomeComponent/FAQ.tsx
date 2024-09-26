@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import faqImage from "../../../assets/faq/FAQ.png";
+// import faqImage from "../../../assets/faq/FAQ.png";
 import SectionTitle from "../../../components/SectionTitle";
+import questionImg from "../../../assets/faq/pana.svg";
 
 interface FAQItem {
   title: string;
@@ -8,7 +9,7 @@ interface FAQItem {
 }
 
 const FAQ = () => {
-  const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  // const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [faq, setFaq] = useState<FAQItem[]>([]);
 
   useEffect(() => {
@@ -34,7 +35,32 @@ const FAQ = () => {
         intro="FAQs"
         content="A list of common questions and answers designed to provide quick and helpful information on a specific topic or service."
       />
-      <div className="lg:flex gap-6 items-start mt-10">
+
+      <div className="lg:flex bg-white rounded-lg">
+        <div className="bg-[#F79385] flex items-center px-6 rounded-l-lg">
+          <img src={questionImg} alt="" />
+        </div>
+
+        {/* accordian */}
+        <div className="join join-vertical w-full p-6">
+          {faq.map((item, index) => (
+            <div
+              key={index}
+              className="collapse collapse-arrow join-item border-b"
+            >
+              <input type="radio" name="my-accordion-4" />
+              <div className="collapse-title text-xl font-medium">
+                {item.title}
+              </div>
+              <div className="collapse-content">
+                <p>{item.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* <div className="lg:flex gap-6 items-start mt-10">
         <div className="relative w-full  lg:w-1/2 mb-10 lg:mb-0 flex justify-center">
           {!isLoaded && (
             <div className="skeleton h-32 w-32 absolute inset-0"></div>
@@ -73,7 +99,7 @@ const FAQ = () => {
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
     </section>
   );
 };
