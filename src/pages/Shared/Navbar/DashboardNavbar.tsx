@@ -20,11 +20,11 @@ const DashboardNavbar = () => {
     },
   ];
   return (
-    <div className="pt-20 bg-[#FF0000] text-white">
+    <div className="pt-20 w-64 h-full bg-dashboardNavbarBG text-white font-bold">
       <ul className="menu space-y-4">
         {navLinks.map((nav) => (
-          <li key={nav.path} className="bg-[#541E1B]">
-            <NavLink to={nav.path} className="p-4">
+          <li key={nav.path} className="bg-btnBgColor hover:bg-btnBgHoverColor rounded-lg">
+            <NavLink to={nav.path} className="py-4">
               {nav.navName}
             </NavLink>
           </li>

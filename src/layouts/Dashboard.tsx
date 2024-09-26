@@ -23,7 +23,7 @@ const Dashboard = () => {
           aria-label="close sidebar"
           className="drawer-overlay"
         ></label>
-        <div className="w-64 h-full pt-20 bg-[#FF0000] text-white">
+        <div className="h-full">
           <DashboardNavbar />
         </div>
       </div>
