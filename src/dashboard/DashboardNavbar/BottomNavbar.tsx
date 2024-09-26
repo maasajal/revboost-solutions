@@ -8,7 +8,7 @@ const BottomNavbar = () => {
       <NavLink
         to={"/dashboard/company-incomes"}
         className={({ isActive }) =>
-          isActive ? "bg-primary text-white border-t-4 border-secondary font-semibold" : "font-semibold"
+          isActive ? "bg-footerBGColor text-white border-t-4 border-secondary font-semibold" : "font-semibold"
         }
       >
         <PiInvoiceBold />
@@ -17,7 +17,7 @@ const BottomNavbar = () => {
       <NavLink
         to={"/dashboard/company-expenses"}
         className={({ isActive }) =>
-          isActive ? "bg-primary text-white border-t-4 border-secondary font-semibold" : "font-semibold"
+          isActive ? "bg-footerBGColor text-white border-t-4 border-secondary font-semibold" : "font-semibold"
         }
       >
         <GiExpense />
@@ -26,7 +26,7 @@ const BottomNavbar = () => {
       <NavLink
         to={"/dashboard/revenue-growth"}
         className={({ isActive }) =>
-          isActive ? "bg-primary text-white border-t-4 border-secondary font-semibold" : "font-semibold"
+          isActive ? "bg-footerBGColor text-white border-t-4 border-secondary font-semibold" : "font-semibold"
         }
       >
         <GiTreeGrowth />
