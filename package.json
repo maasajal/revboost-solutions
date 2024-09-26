@@ -12,7 +12,9 @@
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
     "@reduxjs/toolkit": "^2.2.7",
+    "axios": "^1.7.7",
     "daisyui": "^4.12.10",
+    "firebase": "^10.13.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.53.0",
@@ -23,6 +25,8 @@
     "react-router-dom": "^6.26.2",
     "react-tabs": "^6.0.2",
     "styled-components": "^4.0.0",
+    "redux-persist": "^6.0.0",
+    "redux-thunk": "^3.1.0",
     "sweetalert2": "^11.14.1",
     "swiper": "^11.1.14"
   },
