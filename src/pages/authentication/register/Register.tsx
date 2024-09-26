@@ -1,10 +1,10 @@
-import moneyHome from "../../../assets/signup/MoneyHome-SignUp.png";
-import { FaGithub, FaRegEye } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
-import { useForm, SubmitHandler } from "react-hook-form";
-import toast from "react-hot-toast";
-import { TbEyeClosed } from "react-icons/tb";
 import { useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { FaRegEye } from "react-icons/fa";
+import { TbEyeClosed } from "react-icons/tb";
+import moneyHome from "../../../assets/signup/MoneyHome-SignUp.png";
+import SocialLogin from "../../../components/SocialLogin";
 
 type Inputs = {
   companyName: string;
@@ -14,29 +14,25 @@ type Inputs = {
 };
 
 const Register = () => {
-  const [showPassword, setShowPassword] = useState(false);
-
+  const [showPassword, setShowPassword] = useState(false);  
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
+ 
+  const onSubmit: SubmitHandler<Inputs> = (data) => { 
     const { password, confirmPassword } = data;
-    console.log(data);
-
     if (password !== confirmPassword)
       return toast.error("Password not matched.");
-
     toast.success("Account created Successfully.");
   };
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
-  };
-
+  }; 
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <div className="min-h-screen flex items-center justify-center"> 
       <div className="flex flex-col lg:flex-row w-full">
         {/* Left Section */}
         <div className="flex-1 bg-[#FF08008C] flex flex-col items-center pt-10 ">
@@ -158,16 +154,7 @@ const Register = () => {
           </div>
 
           {/* Social Login */}
-          <div className="flex flex-col md:flex-row lg:flex-col xl:flex-row justify-center gap-4">
-            <button className="bg-white border border-gray-300 flex items-center justify-center gap-x-3 text-sm sm:text-base rounded-lg hover:bg-gray-100 duration-300 transition-colors px-8 py-2.5">
-              <FcGoogle className="text-2xl" />
-              <span>Sign up with Google</span>
-            </button>
-            <button className="bg-black text-white flex items-center justify-center gap-x-3 text-sm sm:text-base rounded-lg hover:bg-black/80 duration-300 transition-colors px-8 py-2.5">
-              <FaGithub className="text-2xl" />
-              <span>Sign up with Github</span>
-            </button>
-          </div>
+          <SocialLogin />
         </div>
       </div>
     </div>
