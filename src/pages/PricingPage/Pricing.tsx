@@ -119,18 +119,57 @@ const Pricing: React.FC = () => {
 
         {/* Monthly Packages Tab */}
         <TabPanel>
-          <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center pt-10">
+          <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center pt-10 pl-[10px]">
             {monthlyPackages.map((pkg) => renderPackageCard(pkg))}
           </section>
         </TabPanel>
-
         {/* Yearly Packages Tab */}
         <TabPanel>
-          <section className="grid grid-cols-1 md:grid-cols-3 gap-6 justify-center pt-10">
+          <section className="grid grid-cols-1 md:grid-cols-3 gap-6 justify-center pt-[10px]">
             {yearlyPackages.map((pkg) => renderPackageCard(pkg))}
           </section>
         </TabPanel>
       </Tabs>
+      <section>
+        <h1 className='text-center mt-12 text-4xl'>Our Add-on Repository</h1>
+        <p className='text-center'>(Billed annually)</p>
+        <div className='grid grid-cols-1 md:grid-cols-3 gap-6 justify-center pt-10 pl-[10px]'>
+            <div>
+            <div className="card bg-base-100 w-96 shadow-xl">
+  <h1 className='text-center text-xl font-normal uppercase py-3'>Users</h1>
+  <hr className='pb-2'/>
+  <div>
+    <p className='text-center text-4xl pt-4'>$7.5</p>
+    <p className='text-center pb-12'>user/month</p>
+  </div>
+</div>
+            </div>
+            <div>
+            <div>
+            <div className="card bg-base-100 w-96 shadow-xl">
+  <h1 className='text-center text-xl font-normal uppercase py-3'>Timesheet user</h1>
+  <hr className='pb-2'/>
+  <div>
+    <p className='text-center text-4xl pt-4'>$2.5</p>
+    <p className='text-center pb-12'>user/month</p>
+  </div>
+</div>
+            </div>
+            </div>
+            <div>
+            <div>
+            <div className="card bg-base-100 w-96 shadow-xl">
+  <h1 className='text-center text-xl font-normal uppercase py-3'>Advanced autoscans</h1>
+  <hr className='pb-2'/>
+  <div>
+    <p className='text-center text-4xl pt-4'>$8</p>
+    <p className='text-center pb-12'>50 scans/month</p>
+  </div>
+</div>
+            </div>
+            </div>
+        </div>
+      </section>
     </div>
   );
 };
