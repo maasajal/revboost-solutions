@@ -36,20 +36,24 @@ const FAQ = () => {
       />
       <div className="lg:flex gap-6 items-start mt-10">
         <div className="relative w-full  lg:w-1/2 mb-10 lg:mb-0 flex justify-center">
-          {!isLoaded && <div className="skeleton h-32 w-32 absolute inset-0"></div>}
+          {!isLoaded && (
+            <div className="skeleton h-32 w-32 absolute inset-0"></div>
+          )}
           <img
             src={faqImage}
             alt="FAQ"
             onLoad={() => setIsLoaded(true)}
-            className={`transition-opacity  duration-300 ${isLoaded ? 'opacity-100' : 'opacity-0'} rounded-lg w-full max-w-xl`}
+            className={`transition-opacity  duration-300 ${
+              isLoaded ? "opacity-100" : "opacity-0"
+            } rounded-lg w-full max-w-xl`}
           />
         </div>
 
-        <div className="join join-vertical w-full border border-[#075985]  ">
+        <div className="join join-vertical w-full border border-[#FF0000]  ">
           {faq.map((item, index) => (
             <div
               key={index}
-              className="collapse collapse-arrow join-item border-t border-[#075985] last:border-b"
+              className="collapse collapse-arrow join-item border-t border-[#FF0000] last:border-b"
             >
               <input
                 type="radio"
