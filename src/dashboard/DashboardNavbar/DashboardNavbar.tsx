@@ -1,14 +1,20 @@
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../assets/logo.png";
-import { FaHome } from "react-icons/fa";
+import { FaHome, FaSign, FaSignOutAlt } from "react-icons/fa";
 import { GiExpense, GiTreeGrowth } from "react-icons/gi";
 import { PiInvoiceBold } from "react-icons/pi";
-import { useSelector } from "react-redux";
-import { RootState } from "../../app/store/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../app/store/store";
+import { logoutSuccess } from "../../app/state/firebaseAuthentication/authSlice";
 
 const DashboardNavbar = () => {
   const user = useSelector((state: RootState) => state?.auth?.user);
-
+  const dispatch = useDispatch<AppDispatch>();
+  const handleSignOut = () => {
+    const logout = dispatch(logoutSuccess());
+    console.log("logOut", logout);
+    window.location.href = "https://revboost.business-easy.com";
+  };
   const navLinks = [
     {
       navName: "Company Profile",
@@ -58,6 +64,23 @@ const DashboardNavbar = () => {
           </li>
         ))}
       </ul>
+      <hr />
+      <div className="flex justify-end">
+        {user ? (
+          <button
+            onClick={handleSignOut}
+            className="hover:bg-secondary hover:text-white text-secondary font-bold px-5 py-2 rounded-3xl text-sm flex gap-2 items-center"
+          >
+            <FaSignOutAlt /> LogOut
+          </button>
+        ) : (
+          <Link to="/login">
+            <button className="font-bold mr-1 md:mr-5 text-secondary text-sm px-5 py-2 rounded-3xl hover:bg-secondary hover:text-white flex gap-2 items-center">
+              <FaSign /> Sign In
+            </button>
+          </Link>
+        )}
+      </div>
     </header>
   );
 };
