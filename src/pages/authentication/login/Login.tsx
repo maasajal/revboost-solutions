@@ -5,6 +5,7 @@ import { FaRegEye } from "react-icons/fa";
 import { TbEyeClosed } from "react-icons/tb";
 import moneyHome from "../../../assets/signup/MoneyHome-SignUp.png";
 import SocialLogin from "../../../components/SocialLogin";
+import { Link } from "react-router-dom";
 
 type Inputs = {
   email: string;
@@ -107,9 +108,11 @@ const Login = () => {
 
             <p className="text-center mt-4">
               Don't have an account?{" "}
-              <span className="text-[#FF6B6B] cursor-pointer underline">
-                Register
-              </span>
+              <Link to="/register">
+                <span className="text-[#FF6B6B] cursor-pointer underline">
+                  Register
+                </span>
+              </Link>
             </p>
           </form>
 
