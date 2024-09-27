@@ -27,7 +27,8 @@ export const loginWithGoogle = () => async (dispatch: AppDispatch) => {
 
     const response = await axios.post(`${import.meta.env.VITE_API}/api/v1/login`, data);
     console.log(response.data) // এখান থেকে টোকেন নিয়ে কাজ্ করতে পারেন
-    dispatch(loginSuccess({ user: result.user })); // ইউজার তথ্য পাঠান 
+    window.location.href ="https://revboost.business-easy.com/dashboard/profile" 
+    dispatch(loginSuccess({ user: result.user })); // ইউজার তথ্য পাঠান
   } catch (error) {
     if (error instanceof FirebaseError) {
       dispatch(loginFailure({ error: error.message })); // FirebaseError হলে ত্রুটি পাঠান
