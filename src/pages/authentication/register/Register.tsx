@@ -5,6 +5,7 @@ import { FaRegEye } from "react-icons/fa";
 import { TbEyeClosed } from "react-icons/tb";
 import moneyHome from "../../../assets/signup/MoneyHome-SignUp.png";
 import SocialLogin from "../../../components/SocialLogin";
+import { Link } from "react-router-dom";
 
 type Inputs = {
   companyName: string;
@@ -14,14 +15,14 @@ type Inputs = {
 };
 
 const Register = () => {
-  const [showPassword, setShowPassword] = useState(false);  
+  const [showPassword, setShowPassword] = useState(false);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>();
- 
-  const onSubmit: SubmitHandler<Inputs> = (data) => { 
+
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
     const { password, confirmPassword } = data;
     if (password !== confirmPassword)
       return toast.error("Password not matched.");
@@ -30,9 +31,9 @@ const Register = () => {
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
-  }; 
+  };
   return (
-    <div className="min-h-screen flex items-center justify-center"> 
+    <div className="min-h-screen flex items-center justify-center">
       <div className="flex flex-col lg:flex-row w-full">
         {/* Left Section */}
         <div className="flex-1 bg-[#FF08008C] flex flex-col items-center pt-10 ">
@@ -140,9 +141,11 @@ const Register = () => {
 
             <p className="text-center mt-4">
               Already have an account?{" "}
-              <span className="text-[#FF6B6B] cursor-pointer underline">
-                Login
-              </span>
+              <Link to="/login">
+                <span className="text-[#FF6B6B] cursor-pointer underline">
+                  Login
+                </span>
+              </Link>
             </p>
           </form>
 
