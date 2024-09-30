@@ -3,9 +3,12 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { FaRegEye } from "react-icons/fa";
 import { TbEyeClosed } from "react-icons/tb";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import { signInWithUserPassword } from "../../../app/state/firebaseAuthentication/authActions";
+import { AppDispatch } from "../../../app/store/store";
 import moneyHome from "../../../assets/signup/MoneyHome-SignUp.png";
 import SocialLogin from "../../../components/SocialLogin";
-import { Link } from "react-router-dom";
 
 type Inputs = {
   companyName: string;
@@ -15,6 +18,7 @@ type Inputs = {
 };
 
 const Register = () => {
+  const dispatch = useDispatch<AppDispatch>()
   const [showPassword, setShowPassword] = useState(false);
   const {
     register,
@@ -24,8 +28,11 @@ const Register = () => {
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     const { password, confirmPassword } = data;
-    if (password !== confirmPassword)
+    if (password !== confirmPassword){
       return toast.error("Password not matched.");
+    }
+    // console.log(data)
+    dispatch(signInWithUserPassword(data))
     toast.success("Account created Successfully.");
   };
 
