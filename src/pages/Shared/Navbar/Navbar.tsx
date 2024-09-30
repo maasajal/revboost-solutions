@@ -1,8 +1,10 @@
+import { signOut } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import { logoutSuccess } from "../../../app/state/firebaseAuthentication/authSlice";
 import { AppDispatch, RootState } from "../../../app/store/store";
 import logo from "../../../assets/logo.png";
+import { auth } from "../../../firebase/firebase.config";
 const Navbar = () => {
   const dispatch = useDispatch<AppDispatch>(); // টাইপড useDispatch ব্যবহার করুন
 
@@ -34,6 +36,11 @@ const Navbar = () => {
     },
   ];
 const handleSignOut = ()=>{
+  signOut(auth).then(() => {
+    // Sign-out successful.
+  }).catch((error) => {
+    // An error happened.
+  });
   dispatch(logoutSuccess())
 
 }

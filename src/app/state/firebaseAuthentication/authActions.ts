@@ -1,5 +1,10 @@
 import { FirebaseError } from "firebase/app";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
 
 import axios from "axios";
 import { auth } from "../../../firebase/firebase.config";
@@ -10,6 +15,16 @@ interface UserData {
   name: string | null;
   email: string | null;
   photo: string | null;
+}
+
+interface UserCredentials {
+  email: string;
+  password: string;
+  companyName: string; 
+}
+interface loginCredentials {
+  email: string;
+  password: string; 
 }
 // Login Function
 export const loginWithGoogle = () => async (dispatch: AppDispatch) => {
@@ -25,9 +40,13 @@ export const loginWithGoogle = () => async (dispatch: AppDispatch) => {
     const photo = result.user.photoURL;
     const data: UserData = { name, email, photo };
 
-    const response = await axios.post(`${import.meta.env.VITE_API}/api/v1/login`, data);
-    console.log(response.data) // এখান থেকে টোকেন নিয়ে কাজ্ করতে পারেন
-    window.location.href ="https://revboost.business-easy.com/dashboard/profile" 
+    const response = await axios.post(
+      `${import.meta.env.VITE_API}/api/v1/login`,
+      data
+    );
+    console.log(response.data); // এখান থেকে টোকেন নিয়ে কাজ্ করতে পারেন
+    window.location.href =
+      "https://revboost.business-easy.com/dashboard/profile";
     dispatch(loginSuccess({ user: result.user })); // ইউজার তথ্য পাঠান
   } catch (error) {
     if (error instanceof FirebaseError) {
@@ -38,13 +57,45 @@ export const loginWithGoogle = () => async (dispatch: AppDispatch) => {
   }
 };
 
-
-export const signInWithUserPassword = async (data:object)=>{
-  console.log(data)
-
-  // try {
-  //   const result = await createUserWithEmailAndPassword(auth, email, password)
-  // } catch (error) {
-  //   //
-  // }
+export const signInWithUserPassword = (formData:UserCredentials) =>async (dispatch:AppDispatch)=>{
+  dispatch(loginStart());
+  const {email, password, companyName} = formData;
+  
+  try {
+    createUserWithEmailAndPassword(auth, email, password )
+    .then(async(result)=>{
+   
+    const response = await axios.post(
+      `${import.meta.env.VITE_API}/api/v1/register`,
+      {email, password, companyName}
+    );
+    console.log(response.data.message)
+    window.location.href =
+    "https://revboost.business-easy.com/dashboard/profile";
+    dispatch(loginSuccess({ user: result.user }));
+    })
+  } catch (error) {
+    console.log("action to error",error)
+  }
+}
+export const loginWithEmailPassword = (formData:loginCredentials) =>async (dispatch:AppDispatch)=>{
+  dispatch(loginStart());
+  const {email, password} = formData;
+  
+  try {
+    signInWithEmailAndPassword(auth, email, password )
+    .then(async(result)=>{
+   
+    const response = await axios.post(
+      `${import.meta.env.VITE_API}/api/v1/login`,
+      {email}
+    );
+    console.log(response.data.message)
+    window.location.href =
+    "https://revboost.business-easy.com/dashboard/profile";
+    dispatch(loginSuccess({ user: result.user }));
+    })
+  } catch (error) {
+    console.log("action to error",error)
+  }
 }
