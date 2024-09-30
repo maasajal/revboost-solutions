@@ -2,7 +2,7 @@
 import coverPhoto from "../../assets/AboutUs/cover.png";
 import whyChooseUsPhoto from "../../assets/AboutUs/whyChooseUS.png";
 import TeamMembers from "../Shared/TeamMembers/TeamMembers";
-const About = () => {
+const About = () => { 
   return (
     <div className="container mx-auto pb-24 px-2 md:px-4 lg:px-6">
       {/* <section className="contact_banner">

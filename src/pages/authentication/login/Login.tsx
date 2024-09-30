@@ -3,9 +3,12 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { FaRegEye } from "react-icons/fa";
 import { TbEyeClosed } from "react-icons/tb";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import { loginWithEmailPassword } from "../../../app/state/firebaseAuthentication/authActions";
+import { AppDispatch } from "../../../app/store/store";
 import moneyHome from "../../../assets/signup/MoneyHome-SignUp.png";
 import SocialLogin from "../../../components/SocialLogin";
-import { Link } from "react-router-dom";
 
 type Inputs = {
   email: string;
@@ -13,6 +16,7 @@ type Inputs = {
 };
 
 const Login = () => {
+  const dispatch = useDispatch<AppDispatch>()
   const [showPassword, setShowPassword] = useState(false);
   const {
     register,
@@ -20,7 +24,8 @@ const Login = () => {
     formState: { errors },
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
+    dispatch(loginWithEmailPassword(data))
+
     toast.success("Sign in Successful.");
   };
 
