@@ -263,7 +263,7 @@ const Invoice = () => {
                       </span>
                     </td>
                   </tr>
-                  <tr className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50">
+                  <tr className="border-b border-opacity-20 dark:border-red-300 dark:bg-gray-50">
                     <td className="p-3">
                       <p>97412378923</p>
                     </td>
@@ -284,6 +284,85 @@ const Invoice = () => {
                     <td className="p-3 text-right">
                       <span className="px-3 py-1 font-semibold rounded-md dark:bg-red-400 dark:text-gray-50">
                         <span>Delete</span>
+                      </span>
+                    </td>
+                  </tr>
+                 
+                  <tr className="border-b border-opacity-20">
+                    <td className="p-3">
+                      <p></p>
+                    </td>
+                    <td className="p-3">
+                      <p></p>
+                    </td>
+                    <td className="p-3">
+                      <p></p>
+                      <p className="dark:text-gray-600"></p>
+                    </td>
+                    <td className="p-3">
+                      <h5>Subtotal</h5>
+                      <p className="dark:text-gray-600"></p>
+                    </td>
+                    <td className="p-3 text-right">
+                      {/* Write Total Below  */}
+                      
+                      <h5>$6000</h5>
+                    </td>
+                    <td className="p-3 text-right">
+                      <span className="px-3 py-1 font-semibold rounded-md dark:text-gray-50">
+                        <span></span>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr className="border-b border-opacity-20">
+                    <td className="p-3">
+                      <p></p>
+                    </td>
+                    <td className="p-3">
+                      <p></p>
+                    </td>
+                    <td className="p-3">
+                      <p></p>
+                      <p className="dark:text-gray-600"></p>
+                    </td>
+                    <td className="p-3">
+                      <h5>VAT(15%)</h5>
+                      <p className="dark:text-gray-600"></p>
+                    </td>
+                    <td className="p-3 text-right">
+                      {/* Write VAT Below  */}
+                      
+                      <h5>$6000</h5>
+                    </td>
+                    <td className="p-3 text-right">
+                      <span className="px-3 py-1 font-semibold rounded-md dark:text-gray-50">
+                        <span></span>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr className="border-b border-opacity-20 dark:border-gray-300 dark:bg-red-50">
+                    <td className="p-3">
+                      <p></p>
+                    </td>
+                    <td className="p-3">
+                      <p></p>
+                    </td>
+                    <td className="p-3">
+                      <p></p>
+                      <p className="dark:text-gray-600"></p>
+                    </td>
+                    <td className="p-3">
+                      <h4>total</h4>
+                      <p className="dark:text-gray-600"></p>
+                    </td>
+                    <td className="p-3 text-right">
+                      {/* Write Total Below  */}
+                      
+                      <h4>$7500</h4>
+                    </td>
+                    <td className="p-3 text-right">
+                      <span className="px-3 py-1 font-semibold rounded-md dark:text-gray-50">
+                        <span></span>
                       </span>
                     </td>
                   </tr>
