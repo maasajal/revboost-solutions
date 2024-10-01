@@ -1,29 +1,53 @@
+import { useForm } from "react-hook-form";
+type FormData = {
+  CustomerName: string;
+  CompanyName: string;
+  InvoiceNumber: number;
+  InvoiceCreationDate: string;
+  InvoiceDueDate: string;
+  CustomerAddress: string;
+};
+
 const Invoice = () => {
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>();
+  const onSubmit = handleSubmit((data) => {
+    console.log(data);
+  });
+
   return (
     <>
       <section className="container mx-auto mt-10 space-y-8">
         <h2>Invoice</h2>
         <div>
-          <form className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 ">
+          <form  onSubmit={onSubmit} className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 ">
             <div className="space-y-4">
+
               <div>
                 <label htmlFor="name" className="text-sm">
                   Customer Name
                 </label>
                 <input
-                  id="name"
+                {...register("CustomerName", { required: true })}
+                  id="CustomerName"
                   type="text"
                   placeholder=""
                   className="w-full p-3 rounded dark:bg-gray-100"
                 />
+                 {errors.CustomerName && <span className="text-red-300">This field is required</span>}
               </div>
               <div>
                 <label htmlFor="email" className="text-sm">
                   Your Company Name
                 </label>
                 <input
-                  id="email"
-                  type="email"
+                {...register("CompanyName", { required: true })}
+                  id="CompanyName"
+                  type="text"
                   className="w-full p-3 rounded dark:bg-gray-100"
                 />
               </div>
@@ -34,8 +58,9 @@ const Invoice = () => {
                   Invoice Number
                 </label>
                 <input
-                  id="name"
-                  type="text"
+                {...register("InvoiceNumber", { required: true })}
+                  id="InvoiceNumber"
+                  type="number"
                   placeholder=""
                   className="w-full p-3 rounded dark:bg-gray-100"
                 />
@@ -45,8 +70,9 @@ const Invoice = () => {
                   Invoice Creation Date
                 </label>
                 <input
-                  id="email"
-                  type="email"
+                 {...register("InvoiceCreationDate", { required: true })}
+                  id="InvoiceCreationDate"
+                  type="text"
                   className="w-full p-3 rounded dark:bg-gray-100"
                 />
               </div>
@@ -57,7 +83,8 @@ const Invoice = () => {
                   Due Date
                 </label>
                 <input
-                  id="name"
+                 {...register("InvoiceDueDate", { required: true })}
+                  id="InvoiceDueDate"
                   type="text"
                   placeholder=""
                   className="w-full p-3 rounded dark:bg-gray-100"
@@ -68,8 +95,9 @@ const Invoice = () => {
                   Customer Address
                 </label>
                 <input
-                  id="email"
-                  type="email"
+                 {...register("CustomerAddress", { required: true })}
+                  id="CustomerAddress"
+                  type="text"
                   className="w-full p-3 rounded dark:bg-gray-100"
                 />
               </div>
