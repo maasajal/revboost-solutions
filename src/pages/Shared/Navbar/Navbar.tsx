@@ -35,15 +35,17 @@ const Navbar = () => {
       path: "/about-us",
     },
   ];
-const handleSignOut = ()=>{
-  signOut(auth).then(() => {
-    // Sign-out successful.
-  }).catch((error) => {
-    // An error happened.
-  });
-  dispatch(logoutSuccess())
-
-}
+  const handleSignOut = () => {
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+      })
+      .catch((error) => {
+        // An error happened.
+        console.log(error);
+      });
+    dispatch(logoutSuccess());
+  };
   return (
     <div className="navbar bg-base-100 px-2 md:px-14 lg:px-20 sticky top-0 z-20 shadow-lg">
       <div className="mr-3">
@@ -89,7 +91,7 @@ const handleSignOut = ()=>{
           </ul>
         </div>
         <Link to="/" className="text-2xl font-bold mr-5">
-          <img src={logo} alt="RevBoost logo" className="w-52" />
+          <img src={logo} alt="RevBoost logo" className="w-40" />
         </Link>
       </div>
       <div className="hidden lg:flex">
@@ -112,12 +114,15 @@ const handleSignOut = ()=>{
       </div>
       <div className="ml-auto">
         {user ? (
-          <button onClick={handleSignOut} className="hover:bg-secondary hover:text-white text-secondary font-bold px-5 py-2 rounded-3xl text-sm">
+          <button
+            onClick={handleSignOut}
+            className="btn btn-outline hover:bg-secondary hover:text-white text-secondary font-bold px-5 py-2 rounded-3xl text-sm"
+          >
             Sign Out
           </button>
         ) : (
           <Link to="/login">
-            <button className="font-bold mr-1 md:mr-5 text-secondary text-sm px-5 py-2 rounded-3xl hover:bg-secondary hover:text-white">
+            <button className="btn btn-outline font-bold mr-1 md:mr-5 text-logoMainColor text-sm px-5 py-2 rounded-3xl hover:bg-secondary hover:text-white hover:border-none">
               Sign In
             </button>
           </Link>
