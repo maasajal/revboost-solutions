@@ -18,6 +18,7 @@ export default {
         btnBgHoverColor: "#CC0000", // Button bg hover color
         dashboardNavbarBG: "#FFCCCC", // Dashboard navbar bg color
         footerBGColor: "#2C3E50", // Footer bg color
+        logoMainColor: "#1f3060",
       },
       backgroundImage: {
         bannerImg:
