@@ -1,5 +1,6 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import PayrollBarChart from "./PayrollBarChart";
 
 type Inputs = {
   employeeName: string;
@@ -8,6 +9,7 @@ type Inputs = {
   bonus: number;
   taxDeduction: number;
   month: string;
+  monthOfTable: string;
 };
 
 const Payroll = () => {
@@ -21,6 +23,7 @@ const Payroll = () => {
     console.log(data);
     toast.success("Saved Successfully.");
   };
+
   return (
     <div>
       <h2 className="mb-10">Payroll Management</h2>
@@ -122,6 +125,9 @@ const Payroll = () => {
               className="w-full p-3 rounded dark:bg-gray-100"
               {...register("month", { required: true })}
             >
+              <option value="Select Month" selected disabled>
+                Select Month
+              </option>
               <option value="January">January</option>
               <option value="February">February</option>
               <option value="March">March</option>
@@ -135,23 +141,12 @@ const Payroll = () => {
               <option value="November">November</option>
               <option value="December">December</option>
             </select>
-          </div>
-
-          {/* <div className="form-control mt-4">
-            <label className="label">
-              <span className="label-text">Month</span>
-            </label>
-            <input
-              type="text"
-              className="w-full p-3 rounded dark:bg-gray-100"
-              {...register("month", { required: true })}
-            />
             {errors.month && (
               <small className="text-red-400 mt-2">
                 This field is required
               </small>
             )}
-          </div> */}
+          </div>
         </div>
 
         <div className="form-control mt-6">
@@ -164,21 +159,35 @@ const Payroll = () => {
       {/* display payroll details */}
       <div className="space-y-6 border-2 p-4 mt-10">
         <h2 className="mb-4 text-center text-2xl font-bold leading-tight">
-          Employee Payroll Details
+          Employee Payroll Reports
         </h2>
+
+        <div>
+          <select
+            className="w-1/4 p-3 rounded dark:bg-gray-100"
+            {...register("monthOfTable", { required: true })}
+          >
+            <option value="Select Month" selected disabled>
+              Select Month
+            </option>
+            <option value="January">January</option>
+            <option value="February">February</option>
+            <option value="March">March</option>
+            <option value="April">April</option>
+            <option value="May">May</option>
+            <option value="June">June</option>
+            <option value="July">July</option>
+            <option value="August">August</option>
+            <option value="September">September</option>
+            <option value="October">October</option>
+            <option value="November">November</option>
+            <option value="December">December</option>
+          </select>
+        </div>
+
         <div className="dark:text-gray-800">
           <div className="overflow-x-auto">
             <table className="min-w-full text-xs">
-              {/* colgroup? */}
-              <colgroup>
-                <col />
-                <col />
-                <col />
-                <col />
-                <col />
-                <col className="w-24" />
-              </colgroup>
-
               <thead className="dark:bg-red-400">
                 <tr className="text-left">
                   <th className="p-3">Id</th>
@@ -187,7 +196,6 @@ const Payroll = () => {
                   <th className="p-3 text-center">Bonus</th>
                   <th className="p-3 text-center">Tax Deduction</th>
                   <th className="p-3 text-center">Net Pay</th>
-                  <th className="p-3 text-center">Month</th>
                   <th className="p-3"></th>
                 </tr>
               </thead>
@@ -211,10 +219,7 @@ const Payroll = () => {
                   <td className="p-3 text-center">
                     <p>10500</p>
                   </td>
-                  <td className="p-3 text-center">
-                    <p>September</p>
-                  </td>
-                  <td className="p-3">
+                  <td className="p-3 text-right">
                     <span className="px-3 py-1 font-semibold rounded-md dark:bg-red-400 dark:text-gray-50">
                       <span>Delete</span>
                     </span>
@@ -239,10 +244,7 @@ const Payroll = () => {
                   <td className="p-3 text-center">
                     <p>10500</p>
                   </td>
-                  <td className="p-3 text-center">
-                    <p>September</p>
-                  </td>
-                  <td className="p-3">
+                  <td className="p-3 text-right">
                     <span className="px-3 py-1 font-semibold rounded-md dark:bg-red-400 dark:text-gray-50">
                       <span>Delete</span>
                     </span>
@@ -267,10 +269,7 @@ const Payroll = () => {
                   <td className="p-3 text-center">
                     <p>10500</p>
                   </td>
-                  <td className="p-3 text-center">
-                    <p>September</p>
-                  </td>
-                  <td className="p-3">
+                  <td className="p-3 text-right">
                     <span className="px-3 py-1 font-semibold rounded-md dark:bg-red-400 dark:text-gray-50">
                       <span>Delete</span>
                     </span>
@@ -281,6 +280,9 @@ const Payroll = () => {
           </div>
         </div>
       </div>
+
+      {/* chart */}
+      <PayrollBarChart />
     </div>
   );
 };
