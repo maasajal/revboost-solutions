@@ -9,6 +9,7 @@ import { loginWithEmailPassword } from "../../../app/state/firebaseAuthenticatio
 import { AppDispatch } from "../../../app/store/store";
 import moneyHome from "../../../assets/signup/MoneyHome-SignUp.png";
 import SocialLogin from "../../../components/SocialLogin";
+import logo from "../../../assets/logo.png";
 
 type Inputs = {
   email: string;
@@ -16,7 +17,7 @@ type Inputs = {
 };
 
 const Login = () => {
-  const dispatch = useDispatch<AppDispatch>()
+  const dispatch = useDispatch<AppDispatch>();
   const [showPassword, setShowPassword] = useState(false);
   const {
     register,
@@ -24,7 +25,7 @@ const Login = () => {
     formState: { errors },
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    dispatch(loginWithEmailPassword(data))
+    dispatch(loginWithEmailPassword(data));
 
     toast.success("Sign in Successful.");
   };
@@ -38,21 +39,19 @@ const Login = () => {
       <div className="flex flex-col lg:flex-row w-full">
         {/* Left Section */}
         <div className="flex-1 bg-[#FF08008C] flex flex-col items-center pt-10 ">
-          <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-[#ffffff] to-[#FF0000] inline-block text-transparent bg-clip-text">
-            RevBoost
-          </h1>
+          <img src={logo} alt="logo" className="w-1/3 2xl:w-1/4" />
           <p className="text-lg text-white">
             A Modern Revenue Generation Platform
           </p>
           <img
             src={moneyHome}
             alt="Money Home"
-            className="w-3/4 mt-10 -mb-12 lg:mb-0 lg:ml-40 lg:-mr-40 z-10"
+            className="w-3/4 mt-10 lg:ml-40 lg:-mr-40 z-10 2xl:w-1/2 2xl:ml-80 2xl:-mr-80"
           />
         </div>
 
         {/* Right Section (Form) */}
-        <div className="flex-1 bg-white p-10 lg:pl-40 flex flex-col justify-center">
+        <div className="flex-1 bg-white p-10 lg:pl-40 xl:py-32 2xl:pr-40 2xl:py-52 flex flex-col justify-center">
           <form onSubmit={handleSubmit(onSubmit)} className="w-full">
             <h2 className="text-3xl font-semibold text-center mb-6">
               Welcome back
