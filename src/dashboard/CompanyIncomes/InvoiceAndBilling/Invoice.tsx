@@ -1,20 +1,25 @@
 import { useForm } from "react-hook-form";
 import Billing from "./Billing";
-type FormData = {
-  CustomerName: string;
-  CompanyName: string;
-  InvoiceNumber: number;
-  InvoiceCreationDate: string;
-  InvoiceDueDate: string;
-  CustomerAddress: string;
+type InvoiceData = {
+  customerName: string;
+  companyName: string;
+  invoiceNumber: string;
+  date: string;
+  invoiceDueDate: string;
+  customerAddress: string;
 };
 
 const Invoice = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>();
+  const {  handleSubmit, register} = useForm<InvoiceData>({
+    defaultValues: {
+      customerName: '',
+      companyName: '',
+      invoiceNumber: '',
+      date: '',
+      invoiceDueDate: '',
+      customerAddress: '',
+    }
+  });
   const onSubmit = handleSubmit((data) => {
     console.log(data);
   });
@@ -30,27 +35,25 @@ const Invoice = () => {
           >
             <div className="space-y-4">
               <div>
-                <label htmlFor="name" className="text-sm">
+                <label  className="text-sm">
                   Customer Name
                 </label>
                 <input
-                  {...register("CustomerName", { required: true })}
-                  id="CustomerName"
-                  type="text"
-                  placeholder=""
+                  {...register("customerName", { required: true })}
+                  id="customerName"
+                  
+                  placeholder="Customer Name"
                   className="w-full p-3 rounded dark:bg-gray-100"
                 />
-                {errors.CustomerName && (
-                  <span className="text-red-300">This field is required</span>
-                )}
+               
               </div>
               <div>
-                <label htmlFor="email" className="text-sm">
+                <label className="text-sm">
                   Your Company Name
                 </label>
                 <input
-                  {...register("CompanyName", { required: true })}
-                  id="CompanyName"
+                  {...register("companyName", { required: true })}
+                  id="companyName"
                   type="text"
                   className="w-full p-3 rounded dark:bg-gray-100"
                 />
@@ -58,36 +61,36 @@ const Invoice = () => {
             </div>
             <div className="space-y-4">
               <div>
-                <label htmlFor="name" className="text-sm">
+                <label  className="text-sm">
                   Invoice Number
                 </label>
                 <input
-                  {...register("InvoiceNumber", { required: true })}
-                  id="InvoiceNumber"
+                  {...register("invoiceNumber", { required: true })}
+                  id="invoiceNumber"
                   type="number"
                   placeholder=""
                   className="w-full p-3 rounded dark:bg-gray-100"
                 />
               </div>
               <div>
-                <label htmlFor="email" className="text-sm">
+                <label  className="text-sm">
                   Invoice Creation Date
                 </label>
                 <input
-                  {...register("InvoiceCreationDate", { required: true })}
-                  id="InvoiceCreationDate"
-                  type="text"
+                  {...register("date", { required: true })}
+                  id="invoiceCreationDate"
+                  type="date"
                   className="w-full p-3 rounded dark:bg-gray-100"
                 />
               </div>
             </div>
             <div className="space-y-4">
               <div>
-                <label htmlFor="name" className="text-sm">
+                <label className="text-sm">
                   Due Date
                 </label>
                 <input
-                  {...register("InvoiceDueDate", { required: true })}
+                  {...register("invoiceDueDate", { required: true })}
                   id="InvoiceDueDate"
                   type="text"
                   placeholder=""
@@ -95,12 +98,12 @@ const Invoice = () => {
                 />
               </div>
               <div>
-                <label htmlFor="email" className="text-sm">
+                <label  className="text-sm">
                   Customer Address
                 </label>
                 <input
-                  {...register("CustomerAddress", { required: true })}
-                  id="CustomerAddress"
+                  {...register("customerAddress", { required: true })}
+                  id="customerAddress"
                   type="text"
                   className="w-full p-3 rounded dark:bg-gray-100"
                 />
