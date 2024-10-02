@@ -9,6 +9,7 @@ import { signInWithUserPassword } from "../../../app/state/firebaseAuthenticatio
 import { AppDispatch } from "../../../app/store/store";
 import moneyHome from "../../../assets/signup/MoneyHome-SignUp.png";
 import SocialLogin from "../../../components/SocialLogin";
+import logo from "../../../assets/logo.png";
 
 type Inputs = {
   companyName: string;
@@ -18,7 +19,7 @@ type Inputs = {
 };
 
 const Register = () => {
-  const dispatch = useDispatch<AppDispatch>()
+  const dispatch = useDispatch<AppDispatch>();
   const [showPassword, setShowPassword] = useState(false);
   const {
     register,
@@ -28,11 +29,11 @@ const Register = () => {
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     const { password, confirmPassword } = data;
-    if (password !== confirmPassword){
+    if (password !== confirmPassword) {
       return toast.error("Password not matched.");
     }
     // console.log(data)
-    dispatch(signInWithUserPassword(data))
+    dispatch(signInWithUserPassword(data));
     toast.success("Account created Successfully.");
   };
 
@@ -44,21 +45,19 @@ const Register = () => {
       <div className="flex flex-col lg:flex-row w-full">
         {/* Left Section */}
         <div className="flex-1 bg-[#FF08008C] flex flex-col items-center pt-10 ">
-          <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-[#ffffff] to-[#FF0000] inline-block text-transparent bg-clip-text">
-            RevBoost
-          </h1>
+          <img src={logo} alt="logo" className="w-1/3" />
           <p className="text-lg text-white">
             A Modern Revenue Generation Platform
           </p>
           <img
             src={moneyHome}
             alt="Money Home"
-            className="w-3/4 lg:w-full mt-10 -mb-12 lg:mb-0 lg:ml-20 lg:-mr-40 z-10"
+            className="w-3/4 md:w-1/2 lg:w-full xl:w-3/4 2xl:w-1/2 mt-10 -mb-12 lg:mb-0 lg:ml-20 lg:-mr-40 2xl:ml-80 2xl:-mr-80 z-10"
           />
         </div>
 
         {/* Right Section (Form) */}
-        <div className="flex-1 bg-white p-10 lg:pl-40 flex flex-col justify-center">
+        <div className="flex-1 bg-white p-10 lg:pl-40 2xl:pr-40 flex flex-col justify-center xl:py-20 2xl:py-40">
           <form onSubmit={handleSubmit(onSubmit)} className="w-full">
             <h2 className="text-3xl font-semibold text-center mb-6">
               Create Account
