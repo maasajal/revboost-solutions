@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+import Billing from "./Billing";
 type FormData = {
   CustomerName: string;
   CompanyName: string;
@@ -9,7 +10,6 @@ type FormData = {
 };
 
 const Invoice = () => {
-
   const {
     register,
     handleSubmit,
@@ -24,28 +24,32 @@ const Invoice = () => {
       <section className="container mx-auto mt-10 space-y-8">
         <h2>Invoice</h2>
         <div>
-          <form  onSubmit={onSubmit} className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 ">
+          <form
+            onSubmit={onSubmit}
+            className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 "
+          >
             <div className="space-y-4">
-
               <div>
                 <label htmlFor="name" className="text-sm">
                   Customer Name
                 </label>
                 <input
-                {...register("CustomerName", { required: true })}
+                  {...register("CustomerName", { required: true })}
                   id="CustomerName"
                   type="text"
                   placeholder=""
                   className="w-full p-3 rounded dark:bg-gray-100"
                 />
-                 {errors.CustomerName && <span className="text-red-300">This field is required</span>}
+                {errors.CustomerName && (
+                  <span className="text-red-300">This field is required</span>
+                )}
               </div>
               <div>
                 <label htmlFor="email" className="text-sm">
                   Your Company Name
                 </label>
                 <input
-                {...register("CompanyName", { required: true })}
+                  {...register("CompanyName", { required: true })}
                   id="CompanyName"
                   type="text"
                   className="w-full p-3 rounded dark:bg-gray-100"
@@ -58,7 +62,7 @@ const Invoice = () => {
                   Invoice Number
                 </label>
                 <input
-                {...register("InvoiceNumber", { required: true })}
+                  {...register("InvoiceNumber", { required: true })}
                   id="InvoiceNumber"
                   type="number"
                   placeholder=""
@@ -70,7 +74,7 @@ const Invoice = () => {
                   Invoice Creation Date
                 </label>
                 <input
-                 {...register("InvoiceCreationDate", { required: true })}
+                  {...register("InvoiceCreationDate", { required: true })}
                   id="InvoiceCreationDate"
                   type="text"
                   className="w-full p-3 rounded dark:bg-gray-100"
@@ -83,7 +87,7 @@ const Invoice = () => {
                   Due Date
                 </label>
                 <input
-                 {...register("InvoiceDueDate", { required: true })}
+                  {...register("InvoiceDueDate", { required: true })}
                   id="InvoiceDueDate"
                   type="text"
                   placeholder=""
@@ -95,7 +99,7 @@ const Invoice = () => {
                   Customer Address
                 </label>
                 <input
-                 {...register("CustomerAddress", { required: true })}
+                  {...register("CustomerAddress", { required: true })}
                   id="CustomerAddress"
                   type="text"
                   className="w-full p-3 rounded dark:bg-gray-100"
@@ -110,69 +114,12 @@ const Invoice = () => {
             </button>
           </form>
         </div>
-        <div className="grid lg:grid-cols-5  grid-flow-row-dense gap-4 ">
-          <div>
-            <label htmlFor="name" className="text-lg font-bold">
-              No
-            </label>
-            <input
-              id="name"
-              type="text"
-              placeholder=""
-              className="w-full p-3 rounded dark:bg-gray-100"
-            />
-          </div>
-          <div>
-            <label htmlFor="name" className="text-lg font-bold">
-              Client
-            </label>
-            <input
-              id="name"
-              type="text"
-              placeholder=""
-              className="w-full p-3 rounded dark:bg-gray-100"
-            />
-          </div>
-          <div>
-            <label htmlFor="name" className="text-lg font-bold">
-              Quantity
-            </label>
-            <input
-              id="name"
-              type="text"
-              placeholder=""
-              className="w-full p-3 rounded dark:bg-gray-100"
-            />
-          </div>
-          <div>
-            <label htmlFor="name" className="text-lg font-bold">
-              Unit Price
-            </label>
-            <input
-              id="name"
-              type="text"
-              placeholder=""
-              className="w-full p-3 rounded dark:bg-gray-100"
-            />
-          </div>
-          <div>
-            <label htmlFor="name" className="text-lg font-bold">
-              Total Amount
-            </label>
-            <input
-              id="name"
-              type="text"
-              placeholder=""
-              className="w-full p-3 rounded dark:bg-gray-100"
-            />
-          </div>
-          <button
-            type="submit"
-            className="w-full p-3 text-sm font-bold tracking-wide uppercase rounded dark:bg-red-400 dark:text-gray-50"
-          >
-            Add Item
-          </button>
+        {/* Add Item */}
+
+        <div>
+          <Billing></Billing>
         </div>
+
         {/* Table */}
         <div className="space-y-6 border-2 p-4">
           <h2 className="mb-4 text-center text-2xl font-bold leading-tight">
@@ -215,7 +162,6 @@ const Invoice = () => {
                     <th className="p-3">Due</th>
                     <th className="p-3 text-right">Amount</th>
                     <th className="p-3 text-right"></th>
-                    
                   </tr>
                 </thead>
                 <tbody>
@@ -315,7 +261,7 @@ const Invoice = () => {
                       </span>
                     </td>
                   </tr>
-                 
+
                   <tr className="border-b border-opacity-20">
                     <td className="p-3">
                       <p></p>
@@ -333,7 +279,7 @@ const Invoice = () => {
                     </td>
                     <td className="p-3 text-right">
                       {/* Write Total Below  */}
-                      
+
                       <h5>$6000</h5>
                     </td>
                     <td className="p-3 text-right">
@@ -359,7 +305,7 @@ const Invoice = () => {
                     </td>
                     <td className="p-3 text-right">
                       {/* Write VAT Below  */}
-                      
+
                       <h5>$6000</h5>
                     </td>
                     <td className="p-3 text-right">
@@ -385,7 +331,7 @@ const Invoice = () => {
                     </td>
                     <td className="p-3 text-right">
                       {/* Write Total Below  */}
-                      
+
                       <h4>$7500</h4>
                     </td>
                     <td className="p-3 text-right">
@@ -394,15 +340,11 @@ const Invoice = () => {
                       </span>
                     </td>
                   </tr>
-                  
                 </tbody>
-                
               </table>
-              
             </div>
           </div>
         </div>
-
       </section>
     </>
   );
