@@ -6,10 +6,11 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 
-import axios from "axios";
 import { auth } from "../../../firebase/firebase.config";
 import { AppDispatch } from "../../store/store";
 import { loginFailure, loginStart, loginSuccess } from "./authSlice";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+const axiosPublic = useAxiosPublic();
 
 interface UserData {
   name: string | null;
@@ -40,13 +41,9 @@ export const loginWithGoogle = () => async (dispatch: AppDispatch) => {
     const photo = result.user.photoURL;
     const data: UserData = { name, email, photo };
 
-    const response = await axios.post(
-      `${import.meta.env.VITE_API}/api/v1/login`,
-      data
-    );
+    const response = await axiosPublic.post(`/api/v1/login`, data);
     console.log(response.data); // এখান থেকে টোকেন নিয়ে কাজ্ করতে পারেন
-    window.location.href =
-      "https://revboost.business-easy.com/dashboard/profile";
+    window.location.href = "/pricing";
     dispatch(loginSuccess({ user: result.user })); // ইউজার তথ্য পাঠান
   } catch (error) {
     if (error instanceof FirebaseError) {
@@ -65,14 +62,14 @@ export const signInWithUserPassword =
     try {
       createUserWithEmailAndPassword(auth, email, password).then(
         async (result) => {
-          const response = await axios.post(
-            `${import.meta.env.VITE_API}/api/v1/register`,
-            { email, password, companyName }
-          );
+          const response = await axiosPublic.post(`/api/v1/register`, {
+            email,
+            password,
+            companyName,
+          });
           console.log(response.data.message);
           console.log(result);
-          window.location.href =
-            "https://revboost.business-easy.com/dashboard/profile";
+          window.location.href = "/pricing";
           dispatch(loginSuccess({ user: result.user }));
         }
       );
@@ -87,13 +84,9 @@ export const loginWithEmailPassword =
 
     try {
       signInWithEmailAndPassword(auth, email, password).then(async (result) => {
-        const response = await axios.post(
-          `${import.meta.env.VITE_API}/api/v1/login`,
-          { email }
-        );
+        const response = await axiosPublic.post(`/api/v1/login`, { email });
         console.log(response.data.message);
-        window.location.href =
-          "https://revboost.business-easy.com/dashboard/profile";
+        window.location.href = "/pricing";
         dispatch(loginSuccess({ user: result.user }));
       });
     } catch (error) {
