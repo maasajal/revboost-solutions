@@ -4,6 +4,9 @@ import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import "../../../src/pages/PricingPage/pricing.css";
+import { RootState } from "../../app/store/store";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom"; 
 
 // Define types for the package data
 interface Package {
@@ -17,6 +20,9 @@ const Pricing: React.FC = () => {
   const [monthlyPackages, setMonthlyPackages] = useState<Package[]>([]);
   const [yearlyPackages, setYearlyPackages] = useState<Package[]>([]);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+
+  const user = useSelector((state: RootState) => state.auth.user);
+  const navigate = useNavigate(); 
 
   // Fetch Monthly Packages
   useEffect(() => {
@@ -38,6 +44,17 @@ const Pricing: React.FC = () => {
       );
   }, []);
 
+  // Function to handle subscription button click
+  const handleSubscriptionClick = () => {
+    if (!user) {
+      // If user is not logged in, navigate to the login page
+      navigate("/register");
+    } else {
+      // Handle subscription logic if the user is logged in
+      console.log("User is logged in. Proceeding with subscription...");
+    }
+  };
+
   // Function to render package cards
   const renderPackageCard = (pkg: Package) => {
     return (
@@ -57,7 +74,10 @@ const Pricing: React.FC = () => {
           </section>
           <p className="pt-3">{pkg.description}</p>
           <div className="card-actions justify-center">
-            <button className="btn bg-secondary text-white hover:bg-primary border-none">
+            <button
+              className="btn bg-secondary text-white hover:bg-primary border-none"
+              onClick={handleSubscriptionClick} // Call the handleSubscriptionClick function
+            >
               Start your 14-days free trial
             </button>
           </div>
@@ -184,70 +204,36 @@ const Pricing: React.FC = () => {
       <section className="container mx-auto mb-20">
         <h1 className="text-center mt-12 text-4xl">Our Add-on Repository</h1>
         <p className="text-center">(Billed annually)</p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 justify-center pt-10 pl-[10px]">
-          <div>
-            <div className="card bg-base-100 w-96 shadow-xl">
-              <h1 className="text-center text-xl font-normal uppercase py-3">
-                Users
-              </h1>
-              <hr className="pb-2" />
-              <div>
-                <p className="text-center text-4xl pt-4">$7.5</p>
-                <p className="text-center pb-12">user/month</p>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div className="card bg-base-100 w-96 shadow-xl">
-              <h1 className="text-center text-xl font-normal uppercase py-3">
-                Timesheet user
-              </h1>
-              <hr className="pb-2" />
-              <div>
-                <p className="text-center text-4xl pt-4">$2.5</p>
-                <p className="text-center pb-12">user/month</p>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div className="card bg-base-100 w-96 shadow-xl">
-              <h1 className="text-center text-xl font-normal uppercase py-3">
-                Client
-              </h1>
-              <hr className="pb-2" />
-              <div>
-                <p className="text-center text-4xl pt-4">$0.00</p>
-                <p className="text-center pb-12">user/month</p>
-              </div>
-            </div>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center pt-10">
+          {/* Add content for add-on repository */}
         </div>
       </section>
 
       {/* FAQ Section */}
-      <div className="faq-section bg-gray-100 py-10 px-5 md:px-20 container mx-auto">
-        <h2 className="text-center text-4xl font-bold mb-10">
-          Frequently Asked Questions
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {questions.map((item, index) => (
-            <div key={index} className="faq-item">
+      <section className="faq-section mb-20">
+        <h2 className="text-center text-4xl mb-8">Frequently Asked Questions</h2>
+        <div className="container mx-auto">
+          {questions.map((q, index) => (
+            <div
+              key={index}
+              className="bg-white shadow-lg mb-4 p-5 rounded-lg"
+            >
               <div
-                className="faq-question bg-white p-5 rounded-lg shadow-md cursor-pointer flex justify-between items-center"
+                className="flex justify-between items-center cursor-pointer"
                 onClick={() => toggleQuestion(index)}
               >
-                <p className="text-lg font-semibold">{item.question}</p>
-                {activeIndex === index ? <IoIosArrowUp /> : <IoIosArrowDown />}
+                <h3 className="text-xl">{q.question}</h3>
+                {activeIndex === index ? (
+                  <IoIosArrowUp size={24} />
+                ) : (
+                  <IoIosArrowDown size={24} />
+                )}
               </div>
-              {activeIndex === index && (
-                <div className="faq-answer bg-white p-5 mt-2 rounded-lg shadow-inner">
-                  <p>{item.answer}</p>
-                </div>
-              )}
+              {activeIndex === index && <p className="mt-4">{q.answer}</p>}
             </div>
           ))}
         </div>
-      </div>
+      </section>
     </div>
   );
 };
