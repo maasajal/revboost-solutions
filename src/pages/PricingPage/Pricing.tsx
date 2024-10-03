@@ -4,6 +4,9 @@ import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import "../../../src/pages/PricingPage/pricing.css";
+import { RootState } from "../../app/store/store";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 // Define types for the package data
 interface Package {
@@ -17,6 +20,10 @@ const Pricing: React.FC = () => {
   const [monthlyPackages, setMonthlyPackages] = useState<Package[]>([]);
   const [yearlyPackages, setYearlyPackages] = useState<Package[]>([]);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const navigate = useNavigate();
+
+  const user = useSelector((state: RootState) => state.auth.user);
+  console.log(user)
 
   // Fetch Monthly Packages
   useEffect(() => {
@@ -38,6 +45,16 @@ const Pricing: React.FC = () => {
       );
   }, []);
 
+  const handleSubscriptionClick = () => {
+    if (!user) {
+      // If user is not logged in, navigate to the login page
+      navigate("/register");
+    } else {
+      // Handle subscription logic if the user is logged in
+      console.log("User is logged in. Proceeding with subscription...");
+    }
+  };
+
   // Function to render package cards
   const renderPackageCard = (pkg: Package) => {
     return (
@@ -57,7 +74,9 @@ const Pricing: React.FC = () => {
           </section>
           <p className="pt-3">{pkg.description}</p>
           <div className="card-actions justify-center">
-            <button className="btn bg-secondary text-white hover:bg-primary border-none">
+            <button
+             onClick={handleSubscriptionClick}
+            className="btn bg-secondary text-white hover:bg-primary border-none">
               Start your 14-days free trial
             </button>
           </div>
