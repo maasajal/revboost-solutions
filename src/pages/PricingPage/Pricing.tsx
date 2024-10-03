@@ -23,7 +23,7 @@ const Pricing: React.FC = () => {
   const navigate = useNavigate();
 
   const user = useSelector((state: RootState) => state.auth.user);
-  console.log(user)
+  console.log(user);
 
   // Fetch Monthly Packages
   useEffect(() => {
@@ -75,8 +75,9 @@ const Pricing: React.FC = () => {
           <p className="pt-3">{pkg.description}</p>
           <div className="card-actions justify-center">
             <button
-             onClick={handleSubscriptionClick}
-            className="btn bg-secondary text-white hover:bg-primary border-none">
+              onClick={handleSubscriptionClick}
+              className="btn bg-secondary text-white hover:bg-primary border-none"
+            >
               Start your 14-days free trial
             </button>
           </div>
@@ -154,15 +155,15 @@ const Pricing: React.FC = () => {
   ];
 
   return (
-    <div>
+    <div className="container mx-auto px-5">
       {/* Hero Section */}
       <section className="bg-backgroundImg">
         <p className="text-center inter font-bold py-10 text-4xl md:text-6xl lg:text-6xl">
           <span className="text-primary">Choose the plan</span> that fits <br />
           your business needs!
         </p>
-        <hr className="text-primary pb-5 w-[65%] mx-auto" />
-        <div className="w-[65%] mx-auto pb-10 grid grid-cols-1 pl-5 md:flex md:justify-around lg:flex lg:justify-around">
+        <hr className="border-primary pb-5 w-[65%] mx-auto" />
+        <div className="pb-10 flex flex-wrap gap-5 items-center justify-center">
           <p className="flex items-center gap-x-3 inter text-[16px]">
             <IoCheckmarkDoneCircleOutline /> No credit card required
           </p>
@@ -179,7 +180,7 @@ const Pricing: React.FC = () => {
       </section>
 
       {/* React Tabs */}
-      <Tabs className="text-center mt-[-20px] z-10 bg-transparent inter">
+      <Tabs className="text-center mt-[-20px] z-10 bg-transparent inter py-10">
         <TabList className="bg-white w-fit mx-auto rounded-full mb-5">
           <Tab>Monthly</Tab>
           <Tab>Yearly</Tab>
@@ -187,25 +188,25 @@ const Pricing: React.FC = () => {
 
         {/* Monthly Packages Tab */}
         <TabPanel>
-          <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center pt-10 pl-[10px] container mx-auto">
+          <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center container mx-auto py-10">
             {monthlyPackages.map((pkg) => renderPackageCard(pkg))}
           </section>
         </TabPanel>
         {/* Yearly Packages Tab */}
         <TabPanel>
-          <section className="grid grid-cols-1 md:grid-cols-3 gap-6 justify-center pt-[10px] container mx-auto">
+          <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center container mx-auto py-10">
             {yearlyPackages.map((pkg) => renderPackageCard(pkg))}
           </section>
         </TabPanel>
       </Tabs>
 
       {/* Add-on Repository Section */}
-      <section className="container mx-auto mb-20">
+      <section className="container mx-auto mb-20 space-y-10">
         <h1 className="text-center mt-12 text-4xl">Our Add-on Repository</h1>
         <p className="text-center">(Billed annually)</p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 justify-center pt-10 pl-[10px]">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 justify-center">
           <div>
-            <div className="card bg-base-100 w-96 shadow-xl">
+            <div className="card bg-base-100 shadow-xl">
               <h1 className="text-center text-xl font-normal uppercase py-3">
                 Users
               </h1>
@@ -217,7 +218,7 @@ const Pricing: React.FC = () => {
             </div>
           </div>
           <div>
-            <div className="card bg-base-100 w-96 shadow-xl">
+            <div className="card bg-base-100 shadow-xl">
               <h1 className="text-center text-xl font-normal uppercase py-3">
                 Timesheet user
               </h1>
@@ -229,7 +230,7 @@ const Pricing: React.FC = () => {
             </div>
           </div>
           <div>
-            <div className="card bg-base-100 w-96 shadow-xl">
+            <div className="card bg-base-100 shadow-xl">
               <h1 className="text-center text-xl font-normal uppercase py-3">
                 Client
               </h1>
@@ -244,7 +245,7 @@ const Pricing: React.FC = () => {
       </section>
 
       {/* FAQ Section */}
-      <div className="faq-section bg-gray-100 py-10 px-5 md:px-20 container mx-auto">
+      <div className="faq-section bg-gray-100 py-10 px-5 md:px-20 container mx-auto rounded-xl">
         <h2 className="text-center text-4xl font-bold mb-10">
           Frequently Asked Questions
         </h2>
