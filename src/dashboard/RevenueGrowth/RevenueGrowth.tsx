@@ -19,13 +19,11 @@ const RevenueGrowth: React.FC = () => {
     <div className="container mx-auto p-5 space-y-5">
       <h1 className="text-center mb-8">COMPANY NAME</h1>
 
-      <div className="flex flex-wrap justify-center gap-8 mb-8">
+      <div className="flex flex-wrap justify-center gap-8 mb-8 py-10">
         {revenueData.map((data) => (
           <div
             key={data.month}
-            className={`p-4 rounded-md ${
-              data.month === 36 ? "bg-red-700" : "bg-red-400"
-            } text-white shadow-md`}
+            className={`p-4 rounded-md text-white shadow-xl`}
           >
             <p className="text-lg">Total Revenue (Month {data.month})</p>
             <h2 className="text-3xl font-bold">
