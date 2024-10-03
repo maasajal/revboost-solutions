@@ -6,7 +6,7 @@ import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import "../../../src/pages/PricingPage/pricing.css";
 import { RootState } from "../../app/store/store";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom"; // Import the useNavigate hook
 
 // Define types for the package data
 interface Package {
@@ -22,7 +22,7 @@ const Pricing: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   const user = useSelector((state: RootState) => state.auth.user);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate(); // Initialize navigate function
 
   // Fetch Monthly Packages
   useEffect(() => {
@@ -76,7 +76,7 @@ const Pricing: React.FC = () => {
           <div className="card-actions justify-center">
             <button
               className="btn bg-secondary text-white hover:bg-primary border-none"
-              onClick={handleSubscriptionClick} 
+              onClick={handleSubscriptionClick} // Call the handleSubscriptionClick function
             >
               Start your 14-days free trial
             </button>
