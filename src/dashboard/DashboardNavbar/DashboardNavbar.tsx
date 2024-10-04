@@ -14,7 +14,7 @@ const DashboardNavbar = () => {
   const handleSignOut = () => {
     const logout = dispatch(logoutSuccess());
     console.log("logOut", logout);
-    window.location.href = "https://revboost.business-easy.com";
+    window.location.href = "/";
   };
   const navLinks = [
     {
