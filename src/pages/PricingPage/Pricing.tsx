@@ -45,12 +45,17 @@ const Pricing: React.FC = () => {
       );
   }, []);
 
-  const handleSubscriptionClick = () => {
+  const handleSubscriptionClick = async (pkg: Package) => {
     if (!user) {
       // If user is not logged in, navigate to the login page
       navigate("/register");
     } else {
-      // Handle subscription logic if the user is logged in
+      try {
+        navigate("/dashboard");
+        console.log(pkg);
+      } catch (error) {
+        console.error("An error occurred while updating the user:", error);
+      }
       console.log("User is logged in. Proceeding with subscription...");
     }
   };
@@ -75,7 +80,7 @@ const Pricing: React.FC = () => {
           <p className="pt-3">{pkg.description}</p>
           <div className="card-actions justify-center">
             <button
-              onClick={handleSubscriptionClick}
+              onClick={() => handleSubscriptionClick(pkg)}
               className="btn bg-secondary text-white hover:bg-primary border-none"
             >
               Start your 14-days free trial
