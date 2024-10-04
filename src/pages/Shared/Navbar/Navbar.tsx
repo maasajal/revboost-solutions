@@ -6,6 +6,7 @@ import { AppDispatch, RootState } from "../../../app/store/store";
 import logo from "../../../assets/logo.png";
 import { auth } from "../../../firebase/firebase.config";
 import userPhoto from "../../../assets/revBoostSolutions.png";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
   const dispatch = useDispatch<AppDispatch>(); // টাইপড useDispatch ব্যবহার করুন
@@ -37,16 +38,21 @@ const Navbar = () => {
       path: "/about-us",
     },
   ];
-  const handleSignOut = () => {
-    signOut(auth)
-      .then(() => {
-        // Sign-out successful.
-      })
-      .catch((error) => {
-        // An error happened.
-        console.log(error);
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+      dispatch(logoutSuccess());
+      Swal.fire({
+        position: "top-end",
+        title: "Signed Out successfully!",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 1500,
       });
-    dispatch(logoutSuccess());
+      window.location.href = "/";
+    } catch (error) {
+      console.log("Error", error);
+    }
   };
   return (
     <div className="navbar bg-base-100 px-2 md:px-14 lg:px-20 sticky top-0 z-20 shadow-lg">
@@ -117,8 +123,9 @@ const Navbar = () => {
       <div className="ml-auto">
         {user ? (
           <div
-          data-tip={"Company Name"}
-           className="dropdown dropdown-end mr-1 tooltip tooltip-bottom tooltip-primary z-10">
+            data-tip={"Company Name"}
+            className="dropdown dropdown-end mr-1 tooltip tooltip-bottom tooltip-primary z-10"
+          >
             {
               <div
                 tabIndex={0}
