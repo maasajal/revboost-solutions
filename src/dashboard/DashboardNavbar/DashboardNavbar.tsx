@@ -7,14 +7,28 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../app/store/store";
 import { logoutSuccess } from "../../app/state/firebaseAuthentication/authSlice";
 import { AiOutlineCreditCard } from "react-icons/ai";
+import { auth } from "../../firebase/firebase.config";
+import { signOut } from "firebase/auth";
+import Swal from "sweetalert2";
 
 const DashboardNavbar = () => {
   const user = useSelector((state: RootState) => state?.auth?.user);
   const dispatch = useDispatch<AppDispatch>();
-  const handleSignOut = () => {
-    const logout = dispatch(logoutSuccess());
-    console.log("logOut", logout);
-    window.location.href = "/";
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+      dispatch(logoutSuccess());
+      Swal.fire({
+        position: "top-end",
+        title: "Signed Out successfully!",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      window.location.href = "/";
+    } catch (error) {
+      console.log("Error", error);
+    }
   };
   const navLinks = [
     {
