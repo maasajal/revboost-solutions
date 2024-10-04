@@ -12,6 +12,8 @@ import Incomes from "../dashboard/CompanyIncomes/Incomes";
 import Expense from "../dashboard/Expense/Expense";
 import RevenueGrowth from "../dashboard/RevenueGrowth/RevenueGrowth";
 import Payroll from "../dashboard/Payroll/Payroll";
+import UserProfile from "../dashboard/Profile/UserProfile";
+import DashboardHome from "../dashboard/DashboardHome";
 
 const router = createBrowserRouter([
   {
@@ -51,8 +53,12 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
+        path: "/dashboard",
+        element: <DashboardHome />, // User Profile component will be call here.
+      },
+      {
         path: "/dashboard/profile",
-        element: <Home />, // User Profile component will be call here.
+        element: <UserProfile />, // User Profile component will be call here.
       },
       // // Income tracking Route: Invoice Route
       {

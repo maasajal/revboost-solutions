@@ -5,6 +5,8 @@ import { logoutSuccess } from "../../../app/state/firebaseAuthentication/authSli
 import { AppDispatch, RootState } from "../../../app/store/store";
 import logo from "../../../assets/logo.png";
 import { auth } from "../../../firebase/firebase.config";
+import userPhoto from "../../../assets/revBoostSolutions.png";
+
 const Navbar = () => {
   const dispatch = useDispatch<AppDispatch>(); // টাইপড useDispatch ব্যবহার করুন
 
@@ -114,12 +116,36 @@ const Navbar = () => {
       </div>
       <div className="ml-auto">
         {user ? (
-          <button
-            onClick={handleSignOut}
-            className="btn btn-outline hover:bg-secondary hover:text-white text-secondary font-bold px-5 py-2 rounded-3xl text-sm"
+          <div
+            data-tip={"Company Name"}
+            className="dropdown dropdown-end mr-1 tooltip tooltip-bottom tooltip-primary z-10"
           >
-            Sign Out
-          </button>
+            {
+              <div
+                tabIndex={0}
+                role="button"
+                className="btn btn-ghost btn-circle avatar"
+              >
+                <div className="w-10 rounded-full">
+                  <img src={userPhoto} alt="Logged user photo" />
+                </div>
+              </div>
+            }
+            <ul
+              tabIndex={0}
+              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-[#b1b6c0] text-black rounded-box w-52 uppercase space-y-3"
+            >
+              <li>
+                <Link to="/dashboard">Dashboard</Link>
+              </li>
+              <li>
+                <Link to="/dashboard/profile">Profile</Link>
+              </li>
+              <li onClick={handleSignOut}>
+                <Link to="/">Sign Out</Link>
+              </li>
+            </ul>
+          </div>
         ) : (
           <Link to="/login">
             <button className="btn btn-outline font-bold mr-1 md:mr-5 text-logoMainColor text-sm px-5 py-2 rounded-3xl hover:bg-secondary hover:text-white hover:border-none">
@@ -127,16 +153,6 @@ const Navbar = () => {
             </button>
           </Link>
         )}
-        {/* <Link to="/login">
-          <button className="font-medium mr-1 md:mr-5 text-[#FF0000] text-sm py-1 px-2 rounded-3xl hover:bg-[#FF0000] hover:text-white">
-            Sign In
-          </button>
-        </Link>
-        <Link to="/register">
-          <button className="hover:bg-[#FF0000] hover:text-white text-[#FF0000] font-medium py-1 px-2 rounded-3xl text-sm">
-            Sign Up
-          </button>
-        </Link> */}
       </div>
     </div>
   );
