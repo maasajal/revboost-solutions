@@ -117,9 +117,8 @@ const Navbar = () => {
       <div className="ml-auto">
         {user ? (
           <div
-            data-tip={"Company Name"}
-            className="dropdown dropdown-end mr-1 tooltip tooltip-bottom tooltip-primary z-10"
-          >
+          data-tip={"Company Name"}
+           className="dropdown dropdown-end mr-1 tooltip tooltip-bottom tooltip-primary z-10">
             {
               <div
                 tabIndex={0}
