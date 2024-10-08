@@ -1,19 +1,20 @@
 import { createBrowserRouter } from "react-router-dom";
+import AdminProfile from "../dashboard/Admin/AdminProfile/AdminProfile";
+import Incomes from "../dashboard/CompanyIncomes/Incomes";
+import DashboardHome from "../dashboard/DashboardHome";
+import Expense from "../dashboard/Expense/Expense";
+import Payroll from "../dashboard/Payroll/Payroll";
+import UserProfile from "../dashboard/Profile/UserProfile";
+import RevenueGrowth from "../dashboard/RevenueGrowth/RevenueGrowth";
+import Dashboard from "../layouts/Dashboard";
 import Main from "../layouts/Main";
-import Home from "../pages/Home/Home";
 import About from "../pages/AboutPage/About";
 import Contact from "../pages/ContactPage/Contact";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
-import Register from "../pages/authentication/register/Register";
-import Login from "../pages/authentication/login/Login";
-import Dashboard from "../layouts/Dashboard";
+import Home from "../pages/Home/Home";
 import Pricing from "../pages/PricingPage/Pricing";
-import Incomes from "../dashboard/CompanyIncomes/Incomes";
-import Expense from "../dashboard/Expense/Expense";
-import RevenueGrowth from "../dashboard/RevenueGrowth/RevenueGrowth";
-import Payroll from "../dashboard/Payroll/Payroll";
-import UserProfile from "../dashboard/Profile/UserProfile";
-import DashboardHome from "../dashboard/DashboardHome";
+import Login from "../pages/authentication/login/Login";
+import Register from "../pages/authentication/register/Register";
 
 const router = createBrowserRouter([
   {
@@ -78,6 +79,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/payroll",
         element: <Payroll />,
+      },
+      {
+        path: "/dashboard/admin-profile",
+        element: <AdminProfile />,
       },
     ],
   },

@@ -16,6 +16,8 @@ const useAxiosSecure = () => {
    }
 )
    }, [])
+
+   return axiosSecure;
    
 };
 
