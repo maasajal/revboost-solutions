@@ -4,19 +4,43 @@
         "packageName": "Basic",
         "price": 19,
         "shortMessage": "per Organization per Month",
-        "description": "Best suited for businesses withone time billing requirements"
+        "description": "Best suited for businesses withone time billing requirements",
+        "features": [
+          "Create quotes and invoices",
+          "Adapt to local languages & tax laws",
+          "Collaborate with up to 5 users",
+          "Record multi-currency transactions",
+          "Manage online payments",
+          "m-b"
+        ]
       },
       {
         "packageName": "Standard",
         "price": 29,
         "shortMessage": "per Organization per Month",
-        "description": "Best suited for businesses withone time billing requirements"
+        "description": "Best suited for businesses withone time billing requirements",
+        "features": [
+          "Create quotes and invoices",
+          "Adapt to local languages & tax laws",
+          "Collaborate with up to 5 users",
+          "Record multi-currency transactions",
+          "Manage online payments",
+          "m-s"
+        ]
       },
       {
         "packageName": "Premium",
         "price": 39,
         "shortMessage": "per Organization per Month",
-        "description": "Best suited for businesses with one time andsubscription billing requirements"
+        "description": "Best suited for businesses with one time andsubscription billing requirements",
+        "features": [
+          "Create quotes and invoices",
+          "Adapt to local languages & tax laws",
+          "Collaborate with up to 5 users",
+          "Record multi-currency transactions",
+          "Manage online payments",
+          "monthly-p"
+        ]
       }
     ]
   }

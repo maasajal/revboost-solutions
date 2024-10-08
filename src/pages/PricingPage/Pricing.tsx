@@ -88,7 +88,7 @@ const Pricing: React.FC = () => {
           </div>
           <hr className="mt-5" />
           <div className="text-start">
-            <p className="flex items-center gap-x-3 inter text-black text-[16px] mb-3">
+            {/* <p className="flex items-center gap-x-3 inter text-black text-[16px] mb-3">
               <IoCheckmarkDoneCircleOutline /> Create quotes and invoices
             </p>
             <p className="flex items-center gap-x-3 inter text-black text-[16px] mb-3">
@@ -115,7 +115,15 @@ const Pricing: React.FC = () => {
             <p className="flex items-center gap-x-3 inter text-black text-[16px] mb-3">
               <IoCheckmarkDoneCircleOutline /> Offer a dedicated self-service
               customer portal
+            </p> */}
+             {pkg.features.map((feature, index) => (
+            <p
+              key={index}
+              className="flex items-center gap-x-3 inter text-black text-[16px] mb-3"
+            >
+              <IoCheckmarkDoneCircleOutline /> {feature}
             </p>
+          ))}
           </div>
         </div>
       </div>
