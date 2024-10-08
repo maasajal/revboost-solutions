@@ -15,6 +15,7 @@ import Home from "../pages/Home/Home";
 import Pricing from "../pages/PricingPage/Pricing";
 import Login from "../pages/authentication/login/Login";
 import Register from "../pages/authentication/register/Register";
+import AdminRout from "./AdminRout";
 
 const router = createBrowserRouter([
   {
@@ -82,7 +83,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard/admin-profile",
-        element: <AdminProfile />,
+        element:<AdminRout> <AdminProfile /> </AdminRout>,
       },
     ],
   },
