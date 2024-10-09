@@ -1,12 +1,12 @@
 // store.ts
-import { configureStore } from '@reduxjs/toolkit';
-import { persistReducer, persistStore } from 'redux-persist';
-import storage from 'redux-persist/lib/storage'; // স্থানীয় স্টোরেজ ব্যবহার করুন
-import { counterSlice } from '../state/counter/counterSlice'; // আপনার counterSlice এর সঠিক পাথ ব্যবহার করুন
-import authReducer from '../state/firebaseAuthentication/authSlice'; // আপনার authSlice এর সঠিক পাথ ব্যবহার করুন
+import { configureStore } from "@reduxjs/toolkit";
+import { persistReducer, persistStore } from "redux-persist";
+import storage from "redux-persist/lib/storage"; // স্থানীয় স্টোরেজ ব্যবহার করুন
+import authReducer from "../features/firebaseAuthentication/authSlice"; // আপনার authSlice এর সঠিক পাথ ব্যবহার করুন
+import usersReducer from "../features/users/usersSlice";
 
 const persistConfig = {
-  key: 'root',
+  key: "root",
   storage,
 };
 
@@ -16,19 +16,19 @@ const persistedAuthReducer = persistReducer(persistConfig, authReducer); // auth
 export const store = configureStore({
   reducer: {
     auth: persistedAuthReducer, // authReducer যোগ করুন
-    counter: counterSlice.reducer, // counterReducer যোগ করুন
+    users: usersReducer, // get users data from the MongoDB userCollections
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        ignoredActions: ['persist/PERSIST', 'persist/REHYDRATE'], // ignore specific actions
-        ignoredPaths: ['register'], // ignore specific paths in the state
+        ignoredActions: ["persist/PERSIST", "persist/REHYDRATE"], // ignore specific actions
+        ignoredPaths: ["register"], // ignore specific paths in the state
       },
     }),
 });
 
 // Persistor তৈরি করুন
-export const persistor = persistStore(store); 
+export const persistor = persistStore(store);
 
 // RootState ও AppDispatch টাইপস
 export type RootState = ReturnType<typeof store.getState>;

@@ -4,7 +4,7 @@ import Incomes from "../dashboard/CompanyIncomes/Incomes";
 import DashboardHome from "../dashboard/DashboardHome";
 import Expense from "../dashboard/Expense/Expense";
 import Payroll from "../dashboard/Payroll/Payroll";
-import UserProfile from "../dashboard/Profile/UserProfile";
+import UserProfile from "../dashboard/Profile/Profile";
 import RevenueGrowth from "../dashboard/RevenueGrowth/RevenueGrowth";
 import Dashboard from "../layouts/Dashboard";
 import Main from "../layouts/Main";
