@@ -5,21 +5,70 @@
         "price": 50,
         "savePrice": 10,
         "shortMessage": "per Organization per Month",
-        "description": "Best suited for businesses with one time andsubscription billing requirements"
+        "description": "Best suited for businesses with one time andsubscription billing requirements",
+        "features": [
+          "Company Income Tracking Feature",
+          "Company Expense Tracking Feature",
+          "Invoice Management System",
+          "Billing Management System",
+          "Graphs Revenue Insights",
+          "24/7 Support",
+          "Ability to create and send professional invoices to clients",
+          "Secure access to ensure information protection"
+        ]
       },
       {
         "packageName": "Standard",
         "price": 100,
         "savePrice": 20,
         "shortMessage": "per Organization per Month",
-        "description": "Best suited for businesses with one time andsubscription billing requirements"
+        "description": "Best suited for businesses with one time andsubscription billing requirements",
+       "features": [
+          "Company Income Tracking Feature",
+          "Company Expense Tracking Feature",
+          "Invoice Management System",
+          "Billing Management System",
+          "Graphs Revenue Insights",
+          "Charts Revenue Insights",
+          "Real-Time Revenue Insights",
+          "Revenue Trends Feature",
+          "Revenue Breakdown by Category",
+          "Role-Based Management with Access Control",
+          "Client Management System",
+          "24/7 Support",
+          "Ability to create and send professional invoices to clients",
+          "Secure access to ensure information protection"
+        ]
       },
       {
         "packageName": "Premium",
         "price": 200,
         "savePrice": 50,
         "shortMessage": "per Organization per Month",
-        "description": "Best suited for businesses with one time andsubscription billing requirements"
+        "description": "Best suited for businesses with one time andsubscription billing requirements",
+       "features": [
+          "Company income and expense tracking",
+          "Invoice and billing management",
+          "Graphs, Charts & Real-Time Revenue Insights",
+          "Graphs Revenue Insights",
+          "Charts Revenue Insights",
+          "Real-Time Revenue Insights",
+          "Revenue Trends Feature",
+          "Revenue Breakdown by Category",
+          "Role-Based Management with Access Control",
+          "Profit and Loss Analysis",
+          "Real-Time Revenue Updates",
+          "Year-over-Year (YoY) Growth",
+          "Revenue Growth Comparison & Forecasting",
+          "VAT & TAX Calculation",
+          "Subscription & Pricing Plan Management",
+          "Role-Based Management with Access Control",
+          "Client & Vendor Management",
+          "Automated Salary, Bonus, and Payroll Management",
+          "24/7 Support",
+          "Ability to create and send professional invoices to clients",
+          "Secure access to ensure information protection"
+        ]
       }
     ]
   }
