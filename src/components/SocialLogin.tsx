@@ -1,7 +1,7 @@
 import { FaXTwitter } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
 import { useDispatch } from "react-redux";
-import { loginWithGoogle } from "../app/state/firebaseAuthentication/authActions";
+import { loginWithGoogle } from "../app/features/firebaseAuthentication/authActions";
 import { AppDispatch } from "../app/store/store";
 const SocialLogin = () => {
   const dispatch = useDispatch<AppDispatch>(); // টাইপড useDispatch ব্যবহার করুন

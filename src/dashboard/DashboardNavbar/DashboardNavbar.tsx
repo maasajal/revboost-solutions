@@ -5,7 +5,7 @@ import { GiExpense, GiTreeGrowth } from "react-icons/gi";
 import { PiInvoiceBold } from "react-icons/pi";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../app/store/store";
-import { logoutSuccess } from "../../app/state/firebaseAuthentication/authSlice";
+import { logoutSuccess } from "../../app/features/firebaseAuthentication/authSlice";
 import { AiOutlineCreditCard } from "react-icons/ai";
 import { auth } from "../../firebase/firebase.config";
 import { signOut } from "firebase/auth";

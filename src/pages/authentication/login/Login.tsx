@@ -5,7 +5,7 @@ import { FaRegEye } from "react-icons/fa";
 import { TbEyeClosed } from "react-icons/tb";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { loginWithEmailPassword } from "../../../app/state/firebaseAuthentication/authActions";
+import { loginWithEmailPassword } from "../../../app/features/firebaseAuthentication/authActions";
 import { AppDispatch } from "../../../app/store/store";
 import moneyHome from "../../../assets/signup/MoneyHome-SignUp.png";
 import SocialLogin from "../../../components/SocialLogin";
