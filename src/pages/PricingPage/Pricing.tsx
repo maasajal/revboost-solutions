@@ -14,6 +14,7 @@ interface Package {
   price: number;
   shortMessage: string;
   description: string;
+  features:string[];
 }
 
 const Pricing: React.FC = () => {
