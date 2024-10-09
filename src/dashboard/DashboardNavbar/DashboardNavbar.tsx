@@ -6,6 +6,7 @@ import { PiInvoiceBold } from "react-icons/pi";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../app/store/store";
 import { logoutSuccess } from "../../app/state/firebaseAuthentication/authSlice";
+import { AiOutlineCreditCard } from "react-icons/ai";
 
 const DashboardNavbar = () => {
   const user = useSelector((state: RootState) => state?.auth?.user);
@@ -35,6 +36,11 @@ const DashboardNavbar = () => {
       navName: "Revenue Growth",
       path: "/dashboard/revenue-growth",
       icon: <GiTreeGrowth className="text-lg" />,
+    },
+    {
+      navName: "Payroll Management",
+      path: "/dashboard/payroll",
+      icon: <AiOutlineCreditCard className="text-lg" />,
     },
   ];
   return (

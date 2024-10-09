@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { GiExpense, GiTreeGrowth } from "react-icons/gi";
 import { PiInvoiceBold } from "react-icons/pi";
+import { AiOutlineCreditCard } from "react-icons/ai";
 
 const BottomNavbar = () => {
   return (
@@ -8,7 +9,9 @@ const BottomNavbar = () => {
       <NavLink
         to={"/dashboard/company-incomes"}
         className={({ isActive }) =>
-          isActive ? "bg-footerBGColor text-white border-t-4 border-secondary font-semibold" : "font-semibold"
+          isActive
+            ? "bg-footerBGColor text-white border-t-4 border-secondary font-semibold"
+            : "font-semibold"
         }
       >
         <PiInvoiceBold />
@@ -17,7 +20,9 @@ const BottomNavbar = () => {
       <NavLink
         to={"/dashboard/company-expenses"}
         className={({ isActive }) =>
-          isActive ? "bg-footerBGColor text-white border-t-4 border-secondary font-semibold" : "font-semibold"
+          isActive
+            ? "bg-footerBGColor text-white border-t-4 border-secondary font-semibold"
+            : "font-semibold"
         }
       >
         <GiExpense />
@@ -26,11 +31,27 @@ const BottomNavbar = () => {
       <NavLink
         to={"/dashboard/revenue-growth"}
         className={({ isActive }) =>
-          isActive ? "bg-footerBGColor text-white border-t-4 border-secondary font-semibold" : "font-semibold"
+          isActive
+            ? "bg-footerBGColor text-white border-t-4 border-secondary font-semibold"
+            : "font-semibold"
         }
       >
         <GiTreeGrowth />
-        <span className="btm-nav-label">Revenue Growth</span>
+        <small className="btm-nav-label">Revenue Growth</small>
+      </NavLink>
+
+      <NavLink
+        to={"/dashboard/payroll"}
+        className={({ isActive }) =>
+          isActive
+            ? "bg-footerBGColor text-white border-t-4 border-secondary font-semibold"
+            : "font-semibold"
+        }
+      >
+        <AiOutlineCreditCard />
+        <small className="btm-nav-label text-xs text-center">
+          Payroll Management
+        </small>
       </NavLink>
     </div>
   );

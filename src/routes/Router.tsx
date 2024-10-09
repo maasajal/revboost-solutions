@@ -11,6 +11,7 @@ import Pricing from "../pages/PricingPage/Pricing";
 import Incomes from "../dashboard/CompanyIncomes/Incomes";
 import Expense from "../dashboard/Expense/Expense";
 import RevenueGrowth from "../dashboard/RevenueGrowth/RevenueGrowth";
+import Payroll from "../dashboard/Payroll/Payroll";
 
 const router = createBrowserRouter([
   {
@@ -67,6 +68,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/revenue-growth",
         element: <RevenueGrowth />,
+      },
+      {
+        path: "/dashboard/payroll",
+        element: <Payroll />,
       },
     ],
   },
