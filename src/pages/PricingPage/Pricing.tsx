@@ -63,73 +63,43 @@ const Pricing: React.FC = () => {
   // Function to render package cards
   const renderPackageCard = (pkg: Package) => {
     return (
-      <div className="card bg-base-100 shadow-xl" key={pkg.packageName}>
-        <div className="card-body">
+      <div className="card flex flex-col justify-between bg-base-100 shadow-xl p-5 h-full" key={pkg.packageName}>
+        <div className="flex-grow">
           <section>
-            <h2 className="text-center text-[24px] uppercase tracking-widest">
+            <h2 className="text-center text-[24px] uppercase tracking-widest font-bold mb-4">
               {pkg.packageName}
             </h2>
-            <hr />
-            <p className="text-5xl pt-10">
+            <p className="text-5xl mb-5">
               <span className="text-2xl">$</span>
               {pkg.price}
             </p>
-            <p className="pb-7">{pkg.shortMessage}</p>
-            <hr />
+            <p className="pb-5 text-gray-500">{pkg.shortMessage}</p>
+            <hr className="my-4" />
+            <p className="py-3">{pkg.description}</p>
           </section>
-          <p className="pt-3">{pkg.description}</p>
-          <div className="card-actions justify-center">
-            <button
-              onClick={() => handleSubscriptionClick(pkg)}
-              className="btn bg-secondary text-white hover:bg-primary border-none"
-            >
-              Start your 14-days free trial
-            </button>
-          </div>
-          <hr className="mt-5" />
-          <div className="text-start">
-            {/* <p className="flex items-center gap-x-3 inter text-black text-[16px] mb-3">
-              <IoCheckmarkDoneCircleOutline /> Create quotes and invoices
-            </p>
-            <p className="flex items-center gap-x-3 inter text-black text-[16px] mb-3">
-              <IoCheckmarkDoneCircleOutline /> Adapt to local languages & tax
-              laws
-            </p>
-            <p className="flex items-center gap-x-3 inter text-black text-[16px] mb-3">
-              <IoCheckmarkDoneCircleOutline /> Collaborate with up to 3 users
-            </p>
-            <p className="flex items-center gap-x-3 inter text-black text-[16px] mb-3">
-              <IoCheckmarkDoneCircleOutline /> Record multi-currency
-              transactions
-            </p>
-            <p className="flex items-center gap-x-3 inter text-black text-[16px] mb-3">
-              <IoCheckmarkDoneCircleOutline /> Manage online payments
-            </p>
-            <p className="flex items-center gap-x-3 inter text-black text-[16px] mb-3">
-              <IoCheckmarkDoneCircleOutline /> Set up automated payment
-              reminders
-            </p>
-            <p className="flex items-center gap-x-3 inter text-black text-[16px] mb-3">
-              <IoCheckmarkDoneCircleOutline /> Handle projects & timesheets
-            </p>
-            <p className="flex items-center gap-x-3 inter text-black text-[16px] mb-3">
-              <IoCheckmarkDoneCircleOutline /> Offer a dedicated self-service
-              customer portal
-            </p> */}
-             {pkg.features.map((feature, index) => (
-            <p
-              key={index}
-              className="flex items-center gap-x-3 inter text-black text-[16px] mb-3"
-            >
-              <IoCheckmarkDoneCircleOutline /> {feature}
-            </p>
-          ))}
+          <div className="justify-center mt-5">
+          <button
+            onClick={() => handleSubscriptionClick(pkg)}
+            className="btn bg-secondary text-white hover:bg-primary border-none w-full"
+          >
+            Start your 14-days free trial
+          </button>
+        </div>
+          <div className="mt-6">
+            {pkg.features.map((feature, index) => (
+              <p
+                key={index}
+                className="text-start flex items-center gap-x-3 inter text-black text-[16px] mb-3"
+              >
+                <IoCheckmarkDoneCircleOutline /> {feature}
+              </p>
+            ))}
           </div>
         </div>
+        
       </div>
     );
   };
-
   // Function to toggle FAQ
   const toggleQuestion = (index: number) => {
     setActiveIndex(activeIndex === index ? null : index);

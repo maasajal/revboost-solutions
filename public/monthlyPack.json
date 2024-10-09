@@ -6,12 +6,14 @@
         "shortMessage": "per Organization per Month",
         "description": "Best suited for businesses withone time billing requirements",
         "features": [
-          "Create quotes and invoices",
-          "Adapt to local languages & tax laws",
-          "Collaborate with up to 5 users",
-          "Record multi-currency transactions",
-          "Manage online payments",
-          "m-b"
+          "Company Income Tracking Feature",
+          "Company Expense Tracking Feature",
+          "Invoice Management System",
+          "Billing Management System",
+          "Graphs Revenue Insights",
+          "24/7 Support",
+          "Ability to create and send professional invoices to clients",
+          "Secure access to ensure information protection"
         ]
       },
       {
@@ -20,12 +22,20 @@
         "shortMessage": "per Organization per Month",
         "description": "Best suited for businesses withone time billing requirements",
         "features": [
-          "Create quotes and invoices",
-          "Adapt to local languages & tax laws",
-          "Collaborate with up to 5 users",
-          "Record multi-currency transactions",
-          "Manage online payments",
-          "m-s"
+          "Company Income Tracking Feature",
+          "Company Expense Tracking Feature",
+          "Invoice Management System",
+          "Billing Management System",
+          "Graphs Revenue Insights",
+          "Charts Revenue Insights",
+          "Real-Time Revenue Insights",
+          "Revenue Trends Feature",
+          "Revenue Breakdown by Category",
+          "Role-Based Management with Access Control",
+          "Client Management System",
+          "24/7 Support",
+          "Ability to create and send professional invoices to clients",
+          "Secure access to ensure information protection"
         ]
       },
       {
@@ -34,12 +44,27 @@
         "shortMessage": "per Organization per Month",
         "description": "Best suited for businesses with one time andsubscription billing requirements",
         "features": [
-          "Create quotes and invoices",
-          "Adapt to local languages & tax laws",
-          "Collaborate with up to 5 users",
-          "Record multi-currency transactions",
-          "Manage online payments",
-          "monthly-p"
+          "Company income and expense tracking",
+          "Invoice and billing management",
+          "Graphs, Charts & Real-Time Revenue Insights",
+          "Graphs Revenue Insights",
+          "Charts Revenue Insights",
+          "Real-Time Revenue Insights",
+          "Revenue Trends Feature",
+          "Revenue Breakdown by Category",
+          "Role-Based Management with Access Control",
+          "Profit and Loss Analysis",
+          "Real-Time Revenue Updates",
+          "Year-over-Year (YoY) Growth",
+          "Revenue Growth Comparison & Forecasting",
+          "VAT & TAX Calculation",
+          "Subscription & Pricing Plan Management",
+          "Role-Based Management with Access Control",
+          "Client & Vendor Management",
+          "Automated Salary, Bonus, and Payroll Management",
+          "24/7 Support",
+          "Ability to create and send professional invoices to clients",
+          "Secure access to ensure information protection"
         ]
       }
     ]
