@@ -2,6 +2,7 @@ import { Controller, useFieldArray, useForm } from "react-hook-form";
 import Billing from "./Billing";
 // import axios from "axios";
 type InvoiceData = {
+  companyEmail: string;
   customerName: string;
   companyName: string;
   invoiceNumber: string;
@@ -18,8 +19,9 @@ type InvoiceData = {
 };
 
 const Invoice = () => {
-  const { control, handleSubmit, register, reset } = useForm<InvoiceData>({
+  const { control, handleSubmit, register } = useForm<InvoiceData>({
     defaultValues: {
+      companyEmail: "",
       customerName: "",
       companyName: "",
       invoiceNumber: "",
@@ -36,6 +38,7 @@ const Invoice = () => {
     //   .post("https://revboost-solutions.vercel.app/api/v1/invoices/create", data)
     //   .then((response) => {
     //     console.log("Invoice saved successfully:", response.data);
+    
     //   })
     //   .catch((error) => console.error("Error saving invoice:", error));
   });
@@ -53,6 +56,15 @@ const Invoice = () => {
           <form onSubmit={onSubmit} className="space-y-4 shadow-lg p-4">
             <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4">
               <div className="space-y-4">
+                <div>
+                  <label className="text-sm">Company Email</label>
+                  <input
+                    {...register("companyEmail", { required: true })}
+                    id="companyEmail"
+                    placeholder="Your company email"
+                    className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
+                  />
+                </div>
                 <div>
                   <label className="text-sm">Customer Name</label>
                   <input
@@ -115,7 +127,7 @@ const Invoice = () => {
                 </div>
               </div>
               {/* testing */}
-              <h3>Items</h3>
+              <h3 className="flex text-center justify-center items-center">Items:</h3>
               {fields.map((item, index) => (
                 <div key={item.id} className="space-y-2">
                   <label>No</label>
