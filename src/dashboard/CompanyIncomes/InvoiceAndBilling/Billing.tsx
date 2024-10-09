@@ -4,7 +4,6 @@ const Billing = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
   } = useForm<FormData>();
   const onSubmit = handleSubmit((data) => {
     console.log(data);
@@ -24,7 +23,7 @@ const Billing = () => {
             id="No"
             type="number"
             placeholder=""
-            className="w-full p-3 rounded dark:bg-gray-100"
+            className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
           />
         </div>
         <div>
@@ -36,7 +35,7 @@ const Billing = () => {
             id="Client"
             type="text"
             placeholder=""
-            className="w-full p-3 rounded dark:bg-gray-100"
+            className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
           />
         </div>
         <div>
@@ -48,7 +47,7 @@ const Billing = () => {
             id="Quantity"
             type="number"
             placeholder=""
-            className="w-full p-3 rounded dark:bg-gray-100"
+            className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
           />
         </div>
         <div>
@@ -60,7 +59,7 @@ const Billing = () => {
             id="UnitPrice"
             type="text"
             placeholder=""
-            className="w-full p-3 rounded dark:bg-gray-100"
+            className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
           />
         </div>
         <div>
@@ -72,12 +71,12 @@ const Billing = () => {
             id="TotalAmount"
             type="text"
             placeholder=""
-            className="w-full p-3 rounded dark:bg-gray-100"
+            className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
           />
         </div>
         <button
           type="submit"
-          className="w-full p-3 text-sm font-bold tracking-wide uppercase rounded dark:bg-red-400 dark:text-gray-50"
+          className="w-full p-3 text-sm font-bold tracking-wide uppercase rounded dark:bg-red-400 dark:text-gray-50 "
         >
           Add Item
         </button>

@@ -1,5 +1,6 @@
-import { useForm } from "react-hook-form";
+import {  useForm } from "react-hook-form";
 import Billing from "./Billing";
+// import axios from "axios";
 type InvoiceData = {
   customerName: string;
   companyName: string;
@@ -7,114 +8,187 @@ type InvoiceData = {
   date: string;
   invoiceDueDate: string;
   customerAddress: string;
+  items: {
+    no: number;
+    item: string;
+    quantity: number;
+    unitPrice: number;
+    totalAmount: number;
+  }[];
 };
 
 const Invoice = () => {
-  const {  handleSubmit, register} = useForm<InvoiceData>({
+  const { handleSubmit, register } = useForm<InvoiceData>({
     defaultValues: {
-      customerName: '',
-      companyName: '',
-      invoiceNumber: '',
-      date: '',
-      invoiceDueDate: '',
-      customerAddress: '',
-    }
+      customerName: "",
+      companyName: "",
+      invoiceNumber: "",
+      date: "",
+      invoiceDueDate: "",
+      customerAddress: "",
+      items: [{ no: 1, item: "", quantity: 0, unitPrice: 0, totalAmount: 0 }],
+    },
   });
-  const onSubmit = handleSubmit((data) => {
-    console.log(data);
+
+
+  const onSubmit = handleSubmit((data: InvoiceData) => {
+    console.table(data);
+    // axios
+    //   .post("https://revboost-solutions.vercel.app/api/v1/invoices/create", data)
+    //   .then((response) => {
+    //     console.log("Invoice saved successfully:", response.data);
+    //   })
+    //   .catch((error) => console.error("Error saving invoice:", error));
   });
 
   return (
     <>
       <section className="container mx-auto mt-10 space-y-8">
-        <h2>Invoice</h2>
+        <h2>Company Income</h2>
         <div>
-          <form
-            onSubmit={onSubmit}
-            className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 "
-          >
-            <div className="space-y-4">
-              <div>
-                <label  className="text-sm">
-                  Customer Name
-                </label>
-                <input
-                  {...register("customerName", { required: true })}
-                  id="customerName"
-                  
-                  placeholder="Customer Name"
-                  className="w-full p-3 rounded dark:bg-gray-100"
-                />
-               
+          <form onSubmit={onSubmit} className="space-y-4">
+            <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4">
+              <div className="space-y-4">
+                <div>
+                  <label className="text-sm">Customer Name</label>
+                  <input
+                    {...register("customerName", { required: true })}
+                    id="customerName"
+                    placeholder="Customer Name"
+                    className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
+                  />
+                </div>
+                <div>
+                  <label className="text-sm">Your Company Name</label>
+                  <input
+                    {...register("companyName", { required: true })}
+                    id="companyName"
+                    type="text"
+                    className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
+                  />
+                </div>
               </div>
-              <div>
-                <label className="text-sm">
-                  Your Company Name
-                </label>
-                <input
-                  {...register("companyName", { required: true })}
-                  id="companyName"
-                  type="text"
-                  className="w-full p-3 rounded dark:bg-gray-100"
-                />
+              <div className="space-y-4">
+                <div>
+                  <label className="text-sm">Invoice Number</label>
+                  <input
+                    {...register("invoiceNumber", { required: true })}
+                    id="invoiceNumber"
+                    type="number"
+                    placeholder=""
+                    className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
+                  />
+                </div>
+                <div>
+                  <label className="text-sm">Invoice Creation Date</label>
+                  <input
+                    {...register("date", { required: true })}
+                    id="invoiceCreationDate"
+                    type="date"
+                    className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
+                  />
+                </div>
               </div>
+              <div className="space-y-4">
+                <div>
+                  <label className="text-sm">Due Date</label>
+                  <input
+                    {...register("invoiceDueDate", { required: true })}
+                    id="InvoiceDueDate"
+                    type="text"
+                    placeholder=""
+                    className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
+                  />
+                </div>
+                <div>
+                  <label className="text-sm">Customer Address</label>
+                  <input
+                    {...register("customerAddress", { required: true })}
+                    id="customerAddress"
+                    type="text"
+                    className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
+                  />
+                </div>
+              </div>
+              {/* testing */}
+             
+              
+              <button
+                type="submit"
+                className="w-full p-3 text-sm font-bold tracking-wide uppercase rounded dark:bg-red-400 dark:text-gray-50"
+              >
+                Add
+              </button>
             </div>
-            <div className="space-y-4">
+            <h3>Items</h3>
+            {/* <div className="grid lg:grid-cols-5  grid-flow-row-dense gap-4 ">
               <div>
-                <label  className="text-sm">
-                  Invoice Number
+                <label htmlFor="name" className="text-lg font-bold">
+                  No
                 </label>
                 <input
-                  {...register("invoiceNumber", { required: true })}
-                  id="invoiceNumber"
+                  {...register("no", { required: true })}
+                  id="No"
                   type="number"
                   placeholder=""
                   className="w-full p-3 rounded dark:bg-gray-100"
                 />
               </div>
               <div>
-                <label  className="text-sm">
-                  Invoice Creation Date
+                <label htmlFor="name" className="text-lg font-bold">
+                  Client
                 </label>
                 <input
-                  {...register("date", { required: true })}
-                  id="invoiceCreationDate"
-                  type="date"
-                  className="w-full p-3 rounded dark:bg-gray-100"
-                />
-              </div>
-            </div>
-            <div className="space-y-4">
-              <div>
-                <label className="text-sm">
-                  Due Date
-                </label>
-                <input
-                  {...register("invoiceDueDate", { required: true })}
-                  id="InvoiceDueDate"
+                  {...register("Client", { required: true })}
+                  id="Client"
                   type="text"
                   placeholder=""
                   className="w-full p-3 rounded dark:bg-gray-100"
                 />
               </div>
               <div>
-                <label  className="text-sm">
-                  Customer Address
+                <label htmlFor="name" className="text-lg font-bold">
+                  Quantity
                 </label>
                 <input
-                  {...register("customerAddress", { required: true })}
-                  id="customerAddress"
-                  type="text"
+                  {...register("quantity", { required: true })}
+                  id="Quantity"
+                  type="number"
+                  placeholder=""
                   className="w-full p-3 rounded dark:bg-gray-100"
                 />
               </div>
-            </div>
-            <button
-              type="submit"
-              className="w-full p-3 text-sm font-bold tracking-wide uppercase rounded dark:bg-red-400 dark:text-gray-50"
-            >
-              Add
-            </button>
+              <div>
+                <label htmlFor="name" className="text-lg font-bold">
+                  Unit Price
+                </label>
+                <input
+                  {...register("unitPrice", { required: true })}
+                  id="UnitPrice"
+                  type="text"
+                  placeholder=""
+                  className="w-full p-3 rounded dark:bg-gray-100"
+                />
+              </div>
+              <div>
+                <label htmlFor="name" className="text-lg font-bold">
+                  Total Amount
+                </label>
+                <input
+                  {...register("totalAmount", { required: true })}
+                  id="TotalAmount"
+                  type="text"
+                  placeholder=""
+                  className="w-full p-3 rounded dark:bg-gray-100"
+                />
+              </div>
+              <button
+                type="submit"
+                className="w-full p-3 text-sm font-bold tracking-wide uppercase rounded dark:bg-red-400 dark:text-gray-50"
+              >
+                Add Item
+              </button>
+            </div> */}
           </form>
         </div>
         {/* Add Item */}
