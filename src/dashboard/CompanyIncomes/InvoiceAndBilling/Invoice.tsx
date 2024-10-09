@@ -1,4 +1,4 @@
-import {  useForm } from "react-hook-form";
+import { Controller, useFieldArray, useForm } from "react-hook-form";
 import Billing from "./Billing";
 // import axios from "axios";
 type InvoiceData = {
@@ -18,7 +18,7 @@ type InvoiceData = {
 };
 
 const Invoice = () => {
-  const { handleSubmit, register } = useForm<InvoiceData>({
+  const { control, handleSubmit, register, reset } = useForm<InvoiceData>({
     defaultValues: {
       customerName: "",
       companyName: "",
@@ -30,7 +30,6 @@ const Invoice = () => {
     },
   });
 
-
   const onSubmit = handleSubmit((data: InvoiceData) => {
     console.table(data);
     // axios
@@ -39,6 +38,11 @@ const Invoice = () => {
     //     console.log("Invoice saved successfully:", response.data);
     //   })
     //   .catch((error) => console.error("Error saving invoice:", error));
+  });
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "items",
   });
 
   return (
@@ -111,16 +115,68 @@ const Invoice = () => {
                 </div>
               </div>
               {/* testing */}
-             
-              
+              <h3>Items</h3>
+              {fields.map((item, index) => (
+                <div key={item.id}>
+                  <label>No</label>
+                  <Controller
+                    name={`items.${index}.no`}
+                    control={control}
+                    render={({ field }) => <input type="number" {...field} />}
+                  />
+                  <label>Item</label>
+                  <input {...register(`items.${index}.item`)} required />
+                  <label>Quantity</label>
+                  <input
+                    type="number"
+                    {...register(`items.${index}.quantity`)}
+                    required
+                  />
+                  <label>Unit Price</label>
+                  <input
+                    type="number"
+                    {...register(`items.${index}.unitPrice`)}
+                    required
+                  />
+                  <label>Total Amount</label>
+                  <Controller
+                    name={`items.${index}.totalAmount`}
+                    control={control}
+                    render={({ field }) => (
+                      <input
+                        type="number"
+                        value={item.quantity * item.unitPrice}
+                        {...field}
+                        readOnly
+                      />
+                    )}
+                  />
+                  <button type="button" onClick={() => remove(index)}>
+                    Remove Item
+                  </button>
+                </div>
+              ))}
+              <button
+                type="button"
+                onClick={() =>
+                  append({
+                    no: fields.length + 1,
+                    item: "",
+                    quantity: 0,
+                    unitPrice: 0,
+                    totalAmount: 0,
+                  })
+                }
+              >
+                Add Item
+              </button>
               <button
                 type="submit"
                 className="w-full p-3 text-sm font-bold tracking-wide uppercase rounded dark:bg-red-400 dark:text-gray-50"
               >
-                Add
+                Save
               </button>
             </div>
-            <h3>Items</h3>
             {/* <div className="grid lg:grid-cols-5  grid-flow-row-dense gap-4 ">
               <div>
                 <label htmlFor="name" className="text-lg font-bold">
@@ -194,7 +250,7 @@ const Invoice = () => {
         {/* Add Item */}
 
         <div>
-          <Billing></Billing>
+          {/* <Billing></Billing> */}
         </div>
 
         {/* Table */}
