@@ -6,12 +6,13 @@ export const NEED_VERIFICATION = "NEED_VERIFICATION";
 export const SET_SUCCESS = "SET_SUCCESS";
 
 export interface User {
-  id: string | null;
-  companyName: string | null;
-  email: string | null;
-  name: string | null;
-  photo: string | null;
-  subscriptionStatus?: string;
-  selectedPackage?: string;
-  createdAt: number | boolean;
+  _id: string;
+  name: string;
+  email: string;
+  photo: string;
+  mobile: string;
+  role: string;
+  subscriptionStatus: string;
+  subscriptionPlan: string;
+  features: string[];
 }

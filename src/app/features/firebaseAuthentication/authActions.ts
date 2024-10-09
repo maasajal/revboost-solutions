@@ -10,6 +10,7 @@ import { auth } from "../../../firebase/firebase.config";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { AppDispatch } from "../../store/store";
 import { loginFailure, loginStart, loginSuccess } from "./authSlice";
+// import { createUser } from "../../api/usersAPI";
 const axiosPublic = useAxiosPublic();
 
 interface UserData {
@@ -19,9 +20,9 @@ interface UserData {
 }
 
 interface UserCredentials {
+  name: string;
   email: string;
   password: string;
-  companyName: string;
 }
 interface loginCredentials {
   email: string;
@@ -35,15 +36,17 @@ export const loginWithGoogle = () => async (dispatch: AppDispatch) => {
 
   try {
     const result = await signInWithPopup(auth, provider);
+    const name = result.user?.displayName;
+    const email = result.user?.email;
+    const photo = result.user?.photoURL;
 
-    const name = result.user.displayName;
-    const email = result.user.email;
-    const photo = result.user.photoURL;
-    const data: UserData = { name, email, photo };
+    const userData: UserData = { name, email, photo };
 
-    const response = await axiosPublic.post(`/api/v1/register`, data);
+    // await dispatch(createUser(userData));
+    const response = await axiosPublic.post(`/register`, userData);
     console.log(response.data.message); // এখান থেকে টোকেন নিয়ে কাজ্ করতে পারেন
-    localStorage.setItem("user-token", response.data.message)
+
+    localStorage.setItem("user-token", response.data.message || "");
     window.location.href = "/pricing";
     dispatch(loginSuccess({ user: result.user })); // ইউজার তথ্য পাঠান
   } catch (error) {
@@ -58,15 +61,15 @@ export const loginWithGoogle = () => async (dispatch: AppDispatch) => {
 export const signInWithUserPassword =
   (formData: UserCredentials) => async (dispatch: AppDispatch) => {
     dispatch(loginStart());
-    const { email, password, companyName } = formData;
+    const { email, password, name } = formData;
 
     try {
       createUserWithEmailAndPassword(auth, email, password).then(
         async (result) => {
-          const response = await axiosPublic.post(`/api/v1/register`, {
+          const response = await axiosPublic.post(`/register`, {
             email,
             password,
-            companyName,
+            name,
           });
           console.log(response.data.message);
           console.log(result);
@@ -82,12 +85,11 @@ export const loginWithEmailPassword =
   (formData: loginCredentials) => async (dispatch: AppDispatch) => {
     dispatch(loginStart());
     const { email, password } = formData;
-
     try {
       signInWithEmailAndPassword(auth, email, password).then(async (result) => {
-        const response = await axiosPublic.post(`/api/v1/login`, { email });
+        const response = await axiosPublic.post(`/register`, { email });
         console.log(response.data.message);
-        window.location.href = "/pricing";
+        window.location.href = "/dashboard";
         dispatch(loginSuccess({ user: result.user }));
       });
     } catch (error) {
