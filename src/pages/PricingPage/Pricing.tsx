@@ -4,10 +4,12 @@ import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import "../../../src/pages/PricingPage/pricing.css";
-import { RootState } from "../../app/store/store";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import useAxiosPublic from "../../app/hooks/useAxiosPublic";
+// import useAxiosPublic from "../../app/hooks/useAxiosPublic";
+import { useAppDispatch } from "../../app/hooks/useAppDispatch";
+import { useSelector } from "react-redux";
+import { RootState } from "../../app/store/store";
+import { updateUser } from "../../app/api/usersAPI";
 
 
 // Define types for the package data
@@ -17,9 +19,7 @@ interface Package {
   shortMessage: string;
   description: string;
   features:string[];
-
 }
-
 interface UpdateMembershipRequest {
   role:string;
   subscriptionStatus:string;
@@ -31,12 +31,12 @@ const Pricing: React.FC = () => {
   const [yearlyPackages, setYearlyPackages] = useState<Package[]>([]);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const navigate = useNavigate();
+  // const axiosPublic = useAxiosPublic()
 
-  const axiosPublic = useAxiosPublic()
-
-  const user = useSelector((state: RootState) => state.auth.user);
-  console.log(user);
-
+  const dispatch = useAppDispatch()
+  // const user = useAppSelector((state)=>state.users.users)
+  const user = useSelector((state:RootState)=>state.auth.user)
+  // console.log(user?.email)
   // Fetch Monthly Packages
   useEffect(() => {
     fetch("/monthlyPack.json")
@@ -68,11 +68,7 @@ const Pricing: React.FC = () => {
           subscriptionStatus:"active",
           subscriptionPlan:pkg.packageName
         };
-  
-        const response = await axiosPublic.patch("/pricing/user/membership",{
-         requestBody
-        })
-        console.log(response)
+        await dispatch(updateUser(user?.email, requestBody))
         navigate("/dashboard");
         console.log(pkg);
       } catch (error) {
