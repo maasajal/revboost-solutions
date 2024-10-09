@@ -7,6 +7,8 @@ import "../../../src/pages/PricingPage/pricing.css";
 import { RootState } from "../../app/store/store";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import useAxiosPublic from "../../app/hooks/useAxiosPublic";
+
 
 // Define types for the package data
 interface Package {
@@ -15,6 +17,13 @@ interface Package {
   shortMessage: string;
   description: string;
   features:string[];
+
+}
+
+interface UpdateMembershipRequest {
+  role:string;
+  subscriptionStatus:string;
+  subscriptionPlan:string;
 }
 
 const Pricing: React.FC = () => {
@@ -22,6 +31,8 @@ const Pricing: React.FC = () => {
   const [yearlyPackages, setYearlyPackages] = useState<Package[]>([]);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const navigate = useNavigate();
+
+  const axiosPublic = useAxiosPublic()
 
   const user = useSelector((state: RootState) => state.auth.user);
   console.log(user);
@@ -52,6 +63,16 @@ const Pricing: React.FC = () => {
       navigate("/register");
     } else {
       try {
+        const requestBody: UpdateMembershipRequest = {
+          role:"member",
+          subscriptionStatus:"active",
+          subscriptionPlan:pkg.packageName
+        };
+  
+        const response = await axiosPublic.patch("/pricing/user/membership",{
+         requestBody
+        })
+        console.log(response)
         navigate("/dashboard");
         console.log(pkg);
       } catch (error) {
