@@ -7,9 +7,9 @@ import {
 } from "firebase/auth";
 
 import { auth } from "../../../firebase/firebase.config";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { AppDispatch } from "../../store/store";
 import { loginFailure, loginStart, loginSuccess } from "./authSlice";
-import useAxiosPublic from "../../hooks/useAxiosPublic";
 const axiosPublic = useAxiosPublic();
 
 interface UserData {
@@ -41,8 +41,9 @@ export const loginWithGoogle = () => async (dispatch: AppDispatch) => {
     const photo = result.user.photoURL;
     const data: UserData = { name, email, photo };
 
-    const response = await axiosPublic.post(`/api/v1/login`, data);
-    console.log(response.data); // এখান থেকে টোকেন নিয়ে কাজ্ করতে পারেন
+    const response = await axiosPublic.post(`/api/v1/register`, data);
+    console.log(response.data.message); // এখান থেকে টোকেন নিয়ে কাজ্ করতে পারেন
+    localStorage.setItem("user-token", response.data.message)
     window.location.href = "/pricing";
     dispatch(loginSuccess({ user: result.user })); // ইউজার তথ্য পাঠান
   } catch (error) {
