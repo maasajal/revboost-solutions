@@ -1,6 +1,10 @@
 import { Controller, useFieldArray, useForm } from "react-hook-form";
+
+import { useState } from "react";
 import Billing from "./Billing";
 // import axios from "axios";
+
+
 type InvoiceData = {
   companyEmail: string;
   customerName: string;
@@ -17,8 +21,20 @@ type InvoiceData = {
     totalAmount: number;
   }[];
 };
+// Get Date
+function getDate() {
+  const today = new Date();
+  const month = today.getMonth() + 1;
+  const year = today.getFullYear();
+  const date = today.getDate();
+  return `${month}/${date}/${year}`;
+}
 
 const Invoice = () => {
+  // UseState for Date
+  // const [currentDate, setCurrentDate] = useState(getDate());
+ 
+
   const { control, handleSubmit, register } = useForm<InvoiceData>({
     defaultValues: {
       companyEmail: "",
@@ -38,7 +54,7 @@ const Invoice = () => {
     //   .post("https://revboost-solutions.vercel.app/api/v1/invoices/create", data)
     //   .then((response) => {
     //     console.log("Invoice saved successfully:", response.data);
-    
+
     //   })
     //   .catch((error) => console.error("Error saving invoice:", error));
   });
@@ -61,7 +77,7 @@ const Invoice = () => {
                   <input
                     {...register("companyEmail", { required: true })}
                     id="companyEmail"
-                    placeholder="Your company email"
+                    placeholder="Your company @email"
                     className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
                   />
                 </div>
@@ -98,9 +114,12 @@ const Invoice = () => {
                 <div>
                   <label className="text-sm">Invoice Creation Date</label>
                   <input
-                    {...register("date", { required: true })}
+                    {...register("date")}
                     id="invoiceCreationDate"
-                    type="date"
+                    // type="date"
+                    defaultValue={getDate()}
+                    placeholder={getDate()}
+                    disabled
                     className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
                   />
                 </div>
@@ -127,19 +146,29 @@ const Invoice = () => {
                 </div>
               </div>
               {/* testing */}
-              <h3 className="flex text-center justify-center items-center">Items:</h3>
+              <h3 className="flex text-center justify-center items-center">
+                Items:
+              </h3>
               {fields.map((item, index) => (
                 <div key={item.id} className="space-y-2">
                   <label>No</label>
                   <Controller
                     name={`items.${index}.no`}
                     control={control}
-                    render={({ field }) => <input type="number" className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring" {...field} />}
+                    render={({ field }) => (
+                      <input
+                        type="number"
+                        className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
+                        {...field}
+                      />
+                    )}
                   />
                   <label>Item</label>
-                  <input {...register(`items.${index}.item`)}
-                  className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
-                  required />
+                  <input
+                    {...register(`items.${index}.item`)}
+                    className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
+                    required
+                  />
                   <label>Quantity</label>
                   <input
                     type="number"
@@ -162,50 +191,51 @@ const Invoice = () => {
                       <input
                         type="number"
                         className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
-                        // value={item.quantity*item.unitPrice}
+                        defaultValue={item.quantity * item.unitPrice}
                         {...field}
                         readOnly
                       />
                     )}
                   />
-                  <button className="w-full mt-4 p-3 rounded  bg-red-200 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 " type="button" onClick={() => remove(index)}>
+                  <button
+                    className="w-full mt-4 p-3 rounded  bg-red-200 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 "
+                    type="button"
+                    onClick={() => remove(index)}
+                  >
                     Remove Item
                   </button>
                 </div>
               ))}
               <div className="flex gap-2">
-              <button
-              className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
-                type="button"
-                onClick={() =>
-                  append({
-                    no: fields.length + 1,
-                    item: "",
-                    quantity: 0,
-                    unitPrice: 0,
-                    totalAmount: 0,
-                  })
-                }
-              >
-                Add Item
-              </button>
-              <button
-                type="submit"
-                className="w-full p-3 text-sm font-bold tracking-wide uppercase rounded dark:bg-red-400 dark:text-gray-50"
-              >
-                Save
-              </button>
+                <button
+                  className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
+                  type="button"
+                  onClick={() =>
+                    append({
+                      no: fields.length + 1,
+                      item: "",
+                      quantity: 0,
+                      unitPrice: 0,
+                      totalAmount: 0,
+                    })
+                  }
+                >
+                  Add Item
+                </button>
+                <button
+                  type="submit"
+                  className="w-full p-3 text-sm font-bold tracking-wide uppercase rounded dark:bg-red-400 dark:text-gray-50"
+                >
+                  Save
+                </button>
               </div>
             </div>
-            
           </form>
         </div>
         {/* Add Item */}
-
-        <div>
-          <Billing></Billing>
-        </div>
-
+<div>
+  <Billing></Billing>
+</div>
         {/* Table */}
         <div className="space-y-6 border-2 p-4 shadow-2xl rounded-lg">
           <h2 className="mb-4 text-center text-2xl font-bold leading-tight">
