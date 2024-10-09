@@ -50,7 +50,7 @@ const Invoice = () => {
       <section className="container mx-auto mt-10 space-y-8">
         <h2>Company Income</h2>
         <div>
-          <form onSubmit={onSubmit} className="space-y-4">
+          <form onSubmit={onSubmit} className="space-y-4 shadow-lg p-4">
             <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4">
               <div className="space-y-4">
                 <div>
@@ -117,25 +117,29 @@ const Invoice = () => {
               {/* testing */}
               <h3>Items</h3>
               {fields.map((item, index) => (
-                <div key={item.id}>
+                <div key={item.id} className="space-y-2">
                   <label>No</label>
                   <Controller
                     name={`items.${index}.no`}
                     control={control}
-                    render={({ field }) => <input type="number" {...field} />}
+                    render={({ field }) => <input type="number" className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring" {...field} />}
                   />
                   <label>Item</label>
-                  <input {...register(`items.${index}.item`)} required />
+                  <input {...register(`items.${index}.item`)}
+                  className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
+                  required />
                   <label>Quantity</label>
                   <input
                     type="number"
                     {...register(`items.${index}.quantity`)}
+                    className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
                     required
                   />
                   <label>Unit Price</label>
                   <input
                     type="number"
                     {...register(`items.${index}.unitPrice`)}
+                    className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
                     required
                   />
                   <label>Total Amount</label>
@@ -145,18 +149,21 @@ const Invoice = () => {
                     render={({ field }) => (
                       <input
                         type="number"
-                        value={item.quantity * item.unitPrice}
+                        className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
+                        // value={item.quantity*item.unitPrice}
                         {...field}
                         readOnly
                       />
                     )}
                   />
-                  <button type="button" onClick={() => remove(index)}>
+                  <button className="w-full mt-4 p-3 rounded  bg-red-200 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 " type="button" onClick={() => remove(index)}>
                     Remove Item
                   </button>
                 </div>
               ))}
+              <div className="flex gap-2">
               <button
+              className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
                 type="button"
                 onClick={() =>
                   append({
@@ -176,87 +183,21 @@ const Invoice = () => {
               >
                 Save
               </button>
+              </div>
             </div>
-            {/* <div className="grid lg:grid-cols-5  grid-flow-row-dense gap-4 ">
-              <div>
-                <label htmlFor="name" className="text-lg font-bold">
-                  No
-                </label>
-                <input
-                  {...register("no", { required: true })}
-                  id="No"
-                  type="number"
-                  placeholder=""
-                  className="w-full p-3 rounded dark:bg-gray-100"
-                />
-              </div>
-              <div>
-                <label htmlFor="name" className="text-lg font-bold">
-                  Client
-                </label>
-                <input
-                  {...register("Client", { required: true })}
-                  id="Client"
-                  type="text"
-                  placeholder=""
-                  className="w-full p-3 rounded dark:bg-gray-100"
-                />
-              </div>
-              <div>
-                <label htmlFor="name" className="text-lg font-bold">
-                  Quantity
-                </label>
-                <input
-                  {...register("quantity", { required: true })}
-                  id="Quantity"
-                  type="number"
-                  placeholder=""
-                  className="w-full p-3 rounded dark:bg-gray-100"
-                />
-              </div>
-              <div>
-                <label htmlFor="name" className="text-lg font-bold">
-                  Unit Price
-                </label>
-                <input
-                  {...register("unitPrice", { required: true })}
-                  id="UnitPrice"
-                  type="text"
-                  placeholder=""
-                  className="w-full p-3 rounded dark:bg-gray-100"
-                />
-              </div>
-              <div>
-                <label htmlFor="name" className="text-lg font-bold">
-                  Total Amount
-                </label>
-                <input
-                  {...register("totalAmount", { required: true })}
-                  id="TotalAmount"
-                  type="text"
-                  placeholder=""
-                  className="w-full p-3 rounded dark:bg-gray-100"
-                />
-              </div>
-              <button
-                type="submit"
-                className="w-full p-3 text-sm font-bold tracking-wide uppercase rounded dark:bg-red-400 dark:text-gray-50"
-              >
-                Add Item
-              </button>
-            </div> */}
+            
           </form>
         </div>
         {/* Add Item */}
 
         <div>
-          {/* <Billing></Billing> */}
+          <Billing></Billing>
         </div>
 
         {/* Table */}
-        <div className="space-y-6 border-2 p-4">
+        <div className="space-y-6 border-2 p-4 shadow-2xl rounded-lg">
           <h2 className="mb-4 text-center text-2xl font-bold leading-tight">
-            Invoices
+            Your Incomes
           </h2>
           <div className="flex justify-between">
             <div className="space-y-4">
