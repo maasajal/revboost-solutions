@@ -12,7 +12,7 @@ import SocialLogin from "../../../components/SocialLogin";
 import logo from "../../../assets/logo.png";
 
 type Inputs = {
-  companyName: string;
+  name: string;
   email: string;
   password: string;
   confirmPassword: string;
@@ -71,9 +71,9 @@ const Register = () => {
                 type="text"
                 placeholder="Company Name"
                 className="input input-bordered w-full"
-                {...register("companyName", { required: true })}
+                {...register("name", { required: true })}
               />
-              {errors.companyName && (
+              {errors.name && (
                 <small className="text-red-400 mt-2">
                   This field is required
                 </small>

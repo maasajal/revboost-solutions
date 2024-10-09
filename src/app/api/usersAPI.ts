@@ -21,15 +21,17 @@ export const fetchUsers = () => async (dispatch: any) => {
   }
 };
 
-export const createUser = (userData: User) => async (dispatch: any) => {
-  dispatch(fetchUsersStart());
-  try {
-    const response = await axiosPublic.post("/register", userData);
-    dispatch(createUserSuccess(response.data));
-  } catch (error: any) {
-    dispatch(userRequestFailure(error.message || "Failed to create user"));
-  }
-};
+export const createUser =
+  (userData: { name: string; email: string; photo: string }) =>
+  async (dispatch: any) => {
+    dispatch(fetchUsersStart());
+    try {
+      const response = await axiosPublic.post("/register", userData);
+      dispatch(createUserSuccess(response.data));
+    } catch (error: any) {
+      dispatch(userRequestFailure(error.message || "Failed to create user"));
+    }
+  };
 
 export const updateUser =
   (email: string, updatedData: Partial<User>) => async (dispatch: any) => {
