@@ -4,11 +4,13 @@ import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import "../../../src/pages/PricingPage/pricing.css";
+import { useNavigate } from "react-router-dom";
+// import useAxiosPublic from "../../app/hooks/useAxiosPublic";
+import { useAppDispatch } from "../../app/hooks/useAppDispatch";
+import { updateUser } from "../../app/api/usersAPI";
+import { jwtDecode } from "jwt-decode";
 import { RootState } from "../../app/store/store";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import useAxiosPublic from "../../app/hooks/useAxiosPublic";
-
 
 // Define types for the package data
 interface Package {
@@ -16,26 +18,40 @@ interface Package {
   price: number;
   shortMessage: string;
   description: string;
-  features:string[];
-
+  features: string[];
+}
+interface UpdateMembershipRequest {
+  role: string;
+  subscriptionStatus: string;
+  subscriptionPlan: string;
 }
 
-interface UpdateMembershipRequest {
-  role:string;
-  subscriptionStatus:string;
-  subscriptionPlan:string;
+export interface DecodedToken {
+  email: string;
 }
 
 const Pricing: React.FC = () => {
   const [monthlyPackages, setMonthlyPackages] = useState<Package[]>([]);
   const [yearlyPackages, setYearlyPackages] = useState<Package[]>([]);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
-  const navigate = useNavigate();
+  const [email, setEmail] = useState<string>("");
 
-  const axiosPublic = useAxiosPublic()
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const user = useSelector((state: RootState) => state.auth.user);
-  console.log(user);
+
+  useEffect(() => {
+    const token = localStorage.getItem("user-token");
+    if (token) {
+      try {
+        const decoded = jwtDecode<DecodedToken>(token); // Decode the token with the defined type
+        setEmail(decoded.email);
+      } catch (error) {
+        console.error("Failed to decode token", error);
+      }
+    }
+  }, [dispatch]);
 
   // Fetch Monthly Packages
   useEffect(() => {
@@ -59,33 +75,32 @@ const Pricing: React.FC = () => {
 
   const handleSubscriptionClick = async (pkg: Package) => {
     if (!user) {
-      // If user is not logged in, navigate to the login page
-      navigate("/register");
+      // If user is not logged in or email is undefined, navigate to the login page
+      navigate("/login");
     } else {
       try {
         const requestBody: UpdateMembershipRequest = {
-          role:"member",
-          subscriptionStatus:"active",
-          subscriptionPlan:pkg.packageName
+          role: "member",
+          subscriptionStatus: "active",
+          subscriptionPlan: pkg.packageName,
         };
-  
-        const response = await axiosPublic.patch("/pricing/user/membership",{
-         requestBody
-        })
-        console.log(response)
+        await dispatch(updateUser(email, requestBody));
+
+        // Navigate to the dashboard after successful update
         navigate("/dashboard");
-        console.log(pkg);
       } catch (error) {
         console.error("An error occurred while updating the user:", error);
       }
-      console.log("User is logged in. Proceeding with subscription...");
     }
   };
 
   // Function to render package cards
   const renderPackageCard = (pkg: Package) => {
     return (
-      <div className="card flex flex-col justify-between bg-base-100 shadow-xl p-5 h-full" key={pkg.packageName}>
+      <div
+        className="card flex flex-col justify-between bg-base-100 shadow-xl p-5 h-full"
+        key={pkg.packageName}
+      >
         <div className="flex-grow">
           <section>
             <h2 className="text-center text-[24px] uppercase tracking-widest font-bold mb-4">
@@ -100,13 +115,13 @@ const Pricing: React.FC = () => {
             <p className="py-3">{pkg.description}</p>
           </section>
           <div className="justify-center mt-5">
-          <button
-            onClick={() => handleSubscriptionClick(pkg)}
-            className="btn bg-secondary text-white hover:bg-primary border-none w-full"
-          >
-            Start your 14-days free trial
-          </button>
-        </div>
+            <button
+              onClick={() => handleSubscriptionClick(pkg)}
+              className="btn bg-secondary text-white hover:bg-primary border-none w-full"
+            >
+              Start your 14-days free trial
+            </button>
+          </div>
           <div className="mt-6">
             {pkg.features.map((feature, index) => (
               <p
@@ -118,7 +133,6 @@ const Pricing: React.FC = () => {
             ))}
           </div>
         </div>
-        
       </div>
     );
   };

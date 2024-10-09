@@ -21,6 +21,16 @@ export const fetchUsers = () => async (dispatch: any) => {
   }
 };
 
+export const getUserByEmail = (email: string) => async (dispatch: any) => {
+  dispatch(fetchUsersStart());
+  try {
+    const response = await axiosPublic.get(`/user/${email}`); // Assuming your API supports fetching by email
+    dispatch(fetchUsersSuccess([response.data])); // Wrap in an array if your state expects an array
+  } catch (error: any) {
+    dispatch(userRequestFailure(error.message || "Failed to fetch user"));
+  }
+};
+
 export const createUser =
   (userData: { name: string; email: string; photo: string }) =>
   async (dispatch: any) => {
