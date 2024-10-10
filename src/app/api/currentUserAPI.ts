@@ -1,7 +1,6 @@
 import { jwtDecode } from "jwt-decode";
 import {
   fetchUsersStart,
-  fetchUsersFailure,
   userRequestFailure,
   fetchUserSuccess,
 } from "../features/users/currentUserSlice";
