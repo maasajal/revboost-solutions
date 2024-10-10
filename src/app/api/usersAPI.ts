@@ -7,9 +7,7 @@ import {
   updateUserSuccess,
   User,
 } from "../features/users/usersSlice";
-import useAxiosPublic from "../hooks/useAxiosPublic";
-
-const axiosPublic = useAxiosPublic();
+import { axiosPublic } from "../hooks/useAxiosPublic";
 
 export const fetchUsers = () => async (dispatch: any) => {
   dispatch(fetchUsersStart());
