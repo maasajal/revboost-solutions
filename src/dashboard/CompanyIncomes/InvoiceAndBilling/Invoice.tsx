@@ -1,8 +1,16 @@
-import { Controller, SubmitHandler, useFieldArray, useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../../app/store/store";
-import { createInvoice, IncomeData,Item } from "../../../app/features/companyIncome/incomeSlice";
-
+import {
+  Controller,
+  SubmitHandler,
+  useFieldArray,
+  useForm,
+} from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../app/store/store";
+import {
+  createInvoice,
+  IncomeData,
+  Item,
+} from "../../../app/features/companyIncome/incomeSlice";
 
 // import axios from "axios";
 // new try
@@ -54,13 +62,13 @@ function getDate() {
 const Invoice = () => {
   const dispatch = useDispatch<AppDispatch>();
 
-   // Selectors
-  //  const { loading, error, incomes } = useSelector((state: RootState) => state.incomes);
-
+  // Selectors
+  const { loading, error } = useSelector(
+    (state: RootState) => state.incomes
+  );
 
   // UseState for Date
   // const [currentDate, setCurrentDate] = useState(getDate());
- 
 
   // const { control, handleSubmit, register  } = useForm<IncomeData>({
   //   defaultValues: {
@@ -75,33 +83,28 @@ const Invoice = () => {
   //   },
   // });
   // Initialize React Hook Form
-  const { register, control, handleSubmit, reset} = useForm<IncomeData>({
+  const { register, control, handleSubmit, reset } = useForm<IncomeData>({
     defaultValues: {
-      companyEmail: '',
-      customerName: '',
-      companyName: '',
-      invoiceNumber: '',
-      invoiceDueDate: '',
-      date: '',
-      customerAddress: '',
-      items: [
-        { no: 1, item: '', quantity: 0, unitPrice: 0, totalAmount: 0 },
-      ],
+      companyEmail: "",
+      customerName: "",
+      companyName: "",
+      invoiceNumber: "",
+      invoiceDueDate: "",
+      date: "",
+      customerAddress: "",
+      items: [{ no: 1, item: "", quantity: 0, unitPrice: 0, totalAmount: 0 }],
     },
   });
 
-
-   // UseFieldArray for dynamic items
-   const { fields, append, remove } = useFieldArray({
+  // UseFieldArray for dynamic items
+  const { fields, append, remove } = useFieldArray({
     control,
-    name: 'items',
+    name: "items",
   });
 
-
-
- // Handle form submission
+  // Handle form submission
   const onSubmit: SubmitHandler<IncomeData> = async (data) => {
-    console.log(data)
+    console.log(data);
     // Calculate totalAmount for each item
     const updatedItems: Item[] = data.items.map((item) => ({
       ...item,
@@ -111,7 +114,6 @@ const Invoice = () => {
 
     // Dispatch the createInvoice thunk
     await dispatch(createInvoice(invoiceData));
-    
 
     // Reset the form after submission
     reset();
@@ -119,7 +121,7 @@ const Invoice = () => {
 
   // const onSubmit = handleSubmit((data: IncomeData) => {
   //   console.table(data);
-   
+
   //   axios
   //     .post("https://revboost-solutions.vercel.app/api/v1/invoices/create", data)
   //     .then((response) => {
@@ -129,13 +131,15 @@ const Invoice = () => {
   //     .catch((error) => console.error("Error saving invoice:", error));
   // });
 
-
   return (
     <>
       <section className="container mx-auto mt-10 space-y-8">
         <h2>Company Income</h2>
         <div>
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 shadow-lg p-4">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="space-y-4 shadow-lg p-4"
+          >
             <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4">
               <div className="space-y-4">
                 <div>
@@ -292,10 +296,12 @@ const Invoice = () => {
                   type="submit"
                   className="w-full p-3 text-sm font-bold tracking-wide uppercase rounded dark:bg-red-400 dark:text-gray-50"
                 >
-                  Save
+                  {loading ? "Saving..." : "Save Invoice"}
                 </button>
               </div>
             </div>
+            {/* Error Message */}
+            {error && <p style={{ color: "red" }}>{error}</p>}
           </form>
         </div>
         {/* Add Item */}
