@@ -1,7 +1,5 @@
 import { Controller, useFieldArray, useForm } from "react-hook-form";
 
-import { useState } from "react";
-import Billing from "./Billing";
 // import axios from "axios";
 
 
@@ -140,6 +138,7 @@ const Invoice = () => {
                   <input
                     {...register("customerAddress", { required: true })}
                     id="customerAddress"
+                    placeholder="Your address"
                     type="text"
                     className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
                   />
@@ -233,9 +232,7 @@ const Invoice = () => {
           </form>
         </div>
         {/* Add Item */}
-<div>
-  <Billing></Billing>
-</div>
+
         {/* Table */}
         <div className="space-y-6 border-2 p-4 shadow-2xl rounded-lg">
           <h2 className="mb-4 text-center text-2xl font-bold leading-tight">
