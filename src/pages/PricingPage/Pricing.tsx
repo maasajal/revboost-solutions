@@ -9,6 +9,7 @@ import { useAppDispatch } from "../../app/hooks/useAppDispatch";
 import { RootState } from "../../app/store/store";
 import { useAppSelector } from "../../app/hooks/useAppSelector";
 import { updateUser } from "../../app/api/usersAPI";
+import User from "../../app/features/users/UserType";
 
 // Define types for the package data
 interface Package {
@@ -31,7 +32,7 @@ const Pricing: React.FC = () => {
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state: RootState) => state.currentUser?.user);
+  const user = useAppSelector((state: RootState) => state.currentUser?.user) as User | null;
 
   // Fetch Monthly Packages
   useEffect(() => {
