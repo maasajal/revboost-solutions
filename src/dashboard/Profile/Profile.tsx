@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux"; // Import the root state from your store
 import { RootState } from "../../app/store/store";
 
-const UserProfile: React.FC = () => {
+const Profile: React.FC = () => {
   const user = useSelector((state: RootState) => state.auth.user);
   console.log(user);
   return (
@@ -19,4 +19,4 @@ const UserProfile: React.FC = () => {
   );
 };
 
-export default UserProfile;
+export default Profile;

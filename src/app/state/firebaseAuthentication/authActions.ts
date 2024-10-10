@@ -41,7 +41,7 @@ export const loginWithGoogle = () => async (dispatch: AppDispatch) => {
     const photo = result.user.photoURL;
     const data: UserData = { name, email, photo };
 
-    const response = await axiosPublic.post(`/api/v1/register`, data);
+    const response = await axiosPublic.post(`/register`, data);
     console.log(response.data.message); // এখান থেকে টোকেন নিয়ে কাজ্ করতে পারেন
     localStorage.setItem("user-token", response.data.message)
     window.location.href = "/pricing";
@@ -63,7 +63,7 @@ export const signInWithUserPassword =
     try {
       createUserWithEmailAndPassword(auth, email, password).then(
         async (result) => {
-          const response = await axiosPublic.post(`/api/v1/register`, {
+          const response = await axiosPublic.post(`/register`, {
             email,
             password,
             companyName,
