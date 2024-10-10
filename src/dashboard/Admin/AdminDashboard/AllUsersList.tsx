@@ -3,7 +3,6 @@ import { IoMdSearch } from "react-icons/io";
 import useAxiosSecure from "../../../app/hooks/useAxiosSecure";
 import RevButton from "../../../components/RevButton";
 
-// Define User interface
 interface User {
     _id: string;
     name: string;
@@ -11,28 +10,13 @@ interface User {
     subscriptionPlan: string;
     subscriptionStatus: string;
     role: string;
-    photo?: string; // Optional because it may not be present
+    photo?: string;
 }
 
-// Define TabType interface
-interface TabType {
-    label: string;
-    value: string;
-}
-
-const TABS: TabType[] = [
-    {
-        label: "All",
-        value: "all",
-    },
-    {
-        label: "Member",
-        value: "monitored",
-    },
-    {
-        label: "Admin",
-        value: "unmonitored",
-    },
+const TABS = [
+    { label: "All", value: "all" },
+    { label: "Member", value: "monitored" },
+    { label: "Admin", value: "unmonitored" },
 ];
 
 const AllUsersList: React.FC = () => {
@@ -43,14 +27,18 @@ const AllUsersList: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState<string>("");
 
     const getAllUsers = async () => {
-        const response = await axiosSecure.get("/users");
-        console.log(response);
-        setUsers(response.data.users);
+        try {
+            const response = await axiosSecure.get("/users");
+            setUsers(response.data.users);
+        } catch (error) {
+            console.error("Error fetching users:", error);
+        } finally {
+            setLoading(false);
+        }
     };
 
     useEffect(() => {
         getAllUsers();
-        setLoading(false);
     }, []);
 
     if (loading) return <>Loading ...</>;
@@ -59,8 +47,7 @@ const AllUsersList: React.FC = () => {
         user.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
-    // Fallback image for users without a photo
-    const placeholderImage = "https://via.placeholder.com/96"; // Use a placeholder image URL
+    const placeholderImage = "https://via.placeholder.com/96";
 
     return (
         <div className="p-4">
@@ -68,22 +55,18 @@ const AllUsersList: React.FC = () => {
                 <h2 className="text-xl font-semibold">RevBoost Solution Members</h2>
             </div>
             <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-                {/* Tabs */}
                 <div className="flex border-b border-gray-300">
                     {TABS.map(({ label, value }) => (
                         <button
                             key={value}
                             onClick={() => setActiveTab(value)}
-                            className={`py-2 px-4 border-b-2 font-medium ${activeTab === value ? "border-blue-500 text-blue-500" : "border-transparent text-gray-600"
-                                } hover:text-blue-500`}
+                            className={`py-2 px-4 border-b-2 font-medium ${activeTab === value ? "border-blue-500 text-blue-500" : "border-transparent text-gray-600"} hover:text-blue-500`}
                         >
                             {label}
                         </button>
                     ))}
                 </div>
-
-                {/* Search Input */}
-                <div className="w-full md:max-w-72 flex gap-2 items-center">
+                <div className="w-full md:max-w-xs flex gap-2 items-center">
                     <input
                         type="text"
                         placeholder="Search"
@@ -91,56 +74,53 @@ const AllUsersList: React.FC = () => {
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                     />
-                    <IoMdSearch className="text-4xl p-1 rounded-lg bg-lightRedBg text-secondary border cursor-pointer" />
+                    <IoMdSearch className="text-2xl p-1 rounded-lg bg-lightRedBg text-secondary border cursor-pointer" />
                 </div>
             </div>
-
-            {/* User List */}
-            <div className="mt-4 p-4 border border-gray-300 rounded">
+            <div className="mt-4 p-4 border border-gray-300 rounded overflow-x-auto">
                 {filteredUsers.length === 0 ? (
                     <div>No users found</div>
                 ) : (
-                    <table className="min-w-full">
+                    <table className="min-w-full table-auto">
                         <thead>
-                            <tr>
-                                <th className="px-4 py-2">Photo</th>
-                                <th className="px-4 py-2">Name</th>
-                                <th className="px-4 py-2">Email</th>
-                                <th className="px-4 py-2">Plan</th>
-                                <th className="px-4 py-2">Status</th>
-                                <th className="px-4 py-2">Role</th>
+                            <tr className="bg-gray-200">
+                                <th className="px-4 py-2 text-left">Photo</th>
+                                <th className="px-4 py-2 text-left">Name</th>
+                                <th className="px-4 py-2 text-left">Email</th>
+                                <th className="px-4 py-2 text-left">Plan</th>
+                                <th className="px-4 py-2 text-left">Status</th>
+                                <th className="px-4 py-2 text-left">Role</th>
                                 <th className="px-4 py-2"></th>
                             </tr>
                         </thead>
                         <tbody>
-                            {filteredUsers.map((user) => (
-                                <tr key={user._id} className="hover:bg-gray-100">
-                                    <td className="px-4 py-2">
-                                        <img
-                                            src={user.photo || placeholderImage}
-                                            alt={user.name}
-                                            className="w-14 h-14 rounded-full object-cover"
-                                            onError={(e) => {
-                                                e.currentTarget.src = placeholderImage; // Set the placeholder on error
-                                            }}
-                                        />
-                                    </td>
-                                    <td className="px-4 py-2">{user.name}</td>
-                                    <td className="px-4 py-2">{user.email}</td>
-                                    <td className="px-4 py-2">{user.subscriptionPlan}</td>
-                                    <td className="px-4 py-2">{user.subscriptionStatus}</td>
-                                    <td className="px-4 py-2">{user.role}</td>
-                                    <td className="px-4 py-2">
-                                        <RevButton name="View" />
-                                    </td>
-                                </tr>
-                            ))}
+                            {filteredUsers.map((user) => {
+                                return (
+                                    <tr key={user._id} className="hover:bg-gray-100">
+                                        <td className="px-4 py-2">
+                                            <img
+                                                src={user.photo || placeholderImage} // Use placeholder if photo is missing
+                                                alt={user.name}
+                                                className="w-14 h-14 rounded-full object-cover"
+                                                onLoad={() => console.log(`Image loaded successfully for user: ${user.name}`)}
+                                                onError={(e) => {
+                                                    console.log(`Image load error for user: ${user.name}`);
+                                                    e.currentTarget.src = placeholderImage; // Set placeholder on error
+                                                }}
+                                            />
+                                        </td>
+                                        <td className="px-4 py-2">{user.name}</td>
+                                        <td className="px-4 py-2">{user.email}</td>
+                                        <td className="px-4 py-2">{user.subscriptionPlan}</td>
+                                        <td className="px-4 py-2">{user.subscriptionStatus}</td>
+                                        <td className="px-4 py-2">{user.role}</td>
+                                    </tr>
+                                );
+                            })}
                         </tbody>
                     </table>
                 )}
             </div>
-
-            {/* Footer */}
             <div className="flex items-center justify-between border-t border-gray-300 p-4 mt-4">
                 <span>Page 1 of 10</span>
                 <div className="flex gap-2">
