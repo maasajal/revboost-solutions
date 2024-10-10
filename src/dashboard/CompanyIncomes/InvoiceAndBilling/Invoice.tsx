@@ -1,24 +1,47 @@
-import { Controller, useFieldArray, useForm } from "react-hook-form";
+import { Controller, SubmitHandler, useFieldArray, useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../../app/store/store";
+import { createInvoice, IncomeData,Item } from "../../../app/features/companyIncome/incomeSlice";
+
 
 // import axios from "axios";
+// new try
+// export interface Item {
+//   no: number;
+//   item: string;
+//   quantity: number;
+//   unitPrice: number;
+//   totalAmount: number;
+// }
 
+// export interface InvoiceData {
+//   companyEmail: string;
+//   customerName: string;
+//   companyName: string;
+//   invoiceNumber: string;
+//   invoiceDueDate: string;
+//   date: string;
+//   customerAddress: string;
+//   items: Item[];
+// }
+// new try
 
-type InvoiceData = {
-  companyEmail: string;
-  customerName: string;
-  companyName: string;
-  invoiceNumber: string;
-  date: string;
-  invoiceDueDate: string;
-  customerAddress: string;
-  items: {
-    no: number;
-    item: string;
-    quantity: number;
-    unitPrice: number;
-    totalAmount: number;
-  }[];
-};
+// type InvoiceData = {
+//   companyEmail: string;
+//   customerName: string;
+//   companyName: string;
+//   invoiceNumber: string;
+//   date: string;
+//   invoiceDueDate: string;
+//   customerAddress: string;
+//   items: {
+//     no: number;
+//     item: string;
+//     quantity: number;
+//     unitPrice: number;
+//     totalAmount: number;
+//   }[];
+// };
 // Get Date
 function getDate() {
   const today = new Date();
@@ -29,45 +52,90 @@ function getDate() {
 }
 
 const Invoice = () => {
+  const dispatch = useDispatch<AppDispatch>();
+
+   // Selectors
+  //  const { loading, error, incomes } = useSelector((state: RootState) => state.incomes);
+
+
   // UseState for Date
   // const [currentDate, setCurrentDate] = useState(getDate());
  
 
-  const { control, handleSubmit, register } = useForm<InvoiceData>({
+  // const { control, handleSubmit, register  } = useForm<IncomeData>({
+  //   defaultValues: {
+  //     companyEmail: "",
+  //     customerName: "",
+  //     companyName: "",
+  //     invoiceNumber: "",
+  //     date: "",
+  //     invoiceDueDate: "",
+  //     customerAddress: "",
+  //     items: [{ no: 1, item: "", quantity: 0, unitPrice: 0, totalAmount: 0 }],
+  //   },
+  // });
+  // Initialize React Hook Form
+  const { register, control, handleSubmit, reset} = useForm<IncomeData>({
     defaultValues: {
-      companyEmail: "",
-      customerName: "",
-      companyName: "",
-      invoiceNumber: "",
-      date: "",
-      invoiceDueDate: "",
-      customerAddress: "",
-      items: [{ no: 1, item: "", quantity: 0, unitPrice: 0, totalAmount: 0 }],
+      companyEmail: '',
+      customerName: '',
+      companyName: '',
+      invoiceNumber: '',
+      invoiceDueDate: '',
+      date: '',
+      customerAddress: '',
+      items: [
+        { no: 1, item: '', quantity: 0, unitPrice: 0, totalAmount: 0 },
+      ],
     },
   });
 
-  const onSubmit = handleSubmit((data: InvoiceData) => {
-    console.table(data);
-    // axios
-    //   .post("https://revboost-solutions.vercel.app/api/v1/invoices/create", data)
-    //   .then((response) => {
-    //     console.log("Invoice saved successfully:", response.data);
 
-    //   })
-    //   .catch((error) => console.error("Error saving invoice:", error));
-  });
-
-  const { fields, append, remove } = useFieldArray({
+   // UseFieldArray for dynamic items
+   const { fields, append, remove } = useFieldArray({
     control,
-    name: "items",
+    name: 'items',
   });
+
+
+
+ // Handle form submission
+  const onSubmit: SubmitHandler<IncomeData> = async (data) => {
+    console.log(data)
+    // Calculate totalAmount for each item
+    const updatedItems: Item[] = data.items.map((item) => ({
+      ...item,
+      totalAmount: item.quantity * item.unitPrice,
+    }));
+    const invoiceData: IncomeData = { ...data, items: updatedItems };
+
+    // Dispatch the createInvoice thunk
+    await dispatch(createInvoice(invoiceData));
+    
+
+    // Reset the form after submission
+    reset();
+  };
+
+  // const onSubmit = handleSubmit((data: IncomeData) => {
+  //   console.table(data);
+   
+  //   axios
+  //     .post("https://revboost-solutions.vercel.app/api/v1/invoices/create", data)
+  //     .then((response) => {
+  //       console.log("Invoice saved successfully:", response.data);
+
+  //     })
+  //     .catch((error) => console.error("Error saving invoice:", error));
+  // });
+
 
   return (
     <>
       <section className="container mx-auto mt-10 space-y-8">
         <h2>Company Income</h2>
         <div>
-          <form onSubmit={onSubmit} className="space-y-4 shadow-lg p-4">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 shadow-lg p-4">
             <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4">
               <div className="space-y-4">
                 <div>
@@ -115,9 +183,7 @@ const Invoice = () => {
                     {...register("date")}
                     id="invoiceCreationDate"
                     // type="date"
-                    defaultValue={getDate()}
                     placeholder={getDate()}
-                    disabled
                     className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
                   />
                 </div>
@@ -190,7 +256,8 @@ const Invoice = () => {
                       <input
                         type="number"
                         className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
-                        defaultValue={item.quantity * item.unitPrice}
+                        // defaultValue={item.quantity * item.unitPrice}
+                        // placeholder={ `${item.quantity * item.unitPrice}`}
                         {...field}
                         readOnly
                       />

@@ -2,8 +2,8 @@
 const Billing = () => {
   return (
     <div>
-      {/* to-do: */}
-      <p>Coming soon</p>
+      {/* todo: Billing adding */}
+      <p>coming soon</p>
     </div>
   );
 };
