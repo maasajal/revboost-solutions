@@ -142,6 +142,9 @@ const Navbar = () => {
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-[#b1b6c0] text-black rounded-box w-52 uppercase space-y-3"
             >
               <li>
+                <Link to="/dashboard/admin">Admin Dashboard</Link>
+              </li>
+              <li>
                 <Link to="/dashboard">Dashboard</Link>
               </li>
               <li>
