@@ -1,5 +1,5 @@
 import { signOut } from "firebase/auth";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import { logoutSuccess } from "../../../app/features/firebaseAuthentication/authSlice";
 import { AppDispatch, RootState } from "../../../app/store/store";
@@ -7,11 +7,14 @@ import logo from "../../../assets/logo.png";
 import { auth } from "../../../firebase/firebase.config";
 import userPhoto from "../../../assets/revBoostSolutions.png";
 import Swal from "sweetalert2";
+import { useAppSelector } from "../../../app/hooks/useAppSelector";
 
 const Navbar = () => {
   const dispatch = useDispatch<AppDispatch>(); // টাইপড useDispatch ব্যবহার করুন
 
-  const user = useSelector((state: RootState) => state.auth.user);
+  // const user = useSelector((state: RootState) => state.auth.user);
+  const user = useAppSelector((state: RootState) => state.currentUser?.user);
+
   const navItems = [
     {
       navName: "Home",

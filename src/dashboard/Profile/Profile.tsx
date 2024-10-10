@@ -4,17 +4,21 @@ import { useAppDispatch } from "../../app/hooks/useAppDispatch";
 import { useEffect } from "react";
 import { fetchUsers } from "../../app/api/usersAPI";
 import { getCurrentUser } from "../../app/api/currentUserAPI";
-// import User from "../../app/features/users/UserType";
+import User from "../../app/features/users/UserType";
 
 const Profile: React.FC = () => {
   const dispatch = useAppDispatch();
 
-  const user = useAppSelector((state: RootState) => state.currentUser.user);
+  const user = useAppSelector(
+    (state: RootState) => state.currentUser.user
+  ) as User | null;
   const allUsers = useAppSelector((state: RootState) => state.users.users);
   const loading = useAppSelector((state: RootState) => state.users.loading);
   const error = useAppSelector((state: RootState) => state.users.error);
 
-  const { _id, name, email, role, subscriptionPlan, subscriptionStatus } = user;
+  const { _id, name, email, role, subscriptionPlan, subscriptionStatus } =
+    user || {};
+  console.log(user);
 
   useEffect(() => {
     dispatch(fetchUsers()); // Fetch all users
