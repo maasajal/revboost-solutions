@@ -6,4 +6,6 @@ const axiosPublic = axios.create({
 const useAxiosPublic = () => {
   return axiosPublic;
 };
+
+export { axiosPublic };
 export default useAxiosPublic;

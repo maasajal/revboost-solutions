@@ -5,6 +5,7 @@ import storage from "redux-persist/lib/storage"; // স্থানীয় স
 import authReducer from "../features/firebaseAuthentication/authSlice"; // আপনার authSlice এর সঠিক পাথ ব্যবহার করুন
 import usersReducer from "../features/users/usersSlice";
 import revenueGrowthReducer from "../features/revenueGrowth/revenueGrowthSlice";
+import payrollReducer from "../state/payroll/payrollSlice";
 
 const persistConfig = {
   key: "root",
@@ -19,6 +20,7 @@ export const store = configureStore({
     auth: persistedAuthReducer, // authReducer যোগ করুন
     users: usersReducer, // get users data from the MongoDB userCollections
     revenueGrowth: revenueGrowthReducer,
+    payroll: payrollReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
