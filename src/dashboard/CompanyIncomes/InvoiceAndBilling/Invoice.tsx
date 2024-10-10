@@ -4,7 +4,8 @@ const Invoice = () => {
       <section className="container mx-auto mt-10 space-y-8">
         <h2>Invoice</h2>
         <div>
-          <form className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 ">
+          <form className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4">
+
             <div className="space-y-4">
               <div>
                 <label htmlFor="name" className="text-sm">
@@ -28,6 +29,7 @@ const Invoice = () => {
                 />
               </div>
             </div>
+
             <div className="space-y-4">
               <div>
                 <label htmlFor="name" className="text-sm">
@@ -51,6 +53,7 @@ const Invoice = () => {
                 />
               </div>
             </div>
+            
             <div className="space-y-4">
               <div>
                 <label htmlFor="name" className="text-sm">

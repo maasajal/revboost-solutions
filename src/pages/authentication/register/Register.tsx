@@ -32,7 +32,6 @@ const Register = () => {
     if (password !== confirmPassword) {
       return toast.error("Password not matched.");
     }
-    // console.log(data)
     dispatch(signInWithUserPassword(data));
     toast.success("Account created Successfully.");
   };
