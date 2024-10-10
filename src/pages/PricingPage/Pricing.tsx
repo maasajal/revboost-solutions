@@ -5,12 +5,10 @@ import "react-tabs/style/react-tabs.css";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import "../../../src/pages/PricingPage/pricing.css";
 import { useNavigate } from "react-router-dom";
-// import useAxiosPublic from "../../app/hooks/useAxiosPublic";
 import { useAppDispatch } from "../../app/hooks/useAppDispatch";
-import { updateUser } from "../../app/api/usersAPI";
-import { jwtDecode } from "jwt-decode";
 import { RootState } from "../../app/store/store";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../app/hooks/useAppSelector";
+import { updateUser } from "../../app/api/usersAPI";
 
 // Define types for the package data
 interface Package {
@@ -26,32 +24,14 @@ interface UpdateMembershipRequest {
   subscriptionPlan: string;
 }
 
-export interface DecodedToken {
-  email: string;
-}
-
 const Pricing: React.FC = () => {
   const [monthlyPackages, setMonthlyPackages] = useState<Package[]>([]);
   const [yearlyPackages, setYearlyPackages] = useState<Package[]>([]);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
-  const [email, setEmail] = useState<string>("");
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-
-  const user = useSelector((state: RootState) => state.auth.user);
-
-  useEffect(() => {
-    const token = localStorage.getItem("user-token");
-    if (token) {
-      try {
-        const decoded = jwtDecode<DecodedToken>(token); // Decode the token with the defined type
-        setEmail(decoded.email);
-      } catch (error) {
-        console.error("Failed to decode token", error);
-      }
-    }
-  }, [dispatch]);
+  const user = useAppSelector((state: RootState) => state.currentUser?.user);
 
   // Fetch Monthly Packages
   useEffect(() => {
@@ -84,7 +64,7 @@ const Pricing: React.FC = () => {
           subscriptionStatus: "active",
           subscriptionPlan: pkg.packageName,
         };
-        await dispatch(updateUser(email, requestBody));
+        await dispatch(updateUser(user?.email, requestBody));
 
         // Navigate to the dashboard after successful update
         navigate("/dashboard");
