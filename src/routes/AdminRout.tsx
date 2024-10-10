@@ -1,5 +1,5 @@
 import { ReactNode, useEffect, useState } from "react";
-import useAxiosSecure from "../useHook/useAxiosSecure";
+import useAxiosSecure from "../app/hooks/useAxiosSecure";
 
 interface AdminRoutProps {
   children: ReactNode;
@@ -12,11 +12,7 @@ const AdminRout = ({ children }: AdminRoutProps) => {
  
   useEffect(() => {
     axiosSecure
-      .get("/api/v1/login/admin", {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem("user-token")}`,
-        },
-      })
+      .get("/admin")
       .then((res) => {
         setIsAdmin(res.data.message);
         setLoading(false);
