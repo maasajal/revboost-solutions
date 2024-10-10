@@ -1,6 +1,6 @@
 import { Button } from "@material-tailwind/react";
 
-export function ButtonDefault() {
+export function ButtonDefault({name}) {
     return (
         <Button
             color="blue"
@@ -13,7 +13,7 @@ export function ButtonDefault() {
             onPointerEnterCapture={() => console.log('Pointer entered')} // Optional: Handle pointer enter
             onPointerLeaveCapture={() => console.log('Pointer left')} // Optional: Handle pointer leave
         >
-            button
+            {name? name : "text"}
         </Button>
     );
 }
