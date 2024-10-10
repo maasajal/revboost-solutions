@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import AdminProfile from "../dashboard/Admin/AdminProfile/AdminProfile";
+import AdminDashboard from "../dashboard/Admin/AdminDashboard/AdminDashboard";
 import Incomes from "../dashboard/CompanyIncomes/Incomes";
 import DashboardHome from "../dashboard/DashboardHome";
 import Expense from "../dashboard/Expense/Expense";
@@ -82,8 +82,8 @@ const router = createBrowserRouter([
         element: <Payroll />,
       },
       {
-        path: "/dashboard/admin-profile",
-        element:<AdminRout> <AdminProfile /> </AdminRout>,
+        path: "/dashboard/admin",
+        element:<AdminRout> <AdminDashboard /> </AdminRout>,
       },
     ],
   },

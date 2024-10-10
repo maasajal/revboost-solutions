@@ -1,20 +1,13 @@
-import { useAppSelector } from "../../app/hooks/useAppSelector";
-import { useAppDispatch } from "../../app/hooks/useAppDispatch";
-import { useEffect } from "react";
-import { fetchUsers } from "../../app/api/usersAPI";
+import { useSelector } from "react-redux"; // Import the root state from your store
+import { RootState } from "../../app/store/store";
 
 const Profile: React.FC = () => {
-  const dispatch = useAppDispatch();
-  const users = useAppSelector((state) => state.users.users);
-  useEffect(() => {
-    dispatch(fetchUsers());
-  }, [dispatch]);
-  console.log(users);
-
+  const user = useSelector((state: RootState) => state.auth.user);
+  console.log(user);
   return (
     <div className="container mx-auto px-5">
       <h1 className="text-center">User Profile</h1>
-      {users ? (
+      {user ? (
         <div>
           <p>Name: Company Name</p>
           <p>Email: Company email</p>
