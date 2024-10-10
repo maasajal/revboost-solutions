@@ -2,7 +2,6 @@ import { Controller, useFieldArray, useForm } from "react-hook-form";
 
 // import axios from "axios";
 
-
 type InvoiceData = {
   companyEmail: string;
   customerName: string;
@@ -31,7 +30,7 @@ function getDate() {
 const Invoice = () => {
   // UseState for Date
   // const [currentDate, setCurrentDate] = useState(getDate());
- 
+
 
   const { control, handleSubmit, register } = useForm<InvoiceData>({
     defaultValues: {
