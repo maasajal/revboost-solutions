@@ -5,12 +5,14 @@ import "react-tabs/style/react-tabs.css";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import "../../../src/pages/PricingPage/pricing.css";
 import { useNavigate } from "react-router-dom";
-// import useAxiosPublic from "../../app/hooks/useAxiosPublic";
 import { useAppDispatch } from "../../app/hooks/useAppDispatch";
-import { updateUser } from "../../app/api/usersAPI";
-import { jwtDecode } from "jwt-decode";
 import { RootState } from "../../app/store/store";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../app/hooks/useAppSelector";
+import { updateUser } from "../../app/api/usersAPI";
+import User from "../../app/features/users/UserType";
+import { Card, CardContent, Typography, Button, Divider, Box, Grid } from '@mui/material';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+
 
 // Define types for the package data
 interface Package {
@@ -26,32 +28,14 @@ interface UpdateMembershipRequest {
   subscriptionPlan: string;
 }
 
-export interface DecodedToken {
-  email: string;
-}
-
 const Pricing: React.FC = () => {
   const [monthlyPackages, setMonthlyPackages] = useState<Package[]>([]);
   const [yearlyPackages, setYearlyPackages] = useState<Package[]>([]);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
-  const [email, setEmail] = useState<string>("");
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-
-  const user = useSelector((state: RootState) => state.auth.user);
-
-  useEffect(() => {
-    const token = localStorage.getItem("user-token");
-    if (token) {
-      try {
-        const decoded = jwtDecode<DecodedToken>(token); // Decode the token with the defined type
-        setEmail(decoded.email);
-      } catch (error) {
-        console.error("Failed to decode token", error);
-      }
-    }
-  }, [dispatch]);
+  const user = useAppSelector((state: RootState) => state.currentUser?.user) as User | null;
 
   // Fetch Monthly Packages
   useEffect(() => {
@@ -84,7 +68,7 @@ const Pricing: React.FC = () => {
           subscriptionStatus: "active",
           subscriptionPlan: pkg.packageName,
         };
-        await dispatch(updateUser(email, requestBody));
+        await dispatch(updateUser(user?.email, requestBody));
 
         // Navigate to the dashboard after successful update
         navigate("/dashboard");
@@ -97,43 +81,52 @@ const Pricing: React.FC = () => {
   // Function to render package cards
   const renderPackageCard = (pkg: Package) => {
     return (
-      <div
-        className="card flex flex-col justify-between bg-base-100 shadow-xl p-5 h-full"
-        key={pkg.packageName}
-      >
-        <div className="flex-grow">
-          <section>
-            <h2 className="text-center text-[24px] uppercase tracking-widest font-bold mb-4">
-              {pkg.packageName}
-            </h2>
-            <p className="text-5xl mb-5">
-              <span className="text-2xl">$</span>
-              {pkg.price}
-            </p>
-            <p className="pb-5 text-gray-500">{pkg.shortMessage}</p>
-            <hr className="my-4" />
-            <p className="py-3">{pkg.description}</p>
-          </section>
-          <div className="justify-center mt-5">
-            <button
-              onClick={() => handleSubscriptionClick(pkg)}
-              className="btn bg-secondary text-white hover:bg-primary border-none w-full"
-            >
-              Start your 14-days free trial
-            </button>
-          </div>
-          <div className="mt-6">
-            {pkg.features.map((feature, index) => (
-              <p
-                key={index}
-                className="text-start flex items-center gap-x-3 inter text-black text-[16px] mb-3"
-              >
-                <IoCheckmarkDoneCircleOutline /> {feature}
-              </p>
-            ))}
-          </div>
-        </div>
-      </div>
+      <Card sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', p: 3, height: '100%', boxShadow: 3, background: 'white' }}>
+      <CardContent sx={{ flexGrow: 1 }}>
+        <Box component="section">
+          <Typography
+            variant="h5"
+            component="h2"
+            align="center"
+            fontWeight="bold"
+            gutterBottom
+            sx={{ textTransform: 'uppercase', letterSpacing: 2 }}
+          >
+            {pkg.packageName}
+          </Typography>
+          <Typography variant="h3" gutterBottom>
+            <Typography component="span" variant="h6">$</Typography>
+            {pkg.price}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" gutterBottom>
+            {pkg.shortMessage}
+          </Typography>
+          <Divider sx={{ my: 2 }} />
+          <Typography variant="body1" gutterBottom>
+            {pkg.description}
+          </Typography>
+        </Box>
+        <Box sx={{ mt: 3 }}>
+          <Button
+            variant="contained"
+            color="secondary"
+            fullWidth
+            onClick={() => handleSubscriptionClick(pkg)}
+            sx={{ backgroundColor: '#f50057', '&:hover': { backgroundColor: '#d32f2f' } }}
+          >
+            Start your 14-days free trial
+          </Button>
+        </Box>
+        <Grid container spacing={1} sx={{ mt: 4 }}>
+          {pkg.features.map((feature, index) => (
+            <Grid item xs={12} key={index} sx={{ display: 'flex', alignItems: 'center', textAlign: "left"}}>
+              <CheckCircleOutlineIcon sx={{ mr: 1 }} />
+              <Typography variant="body1">{feature}</Typography>
+            </Grid>
+          ))}
+        </Grid>
+      </CardContent>
+    </Card>
     );
   };
   // Function to toggle FAQ
@@ -220,48 +213,76 @@ const Pricing: React.FC = () => {
       </Tabs>
 
       {/* Add-on Repository Section */}
-      <section className="container mx-auto mb-20 space-y-10">
-        <h1 className="text-center mt-12 text-4xl">Our Add-on Repository</h1>
-        <p className="text-center">(Billed annually)</p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 justify-center">
-          <div>
-            <div className="card bg-base-100 shadow-xl">
-              <h1 className="text-center text-xl font-normal uppercase py-3">
+       <Box sx={{ mb: 5 }}>
+      <Typography variant="h4" align="center" mt={3}>
+        Our Add-on Repository
+      </Typography>
+      <Typography variant="body1" align="center">
+        (Billed annually)
+      </Typography>
+
+      <Grid container spacing={3} justifyContent="center" sx={{ mt: 3 }}>
+        {/* Users Card */}
+        <Grid item xs={12} md={4}>
+          <Card sx={{ boxShadow: 3 }}>
+            <CardContent>
+              <Typography variant="h6" align="center" sx={{ textTransform: 'uppercase', py: 2 }}>
                 Users
-              </h1>
-              <hr className="pb-2" />
-              <div>
-                <p className="text-center text-4xl pt-4">$7.5</p>
-                <p className="text-center pb-12">user/month</p>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div className="card bg-base-100 shadow-xl">
-              <h1 className="text-center text-xl font-normal uppercase py-3">
-                Timesheet user
-              </h1>
-              <hr className="pb-2" />
-              <div>
-                <p className="text-center text-4xl pt-4">$2.5</p>
-                <p className="text-center pb-12">user/month</p>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div className="card bg-base-100 shadow-xl">
-              <h1 className="text-center text-xl font-normal uppercase py-3">
+              </Typography>
+              <Divider />
+              <Box sx={{ py: 3 }}>
+                <Typography variant="h3" align="center" sx={{ pt: 2 }}>
+                  $7.5
+                </Typography>
+                <Typography variant="body1" align="center" sx={{ pb: 3 }}>
+                  user/month
+                </Typography>
+              </Box>
+            </CardContent>
+          </Card>
+        </Grid>
+
+        {/* Timesheet User Card */}
+        <Grid item xs={12} md={4}>
+          <Card sx={{ boxShadow: 3 }}>
+            <CardContent>
+              <Typography variant="h6" align="center" sx={{ textTransform: 'uppercase', py: 2 }}>
+                Timesheet User
+              </Typography>
+              <Divider />
+              <Box sx={{ py: 3 }}>
+                <Typography variant="h3" align="center" sx={{ pt: 2 }}>
+                  $2.5
+                </Typography>
+                <Typography variant="body1" align="center" sx={{ pb: 3 }}>
+                  user/month
+                </Typography>
+              </Box>
+            </CardContent>
+          </Card>
+        </Grid>
+
+        {/* Client Card */}
+        <Grid item xs={12} md={4}>
+          <Card sx={{ boxShadow: 3 }}>
+            <CardContent>
+              <Typography variant="h6" align="center" sx={{ textTransform: 'uppercase', py: 2 }}>
                 Client
-              </h1>
-              <hr className="pb-2" />
-              <div>
-                <p className="text-center text-4xl pt-4">$0.00</p>
-                <p className="text-center pb-12">user/month</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+              </Typography>
+              <Divider />
+              <Box sx={{ py: 3 }}>
+                <Typography variant="h3" align="center" sx={{ pt: 2 }}>
+                  $0.00
+                </Typography>
+                <Typography variant="body1" align="center" sx={{ pb: 3 }}>
+                  user/month
+                </Typography>
+              </Box>
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
+    </Box>
 
       {/* FAQ Section */}
       <div className="faq-section bg-gray-100 py-10 px-5 md:px-20 container mx-auto rounded-xl">

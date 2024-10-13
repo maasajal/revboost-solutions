@@ -20,11 +20,14 @@ const revenueData: RevenueData[] = [
 
 const RevenueGrowth: React.FC = () => {
   const dispatch = useAppDispatch();
+  const currentUser = useAppSelector((state) => state.currentUser.user);
+  console.log("currentUser", currentUser);
+
   const { data, loading, error } = useAppSelector(
     (state) => state.revenueGrowth
   );
   const revenueGrowth = data || {};
-  console.log("revenue", revenueGrowth);
+  // console.log("revenue", revenueGrowth);
   useEffect(() => {
     const userId: string = "670708f70e882388dd5b3af0";
     dispatch(fetchRevenueGrowth(userId));
@@ -38,9 +41,15 @@ const RevenueGrowth: React.FC = () => {
       <h1 className="text-center mb-8">COMPANY NAME</h1>
 
       <section className="flex flex-wrap justify-center gap-8 mb-8 py-10">
-        <h3 className={`p-4 rounded-md shadow-xl`}>Total Incomes: {revenueGrowth?.totalIncome}</h3>
-        <h3 className={`p-4 rounded-md shadow-xl`}>Total Expenses: {revenueGrowth?.totalExpenses}</h3>
-        <h3 className={`p-4 rounded-md shadow-xl`}>GrowthPercentage: {revenueGrowth?.growthPercentage}</h3>
+        <h3 className={`p-4 rounded-md shadow-xl`}>
+          Total Incomes: {revenueGrowth?.totalIncome}
+        </h3>
+        <h3 className={`p-4 rounded-md shadow-xl`}>
+          Total Expenses: {revenueGrowth?.totalExpenses}
+        </h3>
+        <h3 className={`p-4 rounded-md shadow-xl`}>
+          GrowthPercentage: {revenueGrowth?.growthPercentage}
+        </h3>
       </section>
 
       <div className="flex flex-wrap justify-center gap-8 mb-8 py-10">

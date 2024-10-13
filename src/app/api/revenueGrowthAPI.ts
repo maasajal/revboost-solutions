@@ -7,13 +7,12 @@ import {
   updateRevenueGrowthSuccess,
   revenueGrowthRequestFailure,
 } from "../features/revenueGrowth/revenueGrowthSlice";
-import useAxiosPublic from "../hooks/useAxiosPublic";
+import { axiosPublic } from "../hooks/useAxiosPublic";
 
 const API_BASE_URL = "/revenue-growth";
 
 // Fetch Revenue Growth Data
 export const fetchRevenueGrowth = (userId: string) => async (dispatch: any) => {
-    const axiosPublic = useAxiosPublic()
   dispatch(fetchRevenueGrowthStart());
   try {
     const response = await axiosPublic.get(`${API_BASE_URL}/${userId}`);
