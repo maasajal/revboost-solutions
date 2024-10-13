@@ -1,13 +1,29 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { addPayroll } from "../../app/features/payroll/payrollSlice";
+import { AppDispatch } from "../../app/store/store";
 
-type Inputs = {
+interface Payroll {
+  _id: string;
   employeeName: string;
   position: string;
   salary: number;
   bonus: number;
   taxDeduction: number;
   month: string;
+  __v: number;
+}
+
+type Inputs = {
+  _id: string;
+  employeeName: string;
+  position: string;
+  salary: number;
+  bonus: number;
+  taxDeduction: number;
+  month: string;
+  __v: number;
 };
 
 const PayrollForm = () => {
@@ -17,9 +33,17 @@ const PayrollForm = () => {
     formState: { errors },
   } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
+  const dispatch: AppDispatch = useDispatch();
+
+  const onSubmit: SubmitHandler<Inputs> = async (data: Payroll) => {
     console.log(data);
-    toast.success("Saved Successfully.");
+    try {
+      await dispatch(addPayroll(data));
+      toast.success("Saved Successfully."); // Show success message
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {
+      toast.error("Failed to save payroll."); // Show error message
+    }
   };
   return (
     <div>

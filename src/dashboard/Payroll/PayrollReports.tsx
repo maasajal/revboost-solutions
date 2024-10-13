@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchPayroll } from "../../app/state/payroll/payrollSlice";
+import { fetchPayroll } from "../../app/features/payroll/payrollSlice";
 import { AppDispatch, RootState } from "../../app/store/store";
 import { FaSpinner } from "react-icons/fa";
 
