@@ -6,8 +6,9 @@ import authReducer from "../features/firebaseAuthentication/authSlice"; // à¦†à¦
 import usersReducer from "../features/users/usersSlice";
 import currentUserReducer from "../features/users/currentUserSlice";
 import revenueGrowthReducer from "../features/revenueGrowth/revenueGrowthSlice";
-import payrollReducer from "../state/payroll/payrollSlice";
+import payrollReducer from "../features/payroll/payrollSlice";
 import incomesReducer from "../features/companyIncome/incomeSlice"
+
 
 const persistConfig = {
   key: "root",
