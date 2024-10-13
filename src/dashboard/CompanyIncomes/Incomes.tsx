@@ -1,6 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../app/store/store";
 import { useState } from "react";
+import { fetchIncomeCollection, addIncomeEntry, selectIncome } from "../../app/features/companyIncome/incomeSlice"
+
 
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -8,6 +10,7 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { TextField } from "@mui/material";
 import { SubmitHandler, useForm } from "react-hook-form";
+
 // form input
 interface IncomeFormInputs {
   incomeId: string;
@@ -30,9 +33,9 @@ const style = {
 
 const Incomes: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-
-  const {  loading } = useSelector((state: RootState) => state.incomes);
-  console.log(dispatch);
+ 
+  const {incomeCollection, loading} = useSelector((state: RootState) => state.incomes);
+  console.log(incomeCollection,dispatch);
   //  mui modal
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
