@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../app/store/store";
-import { useState } from "react";
-import { fetchIncomeCollection, addIncomeEntry, selectIncome } from "../../app/features/companyIncome/incomeSlice"
+import { useEffect, useState } from "react";
+import { fetchIncomeCollection, addIncomeEntry, IncomeEntry } from "../../app/features/companyIncome/incomeSlice"
 
 
 import Box from "@mui/material/Box";
@@ -10,6 +10,7 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { TextField } from "@mui/material";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useAppSelector } from "../../app/hooks/useAppSelector";
 
 // form input
 interface IncomeFormInputs {
@@ -33,7 +34,17 @@ const style = {
 
 const Incomes: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
- 
+  // Getting userId
+  const currentUser = useAppSelector((state) => state.currentUser.user);
+  console.log("currentUser", currentUser);
+  
+  const userId = 'user1_id'; // Replace with dynamic user ID as needed
+
+  useEffect(() => {
+    dispatch(fetchIncomeCollection(userId));
+  }, [dispatch, userId]);
+
+
   const {incomeCollection, loading} = useSelector((state: RootState) => state.incomes);
   console.log(incomeCollection,dispatch);
   //  mui modal
@@ -44,19 +55,21 @@ const Incomes: React.FC = () => {
   const {
     register,
     handleSubmit,
-    // reset,
+    reset,
     formState: { errors },
   } = useForm<IncomeFormInputs>();
   const onSubmit: SubmitHandler<IncomeFormInputs> = (data) => {
     console.log(data);
-    // const newEntry: IncomeEntry = {
-    //   incomeId: data.incomeId,
-    //   amount: data.amount,
-    //   source: data.source,
-    //   date: data.date,
-    // };
-    // dispatch(addIncomeEntry({ userId, entry: newEntry }));
-    // reset();
+
+    const newEntry: IncomeEntry = {
+      incomeId: data.incomeId,
+      amount: data.amount,
+      source: data.source,
+      date: data.date,
+    };
+    console.log(newEntry)
+    dispatch(addIncomeEntry({ userId, entry: newEntry }));
+    reset();
   };
   return (
     <section className="container mx-auto mt-10 space-y-4">
