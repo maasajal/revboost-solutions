@@ -1,26 +1,27 @@
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../app/store/store";
 import { useState } from "react";
-// import {
-//   Button,
-//   Dialog,
-//   DialogHeader,
-//   DialogBody,
-//   DialogFooter,
-// } from "@material-tailwind/react";
 
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { FormControl, InputLabel, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
+import { SubmitHandler, useForm } from "react-hook-form";
+// form input
+interface IncomeFormInputs {
+  incomeId: string;
+  amount: number;
+  source: string;
+  date: string; // YYYY-MM-DD
+}
 
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 600,
+  width: 800,
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -30,13 +31,30 @@ const style = {
 const Incomes: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
 
-  const { incomes } = useSelector((state: RootState) => state.incomes);
+  const { incomes, loading } = useSelector((state: RootState) => state.incomes);
   console.log(incomes, dispatch);
   //  mui modal
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
+  // form section
+  const {
+    register,
+    handleSubmit,
+    // reset,
+    formState: { errors },
+  } = useForm<IncomeFormInputs>();
+  const onSubmit: SubmitHandler<IncomeFormInputs> = (data) => {
+    console.log(data);
+    // const newEntry: IncomeEntry = {
+    //   incomeId: data.incomeId,
+    //   amount: data.amount,
+    //   source: data.source,
+    //   date: data.date,
+    // };
+    // dispatch(addIncomeEntry({ userId, entry: newEntry }));
+    // reset();
+  };
   return (
     <section className="container mx-auto mt-10 space-y-4">
       <h2 className="text-center">Income Page</h2>
@@ -54,7 +72,7 @@ const Incomes: React.FC = () => {
             <div>
               {/* mui modal */}
               <div>
-                <Button onClick={handleOpen}>Open modal</Button>
+                <Button className="animate-bounce" onClick={handleOpen}>Add Income details</Button>
                 <Modal
                   open={open}
                   onClose={handleClose}
@@ -69,33 +87,81 @@ const Incomes: React.FC = () => {
                     >
                       Add your item here
                     </Typography>
-                    <div className="gap-4 grid grid-cols-1 md:grid-cols-2">
+                    <form
+                      onSubmit={handleSubmit(onSubmit)}
+                      className="gap-6 grid grid-cols-1 md:grid-cols-2"
+                    >
+                      <TextField
+                        id="incomeId"
+                        {...register("incomeId", {
+                          required: "Income ID is required",
+                        })}
+                        label="IncomeId"
+                        variant="outlined"
+                      />
+                      {errors.incomeId && (
+                        <span className="text-red-400">
+                          {errors.incomeId.message}
+                        </span>
+                      )}
+                      <TextField
+                        id="amount"
+                        type="number"
+                        {...register("amount", {
+                          required: "Amount is required",
+                          min: { value: 0, message: "Amount must be positive" },
+                        })}
+                        label="Amount"
+                        variant="outlined"
+                      />
+                      {errors.amount && (
+                        <span className="text-red-400">
+                          {errors.amount.message}
+                        </span>
+                      )}
+                      <TextField
+                        id="source"
+                        {...register("source", {
+                          required: "Source is required",
+                        })}
+                        label="Source"
+                        variant="outlined"
+                      />
+                      {errors.source && (
+                        <span style={{ color: "red" }}>
+                          {errors.source.message}
+                        </span>
+                      )}
+
+                      <TextField
+                        id="date"
+                        type="date"
+                        {...register("date", { required: "Date is required" })}
+                        variant="outlined"
+                      />
+                      {errors.date && (
+                        <span style={{ color: "red" }}>
+                          {errors.date.message}
+                        </span>
+                      )}
                       <TextField
                         id="outlined-basic"
                         label="Outlined"
                         variant="outlined"
                       />
-                      <TextField
-                        id="outlined-basic"
-                        label="Outlined"
-                        variant="outlined"
-                      />
-                      <TextField
-                        id="outlined-basic"
-                        label="Outlined"
-                        variant="outlined"
-                      />
-                      <TextField
-                        id="outlined-basic"
-                        label="Outlined"
-                        variant="outlined"
-                      />
-                      <TextField
-                        id="outlined-basic"
-                        label="Outlined"
-                        variant="outlined"
-                      />
-                    </div>{" "}
+                      <button
+                        type="submit"
+                        disabled={loading}
+                        style={{
+                          padding: "10px",
+                          backgroundColor: "#4CAF50",
+                          color: "white",
+                          border: "none",
+                        }}
+                      >
+                        {loading ? "Saving..." : "Add Income"}
+                      </button>
+                    </form>{" "}
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                       Duis mollis, est non commodo luctus, nisi erat porttitor
                       ligula.
