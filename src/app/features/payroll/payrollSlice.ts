@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getPayroll } from "./payrollAPI";
+import { createPayroll, getPayroll } from "./payrollAPI";
 
 interface Payroll {
   _id: string;
@@ -32,6 +32,14 @@ export const fetchPayroll = createAsyncThunk(
   }
 );
 
+export const addPayroll = createAsyncThunk(
+  "payroll/addPayroll",
+  async (payrollData: Payroll) => {
+    const newPayroll = await createPayroll(payrollData);
+    return newPayroll;
+  }
+);
+
 const payrollSlice = createSlice({
   name: "payroll",
   initialState,
@@ -48,6 +56,9 @@ const payrollSlice = createSlice({
       .addCase(fetchPayroll.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error?.message || "Failed to fetch payrolls";
+      })
+      .addCase(addPayroll.fulfilled, (state, action) => {
+        state.payroll.push(action.payload);
       });
   },
 });
