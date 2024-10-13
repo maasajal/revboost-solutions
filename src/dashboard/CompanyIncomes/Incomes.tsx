@@ -31,8 +31,8 @@ const style = {
 const Incomes: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
 
-  const { incomes, loading } = useSelector((state: RootState) => state.incomes);
-  console.log(incomes, dispatch);
+  const {  loading } = useSelector((state: RootState) => state.incomes);
+  console.log(dispatch);
   //  mui modal
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -144,11 +144,7 @@ const Incomes: React.FC = () => {
                           {errors.date.message}
                         </span>
                       )}
-                      <TextField
-                        id="outlined-basic"
-                        label="Outlined"
-                        variant="outlined"
-                      />
+                      
                       <button
                         type="submit"
                         disabled={loading}
@@ -204,34 +200,7 @@ const Incomes: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {incomes.length === 0 ? (
-                  <p>No invoices found.</p>
-                ) : (
-                  <tr className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50">
-                    <td className="p-3">
-                      <p>97412378923</p>
-                    </td>
-                    <td className="p-3">
-                      <p>Microsoft Corporation</p>
-                    </td>
-                    <td className="p-3">
-                      <p>14 Jan 2022</p>
-                      <p className="dark:text-gray-600">Friday</p>
-                    </td>
-                    <td className="p-3">
-                      <p>01 Feb 2022</p>
-                      <p className="dark:text-gray-600">Tuesday</p>
-                    </td>
-                    <td className="p-3 text-right">
-                      <p>$6000</p>
-                    </td>
-                    <td className="p-3 text-right">
-                      <span className="px-3 py-1 font-semibold rounded-md dark:bg-red-400 dark:text-gray-50">
-                        <span>Delete</span>
-                      </span>
-                    </td>
-                  </tr>
-                )}
+                
 
                 {/* <tr className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50">
                     <td className="p-3">
@@ -324,7 +293,7 @@ const Incomes: React.FC = () => {
                   <td className="p-3 text-right">
                     {/* Write Total Below  */}
 
-                    <h5>$6000</h5>
+                    <h5>$</h5>
                   </td>
                   <td className="p-3 text-right">
                     <span className="px-3 py-1 font-semibold rounded-md dark:text-gray-50">
@@ -350,7 +319,7 @@ const Incomes: React.FC = () => {
                   <td className="p-3 text-right">
                     {/* Write VAT Below  */}
 
-                    <h5>$6000</h5>
+                    <h5>$</h5>
                   </td>
                   <td className="p-3 text-right">
                     <span className="px-3 py-1 font-semibold rounded-md dark:text-gray-50">
@@ -376,7 +345,7 @@ const Incomes: React.FC = () => {
                   <td className="p-3 text-right">
                     {/* Write Total Below  */}
 
-                    <h4>$7500</h4>
+                    <h4>$</h4>
                   </td>
                   <td className="p-3 text-right">
                     <span className="px-3 py-1 font-semibold rounded-md dark:text-gray-50">
