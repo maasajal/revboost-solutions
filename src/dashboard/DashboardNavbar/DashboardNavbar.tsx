@@ -18,16 +18,7 @@ const DashboardNavbar = () => {
   const userDetails = useAppSelector(
     (state: RootState) => state.currentUser?.user
   ) as User | null;
-  const {
-    _id,
-    name,
-    email,
-    photo,
-    mobile,
-    role,
-    subscriptionPlan,
-    subscriptionStatus,
-  } = userDetails || {};
+  const { name, photo, role } = userDetails || {};
   const dispatch = useDispatch<AppDispatch>();
   const handleSignOut = async () => {
     try {
@@ -75,7 +66,7 @@ const DashboardNavbar = () => {
   ];
   return (
     <header className="pt-20 w-64 h-full bg-dashboardNavbarBG font-bold space-y-5 px-3">
-      <div className="text-center">
+      <div className="text-center space-y-3">
         <Link to={"/"}>
           <img
             src={photo ? photo : logo}
@@ -86,6 +77,7 @@ const DashboardNavbar = () => {
         <h3 className="flex items-center justify-center gap-5">
           {name ? name : "Company Name"}
         </h3>
+        <p>Role: {role}</p>
       </div>
       <hr className="w-3/4 mx-auto" />
       <ul className="menu space-y-2">
