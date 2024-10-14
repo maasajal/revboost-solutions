@@ -20,3 +20,9 @@ export const createPayroll = async (data: Payroll) => {
   const response = await axiosPublic.post("/payroll", data);
   return response.data;
 };
+
+export const deletePayroll = async (id: string) => {
+  const response = await axiosPublic.delete(`/payroll/${id}`);
+  console.log(response);
+  return id;
+};
