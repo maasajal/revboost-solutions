@@ -1,116 +1,103 @@
-// src/store/incomeSlice.ts
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 
 // Define TypeScript interfaces
-
-export interface Item {
-  no: number;
-  item: string;
-  quantity: number;
-  unitPrice: number;
-  totalAmount: number;
+export interface IncomeEntry {
+  incomeId: string;
+  amount: number;
+  source: string;
+  date: string; // ISO string
 }
 
-export interface IncomeData {
-  companyEmail: string;
-  customerName: string;
-  companyName: string;
-  invoiceNumber: string;
-  invoiceDueDate: string;
-  date: string; // ISO Date string
-  customerAddress: string;
-  items: Item[];
+export interface IncomeCollection {
+  userId: string;
+  userEmail: string;
+  incomeEntries: IncomeEntry[];
 }
 
 interface IncomeState {
-  incomes: IncomeData[];
+  incomeCollection: IncomeCollection | null;
   loading: boolean;
   error: string | null;
 }
 
 const initialState: IncomeState = {
-  incomes: [],
+  incomeCollection: null,
   loading: false,
   error: null,
 };
 
-// Async Thunk to fetch invoices
-export const fetchInvoices = createAsyncThunk(
-  "invoices/fetchInvoices",
-  async (_, { rejectWithValue }) => {
+// Thunk to fetch income collection
+export const fetchIncomeCollection = createAsyncThunk<
+  IncomeCollection,
+  string,
+  { rejectValue: string }
+>(
+  'income/fetchIncomeCollection',
+  async (userId, { rejectWithValue }) => {
     try {
-      const response = await axios.get<IncomeData[]>(
-        "https://revboost-solutions.vercel.app/api/v1/invoices/all"
-      );
+      const response = await axios.get<IncomeCollection>(`https://revboost-solutions.vercel.app/api/v1/income/${userId}`);
       return response.data;
-    } catch (err: any) {
-      return rejectWithValue(
-        err.response.data.error || "Failed to fetch invoices"
-      );
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data?.message || 'Failed to fetch income collection');
     }
   }
 );
 
-// Async Thunk to create a new invoice
-export const createInvoice = createAsyncThunk(
-  "invoices/createInvoice",
-  async (invoice: IncomeData, { rejectWithValue }) => {
+// Thunk to add a new income entry
+export const addIncomeEntry = createAsyncThunk<
+  IncomeCollection,
+  { userId: string; entry: IncomeEntry },
+  { rejectValue: string }
+>(
+  'income/addIncomeEntry',
+  async ({ userId, entry }, { rejectWithValue }) => {
     try {
-      const response = await axios.post<IncomeData>(
-        "https://revboost-solutions.vercel.app/api/v1/invoices/create",
-        // `${import.meta.env.VITE_API}/invoices/create`,
-        invoice
-      );
-      console.log("Invoice saved successfully:", response.data);
+      const response = await axios.post<IncomeCollection>(`https://revboost-solutions.vercel.app/api/v1/income/${userId}`, entry);
       return response.data;
-    } catch (err: any) {
-      return rejectWithValue(
-        err.response.data.error || "Failed to create income"
-      );
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data?.message || 'Failed to add income entry');
     }
   }
 );
 
-// Create Slice
 const incomeSlice = createSlice({
-  name: "incomes",
+  name: "income",
   initialState,
-  reducers: {
-    // You can add synchronous actions here if needed
-  },
+  reducers: {},
   extraReducers: (builder) => {
-    // Handle fetchInvoices
-    builder.addCase(fetchInvoices.pending, (state) => {
+    // Handle fetchIncomeCollection
+    builder.addCase(fetchIncomeCollection.pending, (state) => {
       state.loading = true;
       state.error = null;
     });
     builder.addCase(
-      fetchInvoices.fulfilled,
-      (state, action: PayloadAction<IncomeData[]>) => {
+      fetchIncomeCollection.fulfilled,
+      (state, action: PayloadAction<IncomeCollection>) => {
         state.loading = false;
-        state.incomes = action.payload;
+        state.incomeCollection = action.payload;
       }
     );
-    builder.addCase(fetchInvoices.rejected, (state, action) => {
+    builder.addCase(fetchIncomeCollection.rejected, (state, action) => {
       state.loading = false;
-      state.error = action.payload as string;
+      state.error = action.payload || "Something went wrong";
     });
-    // Handle createInvoice
-    builder.addCase(createInvoice.pending, (state) => {
+
+    // Handle addIncomeEntry
+    builder.addCase(addIncomeEntry.pending, (state) => {
       state.loading = true;
       state.error = null;
     });
     builder.addCase(
-      createInvoice.fulfilled,
-      (state, action: PayloadAction<IncomeData>) => {
+      addIncomeEntry.fulfilled,
+      (state, action: PayloadAction<IncomeCollection>) => {
         state.loading = false;
-        state.incomes.push(action.payload);
+        state.incomeCollection = action.payload;
       }
     );
-    builder.addCase(createInvoice.rejected, (state, action) => {
+    builder.addCase(addIncomeEntry.rejected, (state, action) => {
       state.loading = false;
-      state.error = action.payload as string;
+      state.error = action.payload || "Something went wrong";
     });
   },
 });
