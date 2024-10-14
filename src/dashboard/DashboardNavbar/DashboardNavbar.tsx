@@ -10,14 +10,21 @@ import { AiOutlineCreditCard } from "react-icons/ai";
 import { auth } from "../../firebase/firebase.config";
 import { signOut } from "firebase/auth";
 import Swal from "sweetalert2";
+import User from "../../app/features/users/UserType";
+import { useAppSelector } from "../../app/hooks/useAppSelector";
 
 const DashboardNavbar = () => {
   const user = useSelector((state: RootState) => state?.auth?.user);
+  const userDetails = useAppSelector(
+    (state: RootState) => state.currentUser?.user
+  ) as User | null;
+  const { name, photo, role } = userDetails || {};
   const dispatch = useDispatch<AppDispatch>();
   const handleSignOut = async () => {
     try {
       await signOut(auth);
       dispatch(logoutSuccess());
+      localStorage.removeItem("user-token");
       Swal.fire({
         position: "top-end",
         title: "Signed Out successfully!",
@@ -58,18 +65,19 @@ const DashboardNavbar = () => {
     },
   ];
   return (
-    <header className="pt-20 w-64 h-full bg-dashboardNavbarBG font-bold space-y-5">
-      <div className="text-center">
+    <header className="pt-20 w-64 h-full bg-dashboardNavbarBG font-bold space-y-5 px-3">
+      <div className="text-center space-y-3">
         <Link to={"/"}>
           <img
-            src={logo}
+            src={photo ? photo : logo}
             alt="company logo"
-            className="mx-auto mb-5 max-w-48"
+            className={`${photo && "rounded-full"} mx-auto mb-5 max-w-48`}
           />
         </Link>
         <h3 className="flex items-center justify-center gap-5">
-          {user ? "Company Dynamic Name" : "Company Name"}
+          {name ? name : "Company Name"}
         </h3>
+        <p>Role: {role}</p>
       </div>
       <hr className="w-3/4 mx-auto" />
       <ul className="menu space-y-2">

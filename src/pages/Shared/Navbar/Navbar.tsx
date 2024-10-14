@@ -8,12 +8,14 @@ import { auth } from "../../../firebase/firebase.config";
 import userPhoto from "../../../assets/revBoostSolutions.png";
 import Swal from "sweetalert2";
 import { useAppSelector } from "../../../app/hooks/useAppSelector";
+import User from "../../../app/features/users/UserType";
 
 const Navbar = () => {
   const dispatch = useDispatch<AppDispatch>(); // টাইপড useDispatch ব্যবহার করুন
-
-  // const user = useSelector((state: RootState) => state.auth.user);
-  const user = useAppSelector((state: RootState) => state.currentUser?.user);
+  const user = useAppSelector((state: RootState) => state.auth.user);
+  const userDetails = useAppSelector(
+    (state: RootState) => state.currentUser?.user
+  ) as User | null;
 
   const navItems = [
     {
@@ -45,6 +47,7 @@ const Navbar = () => {
     try {
       await signOut(auth);
       dispatch(logoutSuccess());
+      localStorage.removeItem("user-token");
       Swal.fire({
         position: "top-end",
         title: "Signed Out successfully!",
@@ -136,7 +139,10 @@ const Navbar = () => {
                 className="btn btn-ghost btn-circle avatar"
               >
                 <div className="w-10 rounded-full">
-                  <img src={userPhoto} alt="Logged user photo" />
+                  <img
+                    src={userDetails?.photo ? userDetails?.photo : userPhoto}
+                    alt="Logged user photo"
+                  />
                 </div>
               </div>
             }
