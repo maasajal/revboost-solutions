@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { createPayroll, getPayroll } from "./payrollAPI";
+import { createPayroll, deletePayroll, getPayroll } from "./payrollAPI";
 
 interface Payroll {
   _id: string;
@@ -13,13 +13,13 @@ interface Payroll {
 }
 
 interface PayrollState {
-  payroll: Payroll[];
+  payrolls: Payroll[];
   isLoading: boolean;
   error: string | null;
 }
 
 const initialState: PayrollState = {
-  payroll: [],
+  payrolls: [],
   isLoading: false,
   error: null,
 };
@@ -40,6 +40,14 @@ export const addPayroll = createAsyncThunk(
   }
 );
 
+export const removePayroll = createAsyncThunk(
+  "payroll/removePayroll",
+  async (id: string) => {
+    await deletePayroll(id);
+    return id;
+  }
+);
+
 const payrollSlice = createSlice({
   name: "payroll",
   initialState,
@@ -51,14 +59,19 @@ const payrollSlice = createSlice({
       })
       .addCase(fetchPayroll.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.payroll = action.payload;
+        state.payrolls = action.payload;
       })
       .addCase(fetchPayroll.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error?.message || "Failed to fetch payrolls";
       })
       .addCase(addPayroll.fulfilled, (state, action) => {
-        state.payroll.push(action.payload);
+        state.payrolls.push(action.payload);
+      })
+      .addCase(removePayroll.fulfilled, (state, action) => {
+        state.payrolls = state.payrolls.filter(
+          (payroll: { _id: string }) => payroll._id !== action.payload
+        );
       });
   },
 });
