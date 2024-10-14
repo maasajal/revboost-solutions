@@ -65,8 +65,15 @@ const payrollSlice = createSlice({
         state.isLoading = false;
         state.error = action.error?.message || "Failed to fetch payrolls";
       })
+      .addCase(addPayroll.pending, (state) => {
+        state.isLoading = true;
+      })
       .addCase(addPayroll.fulfilled, (state, action) => {
         state.payrolls.push(action.payload);
+      })
+      .addCase(addPayroll.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error?.message || "Failed to add payroll";
       })
       .addCase(removePayroll.fulfilled, (state, action) => {
         state.payrolls = state.payrolls.filter(

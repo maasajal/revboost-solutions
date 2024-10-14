@@ -30,6 +30,7 @@ const PayrollForm = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<Inputs>();
 
@@ -39,7 +40,8 @@ const PayrollForm = () => {
     console.log(data);
     try {
       await dispatch(addPayroll(data));
-      toast.success("Saved Successfully."); // Show success message
+      toast.success("Saved Successfully.");
+      reset();
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       toast.error("Failed to save payroll."); // Show error message
@@ -143,8 +145,9 @@ const PayrollForm = () => {
             <select
               className="w-full p-3 rounded dark:bg-gray-100"
               {...register("month", { required: true })}
+              defaultValue=""
             >
-              <option value="Select Month" selected disabled>
+              <option value="" disabled>
                 Select Month
               </option>
               <option value="January">January</option>
