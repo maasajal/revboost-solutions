@@ -1,6 +1,4 @@
-import * as React from "react";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import { createTheme } from "@mui/material/styles";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -9,10 +7,9 @@ import { DashboardLayout } from "@toolpad/core/DashboardLayout";
 import type { Navigation, Router, Session } from "@toolpad/core";
 import { Outlet } from "react-router-dom";
 import router from "../routes/Router";
-// import { useAppSelector } from "../app/hooks/useAppSelector";
-// import { RootState } from "../app/store/store";
-// import User from "../app/features/users/UserType";
+import { useMemo, useState } from "react";
 
+// Define the navigation menu items
 const NAVIGATION: Navigation = [
   {
     kind: "header",
@@ -52,6 +49,7 @@ const NAVIGATION: Navigation = [
   },
 ];
 
+// Define a custom theme using Material UI's `createTheme` function
 const revTheme = createTheme({
   cssVariables: {
     colorSchemeSelector: "data-toolpad-color-scheme",
@@ -68,6 +66,7 @@ const revTheme = createTheme({
   },
 });
 
+// Define the `FeaturePages` component to display the content based on the current path
 function FeaturePages({
   pathname,
 }: {
@@ -84,30 +83,25 @@ function FeaturePages({
         textAlign: "center",
       }}
     >
-      <Typography>Dashboard content for {pathname}</Typography>
       <main className="py-10 px-5 min-h-screen">
+        {pathname}
         <Outlet />
       </main>
     </Box>
   );
 }
 
+// Define the props interface for the Dashboard layout component
 interface DemoProps {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * Remove this when copying and pasting into your project.
-   */
-  window?: () => Window;
+  window?: () => Window; // Optional window prop for iframe handling
 }
 
+// Define the main `DashboardLayoutBasic` component
 export default function DashboardLayoutBasic(props: DemoProps) {
   const { window } = props;
-  // const user = useAppSelector((state: RootState) => state?.auth?.user);
-  // const userDetails = useAppSelector(
-  //   (state: RootState) => state.currentUser?.user
-  // ) as User | null;
 
-  const [session, setSession] = React.useState<Session | null>({
+  // Initialize session state with default values
+  const [session, setSession] = useState<Session | null>({
     user: {
       name: "RevBoost Solutions",
       email: "revboost@solutions.com",
@@ -115,7 +109,8 @@ export default function DashboardLayoutBasic(props: DemoProps) {
     },
   });
 
-  const authentication = React.useMemo(() => {
+  // Define the authentication logic using `useMemo` to manage user sign in and sign out
+  const authentication = useMemo(() => {
     return {
       signIn: () => {
         setSession({
@@ -132,22 +127,24 @@ export default function DashboardLayoutBasic(props: DemoProps) {
     };
   }, []);
 
-  const [pathname, setPathname] = React.useState("/dashboard");
+  // Manage the current path and navigation state
+  const [pathname, setPathname] = useState("/dashboard");
 
-  const routes = React.useMemo<Router>(() => {
+  const routes: Router = useMemo<Router>(() => {
     return {
       pathname,
       searchParams: new URLSearchParams(),
       navigate: (path) => setPathname(String(path)),
     };
   }, [pathname]);
+
   console.log(routes);
 
-  // Remove this const when copying and pasting into your project.
+  // For handling the window object when in an iframe
   const demoWindow = window !== undefined ? window() : undefined;
 
   return (
-    // preview-start
+    // Wrap the components in the `AppProvider` to provide the session, authentication, navigation, etc.
     <AppProvider
       session={session}
       authentication={authentication}
@@ -160,6 +157,5 @@ export default function DashboardLayoutBasic(props: DemoProps) {
         <FeaturePages pathname={pathname} />
       </DashboardLayout>
     </AppProvider>
-    // preview-end
   );
 }
