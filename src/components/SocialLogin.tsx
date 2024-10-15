@@ -1,4 +1,4 @@
-import { FaXTwitter } from "react-icons/fa6";
+import { PiMicrosoftOutlookLogoBold } from "react-icons/pi";
 import { FcGoogle } from "react-icons/fc";
 import { useDispatch } from "react-redux";
 import { loginWithGoogle } from "../app/features/firebaseAuthentication/authActions";
@@ -16,8 +16,8 @@ const SocialLogin = () => {
         <span>Sign up with Google</span>
       </button>
       <button className="bg-black text-white flex items-center justify-center gap-x-3 text-sm sm:text-base rounded-lg hover:bg-black/80 duration-300 transition-colors px-8 py-2.5">
-        <FaXTwitter className="text-2xl" />
-        <span>Sign up with Twitter</span>
+        <PiMicrosoftOutlookLogoBold className="text-2xl" />
+        <span>Sign up with Outlook</span>
       </button>
     </div>
   );
