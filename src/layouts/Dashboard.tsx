@@ -15,6 +15,7 @@ import { useAppDispatch } from "../app/hooks/useAppDispatch";
 import { signOut } from "firebase/auth";
 import { logoutSuccess } from "../app/features/firebaseAuthentication/authSlice";
 import { auth } from "../firebase/firebase.config";
+import logo from "../assets/logo.png";
 
 // Define the navigation menu items
 const NAVIGATION: Navigation = [
@@ -170,6 +171,10 @@ export default function DashboardLayoutBasic(props: DemoProps) {
       session={session}
       authentication={authentication}
       navigation={NAVIGATION}
+      branding={{
+        logo: <img src={photo ? photo : logo} alt="RevBoost Solutions logo" />,
+        title: "RevBoost",
+      }}
       router={router}
       theme={revTheme}
       window={demoWindow}
