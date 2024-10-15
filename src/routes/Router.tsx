@@ -64,12 +64,12 @@ const router = createBrowserRouter([
       },
       // // Income tracking Route: Invoice Route
       {
-        path: "/dashboard/company-incomes",
+        path: "/dashboard/incomes",
         element: <Incomes />, // User Profile component will be call here.
       },
       // Expense tracking Route
       {
-        path: "/dashboard/company-expenses",
+        path: "/dashboard/expenses",
         element: <Expense />,
       },
       // Revenue growth Route

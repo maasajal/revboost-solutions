@@ -45,12 +45,12 @@ const DashboardNavbar = () => {
     },
     {
       navName: "Company Incomes",
-      path: "/dashboard/company-incomes",
+      path: "/dashboard/incomes",
       icon: <PiInvoiceBold className="text-lg" />,
     },
     {
       navName: "Company Expenses",
-      path: "/dashboard/company-expenses",
+      path: "/dashboard/expenses",
       icon: <GiExpense className="text-lg" />,
     },
     {
