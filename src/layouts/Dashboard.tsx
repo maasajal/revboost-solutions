@@ -8,6 +8,13 @@ import type { Navigation, Router, Session } from "@toolpad/core";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useMemo, useState } from "react";
 import Typography from "@mui/material/Typography";
+import User from "../app/features/users/UserType";
+import { useAppSelector } from "../app/hooks/useAppSelector";
+import { RootState } from "../app/store/store";
+import { useAppDispatch } from "../app/hooks/useAppDispatch";
+import { signOut } from "firebase/auth";
+import { logoutSuccess } from "../app/features/firebaseAuthentication/authSlice";
+import { auth } from "../firebase/firebase.config";
 
 // Define the navigation menu items
 const NAVIGATION: Navigation = [
@@ -95,32 +102,50 @@ interface DemoProps {
 export default function DashboardLayoutBasic(props: DemoProps) {
   const { window } = props;
   const navigate = useNavigate();
-  // Initialize session state with default values
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((state: RootState) => state.auth.user);
+  const userDetails = useAppSelector(
+    (state: RootState) => state.currentUser?.user
+  ) as User | null;
+
+  const { name, email, photo } = userDetails || {};
   const [session, setSession] = useState<Session | null>({
     user: {
-      name: "RevBoost Solutions",
-      email: "revboost@solutions.com",
-      image: "https://avatars.githubusercontent.com/u/19550456",
+      name: name || "RevBoost Solutions",
+      email: email || "revboost@solutions.com",
+      image: photo || "https://avatars.githubusercontent.com/u/19550456",
     },
   });
 
   // Define the authentication logic using `useMemo` to manage user sign in and sign out
   const authentication = useMemo(() => {
     return {
-      signIn: () => {
-        setSession({
-          user: {
-            name: "RevBoost Solutions",
-            email: "revboost@solutions.com",
-            image: "https://avatars.githubusercontent.com/u/19550456",
-          },
-        });
+      signIn: async () => {
+        try {
+          if (user && userDetails) {
+            setSession({
+              user: {
+                name: name || "RevBoost Solutions",
+                email: email || "revboost@solutions.com",
+                image:
+                  photo || "https://avatars.githubusercontent.com/u/19550456",
+              },
+            });
+          } else {
+            navigate("/login");
+          }
+        } catch (error) {
+          console.error("Error: ", error);
+        }
       },
-      signOut: () => {
+      signOut: async () => {
         setSession(null);
+        await signOut(auth);
+        dispatch(logoutSuccess());
+        localStorage.removeItem("user-token");
       },
     };
-  }, []);
+  }, [user, userDetails, dispatch]);
 
   // Manage the current path and navigation state
   const [pathname, setPathname] = useState("/dashboard");
