@@ -5,9 +5,9 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { AppProvider } from "@toolpad/core/AppProvider";
 import { DashboardLayout } from "@toolpad/core/DashboardLayout";
 import type { Navigation, Router, Session } from "@toolpad/core";
-import { Outlet } from "react-router-dom";
-import router from "../routes/Router";
+import { Outlet, useNavigate } from "react-router-dom";
 import { useMemo, useState } from "react";
+import Typography from "@mui/material/Typography";
 
 // Define the navigation menu items
 const NAVIGATION: Navigation = [
@@ -21,12 +21,12 @@ const NAVIGATION: Navigation = [
     icon: <DashboardIcon />,
   },
   {
-    segment: "dashboard/company-incomes",
-    title: "Income",
+    segment: "dashboard/incomes",
+    title: "Incomes",
     icon: <ShoppingCartIcon />,
   },
   {
-    segment: "dashboard/company-expenses",
+    segment: "dashboard/expenses",
     title: "Expenses",
     icon: <ShoppingCartIcon />,
   },
@@ -67,12 +67,7 @@ const revTheme = createTheme({
 });
 
 // Define the `FeaturePages` component to display the content based on the current path
-function FeaturePages({
-  pathname,
-}: {
-  pathname: string;
-  navigate: (path: string | URL) => void;
-}) {
+function FeaturePages({ pathname }: { pathname: string }) {
   return (
     <Box
       sx={{
@@ -84,7 +79,7 @@ function FeaturePages({
       }}
     >
       <main className="py-10 px-5 min-h-screen">
-        {pathname}
+        <Typography>Dashboard content for {pathname}</Typography>
         <Outlet />
       </main>
     </Box>
@@ -99,7 +94,7 @@ interface DemoProps {
 // Define the main `DashboardLayoutBasic` component
 export default function DashboardLayoutBasic(props: DemoProps) {
   const { window } = props;
-
+  const navigate = useNavigate();
   // Initialize session state with default values
   const [session, setSession] = useState<Session | null>({
     user: {
@@ -130,21 +125,22 @@ export default function DashboardLayoutBasic(props: DemoProps) {
   // Manage the current path and navigation state
   const [pathname, setPathname] = useState("/dashboard");
 
-  const routes: Router = useMemo<Router>(() => {
-    return {
+  const router: Router = useMemo(
+    () => ({
       pathname,
-      searchParams: new URLSearchParams(),
-      navigate: (path) => setPathname(String(path)),
-    };
-  }, [pathname]);
-
-  console.log(routes);
+      searchParams: new URLSearchParams(), // Grabbing the current search params from the URL
+      navigate: (path: string | URL) => {
+        setPathname(String(path));
+        navigate(String(path));
+      },
+    }),
+    [pathname, navigate]
+  );
 
   // For handling the window object when in an iframe
   const demoWindow = window !== undefined ? window() : undefined;
 
   return (
-    // Wrap the components in the `AppProvider` to provide the session, authentication, navigation, etc.
     <AppProvider
       session={session}
       authentication={authentication}
