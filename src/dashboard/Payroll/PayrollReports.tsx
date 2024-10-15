@@ -1,9 +1,13 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchPayroll } from "../../app/state/payroll/payrollSlice";
+import {
+  fetchPayroll,
+  removePayroll,
+} from "../../app/features/payroll/payrollSlice";
 import { AppDispatch, RootState } from "../../app/store/store";
 import { FaSpinner } from "react-icons/fa";
+import toast from "react-hot-toast";
 
 type Inputs = {
   monthOfTable: string;
@@ -11,16 +15,27 @@ type Inputs = {
 
 const PayrollReports = () => {
   const { register } = useForm<Inputs>();
-  const { payroll, isLoading, error } = useSelector(
+  const { payrolls, isLoading, error } = useSelector(
     (state: RootState) => state.payroll
   );
   const dispatch: AppDispatch = useDispatch();
+
+  // Handle payroll deletion
+  const handleDelete = async (id: string) => {
+    try {
+      await dispatch(removePayroll(id));
+      toast.success("Deleted successfully!");
+    } catch (err) {
+      console.log(err);
+      toast.error("An unknown error occurred");
+    }
+  };
 
   useEffect(() => {
     dispatch(fetchPayroll());
   }, [dispatch]);
   return (
-    <div className="space-y-6 border-2 p-4 mt-10">
+    <div className="space-y-6 border-2 p-4 my-10">
       <h2 className="mb-4 text-center text-2xl font-bold leading-tight">
         Employee Payroll Reports
       </h2>
@@ -28,10 +43,9 @@ const PayrollReports = () => {
       <div>
         {isLoading && <FaSpinner className="animate-spin text-2xl" />}
         {error && <h3>{error}</h3>}
-        {payroll && <h3>{payroll.length}</h3>}
       </div>
 
-      <div>
+      <div className="flex justify-between">
         <select
           className="w-1/4 p-3 rounded dark:bg-gray-100"
           {...register("monthOfTable", { required: true })}
@@ -49,12 +63,15 @@ const PayrollReports = () => {
           <option value="November">November</option>
           <option value="December">December</option>
         </select>
+        <div>
+          <h6>Total: {payrolls.length}</h6>
+        </div>
       </div>
 
       <div className="dark:text-gray-800">
         <div className="overflow-x-auto">
           <table className="min-w-full text-xs">
-            <thead className="dark:bg-red-400">
+            <thead className="bg-red-400">
               <tr className="text-left">
                 <th className="p-3">Id</th>
                 <th className="p-3">Name</th>
@@ -63,40 +80,45 @@ const PayrollReports = () => {
                 <th className="p-3 text-center">Bonus</th>
                 <th className="p-3 text-center">Tax Deduction</th>
                 <th className="p-3 text-center">Net Pay</th>
-                <th className="p-3"></th>
+                <th className="p-3 text-center">Action</th>
               </tr>
             </thead>
             <tbody>
-              {payroll.map((item, idx) => (
+              {payrolls.map((payroll, idx) => (
                 <tr
                   key={idx}
-                  className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50"
+                  className="border-b border-opacity-20 border-gray-300 bg-gray-50"
                 >
                   <td className="p-3">
-                    <p>{item?._id}</p>
+                    <p>{payroll?._id}</p>
                   </td>
                   <td className="p-3">
-                    <p>{item?.employeeName}</p>
+                    <p>{payroll?.employeeName}</p>
                   </td>
                   <td className="p-3">
-                    <p>{item?.position}</p>
+                    <p>{payroll?.position}</p>
                   </td>
                   <td className="p-3 text-center">
-                    <p>{item?.salary}</p>
+                    <p>{payroll?.salary}</p>
                   </td>
                   <td className="p-3 text-center">
-                    <p>{item?.bonus}</p>
+                    <p>{payroll?.bonus}</p>
                   </td>
                   <td className="p-3 text-center">
-                    <p>{item?.taxDeduction}</p>
+                    <p>{payroll?.taxDeduction}</p>
                   </td>
                   <td className="p-3 text-center">
-                    <p>{item?.salary + item?.bonus - item?.taxDeduction}</p>
+                    <p>
+                      {payroll?.salary + payroll?.bonus - payroll?.taxDeduction}
+                    </p>
                   </td>
                   <td className="p-3 text-right">
-                    <span className="px-3 py-1 font-semibold rounded-md dark:bg-red-400 dark:text-gray-50">
+                    <button
+                      onClick={() => handleDelete(payroll?._id)}
+                      className="px-3 py-1 font-semibold rounded-md bg-red-400 text-gray-50 hover:bg-opacity-90"
+                    >
                       <span>Delete</span>
-                    </span>
+                    </button>
                   </td>
                 </tr>
               ))}

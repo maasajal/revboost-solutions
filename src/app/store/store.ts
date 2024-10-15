@@ -6,8 +6,10 @@ import authReducer from "../features/firebaseAuthentication/authSlice"; // à¦†à¦
 import usersReducer from "../features/users/usersSlice";
 import currentUserReducer from "../features/users/currentUserSlice";
 import revenueGrowthReducer from "../features/revenueGrowth/revenueGrowthSlice";
-import payrollReducer from "../state/payroll/payrollSlice";
-import incomesReducer from "../features/companyIncome/incomeSlice"
+import payrollReducer from "../features/payroll/payrollSlice";
+import incomesReducer from "../features/companyIncome/incomeSlice";
+import addressSlice from "../features/companyExpense/addressSlice"
+
 
 const persistConfig = {
   key: "root",
@@ -25,6 +27,7 @@ export const store = configureStore({
     revenueGrowth: revenueGrowthReducer,
     payroll: payrollReducer,
     incomes: incomesReducer, // get users data from the MongoDB userCollections
+    address : addressSlice
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
