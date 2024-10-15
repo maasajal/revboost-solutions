@@ -12,6 +12,8 @@ import { updateUser } from "../../app/api/usersAPI";
 import User from "../../app/features/users/UserType";
 import { Card, CardContent, Typography, Button, Divider, Box, Grid } from '@mui/material';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import { axiosPublic } from "../../app/hooks/useAxiosPublic";
+
 
 
 // Define types for the package data
@@ -57,26 +59,78 @@ const Pricing: React.FC = () => {
       );
   }, []);
 
-  const handleSubscriptionClick = async (pkg: Package) => {
-    if (!user) {
-      // If user is not logged in or email is undefined, navigate to the login page
-      navigate("/login");
-    } else {
-      try {
-        const requestBody: UpdateMembershipRequest = {
-          role: "member",
-          subscriptionStatus: "active",
-          subscriptionPlan: pkg.packageName,
-        };
-        await dispatch(updateUser(user?.email, requestBody));
+// main handlerSubscriptionClick
+ 
+// const handleSubscriptionClick = async (pkg: Package) => {
+//   if (!user) {
+//     // If user is not logged in or email is undefined, navigate to the login page
+//     navigate("/login");
+//   } else {
+//     try {
+//       const requestBody: UpdateMembershipRequest = {
+//         role: "member",
+//         subscriptionStatus: "active",
+//         subscriptionPlan: pkg.packageName,
+//       };
+//       await dispatch(updateUser(user?.email, requestBody));
 
-        // Navigate to the dashboard after successful update
-        navigate("/dashboard");
-      } catch (error) {
-        console.error("An error occurred while updating the user:", error);
+//       // Navigate to the dashboard after successful update
+//       navigate("/dashboard");
+//     } catch (error) {
+//       console.error("An error occurred while updating the user:", error);
+//     }
+//   }
+// };
+const handleSubscriptionClick = async (pkg: Package) => {
+  if (!user) {
+    navigate("/login");
+  } else {
+    try {
+      // First, update the user's subscription status
+      const requestBody: UpdateMembershipRequest = {
+        role: "member",
+        subscriptionStatus: "active",
+        subscriptionPlan: pkg.packageName,
+      };
+      await dispatch(updateUser(user?.email, requestBody));
+
+      const paymentData = {
+        email : user?.email,
+        amount : pkg.price
       }
+
+      const data = await axiosPublic.post("/payment/initiate", paymentData);
+
+      // Initiate payment request to the backend
+      // const response = await fetch("http://localhost:3000/api/v1/payment/initiate", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({
+      //     email: user.email,
+      //     amount: pkg.price, // Set the amount based on the package price
+      //   }),
+      // });
+
+      // const data = await response.json();
+      console.log(data)
+
+      // if (data.redirectUrl) {
+      //   Redirect user to SSLCommerz payment gateway
+      //   window.location.href = data.redirectUrl;
+      //   console.log(data.redirectUrl)
+       
+      // } else {
+      //   console.error("Payment initiation failed");
+       
+      // }
+    } catch (error) {
+      console.error("An error occurred during the payment process:", error);
     }
-  };
+  }
+};
+
 
   // Function to render package cards
   const renderPackageCard = (pkg: Package) => {
