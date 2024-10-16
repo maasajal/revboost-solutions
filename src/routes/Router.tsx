@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import AdminDashboard from "../dashboard/Admin/AdminDashboard/AdminDashboard";
 import Incomes from "../dashboard/CompanyIncomes/Incomes";
 import DashboardHome from "../dashboard/DashboardHome";
-import Expense from "../dashboard/Expense/Expense";
+// import Expense from "../dashboard/Expense/Expense";
 import Payroll from "../dashboard/Payroll/Payroll";
 import UserProfile from "../dashboard/Profile/Profile";
 import RevenueGrowth from "../dashboard/RevenueGrowth/RevenueGrowth";
