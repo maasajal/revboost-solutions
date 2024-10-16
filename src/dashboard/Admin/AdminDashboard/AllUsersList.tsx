@@ -20,9 +20,8 @@ const AllUsersList: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState<string>("");
 
     const dispatch = useDispatch<AppDispatch>();
-    const { users, loading, error } = useSelector((state: RootState) => state.allUsers);
-
-    console.log(users, loading, error);
+    const { users, loading } = useSelector((state: RootState) => state.allUsers);
+ 
 
     useEffect(() => {
         dispatch(fetchAllUsers(axiosSecure));  // Dispatch fetchUsers with axiosSecure
