@@ -1,5 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { createPayroll, deletePayroll, getPayroll } from "./payrollAPI";
+import {
+  createPayroll,
+  deletePayroll,
+  editPayroll,
+  getPayroll,
+} from "./payrollAPI";
 
 interface Payroll {
   _id: string;
@@ -37,6 +42,14 @@ export const addPayroll = createAsyncThunk(
   async (payrollData: Payroll) => {
     const newPayroll = await createPayroll(payrollData);
     return newPayroll;
+  }
+);
+
+export const updatePayroll = createAsyncThunk(
+  "payroll/updatePayroll",
+  async ({ id, payrollData }: { id: string; payrollData: Payroll }) => {
+    const updatedPayroll = await editPayroll(id, payrollData);
+    return { id, updatedPayroll };
   }
 );
 
@@ -79,6 +92,16 @@ const payrollSlice = createSlice({
         state.payrolls = state.payrolls.filter(
           (payroll: { _id: string }) => payroll._id !== action.payload
         );
+      })
+      // Update payroll case
+      .addCase(updatePayroll.fulfilled, (state, action) => {
+        console.log(action.payload);
+        const index = state.payrolls.findIndex(
+          (payroll) => payroll._id === action.payload.id
+        );
+        if (index !== -1) {
+          state.payrolls[index] = action.payload.updatedPayroll;
+        }
       });
   },
 });
