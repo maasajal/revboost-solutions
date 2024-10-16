@@ -17,6 +17,7 @@ import Pricing from "../pages/PricingPage/Pricing";
 import Login from "../pages/authentication/login/Login";
 import Register from "../pages/authentication/register/Register";
 import AdminRoute from "./AdminRoute";
+import PrivetRoute from "./PrivetRoute";
 
 const router = createBrowserRouter([
   {
@@ -52,7 +53,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <Dashboard />,
+    element:<PrivetRoute><Dashboard /></PrivetRoute> ,
     errorElement: <ErrorPage />,
     children: [
       {
