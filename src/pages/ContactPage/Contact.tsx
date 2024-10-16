@@ -60,25 +60,25 @@ const Contact: React.FC = () => {
               <CiLinkedin className="mb-[15px] text-2xl" />
             </div>
             <div>
-              <p className="font-medium text-xl mb-3">
+              <p className="font-medium text-xl mb-3 hover:text-green-800">
                 <a target="_blank" href="mailto:revbostsolution@gmail.com">
                   revboost@solution.com
                 </a>
               </p>
-              <p className="font-medium text-xl mb-3">
+              <p className="font-medium text-xl mb-3 hover:text-green-800">
                 <a href="tel:+1234567890">+880123456789</a>
               </p>
-              <p className="font-medium text-xl mb-3">
+              <p className="font-medium text-xl mb-3 hover:text-green-800">
                 <a target="_blank" href="https://facebook.com/">
                   facebook.com/reebboost_solution
                 </a>
               </p>
-              <p className="font-medium text-xl mb-3">
+              <p className="font-medium text-xl mb-3 hover:text-green-800">
                 <a target="_blank" href="https://www.instagram.com/">
                   instagram.com/reebboost_solution
                 </a>
               </p>
-              <p className="font-medium text-xl">
+              <p className="font-medium text-xl hover:text-green-800">
                 <a target="_blank" href="https://www.linkedin.com/">
                   linkedin.com/reebboost_solution
                 </a>
