@@ -1,4 +1,4 @@
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FirebaseError } from "firebase/app";
 import {
   createUserWithEmailAndPassword,
@@ -45,15 +45,11 @@ export const loginWithGoogle = () => async (dispatch: AppDispatch) => {
     const navigate = useNavigate();
 
     const userData: UserData = { name, email, photo };
-    
-    // find current user
-
     // await dispatch(createUser(userData));
     const response = await axiosPublic.post(`/register`, userData);
     console.log(response.data.message); // এখান থেকে টোকেন নিয়ে কাজ্ করতে পারেন
     localStorage.setItem("user-token", response.data.message);
     window.location.href = "/pricing";
-    // const navigate = useNavigate()
     navigate("/pricing")
     dispatch(loginSuccess({ user: result.user })); // ইউজার তথ্য পাঠান
   } catch (error) {

@@ -1,7 +1,7 @@
 {
     "packages": [
       {
-        "packageName": "Basic",
+        "packageName": "basic",
         "price": 19,
         "shortMessage": "per Organization per Month",
         "description": "Best suited for businesses withone time billing requirements",
@@ -14,10 +14,15 @@
           "24/7 Support",
           "Ability to create and send professional invoices to clients",
           "Secure access to ensure information protection"
+        ],
+        "planFeature" : [
+          "income",
+          "expence",
+          "revenue-grouth"
         ]
       },
       {
-        "packageName": "Standard",
+        "packageName": "standard",
         "price": 29,
         "shortMessage": "per Organization per Month",
         "description": "Best suited for businesses withone time billing requirements",
@@ -39,7 +44,7 @@
         ]
       },
       {
-        "packageName": "Premium",
+        "packageName": "premium",
         "price": 39,
         "shortMessage": "per Organization per Month",
         "description": "Best suited for businesses with one time andsubscription billing requirements",

@@ -60,8 +60,8 @@ const Contact: React.FC = () => {
               <CiLinkedin className="mb-[15px] text-2xl" />
             </div>
             <div>
-              <p className="font-medium text-xl mb-3 underline">
-                <a target="blank" href="mailto:revbostsolution@gmail.com">
+              <p className="font-medium text-xl mb-3">
+                <a target="_blank" href="mailto:revbostsolution@gmail.com">
                   revboost@solution.com
                 </a>
               </p>

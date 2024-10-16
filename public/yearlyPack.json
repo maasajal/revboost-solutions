@@ -1,7 +1,7 @@
 {
     "packages": [
       {
-        "packageName": "Basic",
+        "packageName": "basic",
         "price": 50,
         "savePrice": 10,
         "shortMessage": "per Organization per Month",
@@ -18,7 +18,7 @@
         ]
       },
       {
-        "packageName": "Standard",
+        "packageName": "standard",
         "price": 100,
         "savePrice": 20,
         "shortMessage": "per Organization per Month",
@@ -41,7 +41,7 @@
         ]
       },
       {
-        "packageName": "Premium",
+        "packageName": "premium",
         "price": 200,
         "savePrice": 50,
         "shortMessage": "per Organization per Month",
