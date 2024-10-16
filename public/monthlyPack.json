@@ -16,9 +16,9 @@
           "Secure access to ensure information protection"
         ],
         "planFeature" : [
-          "income",
-          "expence",
-          "revenue-grouth"
+          "Company Income Tracking Feature",
+          "Company Expense Tracking Feature",
+          "Revenue Trends Feature"
         ]
       },
       {
@@ -41,6 +41,14 @@
           "24/7 Support",
           "Ability to create and send professional invoices to clients",
           "Secure access to ensure information protection"
+        ],
+        "planFeature" : [
+          "Company Income Tracking Feature",
+          "Company Expense Tracking Feature",
+          "Revenue Trends Feature",
+          "Vat Calculation Feature",
+          "Tax Calculation Feature",
+          "Payroll Management Feature"
         ]
       },
       {
@@ -70,6 +78,16 @@
           "24/7 Support",
           "Ability to create and send professional invoices to clients",
           "Secure access to ensure information protection"
+        ],
+        "planFeature" : [
+          "Company Income Tracking Feature",
+          "Company Expense Tracking Feature",
+          "Revenue Trends Feature",
+          "Vat Calculation Feature",
+          "Tax Calculation Feature",
+          "Payroll Management Feature",
+          "Invoice and Billing Management Feature",
+          "Client Vendor Feature"
         ]
       }
     ]
