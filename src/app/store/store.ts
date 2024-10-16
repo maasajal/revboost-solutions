@@ -4,14 +4,14 @@ import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // স্থানীয় স্টোরেজ ব্যবহার করুন
 import addressSlice from "../features/companyExpense/addressSlice";
 import incomesReducer from "../features/companyIncome/incomeSlice";
+import expenseReducer from "../features/expenses/expenseSlice";
 import authReducer from "../features/firebaseAuthentication/authSlice"; // আপনার authSlice এর সঠিক পাথ ব্যবহার করুন
 import getAllUsersSlice from "../features/getAllUsers/getAllUsersSlice";
 import payrollReducer from "../features/payroll/payrollSlice";
 import revenueGrowthReducer from "../features/revenueGrowth/revenueGrowthSlice";
+import roleManageSlice from "../features/roleManage/roleManageSlice";
 import currentUserReducer from "../features/users/currentUserSlice";
 import usersReducer from "../features/users/usersSlice";
-import expenseReducer from "../features/expenses/expenseSlice";
-
 const persistConfig = {
   key: "root",
   storage,
@@ -31,6 +31,7 @@ export const store = configureStore({
     expenses: expenseReducer,
     address: addressSlice,
     allUsers: getAllUsersSlice,
+    role_manage:roleManageSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
