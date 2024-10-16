@@ -9,13 +9,20 @@ import userPhoto from "../../../assets/revBoostSolutions.png";
 import Swal from "sweetalert2";
 import { useAppSelector } from "../../../app/hooks/useAppSelector";
 import User from "../../../app/features/users/UserType";
+import { getCurrentUser } from "../../../app/api/currentUserAPI";
+import { useEffect } from "react";
 
 const Navbar = () => {
   const dispatch = useDispatch<AppDispatch>(); // টাইপড useDispatch ব্যবহার করুন
   const user = useAppSelector((state: RootState) => state.auth.user);
+
+  useEffect(() => {
+    dispatch(getCurrentUser());
+  }, [dispatch]);
+
   const userDetails = useAppSelector(
     (state: RootState) => state.currentUser?.user
-  ) as User | null;
+  ) as User;
 
   const navItems = [
     {
