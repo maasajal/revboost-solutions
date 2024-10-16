@@ -86,8 +86,8 @@ function FeaturePages({ pathname }: { pathname: string }) {
         textAlign: "center",
       }}
     >
+      <Typography>Path: {pathname}</Typography>
       <main className="py-10 px-5 min-h-screen">
-        <Typography>Dashboard content for {pathname}</Typography>
         <Outlet />
       </main>
     </Box>
@@ -173,7 +173,7 @@ export default function DashboardLayoutBasic(props: DemoProps) {
       navigation={NAVIGATION}
       branding={{
         logo: <img src={photo ? photo : logo} alt="RevBoost Solutions logo" />,
-        title: "RevBoost",
+        title: `${name}`,
       }}
       router={router}
       theme={revTheme}
