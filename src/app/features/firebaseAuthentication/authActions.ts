@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { FirebaseError } from "firebase/app";
 import {
   createUserWithEmailAndPassword,
@@ -10,6 +11,8 @@ import { auth } from "../../../firebase/firebase.config";
 import { AppDispatch } from "../../store/store";
 import { loginFailure, loginStart, loginSuccess } from "./authSlice";
 import { axiosPublic } from "../../hooks/useAxiosPublic";
+
+
 
 interface UserData {
   name: string | null;
@@ -26,25 +29,28 @@ interface loginCredentials {
   email: string;
   password: string;
 }
+
 // Login Function
 export const loginWithGoogle = () => async (dispatch: AppDispatch) => {
+  
   // AppDispatch টাইপ ব্যবহার করুন
   dispatch(loginStart());
   const provider = new GoogleAuthProvider(); // GoogleAuthProvider এর একটি ইনস্ট্যান্স তৈরি করুন
-
+  
   try {
     const result = await signInWithPopup(auth, provider);
     const name = result.user?.displayName;
     const email = result.user?.email;
     const photo = result.user?.photoURL;
+    const navigate = useNavigate();
 
     const userData: UserData = { name, email, photo };
-
     // await dispatch(createUser(userData));
     const response = await axiosPublic.post(`/register`, userData);
     console.log(response.data.message); // এখান থেকে টোকেন নিয়ে কাজ্ করতে পারেন
     localStorage.setItem("user-token", response.data.message);
     window.location.href = "/pricing";
+    navigate("/pricing")
     dispatch(loginSuccess({ user: result.user })); // ইউজার তথ্য পাঠান
   } catch (error) {
     if (error instanceof FirebaseError) {
