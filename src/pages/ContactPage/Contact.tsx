@@ -68,8 +68,8 @@ const Contact: React.FC = () => {
               <p className="font-medium text-xl mb-3">
                 <a href="tel:+1234567890">+880123456789</a>
               </p>
-              <p className="font-medium text-xl mb-3 underline">
-                <a target="blank" href="www.medium.com/reebboost_solution">
+              <p className="font-medium text-xl mb-3">
+                <a target="_blank" href="https://medium.com/">
                   facebook.com/reebboost_solution
                 </a>
               </p>
