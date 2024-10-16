@@ -36,7 +36,6 @@ interface UpdateMembershipRequest {
   subscriptionStatus: string;
   subscriptionPlan: string;
   features: string[];
-  planFeature: string[];
 }
 
 const Pricing: React.FC = () => {

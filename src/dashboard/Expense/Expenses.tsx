@@ -7,10 +7,11 @@ import { RootState } from "../../app/store/store";
 import { getCurrentUser } from "../../app/api/currentUserAPI";
 import { axiosPublic } from "../../app/hooks/useAxiosPublic";
 import Expense from "./Expense";
+import { ExpenseEntry } from "../../app/features/expenses/IExpense";
 
 const Expenses: React.FC = () => {
   const dispatch = useAppDispatch();
-  const [allExpense, setExpenses] = useState([]);
+  const [allExpense, setExpenses] = useState<ExpenseEntry[]>([]);
 
   // Get current user data
   const user = useAppSelector(
@@ -24,7 +25,8 @@ const Expenses: React.FC = () => {
 
   const getAllExpenses = async () => {
     const response = await axiosPublic.get(`/expenses/6707fa75b397d3c4264da`); // hardcoded on is working
-    setExpenses(response.data);
+    const data: ExpenseEntry[] = response.data;
+    setExpenses(data);
     return response.data;
   };
 

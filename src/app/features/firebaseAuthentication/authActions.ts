@@ -44,8 +44,8 @@ export const loginWithGoogle = () => async (dispatch: AppDispatch) => {
     // await dispatch(createUser(userData));
     const response = await axiosPublic.post(`/register`, userData);
     localStorage.setItem("user-token", response.data.message);
-    dispatch(loginSuccess({ user: result.user })); // ইউজার তথ্য পাঠান
     window.location.href = "/pricing";
+    dispatch(loginSuccess({ user: result.user })); // ইউজার তথ্য পাঠান
   } catch (error) {
     if (error instanceof FirebaseError) {
       dispatch(loginFailure({ error: error.message })); // FirebaseError হলে ত্রুটি পাঠান

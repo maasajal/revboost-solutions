@@ -54,9 +54,10 @@ const Incomes: React.FC = () => {
     }
   }, [dispatch, userId]);
 
-  const { incomeCollection, loading } = useSelector(
-    (state: RootState) => state.incomes
-  );
+  const { loading } = useSelector((state: RootState) => state.incomes);
+  // const { incomeCollection, loading } = useSelector(
+  //   (state: RootState) => state.incomes
+  // );
   // console.log(incomeCollection, dispatch);
   //  mui modal
   const [open, setOpen] = useState(false);
