@@ -17,7 +17,8 @@ import Pricing from "../pages/PricingPage/Pricing";
 import Login from "../pages/authentication/login/Login";
 import Register from "../pages/authentication/register/Register";
 import AdminRoute from "./AdminRoute";
-import PrivetRoute from "./PrivetRoute";
+import BasicRoute from "./BasicRoute";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -53,7 +54,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element:<PrivetRoute><Dashboard /></PrivetRoute> ,
+    element:<PrivateRoute><Dashboard /></PrivateRoute> ,
     errorElement: <ErrorPage />,
     children: [
       {
@@ -67,7 +68,7 @@ const router = createBrowserRouter([
       // // Income tracking Route: Invoice Route
       {
         path: "/dashboard/incomes",
-        element: <Incomes />, // User Profile component will be call here.
+        element:<BasicRoute> <Incomes /></BasicRoute>, // User Profile component will be call here.
       },
       // Expense tracking Route
       {

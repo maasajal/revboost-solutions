@@ -1,21 +1,21 @@
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../app/store/store";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
-  fetchIncomeCollection,
   addIncomeEntry,
+  fetchIncomeCollection,
   IncomeEntry,
 } from "../../app/features/companyIncome/incomeSlice";
+import { AppDispatch, RootState } from "../../app/store/store";
 
+import { TextField } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { TextField } from "@mui/material";
+import Typography from "@mui/material/Typography";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useAppSelector } from "../../app/hooks/useAppSelector";
-import User from "../../app/features/users/UserType";
 import { getCurrentUser } from "../../app/api/currentUserAPI";
+import User from "../../app/features/users/UserType";
+import { useAppSelector } from "../../app/hooks/useAppSelector";
 
 // form input
 interface IncomeFormInputs {
@@ -45,7 +45,7 @@ const Incomes: React.FC = () => {
   ) as User | null;
 
   const userId = currentUser?._id;
-  console.log("currentUser", currentUser);
+  // console.log("currentUser", currentUser);
 
   useEffect(() => {
     dispatch(getCurrentUser());
@@ -57,7 +57,7 @@ const Incomes: React.FC = () => {
   const { incomeCollection, loading } = useSelector(
     (state: RootState) => state.incomes
   );
-  console.log(incomeCollection, dispatch);
+  // console.log(incomeCollection, dispatch);
   //  mui modal
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -70,7 +70,7 @@ const Incomes: React.FC = () => {
     formState: { errors },
   } = useForm<IncomeFormInputs>();
   const onSubmit: SubmitHandler<IncomeFormInputs> = (data) => {
-    console.log(data);
+    // console.log(data);
 
     const newEntry: IncomeEntry = {
       incomeId: data.incomeId,
@@ -78,7 +78,7 @@ const Incomes: React.FC = () => {
       source: data.source,
       date: data.date,
     };
-    console.log(newEntry);
+    // console.log(newEntry);
     if (userId) {
       dispatch(addIncomeEntry({ userId, entry: newEntry }));
     }
