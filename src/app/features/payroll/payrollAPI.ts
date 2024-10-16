@@ -18,6 +18,13 @@ export const getPayroll = async () => {
 
 export const createPayroll = async (data: Payroll) => {
   const response = await axiosPublic.post("/payroll", data);
+  console.log(response);
+  return response.data;
+};
+
+export const editPayroll = async (id: string, data: Payroll) => {
+  const response = await axiosPublic.put(`/payroll/${id}`, data);
+  console.log("API Response for update: ", response.data);
   return response.data;
 };
 

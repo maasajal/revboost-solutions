@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -6,19 +6,39 @@ import {
   removePayroll,
 } from "../../app/features/payroll/payrollSlice";
 import { AppDispatch, RootState } from "../../app/store/store";
-import { FaSpinner } from "react-icons/fa";
 import toast from "react-hot-toast";
+import SelectField from "./payrollComponents/SelectField";
+import PayrollUpdateModal from "./payrollComponents/PayrollUpdateModal";
 
-type Inputs = {
-  monthOfTable: string;
-};
+interface Payroll {
+  _id: string;
+  employeeName: string;
+  position: string;
+  salary: number;
+  bonus: number;
+  taxDeduction: number;
+  month: string;
+  __v: number;
+}
 
 const PayrollReports = () => {
-  const { register } = useForm<Inputs>();
-  const { payrolls, isLoading, error } = useSelector(
-    (state: RootState) => state.payroll
-  );
+  const { register } = useForm<{ month: string }>();
+  const { payrolls } = useSelector((state: RootState) => state.payroll);
   const dispatch: AppDispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchPayroll());
+  }, [dispatch]);
+
+  // Inside the component
+  const [openModal, setOpenModal] = useState(false);
+  const [selectedPayroll, setSelectedPayroll] = useState<Payroll | null>(null);
+
+  // Function to handle the Edit button click
+  const handleEdit = (payroll: Payroll) => {
+    setSelectedPayroll(payroll);
+    setOpenModal(true); // Open the modal
+  };
 
   // Handle payroll deletion
   const handleDelete = async (id: string) => {
@@ -31,43 +51,44 @@ const PayrollReports = () => {
     }
   };
 
-  useEffect(() => {
-    dispatch(fetchPayroll());
-  }, [dispatch]);
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  const currentMonth = months[new Date().getMonth()];
+
   return (
     <div className="space-y-6 border-2 p-4 my-10">
       <h2 className="mb-4 text-center text-2xl font-bold leading-tight">
         Employee Payroll Reports
       </h2>
+      <PayrollUpdateModal
+        open={openModal}
+        onClose={() => setOpenModal(false)}
+        payroll={selectedPayroll}
+      />
 
-      <div>
-        {isLoading && <FaSpinner className="animate-spin text-2xl" />}
-        {error && <h3>{error}</h3>}
-      </div>
-
-      <div className="flex justify-between">
-        <select
-          className="w-1/4 p-3 rounded dark:bg-gray-100"
-          {...register("monthOfTable", { required: true })}
-        >
-          <option value="January">January</option>
-          <option value="February">February</option>
-          <option value="March">March</option>
-          <option value="April">April</option>
-          <option value="May">May</option>
-          <option value="June">June</option>
-          <option value="July">July</option>
-          <option value="August">August</option>
-          <option value="September">September</option>
-          <option value="October">October</option>
-          <option value="November">November</option>
-          <option value="December">December</option>
-        </select>
+      <div className="flex justify-between items-center">
+        <SelectField
+          label=""
+          options={months}
+          defaultValue={currentMonth}
+          register={register("month", { required: true })}
+        />
         <div>
           <h6>Total: {payrolls.length}</h6>
         </div>
       </div>
-
       <div className="dark:text-gray-800">
         <div className="overflow-x-auto">
           <table className="min-w-full text-xs">
@@ -89,35 +110,27 @@ const PayrollReports = () => {
                   key={idx}
                   className="border-b border-opacity-20 border-gray-300 bg-gray-50"
                 >
-                  <td className="p-3">
-                    <p>{payroll?._id}</p>
-                  </td>
-                  <td className="p-3">
-                    <p>{payroll?.employeeName}</p>
-                  </td>
-                  <td className="p-3">
-                    <p>{payroll?.position}</p>
-                  </td>
+                  <td className="p-3">{payroll?._id?.slice(-5) || "N/A"}</td>
+                  <td className="p-3">{payroll?.employeeName}</td>
+                  <td className="p-3">{payroll?.position}</td>
+                  <td className="p-3 text-center">{payroll?.salary}</td>
+                  <td className="p-3 text-center">{payroll?.bonus}</td>
+                  <td className="p-3 text-center">{payroll?.taxDeduction}</td>
                   <td className="p-3 text-center">
-                    <p>{payroll?.salary}</p>
+                    {payroll?.salary + payroll?.bonus - payroll?.taxDeduction}
                   </td>
-                  <td className="p-3 text-center">
-                    <p>{payroll?.bonus}</p>
-                  </td>
-                  <td className="p-3 text-center">
-                    <p>{payroll?.taxDeduction}</p>
-                  </td>
-                  <td className="p-3 text-center">
-                    <p>
-                      {payroll?.salary + payroll?.bonus - payroll?.taxDeduction}
-                    </p>
-                  </td>
-                  <td className="p-3 text-right">
+                  <td className="p-3 text-right space-x-2">
+                    <button
+                      onClick={() => handleEdit(payroll)}
+                      className="px-3 py-1 font-semibold rounded-md bg-red-400 text-gray-50 hover:bg-opacity-90"
+                    >
+                      Edit
+                    </button>
                     <button
                       onClick={() => handleDelete(payroll?._id)}
                       className="px-3 py-1 font-semibold rounded-md bg-red-400 text-gray-50 hover:bg-opacity-90"
                     >
-                      <span>Delete</span>
+                      Delete
                     </button>
                   </td>
                 </tr>
