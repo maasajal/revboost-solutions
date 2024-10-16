@@ -9,6 +9,7 @@ import authReducer from "../features/firebaseAuthentication/authSlice"; // à¦†à¦
 import getAllUsersSlice from "../features/getAllUsers/getAllUsersSlice";
 import payrollReducer from "../features/payroll/payrollSlice";
 import revenueGrowthReducer from "../features/revenueGrowth/revenueGrowthSlice";
+import revenueReducer from "../features/revenueGrowth/revenueSlice";
 import roleManageSlice from "../features/roleManage/roleManageSlice";
 import currentUserReducer from "../features/users/currentUserSlice";
 import usersReducer from "../features/users/usersSlice";
@@ -26,6 +27,7 @@ export const store = configureStore({
     users: usersReducer, // get users data from the MongoDB userCollections
     currentUser: currentUserReducer,
     revenueGrowth: revenueGrowthReducer,
+    revenue: revenueReducer,
     payroll: payrollReducer,
     incomes: incomesReducer, // get users data from the MongoDB userCollections
     expenses: expenseReducer,
