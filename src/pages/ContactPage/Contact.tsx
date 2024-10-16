@@ -69,17 +69,17 @@ const Contact: React.FC = () => {
                 <a href="tel:+1234567890">+880123456789</a>
               </p>
               <p className="font-medium text-xl mb-3">
-                <a target="_blank" href="https://medium.com/">
+                <a target="_blank" href="https://facebook.com/">
                   facebook.com/reebboost_solution
                 </a>
               </p>
-              <p className="font-medium text-xl mb-3 underline">
-                <a href="www.instagram.com/reebboost_solution">
+              <p className="font-medium text-xl mb-3">
+                <a target="_blank" href="https://www.instagram.com/">
                   instagram.com/reebboost_solution
                 </a>
               </p>
-              <p className="font-medium text-xl underline">
-                <a href="www.linkedin.com/reebboost_solution">
+              <p className="font-medium text-xl">
+                <a target="_blank" href="https://www.linkedin.com/">
                   linkedin.com/reebboost_solution
                 </a>
               </p>
