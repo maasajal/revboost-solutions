@@ -21,6 +21,7 @@ import {
 } from "@mui/material";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { axiosPublic } from "../../app/hooks/useAxiosPublic";
+import { getCurrentUser } from "../../app/api/currentUserAPI";
 
 // Define types for the package data
 interface Package {
@@ -49,6 +50,11 @@ const Pricing: React.FC = () => {
   const { _id, name, email, role, subscriptionPlan, subscriptionStatus } =
     user || {};
   console.log(_id, name, email, role, subscriptionPlan, subscriptionStatus);
+
+  useEffect(() => {
+    dispatch(getCurrentUser());
+  }, [dispatch]);
+
   // Fetch Monthly Packages
   useEffect(() => {
     fetch("/monthlyPack.json")
