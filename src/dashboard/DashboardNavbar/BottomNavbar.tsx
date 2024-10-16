@@ -7,7 +7,7 @@ const BottomNavbar = () => {
   return (
     <div className="btm-nav">
       <NavLink
-        to={"/dashboard/company-incomes"}
+        to={"/dashboard/incomes"}
         className={({ isActive }) =>
           isActive
             ? "bg-footerBGColor text-white border-t-4 border-secondary font-semibold"
@@ -18,7 +18,7 @@ const BottomNavbar = () => {
         <span className="btm-nav-label">Incomes</span>
       </NavLink>
       <NavLink
-        to={"/dashboard/company-expenses"}
+        to={"/dashboard/expenses"}
         className={({ isActive }) =>
           isActive
             ? "bg-footerBGColor text-white border-t-4 border-secondary font-semibold"

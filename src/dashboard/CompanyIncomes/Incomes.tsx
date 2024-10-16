@@ -1,8 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../app/store/store";
 import { useEffect, useState } from "react";
-import { fetchIncomeCollection, addIncomeEntry, IncomeEntry } from "../../app/features/companyIncome/incomeSlice"
-
+import {
+  fetchIncomeCollection,
+  addIncomeEntry,
+  IncomeEntry,
+} from "../../app/features/companyIncome/incomeSlice";
 
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -11,6 +14,8 @@ import Modal from "@mui/material/Modal";
 import { TextField } from "@mui/material";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useAppSelector } from "../../app/hooks/useAppSelector";
+import User from "../../app/features/users/UserType";
+import { getCurrentUser } from "../../app/api/currentUserAPI";
 
 // form input
 interface IncomeFormInputs {
@@ -35,18 +40,24 @@ const style = {
 const Incomes: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   // Getting userId
-  const currentUser = useAppSelector((state) => state.currentUser.user);
+  const currentUser = useAppSelector(
+    (state: RootState) => state.currentUser.user
+  ) as User | null;
+
+  const userId = currentUser?._id;
   console.log("currentUser", currentUser);
-  
-  const userId = 'user1_id'; // Replace with dynamic user ID as needed
 
   useEffect(() => {
-    dispatch(fetchIncomeCollection(userId));
+    dispatch(getCurrentUser());
+    if (userId) {
+      dispatch(fetchIncomeCollection(userId));
+    }
   }, [dispatch, userId]);
 
-
-  const {incomeCollection, loading} = useSelector((state: RootState) => state.incomes);
-  console.log(incomeCollection,dispatch);
+  const { incomeCollection, loading } = useSelector(
+    (state: RootState) => state.incomes
+  );
+  console.log(incomeCollection, dispatch);
   //  mui modal
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -67,8 +78,10 @@ const Incomes: React.FC = () => {
       source: data.source,
       date: data.date,
     };
-    console.log(newEntry)
-    dispatch(addIncomeEntry({ userId, entry: newEntry }));
+    console.log(newEntry);
+    if (userId) {
+      dispatch(addIncomeEntry({ userId, entry: newEntry }));
+    }
     reset();
   };
   return (
@@ -88,7 +101,9 @@ const Incomes: React.FC = () => {
             <div>
               {/* mui modal */}
               <div>
-                <Button className="animate-bounce" onClick={handleOpen}>Add Income details</Button>
+                <Button className="animate-bounce" onClick={handleOpen}>
+                  Add Income details
+                </Button>
                 <Modal
                   open={open}
                   onClose={handleClose}
@@ -160,7 +175,7 @@ const Incomes: React.FC = () => {
                           {errors.date.message}
                         </span>
                       )}
-                      
+
                       <button
                         type="submit"
                         disabled={loading}
@@ -216,8 +231,6 @@ const Incomes: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                
-
                 {/* <tr className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50">
                     <td className="p-3">
                       <p>97412378923</p>

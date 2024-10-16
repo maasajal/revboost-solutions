@@ -16,6 +16,7 @@ import Pricing from "../pages/PricingPage/Pricing";
 import Login from "../pages/authentication/login/Login";
 import Register from "../pages/authentication/register/Register";
 import AdminRout from "./AdminRout";
+import Expenses from "../dashboard/Expense/Expenses";
 
 const router = createBrowserRouter([
   {
@@ -64,13 +65,13 @@ const router = createBrowserRouter([
       },
       // // Income tracking Route: Invoice Route
       {
-        path: "/dashboard/company-incomes",
+        path: "/dashboard/incomes",
         element: <Incomes />, // User Profile component will be call here.
       },
       // Expense tracking Route
       {
-        path: "/dashboard/company-expenses",
-        element: <Expense />,
+        path: "/dashboard/expenses",
+        element: <Expenses />,
       },
       // Revenue growth Route
       {

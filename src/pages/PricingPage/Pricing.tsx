@@ -20,6 +20,8 @@ import {
   Grid,
 } from "@mui/material";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import { axiosPublic } from "../../app/hooks/useAxiosPublic";
+import { getCurrentUser } from "../../app/api/currentUserAPI";
 
 // Define types for the package data
 interface Package {
@@ -45,6 +47,13 @@ const Pricing: React.FC = () => {
   const user = useAppSelector(
     (state: RootState) => state.currentUser?.user
   ) as User | null;
+  const { _id, name, email, role, subscriptionPlan, subscriptionStatus } =
+    user || {};
+  console.log(_id, name, email, role, subscriptionPlan, subscriptionStatus);
+
+  useEffect(() => {
+    dispatch(getCurrentUser());
+  }, [dispatch]);
 
   // Fetch Monthly Packages
   useEffect(() => {
@@ -66,12 +75,34 @@ const Pricing: React.FC = () => {
       );
   }, []);
 
+  // main handlerSubscriptionClick
+
+  // const handleSubscriptionClick = async (pkg: Package) => {
+  //   if (!user) {
+  //     // If user is not logged in or email is undefined, navigate to the login page
+  //     navigate("/login");
+  //   } else {
+  //     try {
+  //       const requestBody: UpdateMembershipRequest = {
+  //         role: "member",
+  //         subscriptionStatus: "active",
+  //         subscriptionPlan: pkg.packageName,
+  //       };
+  //       await dispatch(updateUser(user?.email, requestBody));
+
+  //       // Navigate to the dashboard after successful update
+  //       navigate("/dashboard");
+  //     } catch (error) {
+  //       console.error("An error occurred while updating the user:", error);
+  //     }
+  //   }
+  // };
   const handleSubscriptionClick = async (pkg: Package) => {
     if (!user) {
-      // If user is not logged in or email is undefined, navigate to the login page
       navigate("/login");
     } else {
       try {
+        // First, update the user's subscription status
         const requestBody: UpdateMembershipRequest = {
           role: "member",
           subscriptionStatus: "active",
@@ -79,10 +110,40 @@ const Pricing: React.FC = () => {
         };
         await dispatch(updateUser(user?.email, requestBody));
 
-        // Navigate to the dashboard after successful update
-        navigate("/dashboard");
+        const paymentData = {
+          email: email,
+          amount: pkg.price,
+        };
+        console.log(paymentData);
+
+        const data = await axiosPublic.post("/payment/initiate", paymentData);
+
+        // Initiate payment request to the backend
+        // const response = await fetch("http://localhost:3000/api/v1/payment/initiate", {
+        //   method: "POST",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        //   body: JSON.stringify({
+        //     email: user.email,
+        //     amount: pkg.price, // Set the amount based on the package price
+        //   }),
+        // });
+
+        // const data = await response.json();
+        console.log(data);
+
+        // if (data.redirectUrl) {
+        //   Redirect user to SSLCommerz payment gateway
+        //   window.location.href = data.redirectUrl;
+        //   console.log(data.redirectUrl)
+
+        // } else {
+        //   console.error("Payment initiation failed");
+
+        // }
       } catch (error) {
-        console.error("An error occurred while updating the user:", error);
+        console.error("An error occurred during the payment process:", error);
       }
     }
   };

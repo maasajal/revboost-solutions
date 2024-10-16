@@ -68,6 +68,7 @@ export const signInWithUserPassword =
             password,
             name,
           });
+          localStorage.setItem("user-token", response.data.message);
           console.log(response.data.message);
           console.log(result);
           window.location.href = "/pricing";
@@ -86,6 +87,7 @@ export const loginWithEmailPassword =
       signInWithEmailAndPassword(auth, email, password).then(async (result) => {
         const response = await axiosPublic.post(`/register`, { email });
         console.log(response.data.message);
+        localStorage.setItem("user-token", response.data.message);
         window.location.href = "/dashboard";
         dispatch(loginSuccess({ user: result.user }));
       });
