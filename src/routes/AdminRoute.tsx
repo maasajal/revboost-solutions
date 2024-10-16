@@ -5,7 +5,7 @@ interface AdminRoutProps {
   children: ReactNode;
 }
 
-const AdminRout = ({ children }: AdminRoutProps) => { 
+const AdminRoute = ({ children }: AdminRoutProps) => { 
   const axiosSecure = useAxiosSecure();
   const [isAdmin, setIsAdmin] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -34,4 +34,4 @@ const AdminRout = ({ children }: AdminRoutProps) => {
   return <div>Access Denied</div>; 
 };
 
-export default AdminRout;
+export default AdminRoute;

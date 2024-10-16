@@ -3,6 +3,7 @@ import AdminDashboard from "../dashboard/Admin/AdminDashboard/AdminDashboard";
 import Incomes from "../dashboard/CompanyIncomes/Incomes";
 import DashboardHome from "../dashboard/DashboardHome";
 // import Expense from "../dashboard/Expense/Expense";
+import Expenses from "../dashboard/Expense/Expenses";
 import Payroll from "../dashboard/Payroll/Payroll";
 import UserProfile from "../dashboard/Profile/Profile";
 import RevenueGrowth from "../dashboard/RevenueGrowth/RevenueGrowth";
@@ -15,8 +16,7 @@ import Home from "../pages/Home/Home";
 import Pricing from "../pages/PricingPage/Pricing";
 import Login from "../pages/authentication/login/Login";
 import Register from "../pages/authentication/register/Register";
-import AdminRout from "./AdminRout";
-import Expenses from "../dashboard/Expense/Expenses";
+import AdminRoute from "./AdminRoute";
 
 const router = createBrowserRouter([
   {
@@ -84,7 +84,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard/admin",
-        element:<AdminRout> <AdminDashboard /> </AdminRout>,
+        element:<AdminRoute> <AdminDashboard /> </AdminRoute>,
       },
     ],
   },

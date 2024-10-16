@@ -31,7 +31,7 @@ export const store = configureStore({
     expenses: expenseReducer,
     address: addressSlice,
     allUsers: getAllUsersSlice,
-    role_manage:roleManageSlice,
+    role_manage: roleManageSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
