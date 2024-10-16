@@ -190,7 +190,10 @@ const Incomes: React.FC = () => {
                         {loading ? "Saving..." : "Add Income"}
                       </button>
                     </form>{" "}
-                    
+                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                      Complete the input fields and{" "}
+                      <span className="text-green-300">add income</span>
+                    </Typography>
                   </Box>
                 </Modal>
               </div>
