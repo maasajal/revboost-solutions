@@ -29,7 +29,7 @@ interface Package {
   shortMessage: string;
   description: string;
   features: string[];
-  planFeature : string[]
+  planFeature: string[];
 }
 interface UpdateMembershipRequest {
   role: string;
@@ -88,7 +88,7 @@ const Pricing: React.FC = () => {
           role: "member",
           subscriptionStatus: "active",
           subscriptionPlan: pkg.packageName,
-          features : pkg?.planFeature
+          features: pkg?.planFeature,
         };
         await dispatch(updateUser(user?.email, requestBody));
 
@@ -99,7 +99,7 @@ const Pricing: React.FC = () => {
       }
     }
   };
- 
+
   // Function to render package cards
   const renderPackageCard = (pkg: Package) => {
     return (
@@ -142,7 +142,7 @@ const Pricing: React.FC = () => {
           </Box>
           <Box sx={{ mt: 3 }}>
             <Button
-              disabled={user?.role==="admin"}
+              disabled={user?.role === "admin"}
               variant="contained"
               color="secondary"
               fullWidth
