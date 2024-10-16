@@ -7,7 +7,7 @@ interface PrivetRouteProps {
     children: ReactNode;
 }
 
-const PrivetRoute = ({ children }: PrivetRouteProps) => {
+const PrivateRoute = ({ children }: PrivetRouteProps) => {
     const { user, loading } = useSelector((state: RootState) => state.auth); 
     if (loading) {
         return <>Loading.....</>
@@ -16,4 +16,4 @@ const PrivetRoute = ({ children }: PrivetRouteProps) => {
     return <Navigate to='/login' state={location.pathname} replace />
 };
 
-export default PrivetRoute;
+export default PrivateRoute;

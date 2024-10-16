@@ -22,10 +22,12 @@ interface UserCredentials {
   email: string;
   password: string;
 }
+
 interface loginCredentials {
   email: string;
   password: string;
 }
+
 // Login Function
 export const loginWithGoogle = () => async (dispatch: AppDispatch) => {
   // AppDispatch টাইপ ব্যবহার করুন
@@ -39,13 +41,11 @@ export const loginWithGoogle = () => async (dispatch: AppDispatch) => {
     const photo = result.user?.photoURL;
 
     const userData: UserData = { name, email, photo };
-
     // await dispatch(createUser(userData));
     const response = await axiosPublic.post(`/register`, userData);
-    console.log(response.data.message); // এখান থেকে টোকেন নিয়ে কাজ্ করতে পারেন
     localStorage.setItem("user-token", response.data.message);
-    window.location.href = "/pricing";
     dispatch(loginSuccess({ user: result.user })); // ইউজার তথ্য পাঠান
+    window.location.href = "/pricing";
   } catch (error) {
     if (error instanceof FirebaseError) {
       dispatch(loginFailure({ error: error.message })); // FirebaseError হলে ত্রুটি পাঠান
@@ -69,8 +69,6 @@ export const signInWithUserPassword =
             name,
           });
           localStorage.setItem("user-token", response.data.message);
-          console.log(response.data.message);
-          console.log(result);
           window.location.href = "/pricing";
           dispatch(loginSuccess({ user: result.user }));
         }
@@ -86,7 +84,6 @@ export const loginWithEmailPassword =
     try {
       signInWithEmailAndPassword(auth, email, password).then(async (result) => {
         const response = await axiosPublic.post(`/register`, { email });
-        console.log(response.data.message);
         localStorage.setItem("user-token", response.data.message);
         window.location.href = "/dashboard";
         dispatch(loginSuccess({ user: result.user }));

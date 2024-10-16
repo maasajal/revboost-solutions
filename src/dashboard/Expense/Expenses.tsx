@@ -5,65 +5,80 @@ import { fetchExpenses } from "../../app/features/expenses/expenseSlice";
 import User from "../../app/features/users/UserType";
 import { RootState } from "../../app/store/store";
 import { getCurrentUser } from "../../app/api/currentUserAPI";
-// import { axiosSecure } from "../../app/hooks/useAxiosSecure";
 import { axiosPublic } from "../../app/hooks/useAxiosPublic";
+import Expense from "./Expense";
 
 const Expenses: React.FC = () => {
   const dispatch = useAppDispatch();
-  const [expenses, setExpenses] = useState([]);
+  const [allExpense, setExpenses] = useState([]);
 
   // Get current user data
   const user = useAppSelector(
     (state: RootState) => state.currentUser.user
   ) as User;
-  const { _id, email } = user;
-  console.log(_id, email);
 
   // Get expenses data from redux store
-  const { expenseCollection, loading, error } = useAppSelector(
-    (state: RootState) => state.expenses
-  );
+  //   const { expenseCollection, loading, error } = useAppSelector(
+  //     (state: RootState) => state.expenses
+  //   );
 
   const getAllExpenses = async () => {
     const response = await axiosPublic.get(`/expenses/6707fa75b397d3c4264da`); // hardcoded on is working
-    console.log("expenses koi", response.data);
     setExpenses(response.data);
     return response.data;
   };
 
-  const getAllExpense = async (id: string) => {
-    const response = await axiosPublic.get(`/expenses/${id}`); // id passing is not working
-    console.log("all expense koi", response.data);
-    setExpenses(response.data);
-    return response.data;
-  };
+  //   const getAllExpense = async (id: string) => {
+  //     const response = await axiosPublic.get(`/expenses/${id}`); // id passing is not working
+  //     console.log("all expense", response.data);
+  //     setExpenses(response.data);
+  //     return response.data;
+  //   };
 
   useEffect(() => {
     dispatch(getCurrentUser());
     getAllExpenses();
-    if (_id) {
-      getAllExpense(_id);
-      dispatch(fetchExpenses(_id));
+    if (user?._id) {
+      //   console.log("Fetching expenses for user:", user._id);
+      //   getAllExpense(user?._id);
+      dispatch(fetchExpenses(user._id));
     }
-  }, [dispatch, _id]);
+  }, [dispatch, user._id]);
 
-  console.log("Expense Data", expenseCollection, loading, error, expenses);
+  const { expenses, loading, error } = useAppSelector(
+    (state: RootState) => state.expenses
+  );
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+  //   console.log("Expense Data", loading, error, expenses);
+
+  //   if (loading) return <p>Loading...</p>;
+  //   if (error) return <p>Error: {error}</p>;
 
   return (
-    <div>
-      <h2>Expenses</h2>
+    <div className="space-y-5">
+      <h2>Your all Expenses</h2>
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
       <ul>
-        {/* {expenses.map((entry) => (
-          <li key={entry.expenseId}>
-            {entry.item}: {entry.quantity} x {entry.unitPrice} = {entry.total}
-          </li>
-        ))} */}
+        {expenses ? (
+          expenses?.map((entry) => (
+            <li key={entry.expenseId}>
+              {entry.item}: {entry.quantity} x {entry.unitPrice} = {entry.total}
+            </li>
+          ))
+        ) : (
+          <li>No Expenses found!</li>
+        )}
       </ul>
+      <ul>
+        {allExpense?.map((entry) => (
+          <li key={entry?.expenseId}>
+            {entry?.item}: {entry?.quantity} x {entry?.unitPrice} ={" "}
+            {entry?.total}
+          </li>
+        ))}
+      </ul>
+      <Expense />
     </div>
   );
 };
