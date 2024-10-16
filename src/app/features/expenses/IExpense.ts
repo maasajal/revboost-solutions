@@ -6,14 +6,14 @@ export interface ExpenseEntry {
   total: number;
 }
 
-export interface ExpenseCollection {
+export interface ExpensesState {
+  expenses: ExpenseEntry[];
+  loading: boolean;
+  error: string | null;
+}
+
+export interface AddExpensePayload {
   userId: string;
   userEmail: string;
   expenseEntries: ExpenseEntry[];
-}
-
-export interface ExpenseState {
-  expenseCollection: ExpenseCollection | null;
-  loading: boolean;
-  error: string | null;
 }
