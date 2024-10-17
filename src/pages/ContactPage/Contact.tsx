@@ -4,6 +4,7 @@ import { IoIosCall } from "react-icons/io";
 import emailjs from "@emailjs/browser";
 import { useRef, FormEvent } from "react";
 import Swal from "sweetalert2";
+import { Box } from "@mui/material";
 
 const Contact: React.FC = () => {
   const form = useRef<HTMLFormElement | null>(null);
@@ -39,13 +40,24 @@ const Contact: React.FC = () => {
 
   return (
     <div>
-      <section className="text-center border mt-3 mb-10">
-        <img
-          className="h-[180px] w-full lg:h-[400px]"
-          src="https://i.postimg.cc/VNm4yd6L/image-13.png"
-          alt="contact us"
-        />
-      </section>
+      <Box
+      sx={{
+        textAlign: "center",
+        border: 1,
+        mt: 3,
+        mb: 10,
+      }}
+    >
+      <Box
+        component="img"
+        sx={{
+          height: { xs: 180, lg: 400 },
+          width: "100%",
+        }}
+        src="https://i.postimg.cc/VNm4yd6L/image-13.png"
+        alt="contact us"
+      />
+    </Box>
       <div className="container mx-auto">
         <h1 className="font-extrabold text-[28px] inter text-center mb-10">
           Our contact info
