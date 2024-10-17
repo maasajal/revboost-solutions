@@ -62,25 +62,25 @@ const Contact: React.FC = () => {
             <div>
               <p className="font-medium text-xl mb-3 hover:text-green-800">
                 <a target="_blank" href="mailto:revbostsolution@gmail.com">
-                  revboost@solution.com
+                  Email
                 </a>
               </p>
               <p className="font-medium text-xl mb-3 hover:text-green-800">
-                <a href="tel:+1234567890">+880123456789</a>
+                <a href="tel:+1234567890">Call Now</a>
               </p>
               <p className="font-medium text-xl mb-3 hover:text-green-800">
                 <a target="_blank" href="https://facebook.com/">
-                  facebook.com/reebboost_solution
+                  Facebook
                 </a>
               </p>
               <p className="font-medium text-xl mb-3 hover:text-green-800">
                 <a target="_blank" href="https://www.instagram.com/">
-                  instagram.com/reebboost_solution
+                  Instagram
                 </a>
               </p>
               <p className="font-medium text-xl hover:text-green-800">
                 <a target="_blank" href="https://www.linkedin.com/">
-                  linkedin.com/reebboost_solution
+                  LinkedIn
                 </a>
               </p>
             </div>
