@@ -1,6 +1,5 @@
 import RevenueForecastChart from "./RevenueForecastChart";
 import RevenueComparisonPieChart from "./RevenueComparisonPieChart";
-import RevenueTable from "./RevenueTable";
 import { useAppDispatch } from "../../app/hooks/useAppDispatch";
 import { useAppSelector } from "../../app/hooks/useAppSelector";
 import { useEffect } from "react";
@@ -55,10 +54,7 @@ const RevenueGrowth: React.FC = () => {
   const lastTwoRevenues = revenueEntries.slice(-2);
   if (lastTwoRevenues.length === 2) {
     const [previous, current] = lastTwoRevenues;
-    calculateRevenueGrowth(
-      previous.revenue,
-      current.revenue
-    );
+    calculateRevenueGrowth(previous.revenue, current.revenue);
   }
 
   if (loading) return <p>Loading...</p>;
@@ -93,7 +89,7 @@ const RevenueGrowth: React.FC = () => {
           </div>
         )}
       </div>
-      <section className="flex flex-wrap justify-center gap-8 mb-8 py-10">
+      <section className="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-8 py-10">
         <h3 className={`p-4 rounded-md shadow-xl`}>
           Total Incomes: {revenueGrowth?.totalIncome}
         </h3>
@@ -105,7 +101,7 @@ const RevenueGrowth: React.FC = () => {
         </h3>
       </section>
 
-      <div className="flex flex-wrap justify-center gap-8 mb-8 py-10">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-8 py-10">
         {revenueData.map((data) => (
           <div
             key={data.month}
@@ -119,21 +115,12 @@ const RevenueGrowth: React.FC = () => {
         ))}
       </div>
 
-      <div className="overflow-x-auto">
-        <RevenueTable />
-      </div>
-
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-        <div className="">
-          <div className="h-full py-10 bg-gray-100 border">
-            <RevenueForecastChart />
-          </div>
+        <div className="h-full py-10 px-5 rounded-xl border">
+          <RevenueForecastChart />
         </div>
-
-        <div className="">
-          <div className="h-full py-10 bg-gray-100 border">
-            <RevenueComparisonPieChart />
-          </div>
+        <div className="h-full py-10 px-5 rounded-xl border">
+          <RevenueComparisonPieChart />
         </div>
       </div>
     </div>
