@@ -14,7 +14,7 @@ interface Url {
     url: string;
 }
 
-const url: Url = { url: "standard" }
+const url: Url = { url: "premium" }
 const PremiumRoute = ({ children }: BasicRoutChild) => {
 
     const dispatch = useDispatch<AppDispatch>()
