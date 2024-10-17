@@ -25,3 +25,10 @@ h4 {
 h5 {
   @apply text-sm sm:text-base md:text-xl lg:text-2xl font-medium font-bebasNeue;
 }
+/* tih active css use on vat and tax page navbar */
+.active{ 
+  @apply text-primary border py-1 px-2 bg-btnBgHoverColor rounded-xl text-white
+}
+.in-active{
+  @apply text-secondary border py-1 px-2 bg-lightRedBg rounded-xl
+}
