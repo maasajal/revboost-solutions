@@ -131,9 +131,27 @@ const Contact: React.FC = () => {
                 />
               </div>
             </div>
+            <div className="mx-auto grid grid-cols-1 lg:grid-cols-2 w-[80%] lg:gap-x-5">
+              <div>
+              <label>Company Name</label> <br />
+              <input
+                name="company_name"
+                className="border border-black w-full pl-2"
+                type="text"
+              />
+              </div>
+              <div>
+              <label>Company Email</label> <br />
+              <input
+                name="company_email"
+                className="border border-black w-full pl-2"
+                type="text"
+              />
+              </div>
+            </div>
 
             <section className="w-[80%] mx-auto">
-              <label>Company Name</label> <br />
+              {/* <label>Company Name</label> <br />
               <input
                 name="company_name"
                 className="border border-black w-full pl-2"
@@ -145,7 +163,7 @@ const Contact: React.FC = () => {
                 name="company_email"
                 className="border border-black w-full pl-2"
                 type="text"
-              />
+              /> */}
               <label>Your message</label> <br />
               <textarea
                 name="message_box"
