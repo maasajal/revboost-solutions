@@ -38,31 +38,33 @@ const style = {
 };
 
 const Incomes: React.FC = () => {
+  //  mui modal
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const dispatch = useDispatch<AppDispatch>();
 
   // const userId: string = "670708f70e882388dd5b3af0";
 // ------------
 // Getting userId
-const currentUser = useAppSelector((state) => state.currentUser.user) as User;
-const userId = currentUser?._id;
-const userEmail = currentUser?.email;
-console.log(userId, userEmail);
+// const currentUser = useAppSelector((state) => state.currentUser.user) as User;
+// const userId = currentUser?._id;
+// const userEmail = currentUser?.email;
+// console.log(userId, userEmail);
 // ------------
   useEffect(() => {
     dispatch(getCurrentUser());
-    dispatch(fetchIncomeCollection(userId));
-  }, [dispatch, userId]);
+  }, [dispatch]);
 
   const {
-    // incomeCollection,
+    incomeCollection,
     loading,
     error,
   } = useSelector((state: RootState) => state.incomes);
   // console.log(incomeCollection, dispatch);
-  //  mui modal
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const { _id: userId, email: userEmail } = useAppSelector(
+    (state) => state.currentUser.user
+  ) as User;
   // form section
   const {
     register,
@@ -70,9 +72,12 @@ console.log(userId, userEmail);
     reset,
     formState: { errors },
   } = useForm<IncomeFormInputs>();
-  const onSubmit: SubmitHandler<IncomeFormInputs> = (data) => {
+  const onSubmit: SubmitHandler<IncomeFormInputs> = async (data) => {
     console.log(data);
-
+    if (!userId || !userEmail) {
+      console.error("User ID or email is missing");
+      return;
+    }
     const newEntry: IncomeEntry = {
       incomeId: data.incomeId,
       amount: data.amount,
@@ -80,8 +85,13 @@ console.log(userId, userEmail);
       date: data.date,
     };
     console.log(newEntry);
-    dispatch(addIncomeEntry({ userId, entry: newEntry }));
+    const savedIncome = await dispatch(
+      addIncomeEntry({ userId, userEmail, entry: newEntry }));
+      if(addIncomeEntry.fulfilled.match(savedIncome)){
+        dispatch(fetchIncomeCollection(userId))
+      }
     reset();
+    handleClose()
   };
   return (
     <section className="container mx-auto mt-10 space-y-4">
@@ -237,7 +247,7 @@ console.log(userId, userEmail);
                 <div className="dark:border-gray-300 dark:bg-gray-50">
                   {loading && <p>Loading...</p>}
                   {error && <p className="text-red-400 flex">{error}</p>}
-                  {/* {incomeCollection &&
+                  {incomeCollection &&
                   incomeCollection.incomeEntries.length > 0 ? (
                     <table
                       border={1}
@@ -277,7 +287,7 @@ console.log(userId, userEmail);
                     </table>
                   ) : (
                     !loading && <p>No income entries found.</p>
-                  )} */}
+                  )}
                 </div>
                 {/* ^^^end test */}
                 {/* <tr className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50">

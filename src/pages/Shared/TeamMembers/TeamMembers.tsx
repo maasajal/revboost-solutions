@@ -5,54 +5,57 @@ const TeamMembers = () => {
       name: "Abdullah Sajal",
       role: "",
       photoUrl: "member1.jpg",
-      facebook: "",
-      linkedin: "",
-      gitHub: "",
+      facebook: "https://www.facebook.com/maa.sajal",
+      linkedin: "https://www.facebook.com/maa.sajal",
+      gitHub: "https://www.facebook.com/maa.sajal",
     },
     {
       id: 2,
-      name: "Mohsin Ahmed Arfat",
+      name: "Sakib Hasan",
       role: "",
-      photoUrl: "member2.jpg",
-      facebook: "",
-      linkedin: "",
-      gitHub: "",
+      photoUrl: "member5.jpg",
+      facebook: "https://www.facebook.com/sakibhasansufi",
+      linkedin: "https://www.linkedin.com/in/sakibhasansufi/",
+      gitHub: "https://github.com/sakibhasansufi",
     },
     {
       id: 3,
+      name: "MD TORIKUL ISLAM ",
+      role: "",
+      photoUrl: "https://i.postimg.cc/C5S9fTfN/profile-pic.jpg",
+      facebook: "https://www.facebook.com/mdtorikulislamtamim/",
+      linkedin: "https://www.linkedin.com/in/md-torikulislam/",
+      gitHub: "https://github.com/torikulislamv3",
+    },
+    {
+      id: 4,
+      name: "Mohsin Ahmed Arfat",
+      role: "",
+      photoUrl: "member2.jpg",
+      facebook: "https://github.com/mohsinahmedarfat",
+      linkedin: "https://github.com/mohsinahmedarfat",
+      gitHub: "https://github.com/mohsinahmedarfat",
+    },
+   
+    
+    {
+      id: 5,
       name: "Md Rajiul Islam",
       role: "",
       photoUrl: "member3.jpg",
       facebook: "",
-      linkedin: "",
-      gitHub: "",
+      linkedin: "www.linkedin.com/in/rajiul-islam-rayhan",
+      gitHub: "https://github.com/sakibhasansufi",
     },
-    {
-      id: 4,
-      name: "MD TORIKUL ISLAM ",
-      role: "",
-      photoUrl: "member4.jpg",
-      facebook: "",
-      linkedin: "",
-      gitHub: "",
-    },
-    {
-      id: 5,
-      name: "Sakib Hasan",
-      role: "",
-      photoUrl: "member5.jpg",
-      facebook: "",
-      linkedin: "",
-      gitHub: "",
-    },
+    
     {
       id: 6,
       name: "Masum Billah Sakib",
-      role: "Marketing Specialist",
+      role: "",
       photoUrl: "member6.jpg",
-      facebook: "",
-      linkedin: "",
-      gitHub: "",
+      facebook: "https://www.facebook.com/saaqib.bilshan/",
+      linkedin: "https://www.linkedin.com/in/masum-billah-sakib/",
+      gitHub: "https://github.com/Bilshansakib",
     },
   ];
   return (
@@ -67,7 +70,7 @@ const TeamMembers = () => {
             >
               <img
                 className="object-cover w-32 h-32 rounded-full ring-4 ring-gray-300"
-                src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+                src={data.photoUrl}
                 alt=""
               />
 
@@ -94,7 +97,7 @@ const TeamMembers = () => {
                 </a>
 
                 <a
-                  href="#"
+                  href={data.facebook}
                   className="mx-2 text-gray-600 dark:text-gray-300 hover:text-gray-500 dark:hover:text-gray-300 group-hover:text-white"
                   aria-label="Facebook"
                 >
@@ -109,7 +112,7 @@ const TeamMembers = () => {
                 </a>
 
                 <a
-                  href="#"
+                  href={data.gitHub}
                   className="mx-2 text-gray-600 dark:text-gray-300 hover:text-gray-500 dark:hover:text-gray-300 group-hover:text-white"
                   aria-label="Github"
                 >
