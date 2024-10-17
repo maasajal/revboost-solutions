@@ -2,12 +2,13 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 // import { RootState } from "../../store/store";
 import { axiosSecure } from "../../hooks/useAxiosSecure";
 import { ExpenseEntry, ExpensesState } from "./IExpense";
+import { axiosPublic } from "../../hooks/useAxiosPublic";
 // import { getExpenses } from "./expensesActions";
 // import { axiosPublic } from "../../hooks/useAxiosPublic";
 
 // Initial state
 const initialState: ExpensesState = {
-  expenses: [],
+  expenseEntries: [],
   loading: false,
   error: null,
 };
@@ -16,8 +17,8 @@ export const fetchExpenses = createAsyncThunk(
   "expenses/fetchExpenses",
   async (userId: string, { rejectWithValue }) => {
     try {
-      const response = await axiosSecure.get(`/expenses/${userId}`);
-      console.log(response.data);
+      const response = await axiosPublic.get(`/expenses/${userId}`);
+    //   console.log(response.data);
       return response.data;
     } catch (error: any) {
       console.error("Error fetching expenses: ", error.message);
@@ -92,7 +93,7 @@ const expenseSlice = createSlice({
     builder.addCase(
       fetchExpenses.fulfilled,
       (state, action: PayloadAction<ExpenseEntry[]>) => {
-        state.expenses = action.payload;
+        state.expenseEntries = action.payload;
         state.loading = false;
       }
     );
@@ -100,7 +101,7 @@ const expenseSlice = createSlice({
       state.error = action.payload as string;
       state.loading = false;
     });
-    
+
     builder.addCase(addOrUpdateExpense.pending, (state) => {
       state.loading = true;
       state.error = null;
@@ -109,16 +110,16 @@ const expenseSlice = createSlice({
       addOrUpdateExpense.fulfilled,
       (state, action: PayloadAction<ExpenseEntry>) => {
         const updatedExpense = action.payload;
-        const existingIndex = state.expenses.findIndex(
+        const existingIndex = state.expenseEntries.findIndex(
           (expense) => expense.expenseId === updatedExpense.expenseId
         );
 
         if (existingIndex !== -1) {
           // If the expense already exists, update it
-          state.expenses[existingIndex] = updatedExpense;
+          state.expenseEntries[existingIndex] = updatedExpense;
         } else {
           // Otherwise, add it as a new expense
-          state.expenses.push(updatedExpense);
+          state.expenseEntries.push(updatedExpense);
         }
 
         state.loading = false;

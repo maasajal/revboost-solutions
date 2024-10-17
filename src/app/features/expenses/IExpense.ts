@@ -7,7 +7,7 @@ export interface ExpenseEntry {
 }
 
 export interface ExpensesState {
-  expenses: ExpenseEntry[];
+  expenseEntries: ExpenseEntry[];
   loading: boolean;
   error: string | null;
 }

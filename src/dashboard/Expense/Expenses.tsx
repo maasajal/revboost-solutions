@@ -1,88 +1,111 @@
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useAppDispatch } from "../../app/hooks/useAppDispatch";
 import { useAppSelector } from "../../app/hooks/useAppSelector";
 import { fetchExpenses } from "../../app/features/expenses/expenseSlice";
 import User from "../../app/features/users/UserType";
 import { RootState } from "../../app/store/store";
 import { getCurrentUser } from "../../app/api/currentUserAPI";
-import { axiosPublic } from "../../app/hooks/useAxiosPublic";
-import { ExpenseEntry } from "../../app/features/expenses/IExpense";
 import ExpenseForm from "./ExpenseForm";
+import {
+  Box,
+  CircularProgress,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+  Alert,
+  Paper,
+} from "@mui/material";
 
 const Expenses: React.FC = () => {
   const dispatch = useAppDispatch();
-  const [allExpense, setExpenses] = useState<ExpenseEntry[]>([]);
 
   // Get current user data
   const user = useAppSelector(
     (state: RootState) => state.currentUser.user
   ) as User;
 
-  // Get expenses data from redux store
-  //   const { expenseCollection, loading, error } = useAppSelector(
-  //     (state: RootState) => state.expenses
-  //   );
-
-  const getAllExpenses = async () => {
-    const response = await axiosPublic.get(`/expenses/6707fa75b397d3c4264da`); // hardcoded on is working
-    const data: ExpenseEntry[] = response.data;
-    setExpenses(data);
-    return response.data;
-  };
-
-  //   const getAllExpense = async (id: string) => {
-  //     const response = await axiosPublic.get(`/expenses/${id}`); // id passing is not working
-  //     console.log("all expense", response.data);
-  //     setExpenses(response.data);
-  //     return response.data;
-  //   };
-
   useEffect(() => {
     dispatch(getCurrentUser());
-    getAllExpenses();
     if (user?._id) {
-      //   console.log("Fetching expenses for user:", user._id);
-      //   getAllExpense(user?._id);
       dispatch(fetchExpenses(user._id));
     }
   }, [dispatch, user._id]);
 
-  const { expenses, loading, error } = useAppSelector(
+  const { expenseEntries, loading, error } = useAppSelector(
     (state: RootState) => state.expenses
   );
 
-  //   console.log("Expense Data", loading, error, expenses);
-
-  //   if (loading) return <p>Loading...</p>;
-  //   if (error) return <p>Error: {error}</p>;
-
   return (
-    <div className="space-y-5">
-      <h2>Your all Expenses</h2>
-      {loading && <p>Loading...</p>}
-      {error && <p>{error}</p>}
-      <ul>
-        {expenses ? (
-          expenses?.map((entry) => (
-            <li key={entry.expenseId}>
-              {entry.item}: {entry.quantity} x {entry.unitPrice} = {entry.total}
-            </li>
-          ))
-        ) : (
-          <li>No Expenses found!</li>
+    <section>
+      <Box sx={{ padding: 4 }}>
+        <Typography variant="h4" gutterBottom>
+          Your Expenses
+        </Typography>
+
+        {loading && (
+          <Box display="flex" justifyContent="center" marginY={2}>
+            <CircularProgress />
+          </Box>
         )}
-      </ul>
-      <ul>
-        {allExpense?.map((entry) => (
-          <li key={entry?.expenseId}>
-            {entry?.item}: {entry?.quantity} x {entry?.unitPrice} ={" "}
-            {entry?.total}
-          </li>
-        ))}
-      </ul>
-      {/* <Expense /> */}
-      <ExpenseForm />
-    </div>
+
+        {error && (
+          <Alert severity="error" sx={{ marginY: 2 }}>
+            {error}
+          </Alert>
+        )}
+
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>
+                  <strong>ID</strong>
+                </TableCell>
+                <TableCell>
+                  <strong>Item</strong>
+                </TableCell>
+                <TableCell>
+                  <strong>Quantity</strong>
+                </TableCell>
+                <TableCell>
+                  <strong>Unit Price</strong>
+                </TableCell>
+                <TableCell>
+                  <strong>Total</strong>
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {expenseEntries && expenseEntries.length > 0 ? (
+                expenseEntries.map((entry) => (
+                  <TableRow key={entry.expenseId}>
+                    <TableCell>{entry.expenseId}</TableCell>
+                    <TableCell>{entry.item}</TableCell>
+                    <TableCell>{entry.quantity}</TableCell>
+                    <TableCell>${entry.unitPrice}</TableCell>
+                    <TableCell>${entry.total}</TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={4} align="center">
+                    No expenses found.
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
+
+        <Box mt={4}>
+          <ExpenseForm />
+        </Box>
+      </Box>
+    </section>
   );
 };
 
