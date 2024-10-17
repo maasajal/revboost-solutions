@@ -39,21 +39,25 @@ const style = {
 
 const Incomes: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  // Getting userId
-  const currentUser = useAppSelector(
-    (state) => state.currentUser.user
-  ) as User;
-  const userId = currentUser?._id; // Replace with dynamic user ID as needed
-  // const userId: string = "670708f70e882388dd5b3af0";
 
+  // const userId: string = "670708f70e882388dd5b3af0";
+// ------------
+// Getting userId
+const currentUser = useAppSelector((state) => state.currentUser.user) as User;
+const userId = currentUser?._id;
+const userEmail = currentUser?.email;
+console.log(userId, userEmail);
+// ------------
   useEffect(() => {
     dispatch(getCurrentUser());
     dispatch(fetchIncomeCollection(userId));
   }, [dispatch, userId]);
 
-  const { incomeCollection, loading, error } = useSelector(
-    (state: RootState) => state.incomes
-  );
+  const {
+    // incomeCollection,
+    loading,
+    error,
+  } = useSelector((state: RootState) => state.incomes);
   // console.log(incomeCollection, dispatch);
   //  mui modal
   const [open, setOpen] = useState(false);
@@ -67,7 +71,7 @@ const Incomes: React.FC = () => {
     formState: { errors },
   } = useForm<IncomeFormInputs>();
   const onSubmit: SubmitHandler<IncomeFormInputs> = (data) => {
-    // console.log(data);
+    console.log(data);
 
     const newEntry: IncomeEntry = {
       incomeId: data.incomeId,
@@ -75,7 +79,7 @@ const Incomes: React.FC = () => {
       source: data.source,
       date: data.date,
     };
-    // console.log(newEntry);
+    console.log(newEntry);
     dispatch(addIncomeEntry({ userId, entry: newEntry }));
     reset();
   };
@@ -184,6 +188,7 @@ const Incomes: React.FC = () => {
                         {loading ? "Saving..." : "Add Income"}
                       </button>
                     </form>{" "}
+                    {loading && <p>Loading...</p>}
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                       Complete the input fields and{" "}
                       <span className="text-green-300">add income</span>
@@ -231,8 +236,8 @@ const Incomes: React.FC = () => {
                 {/* Display Current Income Entries */}
                 <div className="dark:border-gray-300 dark:bg-gray-50">
                   {loading && <p>Loading...</p>}
-                  {error && <p className="text-red-400">{error}</p>}
-                  {incomeCollection &&
+                  {error && <p className="text-red-400 flex">{error}</p>}
+                  {/* {incomeCollection &&
                   incomeCollection.incomeEntries.length > 0 ? (
                     <table
                       border={1}
@@ -272,7 +277,7 @@ const Incomes: React.FC = () => {
                     </table>
                   ) : (
                     !loading && <p>No income entries found.</p>
-                  )}
+                  )} */}
                 </div>
                 {/* ^^^end test */}
                 {/* <tr className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50">

@@ -1,4 +1,5 @@
 // import PageCover from "../../components/PageCover";
+import { Link } from "react-router-dom";
 import coverPhoto from "../../assets/AboutUs/cover.png";
 import whyChooseUsPhoto from "../../assets/AboutUs/whyChooseUS.png";
 import TeamMembers from "../Shared/TeamMembers/TeamMembers";
@@ -368,9 +369,11 @@ const About = () => {
                 To integrate key features like lead management, sales tracking, and revenue analytics.
                 To explore the application of behavioral analytics in micro-segmentation for targeted revenue generation strategies.
                 </p>
+                <Link to={`/pricing`}>
                 <button className="w-full px-5 py-2 mt-6 text-sm tracking-wider text-white uppercase transition-colors duration-300 transform bg-blue-600 rounded-lg lg:w-auto hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
                   Details
                 </button>
+                </Link>
               </div>
             </div>
 
