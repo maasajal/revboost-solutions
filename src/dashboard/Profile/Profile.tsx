@@ -2,66 +2,192 @@ import { RootState } from "../../app/store/store";
 import { useAppSelector } from "../../app/hooks/useAppSelector";
 import { useAppDispatch } from "../../app/hooks/useAppDispatch";
 import { useEffect } from "react";
-import { fetchUsers } from "../../app/api/usersAPI";
 import { getCurrentUser } from "../../app/api/currentUserAPI";
 import User from "../../app/features/users/UserType";
+import {
+  Avatar,
+  Box,
+  Button,
+  CircularProgress,
+  TextField,
+  Typography,
+} from "@mui/material";
+import { useForm, SubmitHandler } from "react-hook-form";
 
 const Profile: React.FC = () => {
   const dispatch = useAppDispatch();
 
-  const user = useAppSelector(
-    (state: RootState) => state.currentUser.user
-  ) as User | null;
-  const allUsers = useAppSelector((state: RootState) => state.users.users);
-  const loading = useAppSelector((state: RootState) => state.users.loading);
-  const error = useAppSelector((state: RootState) => state.users.error);
-
-  const { _id, name, email, role, subscriptionPlan, subscriptionStatus } =
-    user || {};
-  console.log(user);
-
   useEffect(() => {
-    dispatch(fetchUsers()); // Fetch all users
     dispatch(getCurrentUser()); // Fetch all users
   }, [dispatch]);
+
+  const user = useAppSelector(
+    (state: RootState) => state.currentUser.user
+  ) as User;
+  const { loading, error } = useAppSelector(
+    (state: RootState) => state.currentUser
+  );
+
+  const {
+    name,
+    email,
+    photo,
+    mobile,
+    role,
+    subscriptionPlan,
+    subscriptionStatus,
+    features,
+  } = user;
+
+  const { register, handleSubmit } = useForm<User>({
+    defaultValues: {
+      name,
+      email,
+      photo,
+      mobile,
+      role,
+      subscriptionPlan,
+      subscriptionStatus,
+      features,
+    },
+  });
+  // Form submission handler
+  const onSubmit: SubmitHandler<User> = (data) => {
+    // Handle the form submission logic, e.g., updating the profile
+    console.log("Updated User Data: ", data);
+  };
+
   return (
-    <div className="container mx-auto px-5 space-y-5">
+    <section className="container mx-auto px-5 space-y-5">
       <h1 className="text-center">User Profile</h1>
       <div>
-        {user && (
-          <div className="space-y-5">
-            <p>
-              <strong>UserID:</strong> {_id}
-            </p>
-            <h3>
-              <strong>Name:</strong> {name}
-            </h3>
-            <p>
-              <strong>Email:</strong> {email}
-            </p>
-            <p>
-              <strong>Role:</strong> {role}
-            </p>
-            <p>
-              <strong>Subscription Plan:</strong> {subscriptionPlan}
-            </p>
-            <p>
-              <strong>Subscription Status:</strong> {subscriptionStatus}
-            </p>
-          </div>
-        )}
+        {!user
+          ? loading && (
+              <Box className="mx-auto py-10" sx={{ display: "flex" }}>
+                <CircularProgress />
+              </Box>
+            )
+          : error && (
+              <Typography
+                className="mx-auto py-10"
+                variant="body1"
+                color="textSecondary"
+              >
+                {error}
+              </Typography>
+            )}
       </div>
-      <h2>All Users:</h2>
-      {loading && <p>Loading...</p>}
-      {error && <p>Error: {error}</p>}
-      <ul>
-        {allUsers.map((u) => (
-          <li key={u._id}>
-            {u.name} ({u.email})
-          </li>
-        ))}
-      </ul>
-    </div>
+      <div className="flex flex-col items-center space-y-4">
+        <Avatar
+          src={photo}
+          alt="Profile Picture"
+          sx={{ width: 120, height: 120 }}
+        />
+        <Typography variant="h5" className="font-semibold">
+          {name}
+        </Typography>
+        <Typography variant="body1" color="textSecondary">
+          {email}
+        </Typography>
+      </div>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="shadow-xl rounded-xl space-y-5 py-10 px-5"
+      >
+        <h2 className="text-xl font-semibold mb-4 text-center">
+          Update Profile
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <TextField
+            label="Company Name"
+            defaultValue={name}
+            {...register("name")}
+            InputProps={{
+              readOnly: true,
+            }}
+            fullWidth
+          />
+
+          <TextField
+            label="Company Email"
+            defaultValue={email}
+            {...register("email")}
+            InputProps={{
+              readOnly: true,
+            }}
+            fullWidth
+          />
+
+          <TextField
+            label="Photo URL"
+            defaultValue={photo}
+            {...register("photo")}
+            fullWidth
+          />
+
+          <TextField
+            label="Mobile"
+            defaultValue={mobile}
+            {...register("mobile")}
+            fullWidth
+          />
+
+          <TextField
+            label="Role"
+            defaultValue={role}
+            {...register("role")}
+            InputProps={{
+              readOnly: true,
+            }}
+            fullWidth
+          />
+
+          <TextField
+            label="Subscription Plan"
+            defaultValue={subscriptionPlan}
+            {...register("subscriptionPlan")}
+            InputProps={{
+              readOnly: true,
+            }}
+            fullWidth
+          />
+
+          <TextField
+            label="Subscription Status"
+            defaultValue={subscriptionStatus}
+            {...register("subscriptionStatus")}
+            InputProps={{
+              readOnly: true,
+            }}
+            fullWidth
+          />
+          <div className="p-4 rounded-lg border border-gray-200 space-y-3">
+            <strong className="mb-2">
+              Features on the plan {subscriptionPlan}
+            </strong>
+            <ul className="space-y-2">
+              {features && features.length > 0 ? (
+                features.map((feature: string, index: number) => (
+                  <li key={index} className="text-gray-700">
+                    {index + 1}. {feature}
+                  </li>
+                ))
+              ) : (
+                <li className="text-gray-500">No features available</li>
+              )}
+            </ul>
+          </div>
+        </div>
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          className="mt-6 w-full"
+        >
+          Save Changes
+        </Button>
+      </form>
+    </section>
   );
 };
 
