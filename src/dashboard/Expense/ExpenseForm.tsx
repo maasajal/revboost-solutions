@@ -1,14 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, Modal, TextField,  Button, Typography  } from "@mui/material";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { AddExpensePayload, ExpenseEntry } from "../../app/features/expenses/IExpense";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../app/store/store";
+import { useAppSelector } from "../../app/hooks/useAppSelector";
+import User from "../../app/features/users/UserType";
+import { getCurrentUser } from "../../app/api/currentUserAPI";
+import { addOrUpdateExpense } from "../../app/features/expenses/expenseSlice";
 
 // Define the form inputs
-interface ExpenseFormInputs {
-  UniqueExpenseId: string;
-  ExpenseSector: string;
-  quantity: number;
-  unitPrice: string;
-}
+// interface ExpenseFormInputs {
+//   UniqueExpenseId: string;
+//   ExpenseSector: string;
+//   quantity: number;
+//   unitPrice: string;
+// }
 
 // Modal styling
 const style = {
@@ -23,6 +30,19 @@ const style = {
 };
 
 const IncomeModal: React.FC = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  // Getting userId
+  const currentUser = useAppSelector(
+    (state) => state.currentUser.user
+  ) as User;
+  const userId = currentUser?._id;
+  const userEmail = currentUser?.email;
+  console.log(userId, userEmail)
+
+  useEffect(() => {
+    dispatch(getCurrentUser());
+  }, [dispatch]);
+
   // mui modal state
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -32,10 +52,20 @@ const IncomeModal: React.FC = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
-  } = useForm<ExpenseFormInputs>();
+  } = useForm<AddExpensePayload>();
 
-  const onSubmit: SubmitHandler<ExpenseFormInputs> = (data) => {
+  const onSubmit: SubmitHandler<ExpenseEntry> = async(data) => {
+    const newEntry: ExpenseEntry = {
+      expenseId: data.expenseId,
+      item: data.item,
+      quantity: data.quantity,
+      unitPrice: data.unitPrice,
+      total: data.quantity * data.unitPrice
+    };
+    dispatch(addOrUpdateExpense({ userId, userEmail, entry : newEntry }));
+    reset();
     console.log(data);
   };
 
@@ -62,19 +92,19 @@ const IncomeModal: React.FC = () => {
           <form onSubmit={handleSubmit(onSubmit)} className="gap-6 grid grid-cols-1 md:grid-cols-2">
             <TextField
               id="UniqueExpenseId"
-              {...register("UniqueExpenseId", { required: "Expense UniqueExpenseId is required" })}
+              {...register("expenseId", { required: "Expense UniqueExpenseId is required" })}
               label="Unique Expense Id"
               variant="outlined"
             />
-            {errors.UniqueExpenseId && <span className="text-red-400">{errors.UniqueExpenseId.message}</span>}
+            {errors.expenseId && <span className="text-red-400">{errors.expenseId.message}</span>}
 
             <TextField
               id="ExpenseSector"
-              {...register("ExpenseSector", { required: "ExpenseSector is required", min: { value: 0, message: "Amount must be positive" } })}
+              {...register("item", { required: "ExpenseSector is required", min: { value: 0, message: "Amount must be positive" } })}
               label="Expense Sector"
               variant="outlined"
             />
-            {errors.ExpenseSector && <span className="text-red-400">{errors.ExpenseSector.message}</span>}
+            {errors.item && <span className="text-red-400">{errors.item.message}</span>}
 
             <TextField
               id="quantity"
