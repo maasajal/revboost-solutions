@@ -1,5 +1,4 @@
 import Box from "@mui/material/Box";
-import { createTheme } from "@mui/material/styles";
 import { AppProvider } from "@toolpad/core/AppProvider";
 import { DashboardLayout } from "@toolpad/core/DashboardLayout";
 import type { Navigation, Router, Session } from "@toolpad/core";
@@ -22,6 +21,7 @@ import CurrencyExchangeIcon from "@mui/icons-material/CurrencyExchange";
 import PaymentsIcon from "@mui/icons-material/Payments";
 import AutoGraphIcon from "@mui/icons-material/AutoGraph";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import revTheme from "../components/utils/theme";
 
 // Define the navigation menu items
 const NAVIGATION: Navigation = [
@@ -74,23 +74,6 @@ const NAVIGATION: Navigation = [
     icon: <AccountCircleIcon />,
   },
 ];
-
-// Define a custom theme using Material UI's `createTheme` function
-const revTheme = createTheme({
-  cssVariables: {
-    colorSchemeSelector: "data-toolpad-color-scheme",
-  },
-  colorSchemes: { light: true, dark: true },
-  breakpoints: {
-    values: {
-      xs: 0,
-      sm: 600,
-      md: 600,
-      lg: 1200,
-      xl: 1536,
-    },
-  },
-});
 
 // Define the `FeaturePages` component to display the content based on the current path
 function FeaturePages({ pathname }: { pathname: string }) {
