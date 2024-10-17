@@ -48,7 +48,7 @@ export const fetchIncomeCollection = createAsyncThunk<
 // Thunk to add a new income entry
 export const addIncomeEntry = createAsyncThunk<
   IncomeCollection,
-  { userId: string; entry: IncomeEntry },
+  { userId: string; userEmail:string; entry: IncomeEntry },
   { rejectValue: string }
 >("income/addIncomeEntry", async ({ userId, entry }, { rejectWithValue }) => {
   try {
