@@ -1,11 +1,10 @@
-import { AiOutlineCreditCard } from "react-icons/ai";
-import { FaHome } from "react-icons/fa";
+import { AiOutlineCreditCard, AiTwotoneCalculator } from "react-icons/ai";
+import { FaFileInvoiceDollar, FaHome } from "react-icons/fa";
 import { GiExpense, GiTreeGrowth } from "react-icons/gi";
 import { PiInvoiceBold } from "react-icons/pi";
 import { NavLink } from "react-router-dom";
 import RevenueForecastChart from "./RevenueGrowth/RevenueForecastChart";
 import RevenueComparisonPieChart from "./RevenueGrowth/RevenueComparisonPieChart";
-import AutoGraphIcon from "@mui/icons-material/AutoGraph";
 
 const DashboardHome: React.FC = () => {
   return (
@@ -66,6 +65,11 @@ const dashNavLinks = [
   {
     navName: "VAT & TAX Calculation",
     path: "/dashboard/vat",
-    icon: <AutoGraphIcon className="text-2xl text-secondary" />,
+    icon: <AiTwotoneCalculator className="text-2xl text-secondary" />,
+  },
+  {
+    navName: "Invoice & Billing",
+    path: "/dashboard/invoice-&-billing",
+    icon: <FaFileInvoiceDollar className="text-2xl text-secondary" />,
   },
 ];
