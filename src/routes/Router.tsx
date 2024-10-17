@@ -74,12 +74,12 @@ const router = createBrowserRouter([
       // Expense tracking Route
       {
         path: "/dashboard/expenses",
-        element: <Expenses />,
+        element:<BasicRoute> <Expenses /></BasicRoute>,
       },
       // Revenue growth Route
       {
         path: "/dashboard/revenue-growth",
-        element: <RevenueGrowth />,
+        element:<BasicRoute> <RevenueGrowth /></BasicRoute>,
       },
       {
         path: "/dashboard/payroll",
