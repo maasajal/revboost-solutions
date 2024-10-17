@@ -17,9 +17,9 @@
           "Secure access to ensure information protection"
         ],
         "planFeature" : [
-          "Company Income Tracking Feature",
-          "Company Expense Tracking Feature",
-          "Revenue Trends Feature"
+          "income",
+          "expense",
+          "revenue_growth"
         ]
       },
       {
@@ -45,12 +45,12 @@
           "Secure access to ensure information protection"
         ],
         "planFeature" : [
-          "Company Income Tracking Feature",
-          "Company Expense Tracking Feature",
-          "Revenue Trends Feature",
-          "Vat Calculation Feature",
-          "Tax Calculation Feature",
-          "Payroll Management Feature"
+          "income",
+          "expense",
+          "revenue_growth",
+          "vat",
+          "tax",
+          "payroll"
         ]
       },
       {
@@ -83,14 +83,15 @@
           "Secure access to ensure information protection"
         ],
         "planFeature" : [
-          "Company Income Tracking Feature",
-          "Company Expense Tracking Feature",
-          "Revenue Trends Feature",
-          "Vat Calculation Feature",
-          "Tax Calculation Feature",
-          "Payroll Management Feature",
-          "Invoice and Billing Management Feature",
-          "Client Vendor Feature"
+        "income",
+          "expense",
+          "revenue_growth",
+          "vat",
+          "tax",
+          "payroll",
+          "invoice",
+          "billing",
+          "client_vendor"
         ]
       }
     ]
