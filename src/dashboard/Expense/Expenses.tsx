@@ -6,8 +6,8 @@ import User from "../../app/features/users/UserType";
 import { RootState } from "../../app/store/store";
 import { getCurrentUser } from "../../app/api/currentUserAPI";
 import { axiosPublic } from "../../app/hooks/useAxiosPublic";
-import Expense from "./Expense";
 import { ExpenseEntry } from "../../app/features/expenses/IExpense";
+import ExpenseForm from "./ExpenseForm";
 
 const Expenses: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -80,7 +80,8 @@ const Expenses: React.FC = () => {
           </li>
         ))}
       </ul>
-      <Expense />
+      {/* <Expense /> */}
+      <ExpenseForm />
     </div>
   );
 };
