@@ -19,6 +19,7 @@ import Register from "../pages/authentication/register/Register";
 import AdminRoute from "./AdminRoute";
 import BasicRoute from "./BasicRoute";
 import PrivateRoute from "./PrivateRoute";
+import StandardRoute from "./StandardRoute";
 
 const router = createBrowserRouter([
   {
@@ -82,7 +83,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard/payroll",
-        element: <Payroll />,
+        element:<StandardRoute> <Payroll /></StandardRoute>,
       },
       {
         path: "/dashboard/admin",
