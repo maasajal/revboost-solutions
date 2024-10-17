@@ -1,52 +1,40 @@
 import { useEffect, useState } from "react";
-import { Box, Modal, TextField,  Button, Typography  } from "@mui/material";
+import { Box, Modal, TextField, Button, Typography } from "@mui/material";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { AddExpensePayload, ExpenseEntry } from "../../app/features/expenses/IExpense";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../app/store/store";
+import { ExpenseEntry } from "../../app/features/expenses/IExpense";
 import { useAppSelector } from "../../app/hooks/useAppSelector";
 import User from "../../app/features/users/UserType";
 import { getCurrentUser } from "../../app/api/currentUserAPI";
 import { addOrUpdateExpense } from "../../app/features/expenses/expenseSlice";
+import { useAppDispatch } from "../../app/hooks/useAppDispatch";
 
-// Define the form inputs
-// interface ExpenseFormInputs {
-//   UniqueExpenseId: string;
-//   ExpenseSector: string;
-//   quantity: number;
-//   unitPrice: string;
-// }
-
-// Modal styling
 const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 2/3,
-  bgcolor: 'background.paper',
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 2 / 3,
+  bgcolor: "background.paper",
   boxShadow: 24,
   p: 4,
 };
 
-const IncomeModal: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  // Getting userId
-  const currentUser = useAppSelector(
-    (state) => state.currentUser.user
-  ) as User;
-  const userId = currentUser?._id;
-  const userEmail = currentUser?.email;
-  console.log(userId, userEmail)
+const ExpenseForm: React.FC = () => {
+  // mui modal state
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getCurrentUser());
   }, [dispatch]);
 
-  // mui modal state
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  // Getting userId
+  const currentUser = useAppSelector((state) => state.currentUser.user) as User;
+  const userId = currentUser?._id;
+  const userEmail = currentUser?.email;
+  console.log(userId, userEmail);
 
   // form handling using react-hook-form
   const {
@@ -54,19 +42,23 @@ const IncomeModal: React.FC = () => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<AddExpensePayload>();
+  } = useForm<ExpenseEntry>();
 
-  const onSubmit: SubmitHandler<ExpenseEntry> = async(data) => {
-    const newEntry: ExpenseEntry = {
+  const onSubmit: SubmitHandler<ExpenseEntry> = async (data) => {
+    if (!userId || !userEmail) {
+      console.error("User ID or email is missing");
+      return;
+    }
+    const expenseEntry: ExpenseEntry = {
       expenseId: data.expenseId,
       item: data.item,
       quantity: data.quantity,
       unitPrice: data.unitPrice,
-      total: data.quantity * data.unitPrice
+      total: data.quantity * data.unitPrice,
     };
-    dispatch(addOrUpdateExpense({ userId, userEmail, entry : newEntry }));
+    dispatch(addOrUpdateExpense({ userId, userEmail, expenseEntry }));
     reset();
-    console.log(data);
+    handleClose();
   };
 
   return (
@@ -89,22 +81,84 @@ const IncomeModal: React.FC = () => {
           </Typography>
 
           {/* Form inside the modal */}
-          <form onSubmit={handleSubmit(onSubmit)} className="gap-6 grid grid-cols-1 md:grid-cols-2">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="gap-6 grid grid-cols-1 md:grid-cols-2"
+          >
             <TextField
               id="UniqueExpenseId"
-              {...register("expenseId", { required: "Expense UniqueExpenseId is required" })}
+              {...register("expenseId", {
+                required: "Expense UniqueExpenseId is required",
+              })}
               label="Unique Expense Id"
               variant="outlined"
+              error={!!errors.expenseId}
+              helperText={errors.expenseId?.message}
             />
-            {errors.expenseId && <span className="text-red-400">{errors.expenseId.message}</span>}
 
             <TextField
               id="ExpenseSector"
-              {...register("item", { required: "ExpenseSector is required", min: { value: 0, message: "Amount must be positive" } })}
+              {...register("item", {
+                required: "ExpenseSector is required",
+                min: { value: 0, message: "Amount must be positive" },
+              })}
+              label="Expense Sector"
+              variant="outlined"
+              error={!!errors.item}
+              helperText={errors.item?.message}
+            />
+
+            <TextField
+              id="quantity"
+              type="number"
+              {...register("quantity", { required: "quantity is required" })}
+              label="Quantity"
+              variant="outlined"
+              error={!!errors.quantity}
+              helperText={errors.quantity?.message}
+            />
+
+            <TextField
+              id="unitPrice"
+              {...register("unitPrice", { required: "unitPrice is required" })}
+              label="Unit Price"
+              variant="outlined"
+              error={!!errors.unitPrice}
+              helperText={errors.unitPrice?.message}
+            />
+
+            <Button type="submit" variant="contained" color="success">
+              Add Expenses
+            </Button>
+          </form>
+          {/* <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="gap-6 grid grid-cols-1 md:grid-cols-2"
+          >
+            <TextField
+              id="UniqueExpenseId"
+              {...register("expenseId", {
+                required: "Expense UniqueExpenseId is required",
+              })}
+              label="Unique Expense Id"
+              variant="outlined"
+            />
+            {errors.expenseId && (
+              <span className="text-red-400">{errors.expenseId.message}</span>
+            )}
+
+            <TextField
+              id="ExpenseSector"
+              {...register("item", {
+                required: "ExpenseSector is required",
+                min: { value: 0, message: "Amount must be positive" },
+              })}
               label="Expense Sector"
               variant="outlined"
             />
-            {errors.item && <span className="text-red-400">{errors.item.message}</span>}
+            {errors.item && (
+              <span className="text-red-400">{errors.item.message}</span>
+            )}
 
             <TextField
               id="quantity"
@@ -113,7 +167,9 @@ const IncomeModal: React.FC = () => {
               label="Quantity"
               variant="outlined"
             />
-            {errors.quantity && <span className="text-red-400">{errors.quantity.message}</span>}
+            {errors.quantity && (
+              <span className="text-red-400">{errors.quantity.message}</span>
+            )}
 
             <TextField
               id="unitPrice"
@@ -121,19 +177,29 @@ const IncomeModal: React.FC = () => {
               label="Unit Price"
               variant="outlined"
             />
-            {errors.unitPrice && <span className="text-red-400">{errors.unitPrice.message}</span>}
+            {errors.unitPrice && (
+              <span className="text-red-400">{errors.unitPrice.message}</span>
+            )}
 
             <button
               type="submit"
-              style={{ padding: "10px", backgroundColor: "#4CAF50", color: "white", border: "none" }}
+              style={{
+                padding: "10px",
+                backgroundColor: "#4CAF50",
+                color: "white",
+                border: "none",
+              }}
             >
               Add Expenses
             </button>
-          </form>
+            <Button type="submit" variant="contained" color="success">
+              Add Expenses
+            </Button>
+          </form> */}
         </Box>
       </Modal>
     </div>
   );
 };
 
-export default IncomeModal;
+export default ExpenseForm;

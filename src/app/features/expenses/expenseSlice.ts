@@ -100,6 +100,34 @@ const expenseSlice = createSlice({
       state.error = action.payload as string;
       state.loading = false;
     });
+    
+    builder.addCase(addOrUpdateExpense.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    });
+    builder.addCase(
+      addOrUpdateExpense.fulfilled,
+      (state, action: PayloadAction<ExpenseEntry>) => {
+        const updatedExpense = action.payload;
+        const existingIndex = state.expenses.findIndex(
+          (expense) => expense.expenseId === updatedExpense.expenseId
+        );
+
+        if (existingIndex !== -1) {
+          // If the expense already exists, update it
+          state.expenses[existingIndex] = updatedExpense;
+        } else {
+          // Otherwise, add it as a new expense
+          state.expenses.push(updatedExpense);
+        }
+
+        state.loading = false;
+      }
+    );
+    builder.addCase(addOrUpdateExpense.rejected, (state, action) => {
+      state.error = action.payload as string;
+      state.loading = false;
+    });
   },
 });
 
