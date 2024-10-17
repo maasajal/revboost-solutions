@@ -13,7 +13,14 @@ import {
   Typography,
 } from "@mui/material";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { updateUser } from "../../app/api/usersAPI";
+import Swal from "sweetalert2";
+import revTheme from "../../components/utils/theme";
 
+interface UpdateUserData {
+  photo: string;
+  mobile: string;
+}
 const Profile: React.FC = () => {
   const dispatch = useAppDispatch();
 
@@ -52,9 +59,20 @@ const Profile: React.FC = () => {
     },
   });
   // Form submission handler
-  const onSubmit: SubmitHandler<User> = (data) => {
+  const onSubmit: SubmitHandler<User> = async (data) => {
     // Handle the form submission logic, e.g., updating the profile
-    console.log("Updated User Data: ", data);
+    const updateUserData: UpdateUserData = {
+      photo: data.photo,
+      mobile: data.mobile,
+    };
+    await dispatch(updateUser(email, updateUserData));
+    Swal.fire({
+      position: "top-end",
+      title: `Update ${name} successfully!`,
+      icon: "success",
+      showConfirmButton: false,
+      timer: 1500,
+    });
   };
 
   return (
@@ -82,6 +100,7 @@ const Profile: React.FC = () => {
           src={photo}
           alt="Profile Picture"
           sx={{ width: 120, height: 120 }}
+          className={`${revTheme?.palette?.mode === "light" && "bg-white"}`}
         />
         <Typography variant="h5" className="font-semibold">
           {name}
