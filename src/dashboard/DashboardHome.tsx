@@ -5,6 +5,7 @@ import { PiInvoiceBold } from "react-icons/pi";
 import { NavLink } from "react-router-dom";
 import RevenueForecastChart from "./RevenueGrowth/RevenueForecastChart";
 import RevenueComparisonPieChart from "./RevenueGrowth/RevenueComparisonPieChart";
+import AutoGraphIcon from "@mui/icons-material/AutoGraph";
 
 const DashboardHome: React.FC = () => {
   return (
@@ -44,12 +45,12 @@ const dashNavLinks = [
   },
   {
     navName: "Company Incomes",
-    path: "/dashboard/company-incomes",
+    path: "/dashboard/incomes",
     icon: <PiInvoiceBold className="text-2xl text-secondary" />,
   },
   {
     navName: "Company Expenses",
-    path: "/dashboard/company-expenses",
+    path: "/dashboard/expenses",
     icon: <GiExpense className="text-2xl text-secondary" />,
   },
   {
@@ -61,5 +62,10 @@ const dashNavLinks = [
     navName: "Payroll Management",
     path: "/dashboard/payroll",
     icon: <AiOutlineCreditCard className="text-2xl text-secondary" />,
+  },
+  {
+    navName: "VAT & TAX Calculation",
+    path: "/dashboard/vat",
+    icon: <AutoGraphIcon className="text-2xl text-secondary" />,
   },
 ];
