@@ -4,9 +4,8 @@ import { useDispatch } from "react-redux";
 import { Outlet } from "react-router-dom";
 import { setUser } from "../app/features/firebaseAuthentication/authSlice";
 import { auth } from "../firebase/firebase.config";
-import Navbar from "../pages/Shared/Navbar/Navbar";
 import Footer from "../pages/Shared/footer/Footer";
-// import { ComplexNavbar } from "../pages/Shared/Navbar/ComplexNavbar";
+import ResponsiveAppBar from "../pages/Shared/Navbar/ResponsiveAppBar";
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -25,8 +24,7 @@ const Main = () => {
 
   return (
     <div>
-      <Navbar />
-      {/* <ComplexNavbar /> */}
+      <ResponsiveAppBar />
       <main className="font-roboto">
         <Outlet />
       </main>

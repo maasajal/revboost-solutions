@@ -21,6 +21,7 @@ import CurrencyExchangeIcon from "@mui/icons-material/CurrencyExchange";
 import PaymentsIcon from "@mui/icons-material/Payments";
 import AutoGraphIcon from "@mui/icons-material/AutoGraph";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+
 import revTheme from "../components/utils/theme";
 
 // Define the navigation menu items
@@ -60,6 +61,11 @@ const NAVIGATION: Navigation = [
     segment: "dashboard/revenue-growth",
     title: "Revenue Growth",
     icon: <AutoGraphIcon />,
+  },
+  {
+    segment: "dashboard/vat",
+    title: "VAT & TAX",
+    icon: <AccountCircleIcon />,
   },
   {
     kind: "divider",

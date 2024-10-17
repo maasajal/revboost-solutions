@@ -39,28 +39,28 @@ export const fetchExpenses = createAsyncThunk(
 //   }
 // );
 
-// export const addOrUpdateExpense = createAsyncThunk(
-//   "expenses/addOrUpdateExpense",
-//   async (
-//     {
-//       userId,
-//       userEmail,
-//       expenseEntry,
-//     }: { userId: string; userEmail: string; expenseEntry: ExpenseEntry },
-//     { rejectWithValue }
-//   ) => {
-//     try {
-//       const response = await axiosSecure.post("/expenses/add-update-expense", {
-//         userId,
-//         userEmail,
-//         expenseEntry,
-//       });
-//       return response.data;
-//     } catch (error: any) {
-//       return rejectWithValue(error.response.data);
-//     }
-//   }
-// );
+export const addOrUpdateExpense = createAsyncThunk(
+  "expenses/addOrUpdateExpense",
+  async (
+    {
+      userId,
+      userEmail,
+      expenseEntry,
+    }: { userId: string; userEmail: string; expenseEntry: ExpenseEntry },
+    { rejectWithValue }
+  ) => {
+    try {
+      const response = await axiosSecure.post("/expenses/add-update-expense", {
+        userId,
+        userEmail,
+        expenseEntry,
+      });
+      return response.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 
 // export const deleteExpense = createAsyncThunk(
 //   "expenses/deleteExpense",
@@ -97,6 +97,34 @@ const expenseSlice = createSlice({
       }
     );
     builder.addCase(fetchExpenses.rejected, (state, action) => {
+      state.error = action.payload as string;
+      state.loading = false;
+    });
+    
+    builder.addCase(addOrUpdateExpense.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    });
+    builder.addCase(
+      addOrUpdateExpense.fulfilled,
+      (state, action: PayloadAction<ExpenseEntry>) => {
+        const updatedExpense = action.payload;
+        const existingIndex = state.expenses.findIndex(
+          (expense) => expense.expenseId === updatedExpense.expenseId
+        );
+
+        if (existingIndex !== -1) {
+          // If the expense already exists, update it
+          state.expenses[existingIndex] = updatedExpense;
+        } else {
+          // Otherwise, add it as a new expense
+          state.expenses.push(updatedExpense);
+        }
+
+        state.loading = false;
+      }
+    );
+    builder.addCase(addOrUpdateExpense.rejected, (state, action) => {
       state.error = action.payload as string;
       state.loading = false;
     });

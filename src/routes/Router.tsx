@@ -7,6 +7,9 @@ import Expenses from "../dashboard/Expense/Expenses";
 import Payroll from "../dashboard/Payroll/Payroll";
 import UserProfile from "../dashboard/Profile/Profile";
 import RevenueGrowth from "../dashboard/RevenueGrowth/RevenueGrowth";
+import Tax from "../dashboard/VatTaxCalculation/Tax/Tax";
+import Vat from "../dashboard/VatTaxCalculation/Vat/Vat";
+import VatTaxCalculation from "../dashboard/VatTaxCalculation/VatTaxCalculation";
 import Dashboard from "../layouts/Dashboard";
 import Main from "../layouts/Main";
 import About from "../pages/AboutPage/About";
@@ -84,6 +87,20 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/payroll",
         element:<StandardRoute> <Payroll /></StandardRoute>,
+      },
+      {
+        path: "/dashboard/vat",
+        element: <VatTaxCalculation />,
+        children:[
+         {
+          index:true,
+          element:<Vat />
+         },
+         {
+          path:"/dashboard/vat/tax",
+          element:<Tax />
+         }
+        ]
       },
       {
         path: "/dashboard/admin",
