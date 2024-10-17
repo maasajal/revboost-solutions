@@ -6,6 +6,7 @@ import { setUser } from "../app/features/firebaseAuthentication/authSlice";
 import { auth } from "../firebase/firebase.config";
 import Navbar from "../pages/Shared/Navbar/Navbar";
 import Footer from "../pages/Shared/footer/Footer";
+// import { ComplexNavbar } from "../pages/Shared/Navbar/ComplexNavbar";
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ const Main = () => {
   return (
     <div>
       <Navbar />
+      {/* <ComplexNavbar /> */}
       <main className="font-roboto">
         <Outlet />
       </main>

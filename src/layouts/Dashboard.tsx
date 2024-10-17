@@ -6,7 +6,7 @@ import { AppProvider } from "@toolpad/core/AppProvider";
 import { DashboardLayout } from "@toolpad/core/DashboardLayout";
 import type { Navigation, Router, Session } from "@toolpad/core";
 import { Outlet, useNavigate } from "react-router-dom";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Typography from "@mui/material/Typography";
 import User from "../app/features/users/UserType";
 import { useAppSelector } from "../app/hooks/useAppSelector";
@@ -16,6 +16,7 @@ import { signOut } from "firebase/auth";
 import { logoutSuccess } from "../app/features/firebaseAuthentication/authSlice";
 import { auth } from "../firebase/firebase.config";
 import logo from "../assets/logo.png";
+import { getCurrentUser } from "../app/api/currentUserAPI";
 
 // Define the navigation menu items
 const NAVIGATION: Navigation = [
@@ -105,9 +106,14 @@ export default function DashboardLayoutBasic(props: DemoProps) {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const user = useAppSelector((state: RootState) => state.auth.user);
+
+  useEffect(() => {
+    dispatch(getCurrentUser());
+  }, [dispatch]);
+
   const userDetails = useAppSelector(
     (state: RootState) => state.currentUser?.user
-  ) as User | null;
+  ) as User;
 
   const { name, email, photo } = userDetails || {};
   const [session, setSession] = useState<Session | null>({
