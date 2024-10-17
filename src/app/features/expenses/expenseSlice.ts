@@ -1,10 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-// import { RootState } from "../../store/store";
 import { axiosSecure } from "../../hooks/useAxiosSecure";
 import { ExpenseEntry, ExpensesState } from "./IExpense";
-import { axiosPublic } from "../../hooks/useAxiosPublic";
-// import { getExpenses } from "./expensesActions";
-// import { axiosPublic } from "../../hooks/useAxiosPublic";
 
 // Initial state
 const initialState: ExpensesState = {
@@ -17,8 +13,8 @@ export const fetchExpenses = createAsyncThunk(
   "expenses/fetchExpenses",
   async (userId: string, { rejectWithValue }) => {
     try {
-      const response = await axiosPublic.get(`/expenses/${userId}`);
-    //   console.log(response.data);
+      const response = await axiosSecure.get(`/expenses/${userId}`);
+      //   console.log(response.data);
       return response.data;
     } catch (error: any) {
       console.error("Error fetching expenses: ", error.message);
@@ -26,35 +22,21 @@ export const fetchExpenses = createAsyncThunk(
     }
   }
 );
-
-// Thunks
-// export const fetchExpenses = createAsyncThunk<ExpenseCollection, string>(
-//   "expenses/fetchExpenses",
-//   async (userId: string) => {
-//     try {
-//       const response = await axiosPublic.get(`/expenses/${userId}`);
-//       return response.data;
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   }
-// );
-
 export const addOrUpdateExpense = createAsyncThunk(
   "expenses/addOrUpdateExpense",
   async (
     {
       userId,
       userEmail,
-      expenseEntry,
-    }: { userId: string; userEmail: string; expenseEntry: ExpenseEntry },
+      expenseEntries,
+    }: { userId: string; userEmail: string; expenseEntries: ExpenseEntry[] },
     { rejectWithValue }
   ) => {
     try {
       const response = await axiosSecure.post("/expenses/add-update-expense", {
         userId,
         userEmail,
-        expenseEntry,
+        expenseEntries,
       });
       return response.data;
     } catch (error: any) {
@@ -63,24 +45,30 @@ export const addOrUpdateExpense = createAsyncThunk(
   }
 );
 
-// export const deleteExpense = createAsyncThunk(
-//   "expenses/deleteExpense",
+// export const addOrUpdateExpense = createAsyncThunk(
+//   "expenses/addOrUpdateExpense",
 //   async (
-//     { userId, expenseId }: { userId: string; expenseId: string },
+//     {
+//       userId,
+//       userEmail,
+//       expenseEntry,
+//     }: { userId: string; userEmail: string; expenseEntry: ExpenseEntry },
 //     { rejectWithValue }
 //   ) => {
 //     try {
-//       const response = await axiosSecure.delete(
-//         `/expenses/${userId}/${expenseId}`
-//       );
+//       const response = await axiosSecure.post("/expenses/add-update-expense", {
+//         userId,
+//         userEmail,
+//         expenseEntry,
+//       });
 //       return response.data;
 //     } catch (error: any) {
+//       console.error("Error adding/updating expense:", error);
 //       return rejectWithValue(error.response.data);
 //     }
 //   }
 // );
 
-// Slice
 const expenseSlice = createSlice({
   name: "expenses",
   initialState,
@@ -115,13 +103,12 @@ const expenseSlice = createSlice({
         );
 
         if (existingIndex !== -1) {
-          // If the expense already exists, update it
+          // Update the existing expense
           state.expenseEntries[existingIndex] = updatedExpense;
         } else {
-          // Otherwise, add it as a new expense
+          // Add new expense
           state.expenseEntries.push(updatedExpense);
         }
-
         state.loading = false;
       }
     );
@@ -132,5 +119,4 @@ const expenseSlice = createSlice({
   },
 });
 
-// export const selectExpenses = (state: RootState) => state.expenses;
 export default expenseSlice.reducer;

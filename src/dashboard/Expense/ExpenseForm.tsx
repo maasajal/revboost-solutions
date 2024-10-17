@@ -5,7 +5,10 @@ import { ExpenseEntry } from "../../app/features/expenses/IExpense";
 import { useAppSelector } from "../../app/hooks/useAppSelector";
 import User from "../../app/features/users/UserType";
 import { getCurrentUser } from "../../app/api/currentUserAPI";
-import { addOrUpdateExpense } from "../../app/features/expenses/expenseSlice";
+import {
+  addOrUpdateExpense,
+  fetchExpenses,
+} from "../../app/features/expenses/expenseSlice";
 import { useAppDispatch } from "../../app/hooks/useAppDispatch";
 
 const style = {
@@ -30,11 +33,9 @@ const ExpenseForm: React.FC = () => {
     dispatch(getCurrentUser());
   }, [dispatch]);
 
-  // Getting userId
-  const currentUser = useAppSelector((state) => state.currentUser.user) as User;
-  const userId = currentUser?._id;
-  const userEmail = currentUser?.email;
-  // console.log(userId, userEmail);
+  const { _id: userId, email: userEmail } = useAppSelector(
+    (state) => state.currentUser.user
+  ) as User;
 
   // form handling using react-hook-form
   const {
@@ -49,14 +50,21 @@ const ExpenseForm: React.FC = () => {
       console.error("User ID or email is missing");
       return;
     }
-    const expenseEntry: ExpenseEntry = {
-      expenseId: data.expenseId,
-      item: data.item,
-      quantity: data.quantity,
-      unitPrice: data.unitPrice,
-      total: data.quantity * data.unitPrice,
-    };
-    dispatch(addOrUpdateExpense({ userId, userEmail, expenseEntry }));
+    const expenseEntries: ExpenseEntry[] = [
+      {
+        expenseId: data.expenseId,
+        item: data.item,
+        quantity: data.quantity,
+        unitPrice: data.unitPrice,
+        total: data.quantity * data.unitPrice,
+      },
+    ];
+    const savedExpense = await dispatch(
+      addOrUpdateExpense({ userId, userEmail, expenseEntries })
+    );
+    if (addOrUpdateExpense.fulfilled.match(savedExpense)) {
+      dispatch(fetchExpenses(userId));
+    }
     reset();
     handleClose();
   };
