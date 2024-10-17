@@ -10,13 +10,17 @@ import { AppDispatch, RootState } from "../app/store/store";
 interface BasicRoutChild {
     children: ReactNode
 }
+interface Url {
+    url: string;
+}
+
+const url: Url = { url: "basic" }
 const BasicRoute = ({ children }: BasicRoutChild) => {
 
     const dispatch = useDispatch<AppDispatch>()
     const axiosSecure = useAxiosSecure();
-
     useEffect(() => {
-        dispatch(fetchUserRole(axiosSecure));
+        dispatch(fetchUserRole(axiosSecure, url));
     }, [dispatch, axiosSecure]);
 
 
