@@ -21,8 +21,10 @@ import CurrencyExchangeIcon from "@mui/icons-material/CurrencyExchange";
 import PaymentsIcon from "@mui/icons-material/Payments";
 import AutoGraphIcon from "@mui/icons-material/AutoGraph";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { FaFileInvoiceDollar } from "react-icons/fa";
 
 import revTheme from "../components/utils/theme";
+import { AiTwotoneCalculator } from "react-icons/ai";
 
 // Define the navigation menu items
 const NAVIGATION: Navigation = [
@@ -40,7 +42,6 @@ const NAVIGATION: Navigation = [
     title: "Incomes",
     icon: <MonetizationOnIcon />,
   },
-  
   {
     segment: "dashboard/expenses",
     title: "Expenses",
@@ -50,6 +51,11 @@ const NAVIGATION: Navigation = [
     segment: "dashboard/payroll",
     title: "Payroll Management",
     icon: <PaymentsIcon />,
+  },
+  {
+    segment: "dashboard/invoice-&-billing",
+    title: "Invoice & Billing",
+    icon: <FaFileInvoiceDollar className="text-2xl" />,
   },
   {
     kind: "divider",
@@ -66,7 +72,7 @@ const NAVIGATION: Navigation = [
   {
     segment: "dashboard/vat",
     title: "VAT & TAX",
-    icon: <AutoGraphIcon />,
+    icon: <AiTwotoneCalculator className="text-2xl" />,
   },
   {
     kind: "divider",
