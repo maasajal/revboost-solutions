@@ -1,23 +1,22 @@
 import { useState } from "react";
-import { Button, Typography } from "@material-tailwind/react";
-import { Box, Modal, TextField } from "@mui/material";
+import { Box, Modal, TextField,  Button, Typography  } from "@mui/material";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 // Define the form inputs
 interface ExpenseFormInputs {
-  no: string;
-  item: string;
+  UniqueExpenseId: string;
+  ExpenseSector: string;
   quantity: number;
   unitPrice: string;
 }
 
 // Modal styling
 const style = {
-  position: 'absolute' as 'absolute',
+  position: 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
+  width: 2/3,
   bgcolor: 'background.paper',
   boxShadow: 24,
   p: 4,
@@ -55,27 +54,27 @@ const IncomeModal: React.FC = () => {
         aria-describedby="modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-title" variant="h6" component="h2">
-            Add your income details
+          <Typography id="modal-title" variant="h6" component="h2" mb="25px">
+            Add your Expense details
           </Typography>
 
           {/* Form inside the modal */}
           <form onSubmit={handleSubmit(onSubmit)} className="gap-6 grid grid-cols-1 md:grid-cols-2">
             <TextField
-              id="no"
-              {...register("no", { required: "Expense no is required" })}
-              label="No"
+              id="UniqueExpenseId"
+              {...register("UniqueExpenseId", { required: "Expense UniqueExpenseId is required" })}
+              label="Unique Expense Id"
               variant="outlined"
             />
-            {errors.no && <span className="text-red-400">{errors.no.message}</span>}
+            {errors.UniqueExpenseId && <span className="text-red-400">{errors.UniqueExpenseId.message}</span>}
 
             <TextField
-              id="item"
-              {...register("item", { required: "item is required", min: { value: 0, message: "Amount must be positive" } })}
-              label="Item"
+              id="ExpenseSector"
+              {...register("ExpenseSector", { required: "ExpenseSector is required", min: { value: 0, message: "Amount must be positive" } })}
+              label="Expense Sector"
               variant="outlined"
             />
-            {errors.item && <span className="text-red-400">{errors.item.message}</span>}
+            {errors.ExpenseSector && <span className="text-red-400">{errors.ExpenseSector.message}</span>}
 
             <TextField
               id="quantity"
