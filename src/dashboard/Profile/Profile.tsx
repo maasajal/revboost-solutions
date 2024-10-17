@@ -187,12 +187,12 @@ const Profile: React.FC = () => {
             <ul className="space-y-2">
               {features && features.length > 0 ? (
                 features.map((feature: string, index: number) => (
-                  <li key={index} className="text-gray-700">
+                  <li key={index}>
                     {index + 1}. {feature}
                   </li>
                 ))
               ) : (
-                <li className="text-gray-500">No features available</li>
+                <li>No features available</li>
               )}
             </ul>
           </div>

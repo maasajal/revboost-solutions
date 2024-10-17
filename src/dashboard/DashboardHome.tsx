@@ -11,10 +11,10 @@ const DashboardHome: React.FC = () => {
     <div className="container mx-auto px-5">
       <h1 className="text-center">Dashboard Home</h1>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 py-10">
-        <div className="h-full py-10 bg-gray-100 border">
+        <div className="h-full py-10 px-5 rounded-xl border">
           <RevenueForecastChart />
         </div>
-        <div className="h-full py-10 bg-gray-100 border">
+        <div className="h-full py-10 px-5 rounded-xl border">
           <RevenueComparisonPieChart />
         </div>
       </div>
