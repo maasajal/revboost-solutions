@@ -100,34 +100,36 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar position="sticky" className="px-2 md:px-14 lg:px-20 top-0 z-20">
+    <AppBar
+      position="sticky"
+      className="px-2 md:px-14 lg:px-20 top-0 z-20"
+      sx={{ backgroundColor: "#2C3E5080" }}
+    >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Link to="/">
+          <Link to="/" className="flex items-center">
             <Avatar
               alt={"Company logo"}
               src={logo}
               sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
             />
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              sx={{
+                mr: 2,
+                display: { xs: "none", md: "flex" },
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "inherit",
+                textDecoration: "none",
+              }}
+            >
+              RevBoost
+            </Typography>
           </Link>
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            // to="/"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            RevBoost
-          </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -185,8 +187,6 @@ function ResponsiveAppBar() {
             variant="h5"
             noWrap
             component="a"
-            // to="/"
-            href="#app-bar-with-responsive-menu"
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
