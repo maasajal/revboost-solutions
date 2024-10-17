@@ -35,14 +35,14 @@ const navItems = [
     navName: "Pricing",
     path: "/pricing",
   },
-  {
-    navName: "Report",
-    path: "/report",
-  },
-  {
-    navName: "All Products",
-    path: "/products",
-  },
+  // {
+  //   navName: "Report",
+  //   path: "/report",
+  // },
+  // {
+  //   navName: "All Products",
+  //   path: "/products",
+  // },
   {
     navName: "Contact Us",
     path: "/contact-us",
@@ -50,20 +50,6 @@ const navItems = [
   {
     navName: "About US",
     path: "/about-us",
-  },
-];
-const settings = [
-  {
-    navName: "Profile",
-    path: "/dashboard/profile",
-  },
-  {
-    navName: "Dashboard",
-    path: "/dashboard",
-  },
-  {
-    navName: "Logout",
-    path: "",
   },
 ];
 
@@ -262,25 +248,22 @@ function ResponsiveAppBar() {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                {settings.map((setting) => (
-                  <MenuItem
-                    key={setting.path}
-                    onClick={
-                      setting.navName === "Logout"
-                        ? handleSignOut
-                        : handleCloseUserMenu
-                    }
-                  >
-                    {userDetails.role === "admin" && (
-                      <Link to="/dashboard/admin" className="text-center">
-                        Admin Dashboard
-                      </Link>
-                    )}
-                    <Link to={setting.path} className="text-center">
-                      {setting.navName}
-                    </Link>
-                  </MenuItem>
-                ))}
+                {userDetails.role === "admin" && (
+                  <Link to="/dashboard/admin" className="text-center">
+                    <MenuItem onClick={handleCloseUserMenu}>
+                      Admin Dashboard
+                    </MenuItem>
+                  </Link>
+                )}
+                <Link to="/dashboard" className="text-center">
+                  <MenuItem onClick={handleCloseUserMenu}>Dashboard</MenuItem>
+                </Link>
+                <Link to="/dashboard/profile" className="text-center">
+                  <MenuItem onClick={handleCloseUserMenu}>Profile</MenuItem>
+                </Link>
+                <Link to="/" className="text-center">
+                  <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
+                </Link>
               </Menu>
             </Box>
           ) : (
