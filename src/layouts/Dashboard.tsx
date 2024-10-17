@@ -1,7 +1,5 @@
 import Box from "@mui/material/Box";
 import { createTheme } from "@mui/material/styles";
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { AppProvider } from "@toolpad/core/AppProvider";
 import { DashboardLayout } from "@toolpad/core/DashboardLayout";
 import type { Navigation, Router, Session } from "@toolpad/core";
@@ -17,6 +15,13 @@ import { logoutSuccess } from "../app/features/firebaseAuthentication/authSlice"
 import { auth } from "../firebase/firebase.config";
 import logo from "../assets/logo.png";
 import { getCurrentUser } from "../app/api/currentUserAPI";
+// material dashboard Icons
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
+import CurrencyExchangeIcon from "@mui/icons-material/CurrencyExchange";
+import PaymentsIcon from "@mui/icons-material/Payments";
+import AutoGraphIcon from "@mui/icons-material/AutoGraph";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 // Define the navigation menu items
 const NAVIGATION: Navigation = [
@@ -32,17 +37,17 @@ const NAVIGATION: Navigation = [
   {
     segment: "dashboard/incomes",
     title: "Incomes",
-    icon: <ShoppingCartIcon />,
+    icon: <MonetizationOnIcon />,
   },
   {
     segment: "dashboard/expenses",
     title: "Expenses",
-    icon: <ShoppingCartIcon />,
+    icon: <CurrencyExchangeIcon />,
   },
   {
     segment: "dashboard/payroll",
     title: "Payroll Management",
-    icon: <ShoppingCartIcon />,
+    icon: <PaymentsIcon />,
   },
   {
     kind: "divider",
@@ -54,7 +59,19 @@ const NAVIGATION: Navigation = [
   {
     segment: "dashboard/revenue-growth",
     title: "Revenue Growth",
-    icon: <ShoppingCartIcon />,
+    icon: <AutoGraphIcon />,
+  },
+  {
+    kind: "divider",
+  },
+  {
+    kind: "header",
+    title: "Settings",
+  },
+  {
+    segment: "dashboard/profile",
+    title: "Profile",
+    icon: <AccountCircleIcon />,
   },
 ];
 
