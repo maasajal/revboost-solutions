@@ -4,11 +4,11 @@ import { Box, Modal, TextField } from "@mui/material";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 // Define the form inputs
-interface IncomeFormInputs {
-  incomeId: string;
-  amount: number;
-  source: string;
-  date: string;
+interface ExpenseFormInputs {
+  no: string;
+  item: string;
+  quantity: number;
+  unitPrice: string;
 }
 
 // Modal styling
@@ -67,7 +67,7 @@ const IncomeModal: React.FC = () => {
               label="No"
               variant="outlined"
             />
-            {errors.incomeId && <span className="text-red-400">{errors.incomeId.message}</span>}
+            {errors.no && <span className="text-red-400">{errors.no.message}</span>}
 
             <TextField
               id="item"
@@ -75,7 +75,7 @@ const IncomeModal: React.FC = () => {
               label="Item"
               variant="outlined"
             />
-            {errors.amount && <span className="text-red-400">{errors.amount.message}</span>}
+            {errors.item && <span className="text-red-400">{errors.item.message}</span>}
 
             <TextField
               id="quantity"
@@ -84,7 +84,7 @@ const IncomeModal: React.FC = () => {
               label="Quantity"
               variant="outlined"
             />
-            {errors.source && <span className="text-red-400">{errors.source.message}</span>}
+            {errors.quantity && <span className="text-red-400">{errors.quantity.message}</span>}
 
             <TextField
               id="unitPrice"
@@ -92,7 +92,7 @@ const IncomeModal: React.FC = () => {
               label="Unit Price"
               variant="outlined"
             />
-            {errors.date && <span className="text-red-400">{errors.date.message}</span>}
+            {errors.unitPrice && <span className="text-red-400">{errors.unitPrice.message}</span>}
 
             <button
               type="submit"
