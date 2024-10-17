@@ -24,6 +24,7 @@ import BasicRoute from "./BasicRoute";
 import PrivateRoute from "./PrivateRoute";
 import StandardRoute from "./StandardRoute";
 import Invoice from "../dashboard/CompanyIncomes/InvoiceAndBilling/Invoice";
+import PremiumRoute from "./PremiumRoute";
 
 const router = createBrowserRouter([
   {
@@ -59,7 +60,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element:<PrivateRoute><Dashboard /></PrivateRoute> ,
+    element: (
+      <PrivateRoute>
+        <Dashboard />
+      </PrivateRoute>
+    ),
     errorElement: <ErrorPage />,
     children: [
       {
@@ -73,44 +78,73 @@ const router = createBrowserRouter([
       // // Income tracking Route
       {
         path: "/dashboard/incomes",
-        element:<BasicRoute> <Incomes /></BasicRoute>, // User Profile component will be call here.
+        element: (
+          <BasicRoute>
+            {" "}
+            <Incomes />
+          </BasicRoute>
+        ), // User Profile component will be call here.
       },
       // Invoice & Billing Route
       {
         path: "/dashboard/invoice-&-billing",
-        element: <PrivateRoute><Invoice /></PrivateRoute>, // User Profile component will be call here.
+        element: (
+          <PremiumRoute>
+            <Invoice />
+          </PremiumRoute>
+        ), // User Profile component will be call here.
       },
       // Expense tracking Route
       {
         path: "/dashboard/expenses",
-        element:<BasicRoute> <Expenses /></BasicRoute>,
+        element: (
+          <BasicRoute>
+            {" "}
+            <Expenses />
+          </BasicRoute>
+        ),
       },
       // Revenue growth Route
       {
         path: "/dashboard/revenue-growth",
-        element:<BasicRoute> <RevenueGrowth /></BasicRoute>,
+        element: (
+          <BasicRoute>
+            {" "}
+            <RevenueGrowth />
+          </BasicRoute>
+        ),
       },
       {
         path: "/dashboard/payroll",
-        element:<StandardRoute> <Payroll /></StandardRoute>,
+        element: (
+          <StandardRoute>
+            {" "}
+            <Payroll />
+          </StandardRoute>
+        ),
       },
       {
         path: "/dashboard/vat",
         element: <VatTaxCalculation />,
-        children:[
-         {
-          index:true,
-          element:<Vat />
-         },
-         {
-          path:"/dashboard/vat/tax",
-          element:<Tax />
-         }
-        ]
+        children: [
+          {
+            index: true,
+            element: <Vat />,
+          },
+          {
+            path: "/dashboard/vat/tax",
+            element: <Tax />,
+          },
+        ],
       },
       {
         path: "/dashboard/admin",
-        element:<AdminRoute> <AdminDashboard /> </AdminRoute>,
+        element: (
+          <AdminRoute>
+            {" "}
+            <AdminDashboard />{" "}
+          </AdminRoute>
+        ),
       },
     ],
   },
