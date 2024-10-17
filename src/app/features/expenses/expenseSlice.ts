@@ -39,28 +39,28 @@ export const fetchExpenses = createAsyncThunk(
 //   }
 // );
 
-// export const addOrUpdateExpense = createAsyncThunk(
-//   "expenses/addOrUpdateExpense",
-//   async (
-//     {
-//       userId,
-//       userEmail,
-//       expenseEntry,
-//     }: { userId: string; userEmail: string; expenseEntry: ExpenseEntry },
-//     { rejectWithValue }
-//   ) => {
-//     try {
-//       const response = await axiosSecure.post("/expenses/add-update-expense", {
-//         userId,
-//         userEmail,
-//         expenseEntry,
-//       });
-//       return response.data;
-//     } catch (error: any) {
-//       return rejectWithValue(error.response.data);
-//     }
-//   }
-// );
+export const addOrUpdateExpense = createAsyncThunk(
+  "expenses/addOrUpdateExpense",
+  async (
+    {
+      userId,
+      userEmail,
+      expenseEntry,
+    }: { userId: string; userEmail: string; expenseEntry: ExpenseEntry },
+    { rejectWithValue }
+  ) => {
+    try {
+      const response = await axiosSecure.post("/expenses/add-update-expense", {
+        userId,
+        userEmail,
+        expenseEntry,
+      });
+      return response.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 
 // export const deleteExpense = createAsyncThunk(
 //   "expenses/deleteExpense",
