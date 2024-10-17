@@ -136,7 +136,7 @@ const Navbar = () => {
       <div className="ml-auto">
         {user ? (
           <div
-            data-tip={"Company Name"}
+            data-tip={userDetails ? userDetails.name : "Company Name"}
             className="dropdown dropdown-end mr-1 tooltip tooltip-bottom tooltip-primary z-10"
           >
             {
@@ -157,9 +157,11 @@ const Navbar = () => {
               tabIndex={0}
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-[#b1b6c0] text-black rounded-box w-52 uppercase space-y-3"
             >
-              <li>
-                <Link to="/dashboard/admin">Admin Dashboard</Link>
-              </li>
+              {userDetails.role === "admin" && (
+                <li>
+                  <Link to="/dashboard/admin">Admin Dashboard</Link>
+                </li>
+              )}
               <li>
                 <Link to="/dashboard">Dashboard</Link>
               </li>
