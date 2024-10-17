@@ -65,7 +65,7 @@ const NAVIGATION: Navigation = [
   {
     segment: "dashboard/vat",
     title: "VAT & TAX",
-    icon: <AccountCircleIcon />,
+    icon: <AutoGraphIcon />,
   },
   {
     kind: "divider",
@@ -89,7 +89,6 @@ function FeaturePages({ pathname }: { pathname: string }) {
         py: 4,
         display: "flex",
         flexDirection: "column",
-        alignItems: "center",
         textAlign: "center",
       }}
     >

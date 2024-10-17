@@ -34,7 +34,7 @@ const ExpenseForm: React.FC = () => {
   const currentUser = useAppSelector((state) => state.currentUser.user) as User;
   const userId = currentUser?._id;
   const userEmail = currentUser?.email;
-  console.log(userId, userEmail);
+  // console.log(userId, userEmail);
 
   // form handling using react-hook-form
   const {
