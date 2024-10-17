@@ -34,9 +34,9 @@ const IncomeModal: React.FC = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IncomeFormInputs>();
+  } = useForm<ExpenseFormInputs>();
 
-  const onSubmit: SubmitHandler<IncomeFormInputs> = (data) => {
+  const onSubmit: SubmitHandler<ExpenseFormInputs> = (data) => {
     console.log(data);
   };
 
@@ -63,7 +63,7 @@ const IncomeModal: React.FC = () => {
           <form onSubmit={handleSubmit(onSubmit)} className="gap-6 grid grid-cols-1 md:grid-cols-2">
             <TextField
               id="no"
-              {...register("incomeId", { required: "Income ID is required" })}
+              {...register("no", { required: "Expense no is required" })}
               label="No"
               variant="outlined"
             />
@@ -71,8 +71,7 @@ const IncomeModal: React.FC = () => {
 
             <TextField
               id="item"
-              type="number"
-              {...register("amount", { required: "Amount is required", min: { value: 0, message: "Amount must be positive" } })}
+              {...register("item", { required: "item is required", min: { value: 0, message: "Amount must be positive" } })}
               label="Item"
               variant="outlined"
             />
@@ -80,7 +79,8 @@ const IncomeModal: React.FC = () => {
 
             <TextField
               id="quantity"
-              {...register("source", { required: "Source is required" })}
+              type="number"
+              {...register("quantity", { required: "quantity is required" })}
               label="Quantity"
               variant="outlined"
             />
@@ -88,7 +88,7 @@ const IncomeModal: React.FC = () => {
 
             <TextField
               id="unitPrice"
-              {...register("date", { required: "Date is required" })}
+              {...register("unitPrice", { required: "unitPrice is required" })}
               label="Unit Price"
               variant="outlined"
             />
