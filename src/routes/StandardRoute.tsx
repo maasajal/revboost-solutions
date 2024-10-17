@@ -14,8 +14,8 @@ interface Url {
     url: string;
 }
 
-const url: Url = { url: "basic" }
-const BasicRoute = ({ children }: BasicRoutChild) => {
+const url: Url = { url: "standard" }
+const StandardRoute = ({ children }: BasicRoutChild) => {
 
     const dispatch = useDispatch<AppDispatch>()
     const axiosSecure = useAxiosSecure();
@@ -29,21 +29,17 @@ const BasicRoute = ({ children }: BasicRoutChild) => {
         (state: RootState) => state.currentUser.user
     ) as User;
     const { subscriptionPlan, role } = user;
-
-
     const { userStatus, loading } = useSelector((state: RootState) => state.role_manage);
 
     const { message } = userStatus;
-
-
-
+ 
     if (loading) {
         return <>Loading</>
     }
-    if (role === message || subscriptionPlan?.toLocaleLowerCase() === "basic" || subscriptionPlan?.toLocaleLowerCase() === "standard" || subscriptionPlan?.toLocaleLowerCase() === "premium") {
+    if (role === message || subscriptionPlan?.toLocaleLowerCase() === "standard" || subscriptionPlan?.toLocaleLowerCase() === "premium") {
         return <>{children}</>;
     }
     return <Navigate to='/dashboard' state={location.pathname} replace />
 };
 
-export default BasicRoute; 
+export default StandardRoute; 
