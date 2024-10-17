@@ -23,6 +23,7 @@ import AdminRoute from "./AdminRoute";
 import BasicRoute from "./BasicRoute";
 import PrivateRoute from "./PrivateRoute";
 import StandardRoute from "./StandardRoute";
+import Invoice from "../dashboard/CompanyIncomes/InvoiceAndBilling/Invoice";
 
 const router = createBrowserRouter([
   {
@@ -69,10 +70,15 @@ const router = createBrowserRouter([
         path: "/dashboard/profile",
         element: <UserProfile />, // User Profile component will be call here.
       },
-      // // Income tracking Route: Invoice Route
+      // // Income tracking Route
       {
         path: "/dashboard/incomes",
         element:<BasicRoute> <Incomes /></BasicRoute>, // User Profile component will be call here.
+      },
+      // Invoice & Billing Route
+      {
+        path: "/dashboard/invoice-&-billing",
+        element: <PrivateRoute><Invoice /></PrivateRoute>, // User Profile component will be call here.
       },
       // Expense tracking Route
       {

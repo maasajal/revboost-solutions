@@ -40,6 +40,7 @@ const NAVIGATION: Navigation = [
     title: "Incomes",
     icon: <MonetizationOnIcon />,
   },
+  
   {
     segment: "dashboard/expenses",
     title: "Expenses",
