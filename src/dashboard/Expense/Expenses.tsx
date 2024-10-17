@@ -9,7 +9,6 @@ import { axiosPublic } from "../../app/hooks/useAxiosPublic";
 import { ExpenseEntry } from "../../app/features/expenses/IExpense";
 import ExpenseForm from "./ExpenseForm";
 
-
 const Expenses: React.FC = () => {
   const dispatch = useAppDispatch();
   const [allExpense, setExpenses] = useState<ExpenseEntry[]>([]);
