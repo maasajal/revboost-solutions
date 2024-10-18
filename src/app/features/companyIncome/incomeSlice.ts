@@ -48,22 +48,25 @@ export const fetchIncomeCollection = createAsyncThunk<
 // Thunk to add a new income entry
 export const addIncomeEntry = createAsyncThunk<
   IncomeCollection,
-  { userId: string; entry: IncomeEntry },
+  { userId: string; userEmail: string; entry: IncomeEntry },
   { rejectValue: string }
->("income/addIncomeEntry", async ({ userId, entry }, { rejectWithValue }) => {
-  try {
-    const response = await axiosSecure.post<IncomeCollection>(
-      `/income/${userId}`,
-      entry
-    );
-    console.log("income post request", response);
-    return response.data;
-  } catch (error: any) {
-    return rejectWithValue(
-      error.response?.data?.message || "Failed to add income entry"
-    );
+>(
+  "income/addIncomeEntry",
+  async ({ userId, userEmail, entry }, { rejectWithValue }) => {
+    try {
+      const response = await axiosSecure.post<IncomeCollection>(
+        `/income/add-income-entry`,
+        { userId, userEmail, entry }
+      );
+      console.log("income post request", response);
+      return response.data;
+    } catch (error: any) {
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to add income entry"
+      );
+    }
   }
-});
+);
 
 const incomeSlice = createSlice({
   name: "income",
