@@ -29,6 +29,7 @@ import User from "../../app/features/users/UserType";
 import { getCurrentUser } from "../../app/api/currentUserAPI";
 import { useAppDispatch } from "../../app/hooks/useAppDispatch";
 import { fetchIncomes } from "../../app/features/companyIncome/incomesSlice";
+import IncomeForm from "./IncomeForm";
 
 // form input
 interface IncomeFormInputs {
@@ -121,8 +122,8 @@ const Incomes: React.FC = () => {
           {error}
         </Alert>
       )}
-      <section className="p-5 overflow-x-scroll">
-        <TableContainer component={Paper}>
+      <section className="p-5">
+        <TableContainer component={Paper} className="overflow-x-auto">
           <Table>
             <TableHead>
               <TableRow>
@@ -157,6 +158,7 @@ const Incomes: React.FC = () => {
           </Table>
         </TableContainer>
       </section>
+      <IncomeForm />
 
       <div className="space-y-6 border-2 p-4 shadow-2xl rounded-lg">
         <h3 className="mb-4 text-center text-2xl font-bold leading-tight">
