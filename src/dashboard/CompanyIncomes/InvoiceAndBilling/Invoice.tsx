@@ -275,7 +275,7 @@ const Invoice = () => {
         {/* Table */}
         <div className="space-y-6 border-2 p-4 shadow-2xl rounded-lg">
           <h2 className="mb-4 text-center text-2xl font-bold leading-tight">
-            Your Incomes
+            Your Invoice
           </h2>
           <div className="flex justify-between">
             <div className="space-y-4">
@@ -410,7 +410,7 @@ const Invoice = () => {
                     <td className="p-3 text-right">
                       {/* Write Total Below  */}
 
-                      <h5>$6000</h5>
+                      <h5>$</h5>
                     </td>
                     <td className="p-3 text-right">
                       <span className="px-3 py-1 font-semibold rounded-md dark:text-gray-50">
@@ -436,7 +436,7 @@ const Invoice = () => {
                     <td className="p-3 text-right">
                       {/* Write VAT Below  */}
 
-                      <h5>$6000</h5>
+                      <h5>$</h5>
                     </td>
                     <td className="p-3 text-right">
                       <span className="px-3 py-1 font-semibold rounded-md dark:text-gray-50">
@@ -459,10 +459,10 @@ const Invoice = () => {
                       <h4>total</h4>
                       <p className="dark:text-gray-600"></p>
                     </td>
-                    <td className="p-3 text-right">
+                    <td className="p-3 text-right animate-bounce">
                       {/* Write Total Below  */}
 
-                      <h4>$7500</h4>
+                      <h4>$</h4>
                     </td>
                     <td className="p-3 text-right">
                       <span className="px-3 py-1 font-semibold rounded-md dark:text-gray-50">
