@@ -1,21 +1,34 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import {
   addIncomeEntry,
   fetchIncomeCollection,
   IncomeEntry,
 } from "../../app/features/companyIncome/incomeSlice";
-import { AppDispatch, RootState } from "../../app/store/store";
+import { RootState } from "../../app/store/store";
 
-import { TextField } from "@mui/material";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Modal from "@mui/material/Modal";
-import Typography from "@mui/material/Typography";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Modal,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+  Alert,
+  Paper,
+  TextField,
+} from "@mui/material";
+
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useAppSelector } from "../../app/hooks/useAppSelector";
 import User from "../../app/features/users/UserType";
 import { getCurrentUser } from "../../app/api/currentUserAPI";
+import { useAppDispatch } from "../../app/hooks/useAppDispatch";
+import { fetchIncomes } from "../../app/features/companyIncome/incomesSlice";
 
 // form input
 interface IncomeFormInputs {
@@ -42,29 +55,30 @@ const Incomes: React.FC = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const dispatch = useDispatch<AppDispatch>();
-
-  // const userId: string = "670708f70e882388dd5b3af0";
-// ------------
-// Getting userId
-// const currentUser = useAppSelector((state) => state.currentUser.user) as User;
-// const userId = currentUser?._id;
-// const userEmail = currentUser?.email;
-// console.log(userId, userEmail);
-// ------------
-  useEffect(() => {
-    dispatch(getCurrentUser());
-  }, [dispatch]);
+  const dispatch = useAppDispatch();
 
   const {
-    incomeCollection,
-    loading,
-    error,
-  } = useSelector((state: RootState) => state.incomes);
-  // console.log(incomeCollection, dispatch);
-  const { _id: userId, email: userEmail } = useAppSelector(
-    (state) => state.currentUser.user
-  ) as User;
+    _id: userId,
+    email: userEmail,
+    name,
+  } = useAppSelector((state: RootState) => state.currentUser.user) as User;
+
+  // ------------
+  useEffect(() => {
+    dispatch(getCurrentUser());
+    if (userId) {
+      dispatch(fetchIncomes(userId));
+    }
+  }, [dispatch, userId]);
+
+  // const { incomeCollection, loading, error } = useAppSelector(
+  //   (state: RootState) => state.incomes
+  // );
+
+  const { incomeEntries, loading, error } = useAppSelector(
+    (state: RootState) => state.allIncome
+  );
+
   // form section
   const {
     register,
@@ -72,6 +86,7 @@ const Incomes: React.FC = () => {
     reset,
     formState: { errors },
   } = useForm<IncomeFormInputs>();
+
   const onSubmit: SubmitHandler<IncomeFormInputs> = async (data) => {
     console.log(data);
     if (!userId || !userEmail) {
@@ -84,18 +99,65 @@ const Incomes: React.FC = () => {
       source: data.source,
       date: data.date,
     };
-    console.log(newEntry);
     const savedIncome = await dispatch(
-      addIncomeEntry({ userId, userEmail, entry: newEntry }));
-      if(addIncomeEntry.fulfilled.match(savedIncome)){
-        dispatch(fetchIncomeCollection(userId))
-      }
+      addIncomeEntry({ userId, userEmail, entry: newEntry })
+    );
+    if (addIncomeEntry.fulfilled.match(savedIncome)) {
+      dispatch(fetchIncomeCollection(userId));
+    }
     reset();
-    handleClose()
+    handleClose();
   };
   return (
-    <section className="container mx-auto mt-10 space-y-4">
-      <h2 className="text-center">Income Page</h2>
+    <section className="container mx-auto mt-10 space-y-5">
+      <h2 className="text-center">Income Tracking of {name}</h2>
+      {loading && (
+        <Box display="flex" justifyContent="center" marginY={2}>
+          <CircularProgress />
+        </Box>
+      )}
+      {error && (
+        <Alert severity="error" sx={{ marginY: 2 }}>
+          {error}
+        </Alert>
+      )}
+      <section className="p-5 overflow-x-scroll">
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>
+                  <strong>ID</strong>
+                </TableCell>
+                <TableCell>
+                  <strong>Source</strong>
+                </TableCell>
+                <TableCell>
+                  <strong>Amount</strong>
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {incomeEntries && incomeEntries.length > 0 ? (
+                incomeEntries.map((entry) => (
+                  <TableRow key={entry.incomeId}>
+                    <TableCell>{entry.incomeId}</TableCell>
+                    <TableCell>{entry.source}</TableCell>
+                    <TableCell>$ {entry.amount}</TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={4} align="center">
+                    No expenses found.
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </section>
+
       <div className="space-y-6 border-2 p-4 shadow-2xl rounded-lg">
         <h3 className="mb-4 text-center text-2xl font-bold leading-tight">
           Your Incomes details
@@ -244,7 +306,7 @@ const Incomes: React.FC = () => {
               <tbody>
                 {/* test col */}
                 {/* Display Current Income Entries */}
-                <div className="dark:border-gray-300 dark:bg-gray-50">
+                {/* <div className="dark:border-gray-300 dark:bg-gray-50">
                   {loading && <p>Loading...</p>}
                   {error && <p className="text-red-400 flex">{error}</p>}
                   {incomeCollection &&
@@ -288,7 +350,7 @@ const Incomes: React.FC = () => {
                   ) : (
                     !loading && <p>No income entries found.</p>
                   )}
-                </div>
+                </div> */}
                 {/* ^^^end test */}
                 {/* <tr className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50">
                     <td className="p-3">

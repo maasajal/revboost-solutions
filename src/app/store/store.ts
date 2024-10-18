@@ -13,6 +13,8 @@ import revenueReducer from "../features/revenueGrowth/revenueSlice";
 import roleManageSlice from "../features/roleManage/roleManageSlice";
 import currentUserReducer from "../features/users/currentUserSlice";
 import usersReducer from "../features/users/usersSlice";
+import allIncomeReducer from "../features/companyIncome/incomesSlice";
+
 const persistConfig = {
   key: "root",
   storage,
@@ -29,7 +31,8 @@ export const store = configureStore({
     revenueGrowth: revenueGrowthReducer,
     revenue: revenueReducer,
     payroll: payrollReducer,
-    incomes: incomesReducer, // get users data from the MongoDB userCollections
+    incomes: incomesReducer,
+    allIncome: allIncomeReducer,
     expenses: expenseReducer,
     address: addressSlice,
     allUsers: getAllUsersSlice,
