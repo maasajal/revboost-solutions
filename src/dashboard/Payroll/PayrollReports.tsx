@@ -101,7 +101,7 @@ const PayrollReports = () => {
                 <th className="p-3 text-center">Bonus</th>
                 <th className="p-3 text-center">Tax Deduction</th>
                 <th className="p-3 text-center">Net Pay</th>
-                <th className="p-3 text-center">Action</th>
+                <th className="p-3 text-center">Actions</th>
               </tr>
             </thead>
             <tbody>
