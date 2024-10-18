@@ -101,7 +101,7 @@ const Invoice = () => {
   return (
     <>
       <section className="container mx-auto mt-10 space-y-8">
-        <h2>Company Income</h2>
+        <h2>Company Invoice</h2>
         <div>
           <form
             onSubmit={handleSubmit(onSubmit)}
@@ -115,7 +115,7 @@ const Invoice = () => {
                     {...register("companyEmail", { required: true })}
                     id="companyEmail"
                     placeholder="Your company @email"
-                    className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
+                    className="w-full p-3 rounded  focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
                   />
                 </div>
                 <div>
@@ -124,7 +124,7 @@ const Invoice = () => {
                     {...register("customerName", { required: true })}
                     id="customerName"
                     placeholder="Customer Name"
-                    className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
+                    className="w-full p-3 rounded  focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
                   />
                 </div>
                 <div>
@@ -133,7 +133,7 @@ const Invoice = () => {
                     {...register("companyName", { required: true })}
                     id="companyName"
                     type="text"
-                    className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
+                    className="w-full p-3 rounded focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
                   />
                 </div>
               </div>
@@ -145,7 +145,7 @@ const Invoice = () => {
                     id="invoiceNumber"
                     type="number"
                     placeholder=""
-                    className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
+                    className="w-full p-3 rounded  focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
                   />
                 </div>
                 <div>
@@ -155,7 +155,7 @@ const Invoice = () => {
                     id="invoiceCreationDate"
                     // type="date"
                     placeholder={getDate()}
-                    className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
+                    className="w-full p-3 rounded  focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
                   />
                 </div>
               </div>
@@ -167,7 +167,7 @@ const Invoice = () => {
                     id="InvoiceDueDate"
                     type="text"
                     placeholder=""
-                    className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
+                    className="w-full p-3 rounded  focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
                   />
                 </div>
                 <div>
@@ -177,7 +177,7 @@ const Invoice = () => {
                     id="customerAddress"
                     placeholder="Your address"
                     type="text"
-                    className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
+                    className="w-full p-3 rounded focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
                   />
                 </div>
               </div>
@@ -194,7 +194,7 @@ const Invoice = () => {
                     render={({ field }) => (
                       <input
                         type="number"
-                        className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
+                        className="w-full p-3 rounded focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
                         {...field}
                       />
                     )}
@@ -202,21 +202,21 @@ const Invoice = () => {
                   <label>Item</label>
                   <input
                     {...register(`items.${index}.item`)}
-                    className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
+                    className="w-full p-3 rounded focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
                     required
                   />
                   <label>Quantity</label>
                   <input
                     type="number"
                     {...register(`items.${index}.quantity`)}
-                    className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
+                    className="w-full p-3 rounded  focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
                     required
                   />
                   <label>Unit Price</label>
                   <input
                     type="number"
                     {...register(`items.${index}.unitPrice`)}
-                    className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
+                    className="w-full p-3 rounded  focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
                     required
                   />
                   <label>Total Amount</label>
@@ -226,7 +226,7 @@ const Invoice = () => {
                     render={({ field }) => (
                       <input
                         type="number"
-                        className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
+                        className="w-full p-3 rounded  focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
                         // defaultValue={item.quantity * item.unitPrice}
                         // placeholder={ `${item.quantity * item.unitPrice}`}
                         {...field}
@@ -245,7 +245,7 @@ const Invoice = () => {
               ))}
               <div className="flex gap-2">
                 <button
-                  className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
+                  className="w-full p-3 rounded  focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
                   type="button"
                   onClick={() =>
                     append({
@@ -275,7 +275,7 @@ const Invoice = () => {
         {/* Table */}
         <div className="space-y-6 border-2 p-4 shadow-2xl rounded-lg">
           <h2 className="mb-4 text-center text-2xl font-bold leading-tight">
-            Your Incomes
+            Your Invoice
           </h2>
           <div className="flex justify-between">
             <div className="space-y-4">
@@ -387,7 +387,7 @@ const Invoice = () => {
                     </td>
                     <td className="p-3 text-right">
                       <span className="px-3 py-1 font-semibold rounded-md dark:bg-red-400 dark:text-gray-50">
-                        <span>Delete</span>
+                        <span></span>
                       </span>
                     </td>
                   </tr>
@@ -410,7 +410,7 @@ const Invoice = () => {
                     <td className="p-3 text-right">
                       {/* Write Total Below  */}
 
-                      <h5>$6000</h5>
+                      <h5>$</h5>
                     </td>
                     <td className="p-3 text-right">
                       <span className="px-3 py-1 font-semibold rounded-md dark:text-gray-50">
@@ -436,7 +436,7 @@ const Invoice = () => {
                     <td className="p-3 text-right">
                       {/* Write VAT Below  */}
 
-                      <h5>$6000</h5>
+                      <h5>$</h5>
                     </td>
                     <td className="p-3 text-right">
                       <span className="px-3 py-1 font-semibold rounded-md dark:text-gray-50">
@@ -459,10 +459,10 @@ const Invoice = () => {
                       <h4>total</h4>
                       <p className="dark:text-gray-600"></p>
                     </td>
-                    <td className="p-3 text-right">
+                    <td className="p-3 text-right animate-bounce">
                       {/* Write Total Below  */}
 
-                      <h4>$7500</h4>
+                      <h4>$</h4>
                     </td>
                     <td className="p-3 text-right">
                       <span className="px-3 py-1 font-semibold rounded-md dark:text-gray-50">
