@@ -1,9 +1,13 @@
+import TaxPending from "./TaxPending";
+import TaxTable from "./TaxTable";
+
  
 
 const Tax = () => {
     return (
         <div>
-            tax
+          <TaxTable />
+          <TaxPending/>
         </div>
     );
 };
