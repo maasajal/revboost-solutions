@@ -61,7 +61,7 @@ const VatFilter: React.FC<YearMonthSelectorProps> = ({ years }) => {
             </div>
 
             {/* Month Dropdown */}
-            <div className="w-full md:w-1/3">
+            <div className="w-full  md:w-1/3">
                 <label htmlFor="month" className="block text-gray-700 text-sm font-bold mb-2">
                     Month:
                 </label>

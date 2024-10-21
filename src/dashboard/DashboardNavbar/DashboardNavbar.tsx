@@ -1,17 +1,17 @@
-import { Link, NavLink } from "react-router-dom";
-import logo from "../../assets/logo.png";
+import { signOut } from "firebase/auth";
+import { AiOutlineCreditCard } from "react-icons/ai";
 import { FaHome, FaSign, FaSignOutAlt } from "react-icons/fa";
 import { GiExpense, GiTreeGrowth } from "react-icons/gi";
 import { PiInvoiceBold } from "react-icons/pi";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../app/store/store";
-import { logoutSuccess } from "../../app/features/firebaseAuthentication/authSlice";
-import { AiOutlineCreditCard } from "react-icons/ai";
-import { auth } from "../../firebase/firebase.config";
-import { signOut } from "firebase/auth";
+import { Link, NavLink } from "react-router-dom";
 import Swal from "sweetalert2";
+import { logoutSuccess } from "../../app/features/firebaseAuthentication/authSlice";
 import User from "../../app/features/users/UserType";
 import { useAppSelector } from "../../app/hooks/useAppSelector";
+import { AppDispatch, RootState } from "../../app/store/store";
+import logo from "../../assets/logo.png";
+import { auth } from "../../firebase/firebase.config";
 
 const DashboardNavbar = () => {
   const user = useSelector((state: RootState) => state?.auth?.user);
