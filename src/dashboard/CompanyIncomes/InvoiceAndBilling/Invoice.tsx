@@ -1,9 +1,12 @@
+import axios from "axios";
 import {
   Controller,
   SubmitHandler,
   useFieldArray,
   useForm,
 } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../../app/store/store";
 
 
 // export interface InvoiceData {
@@ -44,8 +47,8 @@ function getDate() {
 }
 
 const Invoice = () => {
- 
-
+  const dispatch = useDispatch<AppDispatch>();
+console.log(dispatch)
   // const [currentDate, setCurrentDate] = useState(getDate());
 
   // const { control, handleSubmit, register  } = useForm<IncomeData>({
@@ -83,6 +86,14 @@ const Invoice = () => {
   // Handle form submission
   const onSubmit: SubmitHandler<InvoiceData> = async (data) => {
     console.log(data);
+    axios
+      .post("https://revboost-solutions.vercel.app/api/v1/invoices/create", data)
+      .then((response) => {
+        console.log("Invoice saved successfully:", response.data);
+
+      })
+      .catch((error) => console.error("Error saving invoice:", error));
+
     
   };
 
