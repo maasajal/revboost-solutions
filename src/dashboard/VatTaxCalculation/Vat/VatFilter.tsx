@@ -70,7 +70,7 @@ const VatFilter: React.FC<YearMonthSelectorProps> = ({ years }) => {
                     value={selectedMonth || ""}
                     onChange={handleMonthChange}
                     disabled={!selectedYear}
-                    className={`w-full p-2 border border-gray-300 rounded-md ${!selectedYear ? "bg-gray-100 cursor-not-allowed" : ""}`}
+                    className={`w-full p-2 border border-gray-300 rounded-md ${!selectedYear ? " cursor-not-allowed" : ""}`}
                 >
                     <option value="" disabled>
                         Select Month
