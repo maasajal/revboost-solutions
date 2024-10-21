@@ -1,4 +1,4 @@
-import axios from "axios";
+
 import {
   Controller,
   SubmitHandler,
@@ -7,7 +7,15 @@ import {
 } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../app/store/store";
-import {createInvoice, fetchInvoices, InvoiceData } from "../../../app/features/companyIncome/invoiceSlice";
+import {
+  createInvoice,
+  fetchInvoices,
+  InvoiceData,
+} from "../../../app/features/companyIncome/invoiceSlice";
+import { useEffect } from "react";
+import { getCurrentUser } from "../../../app/api/currentUserAPI";
+import { useAppSelector } from "../../../app/hooks/useAppSelector";
+import User from "../../../app/features/users/UserType";
 
 
 // export interface InvoiceData {
@@ -49,15 +57,24 @@ function getDate() {
 
 const Invoice = () => {
   const dispatch = useDispatch<AppDispatch>();
-console.log(dispatch)
+  
+  // for user
+  useEffect(() => {
+    dispatch(getCurrentUser());
+  }, [dispatch]);
   // const [currentDate, setCurrentDate] = useState(getDate());
- // Selectors
- // Selectors
- const { loading, error, invoices } = useSelector((state: RootState) => state.invoices);
+  
+  const { _id: userId, email: userEmail } = useAppSelector(
+    (state) => state.currentUser.user
+  ) as User;
 
-
+  // Selectors
+  const { loading, error, invoices } = useSelector(
+    (state: RootState) => state.invoices
+  );
+console.log(loading, error, invoices )
   // Initialize React Hook Form
-  const { register, control, handleSubmit} = useForm<InvoiceData>({
+  const { register, control, handleSubmit } = useForm<InvoiceData>({
     defaultValues: {
       companyEmail: "",
       customerName: "",
@@ -76,18 +93,22 @@ console.log(dispatch)
     name: "items",
   });
 
+
   // Handle form submission
   const onSubmit: SubmitHandler<InvoiceData> = async (data) => {
     console.log(data);
-    axios
-      .post("https://revboost-solutions.vercel.app/api/v1/invoices/create", data)
-      .then((response) => {
-        console.log("Invoice saved successfully:", response.data);
-
-      })
-      .catch((error) => console.error("Error saving invoice:", error));
-
-    
+    if (!userId || !userEmail) {
+      console.error("User ID or email is missing");
+      return;
+    }
+    // Calculate totalAmount for each item
+    const updatedItems: Item[] = data.items.map((item) => ({
+      ...item,
+      totalAmount: item.quantity * item.unitPrice,
+    }));
+    const invoiceData: InvoiceData = { ...data, items: updatedItems };
+    // Dispatch the createInvoice thunk
+    await dispatch(createInvoice(invoiceData));
   };
 
   // const onSubmit = handleSubmit((data: IncomeData) => {
@@ -321,8 +342,6 @@ console.log(dispatch)
                   </tr>
                 </thead>
                 <tbody>
-                 
-
                   <tr className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50">
                     <td className="p-3">
                       <p>97412378923</p>
