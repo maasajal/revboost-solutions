@@ -1,5 +1,29 @@
+import { Button, Tooltip } from "@mui/material";
+import { useEffect } from "react";
+import { getCurrentUser } from "../../../app/api/currentUserAPI";
+import { fetchIncomes } from "../../../app/features/companyIncome/incomesSlice";
+import User from "../../../app/features/users/UserType";
+import { useAppDispatch } from "../../../app/hooks/useAppDispatch";
+import { useAppSelector } from "../../../app/hooks/useAppSelector";
+import { RootState } from "../../../app/store/store";
+import { useDate } from "../../../useHook/useDate";
 
 const TaxTable = () => {
+    const dispatch = useAppDispatch();
+    const date = useDate;
+    const { incomeEntries, loading } = useAppSelector((state: RootState) => state.allIncome);
+    const {
+        _id: userId,
+    } = useAppSelector((state: RootState) => state.currentUser.user) as User;
+    useEffect(() => {
+        dispatch(getCurrentUser());
+        if (userId) {
+            dispatch(fetchIncomes(userId));
+        }
+    }, [dispatch, userId]);
+    if (loading) {
+        return <>Loading</>
+    } 
     return (
         <div>
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -17,22 +41,25 @@ const TaxTable = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td className="border px-4 py-2">2024/10/31</td>
-                                <td className="border px-4 py-2">System Architect</td>
-                                <td className="border px-4 py-2">1752000</td>
-                                <td className="border px-4 py-2">15%</td>
-                                <td className="border px-4 py-2 text-primary">pending</td>
-                                <td className="border px-4 py-2">----</td>
-                            </tr>
-                            <tr>
-                                <td className="border px-4 py-2">2024/09/31</td>
-                                <td className="border px-4 py-2">System Architect</td>
-                                <td className="border px-4 py-2">1300000</td>
-                                <td className="border px-4 py-2">15%</td>
-                                <td className="border px-4 py-2 text-green-500">Clear</td>
-                                <td className="border px-4 py-2">1131000</td>
-                            </tr>
+                            {
+                                incomeEntries.length ? incomeEntries.map(income => {
+                                    return <tr>
+                                        <td className="border px-4 py-2"> <p>{date(income.date)}</p></td>
+                                        <td className="border px-4 py-2">{<p>{income.source}</p>}</td>
+                                        <td className="border px-4 py-2">{income.amount}</td>
+                                        <td className="border px-4 py-2 ">5%</td>
+                                        <td className="border px-4 py-2 text-primary cursor-pointer ">
+
+                                            <Tooltip title="If you complete your tax then click" arrow>
+                                                <Button>Pending</Button>
+                                            </Tooltip>
+                                        </td>
+                                        <td className="border px-4 py-2">----</td>
+                                    </tr>
+                                }) : ""
+                            }
+
+
 
                         </tbody>
                     </table>

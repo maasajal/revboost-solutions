@@ -32,3 +32,6 @@ h5 {
 .in-active{
   @apply text-secondary border py-1 px-2 bg-lightRedBg rounded-xl
 }
+.social-media{
+  @apply  text-sm font-normal space-y-2 hover:text-green-800 flex items-center gap-2 md:gap-4 lg:gap-6 hover:underline
+}
