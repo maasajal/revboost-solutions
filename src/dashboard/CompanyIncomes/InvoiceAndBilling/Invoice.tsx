@@ -1,4 +1,3 @@
-
 import {
   Controller,
   SubmitHandler,
@@ -9,14 +8,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../app/store/store";
 import {
   createInvoice,
-  fetchInvoices,
   InvoiceData,
 } from "../../../app/features/companyIncome/invoiceSlice";
 import { useEffect } from "react";
 import { getCurrentUser } from "../../../app/api/currentUserAPI";
 import { useAppSelector } from "../../../app/hooks/useAppSelector";
 import User from "../../../app/features/users/UserType";
-
 
 // export interface InvoiceData {
 //   companyEmail: string;
@@ -57,13 +54,13 @@ function getDate() {
 
 const Invoice = () => {
   const dispatch = useDispatch<AppDispatch>();
-  
+
   // for user
   useEffect(() => {
     dispatch(getCurrentUser());
   }, [dispatch]);
   // const [currentDate, setCurrentDate] = useState(getDate());
-  
+
   const { _id: userId, email: userEmail } = useAppSelector(
     (state) => state.currentUser.user
   ) as User;
@@ -72,7 +69,7 @@ const Invoice = () => {
   const { loading, error, invoices } = useSelector(
     (state: RootState) => state.invoices
   );
-console.log(loading, error, invoices )
+  console.log(loading, error, invoices);
   // Initialize React Hook Form
   const { register, control, handleSubmit } = useForm<InvoiceData>({
     defaultValues: {
@@ -92,7 +89,6 @@ console.log(loading, error, invoices )
     control,
     name: "items",
   });
-
 
   // Handle form submission
   const onSubmit: SubmitHandler<InvoiceData> = async (data) => {
@@ -288,8 +284,10 @@ console.log(loading, error, invoices )
                   type="submit"
                   className="w-full p-3 text-sm font-bold tracking-wide uppercase rounded dark:bg-red-400 dark:text-gray-50"
                 >
-                  save
+                  {loading ? "Saving..." : "Save Invoice"}
                 </button>
+                {/* Error Message */}
+                {error && <p className="text-red-400">{error}</p>}
               </div>
             </div>
             {/* Error Message */}
@@ -342,30 +340,38 @@ console.log(loading, error, invoices )
                   </tr>
                 </thead>
                 <tbody>
-                  <tr className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50">
-                    <td className="p-3">
-                      <p>97412378923</p>
-                    </td>
-                    <td className="p-3">
-                      <p>Tesla Inc.</p>
-                    </td>
-                    <td className="p-3">
-                      <p>14 Jan 2022</p>
-                      <p className="dark:text-gray-600">Friday</p>
-                    </td>
-                    <td className="p-3">
-                      <p>01 Feb 2022</p>
-                      <p className="dark:text-gray-600">Tuesday</p>
-                    </td>
-                    <td className="p-3 text-right">
-                      <p>$275</p>
-                    </td>
-                    <td className="p-3 text-right">
-                      <span className="px-3 py-1 font-semibold rounded-md dark:bg-red-400 dark:text-gray-50">
-                        <span>Delete</span>
-                      </span>
-                    </td>
-                  </tr>
+                  {invoices.length === 0 ? (
+                    <p>No invoices found.</p>
+                  ) : (
+                    <>
+                      {invoices.map((invoice, index) => {
+                        <tr key={index} className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50">
+                          <td className="p-3">
+                            <p>{invoice.invoiceNumber}</p>
+                          </td>
+                          <td className="p-3">
+                            <p>Coca Cola co.</p>
+                          </td>
+                          <td className="p-3">
+                            <p>14 Jan 2022</p>
+                            <p className="dark:text-gray-600">Friday</p>
+                          </td>
+                          <td className="p-3">
+                            <p>01 Feb 2022</p>
+                            <p className="dark:text-gray-600">Tuesday</p>
+                          </td>
+                          <td className="p-3 text-right">
+                            <p>$8,950,500</p>
+                          </td>
+                          <td className="p-3 text-right">
+                            <span className="px-3 py-1 font-semibold rounded-md dark:bg-red-400 dark:text-gray-50">
+                              <span>Delete</span>
+                            </span>
+                          </td>
+                        </tr>;
+                      })}
+                    </>
+                  )}
                   <tr className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50">
                     <td className="p-3">
                       <p>97412378923</p>
