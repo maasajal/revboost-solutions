@@ -7,28 +7,28 @@ import {
 import { RootState } from "../../app/store/store";
 
 import {
+  Alert,
   Box,
   Button,
   CircularProgress,
   Modal,
+  Paper,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  Typography,
-  Alert,
-  Paper,
   TextField,
+  Typography,
 } from "@mui/material";
 
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useAppSelector } from "../../app/hooks/useAppSelector";
-import User from "../../app/features/users/UserType";
 import { getCurrentUser } from "../../app/api/currentUserAPI";
-import { useAppDispatch } from "../../app/hooks/useAppDispatch";
 import { fetchIncomes } from "../../app/features/companyIncome/incomesSlice";
+import User from "../../app/features/users/UserType";
+import { useAppDispatch } from "../../app/hooks/useAppDispatch";
+import { useAppSelector } from "../../app/hooks/useAppSelector";
 import IncomeForm from "./IncomeForm";
 
 // form input
@@ -78,8 +78,8 @@ const Incomes: React.FC = () => {
 
   const { incomeEntries, loading, error } = useAppSelector(
     (state: RootState) => state.allIncome
-  );
-
+  );  
+  
   // form section
   const {
     register,
