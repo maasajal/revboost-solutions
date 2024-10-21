@@ -24,7 +24,6 @@ const VatTable = () => {
     if (loading) {
         return <>Loading</>
     }
-    console.log(incomeEntries)
     return (
         <div className="w-full">
             <div className="p-4 mx-auto dark:text-gray-800">
@@ -37,6 +36,7 @@ const VatTable = () => {
                                 <th className="p-2 md:p-3">Date</th>
                                 <th className="p-2 md:p-3">Product</th>
                                 <th className="p-2 md:p-3 text-right">Vat</th>
+                                <th className="p-2 md:p-3 text-right">Price</th>
                                 <th className="p-2 md:p-3 text-right">Final Price</th>
                             </tr>
                         </thead>
@@ -54,7 +54,7 @@ const VatTable = () => {
                                         <p>{item.source}</p>
                                     </td>
                                     <td className="p-2 md:p-3">
-                                        <p>"item.issued"</p>
+                                        <p>15%</p>
                                     </td>
                                     <td className="p-2 md:p-3 text-right">
                                         <p>{item.amount}</p>
@@ -66,7 +66,7 @@ const VatTable = () => {
                                     </td>
                                     <td className="p-2 md:p-3 text-right">
                                         <span className="px-2 py-1 text-sm font-semibold rounded-md dark:bg-violet-600 dark:text-gray-50">
-                                            {"item.status"}
+                                            Pending
                                         </span>
                                     </td>
                                 </tr>
