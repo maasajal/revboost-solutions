@@ -44,8 +44,12 @@ export const loginWithGoogle = () => async (dispatch: AppDispatch) => {
     // await dispatch(createUser(userData));
     const response = await axiosPublic.post(`/register`, userData);
     localStorage.setItem("user-token", response.data.message);
-    window.location.href = "/pricing";
     dispatch(loginSuccess({ user: result.user })); // ইউজার তথ্য পাঠান
+    if (response.data.subscriptionStatus === "active") {
+      window.location.href = "/dashboard";
+    } else {
+      window.location.href = "/pricing";
+    }
   } catch (error) {
     if (error instanceof FirebaseError) {
       dispatch(loginFailure({ error: error.message })); // FirebaseError হলে ত্রুটি পাঠান
@@ -69,14 +73,19 @@ export const signInWithUserPassword =
             name,
           });
           localStorage.setItem("user-token", response.data.message);
-          window.location.href = "/pricing";
           dispatch(loginSuccess({ user: result.user }));
+          if (response.data.subscriptionStatus === "active") {
+            window.location.href = "/dashboard";
+          } else {
+            window.location.href = "/pricing";
+          }
         }
       );
     } catch (error) {
       console.log("action to error", error);
     }
   };
+
 export const loginWithEmailPassword =
   (formData: loginCredentials) => async (dispatch: AppDispatch) => {
     dispatch(loginStart());
@@ -85,8 +94,12 @@ export const loginWithEmailPassword =
       signInWithEmailAndPassword(auth, email, password).then(async (result) => {
         const response = await axiosPublic.post(`/register`, { email });
         localStorage.setItem("user-token", response.data.message);
-        window.location.href = "/dashboard";
         dispatch(loginSuccess({ user: result.user }));
+        if (response.data.subscriptionStatus === "active") {
+          window.location.href = "/dashboard";
+        } else {
+          window.location.href = "/pricing";
+        }
       });
     } catch (error) {
       console.log("action to error", error);
