@@ -7,18 +7,18 @@ const SocialMedia = () => {
     <div className="space-y-3 px-6">
       <h2>Contact Us</h2>
       <p className=" text-sm font-montserrat">
-      <span className="font-bold">Consultation:</span> Once you fill out the "Contact Us" form, we will schedule a meeting to discuss your specific needs and gather more details about your inquiry.
+        <span className="font-bold">Consultation:</span> Once you fill out the "Contact Us" form, we will schedule a meeting to discuss your specific needs and gather more details about your inquiry.
       </p>
       <p className="text-sm  font-montserrat">
-      <span className="font-bold">Execution:</span> 
-       Upon your approval of the proposal, our team will begin executing the plan, providing regular updates and support throughout the process to ensure your satisfaction.
+        <span className="font-bold">Execution:</span>
+        Upon your approval of the proposal, our team will begin executing the plan, providing regular updates and support throughout the process to ensure your satisfaction.
       </p>
       <div className="">
         <div>
           <p className="social-media">
             <CiMail className=" text-xl" />
             <a target="_blank" href="mailto:revbostsolution@gmail.com">
-            revboost@solutions.com
+              revboost@solutions.com
             </a>
           </p>
           <p className="social-media">
