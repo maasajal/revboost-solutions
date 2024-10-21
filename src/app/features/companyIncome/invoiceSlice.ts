@@ -73,7 +73,7 @@ export const createInvoice = createAsyncThunk(
 
 // Create Slice
 const invoiceSlice = createSlice({
-  name: "incomes",
+  name: 'invoices',
   initialState,
   reducers: {
     // You can add synchronous actions here if needed
@@ -84,29 +84,24 @@ const invoiceSlice = createSlice({
       state.loading = true;
       state.error = null;
     });
-    builder.addCase(
-      fetchInvoices.fulfilled,
-      (state, action: PayloadAction<InvoiceData[]>) => {
-        state.loading = false;
-        state.invoices = action.payload;
-      }
-    );
+    builder.addCase(fetchInvoices.fulfilled, (state, action: PayloadAction<InvoiceData[]>) => {
+      state.loading = false;
+      state.invoices = action.payload;
+    });
     builder.addCase(fetchInvoices.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload as string;
     });
+
     // Handle createInvoice
     builder.addCase(createInvoice.pending, (state) => {
       state.loading = true;
       state.error = null;
     });
-    builder.addCase(
-      createInvoice.fulfilled,
-      (state, action: PayloadAction<InvoiceData>) => {
-        state.loading = false;
-        state.invoices.push(action.payload);
-      }
-    );
+    builder.addCase(createInvoice.fulfilled, (state, action: PayloadAction<InvoiceData>) => {
+      state.loading = false;
+      state.invoices.push(action.payload);
+    });
     builder.addCase(createInvoice.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload as string;

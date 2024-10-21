@@ -5,8 +5,9 @@ import {
   useFieldArray,
   useForm,
 } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../../app/store/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../app/store/store";
+import {createInvoice, fetchInvoices, InvoiceData } from "../../../app/features/companyIncome/invoiceSlice";
 
 
 // export interface InvoiceData {
@@ -21,22 +22,22 @@ import { AppDispatch } from "../../../app/store/store";
 // }
 // new try
 
-type InvoiceData = {
-  companyEmail: string;
-  customerName: string;
-  companyName: string;
-  invoiceNumber: string;
-  date: string;
-  invoiceDueDate: string;
-  customerAddress: string;
-  items: {
-    no: number;
-    item: string;
-    quantity: number;
-    unitPrice: number;
-    totalAmount: number;
-  }[];
-};
+// type InvoiceData = {
+//   companyEmail: string;
+//   customerName: string;
+//   companyName: string;
+//   invoiceNumber: string;
+//   date: string;
+//   invoiceDueDate: string;
+//   customerAddress: string;
+//   items: {
+//     no: number;
+//     item: string;
+//     quantity: number;
+//     unitPrice: number;
+//     totalAmount: number;
+//   }[];
+// };
 // Get Date
 function getDate() {
   const today = new Date();
@@ -50,19 +51,11 @@ const Invoice = () => {
   const dispatch = useDispatch<AppDispatch>();
 console.log(dispatch)
   // const [currentDate, setCurrentDate] = useState(getDate());
+ // Selectors
+ // Selectors
+ const { loading, error, invoices } = useSelector((state: RootState) => state.invoices);
 
-  // const { control, handleSubmit, register  } = useForm<IncomeData>({
-  //   defaultValues: {
-  //     companyEmail: "",
-  //     customerName: "",
-  //     companyName: "",
-  //     invoiceNumber: "",
-  //     date: "",
-  //     invoiceDueDate: "",
-  //     customerAddress: "",
-  //     items: [{ no: 1, item: "", quantity: 0, unitPrice: 0, totalAmount: 0 }],
-  //   },
-  // });
+
   // Initialize React Hook Form
   const { register, control, handleSubmit} = useForm<InvoiceData>({
     defaultValues: {
