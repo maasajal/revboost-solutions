@@ -23,6 +23,11 @@ import {
   fetchHalfYearlyRevenueStart,
   fetchHalfYearlyRevenueSuccess,
 } from "../features/revenueGrowth/halfYearlyRevenueSlice";
+import {
+  fetchYearlyRevenueFailure,
+  fetchYearlyRevenueStart,
+  fetchYearlyRevenueSuccess,
+} from "../features/revenueGrowth/yearlyRevenueSlice";
 
 export const fetchMonthlyRevenue =
   (userId: string) => async (dispatch: AppDispatch) => {
@@ -104,6 +109,37 @@ export const fetchHalfYearlyRevenue =
       dispatch(
         fetchHalfYearlyRevenueFailure(
           error.message || "Failed to fetch Half Yearly revenue"
+        )
+      );
+    }
+  };
+
+export const fetchYearlyRevenue =
+  (userId: string) => async (dispatch: AppDispatch) => {
+    try {
+      dispatch(fetchYearlyRevenueStart());
+      const response = await axiosSecure.get(`/yearly-revenue/${userId}`);
+      const {
+        currentYear,
+        previousYear,
+        currentYearRevenue,
+        previousYearRevenue,
+        yearlyGrowth,
+      } = response.data;
+
+      dispatch(
+        fetchYearlyRevenueSuccess({
+          currentYear,
+          previousYear,
+          currentYearRevenue,
+          previousYearRevenue,
+          yearlyGrowth,
+        })
+      );
+    } catch (error: any) {
+      dispatch(
+        fetchYearlyRevenueFailure(
+          error.message || "Failed to fetch  Yearly revenue"
         )
       );
     }
