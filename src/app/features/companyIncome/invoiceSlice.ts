@@ -1,6 +1,7 @@
 // src/store/incomeSlice.ts
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
+import { axiosSecure } from "../../hooks/useAxiosSecure";
 
 // Define TypeScript interfaces
 
@@ -39,8 +40,9 @@ export const fetchInvoices = createAsyncThunk(
   "invoices/fetchInvoices",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get<InvoiceData[]>(
-        "https://revboost-solutions.vercel.app/api/v1/invoices/all"
+      
+      const response = await axiosSecure.get<InvoiceData[]>(
+        `/invoices/all`
       );
       return response.data;
     } catch (err: any) {
@@ -56,8 +58,8 @@ export const createInvoice = createAsyncThunk(
   "invoices/createInvoice",
   async (invoice: InvoiceData, { rejectWithValue }) => {
     try {
-      const response = await axios.post<InvoiceData>(
-        "https://revboost-solutions.vercel.app/api/v1/invoices/create",
+      const response = await axiosSecure.post<InvoiceData[]>(
+        "/invoices/create",
         // `${import.meta.env.VITE_API}/invoices/create`,
         invoice
       );

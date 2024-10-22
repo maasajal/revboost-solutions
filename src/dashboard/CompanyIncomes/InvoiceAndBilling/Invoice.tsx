@@ -103,17 +103,7 @@ const Invoice = () => {
     // }
   };
 
-  // const onSubmit = handleSubmit((data: IncomeData) => {
-  //   console.table(data);
 
-  //   axios
-  //     .post("https://revboost-solutions.vercel.app/api/v1/invoices/create", data)
-  //     .then((response) => {
-  //       console.log("Invoice saved successfully:", response.data);
-
-  //     })
-  //     .catch((error) => console.error("Error saving invoice:", error));
-  // });
 
   return (
     <>
