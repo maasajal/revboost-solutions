@@ -1,8 +1,7 @@
 // src/store/incomeSlice.ts
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import axios from "axios";
-import { axiosSecure } from "../../hooks/useAxiosSecure";
 
+import { axiosSecure } from "../../hooks/useAxiosSecure";
 // Define TypeScript interfaces
 
 export interface Item {
@@ -36,7 +35,7 @@ const initialState: InvoiceState = {
 };
 
 // Async Thunk to fetch invoices
-export const fetchInvoices = createAsyncThunk(
+export const fetchInvoices = createAsyncThunk<InvoiceData[], void>(
   "invoices/fetchInvoices",
   async (_, { rejectWithValue }) => {
     try {
@@ -100,10 +99,7 @@ const invoiceSlice = createSlice({
       state.loading = true;
       state.error = null;
     });
-    builder.addCase(createInvoice.fulfilled, (state, action: PayloadAction<InvoiceData>) => {
-      state.loading = false;
-      state.invoices.push(action.payload);
-    });
+
     builder.addCase(createInvoice.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload as string;

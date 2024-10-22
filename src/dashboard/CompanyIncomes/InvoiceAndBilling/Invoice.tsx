@@ -1,4 +1,3 @@
-
 import {
   Controller,
   SubmitHandler,
@@ -17,7 +16,6 @@ import { getCurrentUser } from "../../../app/api/currentUserAPI";
 import { useAppSelector } from "../../../app/hooks/useAppSelector";
 import User from "../../../app/features/users/UserType";
 
-
 import {
   Paper,
   Table,
@@ -27,7 +25,6 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-
 
 // Get Date
 function getDate() {
@@ -54,8 +51,6 @@ const Invoice = () => {
   }, [dispatch]);
 
   // const [currentDate, setCurrentDate] = useState(getDate());
-
- 
 
   // Selectors
   const { loading, error, invoices } = useSelector(
@@ -95,15 +90,13 @@ const Invoice = () => {
     //   ...item,
     //   totalAmount: item.quantity * item.unitPrice,
     // }));
-    const invoiceData: InvoiceData = { ...data};
+    const invoiceData: InvoiceData = { ...data };
     // Dispatch the createInvoice thunk
     await dispatch(createInvoice(invoiceData));
     // if (createInvoice.fulfilled.match(invoiceData)){
     //   dispatch(fetchInvoices())
     // }
   };
-
-
 
   return (
     <>
@@ -305,53 +298,50 @@ const Invoice = () => {
             </div>
           </div>
           <TableContainer component={Paper} className="overflow-x-auto">
-          <Table>
-            <TableHead className="bg-gray-600">
-              <TableRow>
-                <TableCell>
-                  <strong>#invoice</strong>
-                </TableCell>
-                <TableCell>
-                  <strong>Client</strong>
-                </TableCell>
-                <TableCell>
-                  <strong>Issued</strong>
-                </TableCell>
-                <TableCell>
-                  <strong>Due</strong>
-                </TableCell>
-                <TableCell>
-                  <strong>Address</strong>
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            
-            <TableBody>
-              
-              {invoices && invoices.length > 0 ? (
-                invoices.map((invoice) => (
-                  <>
-                  
-                  <TableRow  key={invoice?.invoiceNumber}>
-                    <TableCell>{invoice?.invoiceNumber}</TableCell>
-                    <TableCell>{invoice?.companyName}</TableCell>
-                    <TableCell>{invoice?.date}</TableCell>
-                    <TableCell>{invoice?.invoiceDueDate}</TableCell>
-                    <TableCell>$ {invoice?.customerAddress}</TableCell>
-                  </TableRow>
-                  </>
-                ))
-              ) : (
+            <Table>
+              <TableHead className="bg-gray-600">
                 <TableRow>
-                  <TableCell colSpan={4} align="center">
-                    No expenses found.
+                  <TableCell>
+                    <strong>#invoice</strong>
+                  </TableCell>
+                  <TableCell>
+                    <strong>Client</strong>
+                  </TableCell>
+                  <TableCell>
+                    <strong>Issued</strong>
+                  </TableCell>
+                  <TableCell>
+                    <strong>Due</strong>
+                  </TableCell>
+                  <TableCell>
+                    <strong>Address</strong>
                   </TableCell>
                 </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
+              </TableHead>
 
+              <TableBody>
+                {invoices && invoices.length > 0 ? (
+                  invoices.map((invoice) => (
+                    <>
+                      <TableRow key={invoice?.invoiceNumber}>
+                        <TableCell>{invoice?.invoiceNumber}</TableCell>
+                        <TableCell>{invoice?.companyName}</TableCell>
+                        <TableCell>{invoice?.date}</TableCell>
+                        <TableCell>{invoice?.invoiceDueDate}</TableCell>
+                        <TableCell>$ {invoice?.customerAddress}</TableCell>
+                      </TableRow>
+                    </>
+                  ))
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={4} align="center">
+                      No expenses found.
+                    </TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
 
           <div className=" dark:text-gray-800">
             <div className="overflow-x-auto">
@@ -364,13 +354,8 @@ const Invoice = () => {
                   <col />
                   <col className="w-24" />
                 </colgroup>
-                <thead className="dark:bg-red-400">
-                  
-                </thead>
+                <thead className="dark:bg-red-400"></thead>
                 <tbody>
-                 
-                 
-
                   <tr className="border-b border-opacity-20">
                     <td className="p-3">
                       <p></p>
