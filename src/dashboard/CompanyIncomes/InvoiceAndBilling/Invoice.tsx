@@ -1,3 +1,4 @@
+
 import {
   Controller,
   SubmitHandler,
@@ -8,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../app/store/store";
 import {
   createInvoice,
+  fetchInvoices,
   InvoiceData,
 } from "../../../app/features/companyIncome/invoiceSlice";
 import { useEffect } from "react";
@@ -15,34 +17,18 @@ import { getCurrentUser } from "../../../app/api/currentUserAPI";
 import { useAppSelector } from "../../../app/hooks/useAppSelector";
 import User from "../../../app/features/users/UserType";
 
-// export interface InvoiceData {
-//   companyEmail: string;
-//   customerName: string;
-//   companyName: string;
-//   invoiceNumber: string;
-//   invoiceDueDate: string;
-//   date: string;
-//   customerAddress: string;
-//   items: Item[];
-// }
-// new try
 
-// type InvoiceData = {
-//   companyEmail: string;
-//   customerName: string;
-//   companyName: string;
-//   invoiceNumber: string;
-//   date: string;
-//   invoiceDueDate: string;
-//   customerAddress: string;
-//   items: {
-//     no: number;
-//     item: string;
-//     quantity: number;
-//     unitPrice: number;
-//     totalAmount: number;
-//   }[];
-// };
+import {
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@mui/material";
+
+
 // Get Date
 function getDate() {
   const today = new Date();
@@ -54,16 +40,17 @@ function getDate() {
 
 const Invoice = () => {
   const dispatch = useDispatch<AppDispatch>();
-
-  // for user
-  useEffect(() => {
-    dispatch(getCurrentUser());
-  }, [dispatch]);
-  // const [currentDate, setCurrentDate] = useState(getDate());
-
   const { _id: userId, email: userEmail } = useAppSelector(
     (state) => state.currentUser.user
   ) as User;
+  // // for user
+  useEffect(() => {
+    dispatch(getCurrentUser());
+    dispatch(fetchInvoices);
+  }, [dispatch]);
+  // const [currentDate, setCurrentDate] = useState(getDate());
+
+ 
 
   // Selectors
   const { loading, error, invoices } = useSelector(
@@ -97,14 +84,17 @@ const Invoice = () => {
       console.error("User ID or email is missing");
       return;
     }
-    // Calculate totalAmount for each item
-    const updatedItems: Item[] = data.items.map((item) => ({
-      ...item,
-      totalAmount: item.quantity * item.unitPrice,
-    }));
-    const invoiceData: InvoiceData = { ...data, items: updatedItems };
+    // // Calculate totalAmount for each item
+    // const updatedItems: Item[] = data.items.map((item) => ({
+    //   ...item,
+    //   totalAmount: item.quantity * item.unitPrice,
+    // }));
+    const invoiceData: InvoiceData = { ...data};
     // Dispatch the createInvoice thunk
     await dispatch(createInvoice(invoiceData));
+    if (createInvoice.fulfilled.match(invoiceData)){
+      dispatch(fetchInvoices())
+    }
   };
 
   // const onSubmit = handleSubmit((data: IncomeData) => {
@@ -318,6 +308,55 @@ const Invoice = () => {
               <p className="text-red-400">Due Date:</p>
             </div>
           </div>
+          <TableContainer component={Paper} className="overflow-x-auto">
+          <Table>
+            <TableHead className="bg-gray-600">
+              <TableRow>
+                <TableCell>
+                  <strong>#invoice</strong>
+                </TableCell>
+                <TableCell>
+                  <strong>Client</strong>
+                </TableCell>
+                <TableCell>
+                  <strong>Issued</strong>
+                </TableCell>
+                <TableCell>
+                  <strong>Due</strong>
+                </TableCell>
+                <TableCell>
+                  <strong>Address</strong>
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            
+            <TableBody>
+              
+              {invoices && invoices.length > 0 ? (
+                invoices.map((entry) => (
+                  <>
+                  
+                  <TableRow  key={entry.data?.invoiceNumber}>
+                    <TableCell>{entry.data?.invoiceNumber}</TableCell>
+                    <TableCell>{entry.data?.companyName}</TableCell>
+                    <TableCell>{entry.data?.date}</TableCell>
+                    <TableCell>{entry.data.invoiceDueDate}</TableCell>
+                    <TableCell>$ {entry.data?.customerAddress}</TableCell>
+                  </TableRow>
+                  </>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={4} align="center">
+                    No expenses found.
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
+
+
           <div className=" dark:text-gray-800">
             <div className="overflow-x-auto">
               <table className="min-w-full text-xs">
@@ -330,96 +369,11 @@ const Invoice = () => {
                   <col className="w-24" />
                 </colgroup>
                 <thead className="dark:bg-red-400">
-                  <tr className="text-left">
-                    <th className="p-3">Invoice #</th>
-                    <th className="p-3">Client</th>
-                    <th className="p-3">Issued</th>
-                    <th className="p-3">Due</th>
-                    <th className="p-3 text-right">Amount</th>
-                    <th className="p-3 text-right"></th>
-                  </tr>
+                  
                 </thead>
                 <tbody>
-                  {invoices.length === 0 ? (
-                    <p>No invoices found.</p>
-                  ) : (
-                    <>
-                      {invoices.map((invoice, index) => {
-                        <tr key={index} className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50">
-                          <td className="p-3">
-                            <p>{invoice.invoiceNumber}</p>
-                          </td>
-                          <td className="p-3">
-                            <p>Coca Cola co.</p>
-                          </td>
-                          <td className="p-3">
-                            <p>14 Jan 2022</p>
-                            <p className="dark:text-gray-600">Friday</p>
-                          </td>
-                          <td className="p-3">
-                            <p>01 Feb 2022</p>
-                            <p className="dark:text-gray-600">Tuesday</p>
-                          </td>
-                          <td className="p-3 text-right">
-                            <p>$8,950,500</p>
-                          </td>
-                          <td className="p-3 text-right">
-                            <span className="px-3 py-1 font-semibold rounded-md dark:bg-red-400 dark:text-gray-50">
-                              <span>Delete</span>
-                            </span>
-                          </td>
-                        </tr>;
-                      })}
-                    </>
-                  )}
-                  <tr className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50">
-                    <td className="p-3">
-                      <p>97412378923</p>
-                    </td>
-                    <td className="p-3">
-                      <p>Coca Cola co.</p>
-                    </td>
-                    <td className="p-3">
-                      <p>14 Jan 2022</p>
-                      <p className="dark:text-gray-600">Friday</p>
-                    </td>
-                    <td className="p-3">
-                      <p>01 Feb 2022</p>
-                      <p className="dark:text-gray-600">Tuesday</p>
-                    </td>
-                    <td className="p-3 text-right">
-                      <p>$8,950,500</p>
-                    </td>
-                    <td className="p-3 text-right">
-                      <span className="px-3 py-1 font-semibold rounded-md dark:bg-red-400 dark:text-gray-50">
-                        <span>Delete</span>
-                      </span>
-                    </td>
-                  </tr>
-                  <tr className="border-b border-opacity-20 dark:border-red-300 dark:bg-gray-50">
-                    <td className="p-3">
-                      <p>97412378923</p>
-                    </td>
-                    <td className="p-3">
-                      <p>Nvidia Corporation</p>
-                    </td>
-                    <td className="p-3">
-                      <p>14 Jan 2022</p>
-                      <p className="dark:text-gray-600">Friday</p>
-                    </td>
-                    <td className="p-3">
-                      <p>01 Feb 2022</p>
-                      <p className="dark:text-gray-600">Tuesday</p>
-                    </td>
-                    <td className="p-3 text-right">
-                      <p>$98,218</p>
-                    </td>
-                    <td className="p-3 text-right">
-                      <span className="px-3 py-1 font-semibold rounded-md dark:bg-red-400 dark:text-gray-50">
-                        <span></span>
-                      </span>
-                    </td>
-                  </tr>
+                 
+                 
 
                   <tr className="border-b border-opacity-20">
                     <td className="p-3">
