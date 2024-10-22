@@ -4,6 +4,7 @@ import { useAppDispatch } from "../../app/hooks/useAppDispatch";
 import { useAppSelector } from "../../app/hooks/useAppSelector";
 import { useEffect } from "react";
 import {
+  fetchMonthlyRevenue,
   fetchRevenueGrowth,
   getMonthlyRevenue,
 } from "../../app/api/revenueGrowthAPI";
@@ -11,6 +12,8 @@ import User from "../../app/features/users/UserType";
 import { fetchRevenueData } from "../../app/features/revenueGrowth/revenueSlice";
 import { getCurrentUser } from "../../app/api/currentUserAPI";
 import { RootState } from "../../app/store/store";
+import { Grid, Container } from "@mui/material";
+import RevenueCard from "./RevenueCard";
 
 interface RevenueData {
   month: number;
@@ -39,16 +42,17 @@ const RevenueGrowth: React.FC = () => {
     const userId: string = "670708f70e882388dd5b3af0";
     if (currentUser._id) {
       dispatch(fetchRevenueData(currentUser._id));
+      dispatch(fetchMonthlyRevenue(currentUser._id));
     }
     dispatch(fetchRevenueGrowth(userId));
     dispatch(getMonthlyRevenue(userId));
   }, [dispatch, currentUser._id]);
 
-  const { monthlyRevenue } = useAppSelector(
-    (state: RootState) => state.monthlyRevenues
-  );
-
-  console.log("monthly revenue", monthlyRevenue);
+  const {
+    previousMonthRevenue,
+    currentMonthRevenue,
+    growth: monthlyGrowth,
+  } = useAppSelector((state: RootState) => state.monthlyRevenue.monthlyRevenue);
 
   const { revenueEntries } = useAppSelector((state) => state.revenue);
 
@@ -72,10 +76,21 @@ const RevenueGrowth: React.FC = () => {
   if (error) return <p>Error: {error}</p>;
 
   return (
-    <div className="container mx-auto p-5 space-y-5">
+    <div className="container mx-auto p-5 space-y-10">
       <h1 className="text-center mb-8">
         {currentUser ? currentUser.name : "Company Name"}
       </h1>
+      <Container>
+        <Grid container spacing={4}>
+          <Grid item xs={12} md={6}>
+            <RevenueCard
+              current={currentMonthRevenue}
+              previous={previousMonthRevenue}
+              growth={monthlyGrowth}
+            />
+          </Grid>
+        </Grid>
+      </Container>
       <div>
         <h3>Get Revenue from Database</h3>
         {revenueEntries.map((entry) => (
