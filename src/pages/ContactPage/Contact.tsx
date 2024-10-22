@@ -1,43 +1,11 @@
-import emailjs from "@emailjs/browser";
 import { Box } from "@mui/material";
-import { FormEvent, useRef } from "react";
-import Swal from "sweetalert2";
 import SocialMedia from "../../components/SocialMedia";
 import ContactForm from "./ContactForm";
 import ContactLocation from "./ContactLocation";
 
-const Contact: React.FC = () => {
-  const form = useRef<HTMLFormElement | null>(null);
+const Contact: React.FC = () => { 
 
-  const sendEmail = (e: FormEvent) => {
-    e.preventDefault();
-
-    if (form.current) {
-      emailjs
-        .sendForm(
-          import.meta.env.VITE_EMAILJS_SERVICE_ID!,
-          import.meta.env.VITE_EMAILJS_TEMPLATE_ID!,
-          form.current!,
-          import.meta.env.VITE_EMAILJS_PUBLIC_KEY!
-        )
-        .then(
-          () => {
-            console.log("SUCCESS!");
-            Swal.fire({
-              position: "top-end",
-              icon: "success",
-              title: "Thank's for your message",
-              showConfirmButton: false,
-              timer: 1500,
-            });
-          },
-          (error) => {
-            console.log("FAILED...", error.text);
-          }
-        );
-    }
-  };
-
+  
   return (
     <div>
       <Box

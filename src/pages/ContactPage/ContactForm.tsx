@@ -1,5 +1,7 @@
 import { Button, TextField } from "@mui/material";
 import { SubmitHandler, useForm } from "react-hook-form";
+import useAxiosPublic from "../../app/hooks/useAxiosPublic";
+import { messageStatus } from "../../components/utils/successStatus";
 
 interface Data {
     companyName: string;
@@ -11,11 +13,23 @@ interface Data {
 
 const ContactForm = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm<Data>();
+    const axiosPublic = useAxiosPublic()
 
+    const onSubmit: SubmitHandler<Data> = async (data) => {
+        try {
+            const response = await axiosPublic.post(`messages`, data)
+            if (response.status === 201) {
+                messageStatus()
+                reset()
 
-    const onSubmit: SubmitHandler<Data> = (data) => {
-        console.log(data);
-        reset();
+            }
+        } catch (error) {
+            if (error instanceof Error) {
+                console.log(error.message);
+            } else {
+                console.log("An unexpected error occurred:", error);
+            }
+        }
     };
 
     return (
