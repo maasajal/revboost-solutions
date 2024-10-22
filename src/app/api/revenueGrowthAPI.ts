@@ -1,4 +1,6 @@
-import axios from "axios";
+import { axiosSecure } from "../hooks/useAxiosSecure";
+import { AppDispatch } from "../store/store";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   fetchRevenueGrowthStart,
   fetchRevenueGrowthSuccess,
@@ -7,34 +9,23 @@ import {
   updateRevenueGrowthSuccess,
   revenueGrowthRequestFailure,
 } from "../features/revenueGrowth/revenueGrowthSlice";
-import { axiosPublic } from "../hooks/useAxiosPublic";
-// import { axiosSecure } from "../hooks/useAxiosSecure";
-import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   fetchMonthlyRevenueStart,
   fetchMonthlyRevenueSuccess,
   fetchMonthlyRevenueFailure,
 } from "../features/revenueGrowth/monthlyRevenueSlice";
-import { axiosSecure } from "../hooks/useAxiosSecure";
-import { AppDispatch } from "../store/store";
 import {
   fetchQuarterlyRevenueStart,
   fetchQuarterlyRevenueSuccess,
 } from "../features/revenueGrowth/quarterlyRevenueSlice";
 
-const API_BASE_URL = "/revenue-growth";
-
 export const fetchMonthlyRevenue =
   (userId: string) => async (dispatch: AppDispatch) => {
     try {
       dispatch(fetchMonthlyRevenueStart());
-
       const response = await axiosSecure.get(`/monthly-revenue/${userId}`);
-
       const { currentMonthRevenue, previousMonthRevenue, monthlyGrowth } =
         response.data;
-
-      // Dispatch the success action with payload
       dispatch(
         fetchMonthlyRevenueSuccess({
           currentMonthRevenue,
@@ -43,7 +34,6 @@ export const fetchMonthlyRevenue =
         })
       );
     } catch (error: any) {
-      // Handle the error and dispatch the failure action
       dispatch(
         fetchMonthlyRevenueFailure(
           error.message || "Failed to fetch monthly revenue"
@@ -56,9 +46,7 @@ export const fetchQuarterlyRevenue =
   (userId: string) => async (dispatch: AppDispatch) => {
     try {
       dispatch(fetchQuarterlyRevenueStart());
-
-      const response = await axiosPublic.get(`/quarterly-revenue/${userId}`);
-      console.log("API Response:", response.data);
+      const response = await axiosSecure.get(`/quarterly-revenue/${userId}`);
       const {
         currentQuarter,
         previousQuarter,
@@ -89,8 +77,7 @@ export const getMonthlyRevenue = createAsyncThunk(
   "monthlyRevenues/getMonthlyRevenue",
   async (userId: string, { rejectWithValue }) => {
     try {
-      const response = await axiosPublic.get(`/monthly-revenue/${userId}`);
-      console.log(response.data);
+      const response = await axiosSecure.get(`/monthly-revenue/${userId}`);
       return response.data;
     } catch (error: any) {
       console.error("Error fetching monthly revenue: ", error.message);
@@ -101,11 +88,10 @@ export const getMonthlyRevenue = createAsyncThunk(
   }
 );
 
-// Fetch Revenue Growth Data
 export const fetchRevenueGrowth = (userId: string) => async (dispatch: any) => {
   dispatch(fetchRevenueGrowthStart());
   try {
-    const response = await axiosPublic.get(`${API_BASE_URL}/${userId}`);
+    const response = await axiosSecure.get(`/revenue-growth/${userId}`);
     dispatch(fetchRevenueGrowthSuccess(response.data));
   } catch (error: any) {
     dispatch(
@@ -116,10 +102,9 @@ export const fetchRevenueGrowth = (userId: string) => async (dispatch: any) => {
   }
 };
 
-// Create new Revenue Growth entry
 export const createRevenueGrowth = (data: any) => async (dispatch: any) => {
   try {
-    const response = await axios.post(`${API_BASE_URL}`, data);
+    const response = await axiosSecure.post(`/revenue-growth`, data);
     dispatch(createRevenueGrowthSuccess(response.data));
   } catch (error: any) {
     dispatch(
@@ -130,11 +115,10 @@ export const createRevenueGrowth = (data: any) => async (dispatch: any) => {
   }
 };
 
-// Update existing Revenue Growth entry
 export const updateRevenueGrowth =
   (id: string, data: any) => async (dispatch: any) => {
     try {
-      const response = await axios.patch(`${API_BASE_URL}/${id}`, data);
+      const response = await axiosSecure.patch(`/revenue-growth/${id}`, data);
       dispatch(updateRevenueGrowthSuccess(response.data));
     } catch (error: any) {
       dispatch(

@@ -4,6 +4,8 @@ import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 
 interface RevenueCardProps {
   title: string;
+  current_time: string;
+  previous_time: string;
   current: number;
   previous: number;
   growth: string;
@@ -11,6 +13,8 @@ interface RevenueCardProps {
 
 const RevenueCard: React.FC<RevenueCardProps> = ({
   title,
+  current_time,
+  previous_time,
   current,
   previous,
   growth,
@@ -20,15 +24,21 @@ const RevenueCard: React.FC<RevenueCardProps> = ({
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardContent className="space-y-5">
-        <Typography variant="h5" component="div">
+        <Typography variant="h4" component="div">
           {title}
         </Typography>
         <Box display="flex" justifyContent="space-between" alignItems="center">
-          <Typography variant="body2" color="text.secondary">
-            Previous Month: ${previous}
+          <Typography
+            variant="body2"
+            color={isGrowthPositive ? "success.main" : "error.main"}
+          >
+            {previous_time ? previous_time : "Previous Month"}: $ {previous}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Current Month: ${current}
+          <Typography
+            variant="body2"
+            color={isGrowthPositive ? "success.main" : "error.main"}
+          >
+            {current_time ? current_time : "Current Month"}: $ {current}
           </Typography>
         </Box>
         <Typography
