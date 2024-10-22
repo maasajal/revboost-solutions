@@ -142,7 +142,7 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/admin",
         element: (
-          <AdminRoute> 
+          <AdminRoute>
             <AdminDashboard />
           </AdminRoute>
         ),
@@ -150,15 +150,15 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/messages",
         element: (
-          <AdminRoute> 
+          <AdminRoute>
             <CustomerMessage />
           </AdminRoute>
         ),
       },
       {
-        path: "/dashboard/messages-details",
+        path: "/dashboard/messages-details/:id",
         element: (
-          <AdminRoute> 
+          <AdminRoute>
             <CustomerMessageDetails />
           </AdminRoute>
         ),
