@@ -17,6 +17,10 @@ import {
 } from "../features/revenueGrowth/monthlyRevenueSlice";
 import { axiosSecure } from "../hooks/useAxiosSecure";
 import { AppDispatch } from "../store/store";
+import {
+  fetchQuarterlyRevenueStart,
+  fetchQuarterlyRevenueSuccess,
+} from "../features/revenueGrowth/quarterlyRevenueSlice";
 
 const API_BASE_URL = "/revenue-growth";
 
@@ -27,7 +31,7 @@ export const fetchMonthlyRevenue =
 
       const response = await axiosSecure.get(`/monthly-revenue/${userId}`);
 
-      const { currentMonthRevenue, previousMonthRevenue, growth } =
+      const { currentMonthRevenue, previousMonthRevenue, monthlyGrowth } =
         response.data;
 
       // Dispatch the success action with payload
@@ -35,11 +39,44 @@ export const fetchMonthlyRevenue =
         fetchMonthlyRevenueSuccess({
           currentMonthRevenue,
           previousMonthRevenue,
-          growth,
+          monthlyGrowth,
         })
       );
     } catch (error: any) {
       // Handle the error and dispatch the failure action
+      dispatch(
+        fetchMonthlyRevenueFailure(
+          error.message || "Failed to fetch monthly revenue"
+        )
+      );
+    }
+  };
+
+export const fetchQuarterlyRevenue =
+  (userId: string) => async (dispatch: AppDispatch) => {
+    try {
+      dispatch(fetchQuarterlyRevenueStart());
+
+      const response = await axiosSecure.get(`/quarterly-revenue/${userId}`);
+
+      const {
+        currentQuarter,
+        previousQuarter,
+        currentQuarterRevenue,
+        previousQuarterRevenue,
+        quarterlyGrowth,
+      } = response.data;
+
+      dispatch(
+        fetchQuarterlyRevenueSuccess({
+          currentQuarter,
+          previousQuarter,
+          currentQuarterRevenue,
+          previousQuarterRevenue,
+          quarterlyGrowth,
+        })
+      );
+    } catch (error: any) {
       dispatch(
         fetchMonthlyRevenueFailure(
           error.message || "Failed to fetch monthly revenue"

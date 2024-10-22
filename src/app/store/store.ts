@@ -10,6 +10,7 @@ import getAllUsersSlice from "../features/getAllUsers/getAllUsersSlice";
 import payrollReducer from "../features/payroll/payrollSlice";
 import revenueGrowthReducer from "../features/revenueGrowth/revenueGrowthSlice";
 import monthlyRevenueReducer from "../features/revenueGrowth/monthlyRevenueSlice";
+import quarterlyRevenueReducer from "../features/revenueGrowth/quarterlyRevenueSlice";
 import revenueReducer from "../features/revenueGrowth/revenueSlice";
 import roleManageSlice from "../features/roleManage/roleManageSlice";
 import currentUserReducer from "../features/users/currentUserSlice";
@@ -32,6 +33,7 @@ export const store = configureStore({
     revenueGrowth: revenueGrowthReducer,
     revenue: revenueReducer,
     monthlyRevenue: monthlyRevenueReducer,
+    quarterlyRevenue: quarterlyRevenueReducer,
     payroll: payrollReducer,
     incomes: incomesReducer,
     allIncome: allIncomeReducer,
