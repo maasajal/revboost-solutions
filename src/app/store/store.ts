@@ -11,6 +11,7 @@ import payrollReducer from "../features/payroll/payrollSlice";
 import revenueGrowthReducer from "../features/revenueGrowth/revenueGrowthSlice";
 import monthlyRevenueReducer from "../features/revenueGrowth/monthlyRevenueSlice";
 import quarterlyRevenueReducer from "../features/revenueGrowth/quarterlyRevenueSlice";
+import halfYearlyRevenueReducer from "../features/revenueGrowth/halfYearlyRevenueSlice";
 import revenueReducer from "../features/revenueGrowth/revenueSlice";
 import roleManageSlice from "../features/roleManage/roleManageSlice";
 import currentUserReducer from "../features/users/currentUserSlice";
@@ -34,6 +35,7 @@ export const store = configureStore({
     revenue: revenueReducer,
     monthlyRevenue: monthlyRevenueReducer,
     quarterlyRevenue: quarterlyRevenueReducer,
+    halfYearlyRevenue: halfYearlyRevenueReducer,
     payroll: payrollReducer,
     incomes: incomesReducer,
     allIncome: allIncomeReducer,
