@@ -2,7 +2,6 @@
 
 
 
-import { Button } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -10,60 +9,59 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import { Link } from 'react-router-dom';
-
-function createData(
-    name: string,
-    calories: number,
-    fat: number,
-    carbs: number,
-    protein: number,
-) {
-    return { name, calories, fat, carbs, protein };
+import { useEffect, useState } from 'react';
+import useAxiosSecure from '../../app/hooks/useAxiosSecure';
+import MessageRow from './MessageRow';
+interface Message {
+    content: string;
+    readStatus: string;
+}
+interface Data {
+    createdAt: string;
+    email: string;
+    messages: Message[];
+    updatedAt: string;
+    _id: string;
+    __v: number;
 }
 
-const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
 
 export default function CustomerMessage() {
-    return (
-      <>
-      <h2 className='mb-6 text-balance'>Check Messages</h2>
-      <div className="overflow-x-auto min-w-full max-w-32">
+    const axiosSecure = useAxiosSecure()
+    const [messages, setMessages] = useState([])
+    const [loading, setLoading] = useState(false)
+    const fetchMessage = async () => {
+        setLoading(true)
+        const res = await axiosSecure.get('/messages')
+        setMessages(res.data)
+        setLoading(false)
+    }
 
-      <TableContainer   component={Paper}>
-            <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
-                <TableHead>
-                    <TableRow>
-                        <TableCell>Email</TableCell>
-                        <TableCell align="center">Date</TableCell> 
-                        <TableCell align="center">Read Status</TableCell>
-                        <TableCell align="right">Details</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {rows.map((row) => (
-                        <TableRow
-                            key={row.name}
-                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                        >
-                            <TableCell component="th" scope="row">
-                                {row.name}
-                            </TableCell>
-                            <TableCell align="center">2024/10/14</TableCell>
-                            <TableCell align="center">unread</TableCell>
-                            <TableCell align="right"> <Link to='/dashboard/messages-details'><Button variant="contained">Details</Button></Link></TableCell> 
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
-      </div>
-      </>
+    useEffect(() => {
+        fetchMessage()
+    }, [])
+    if (loading) return <>Loading</>
+    return (
+        <>
+            <h2 className='mb-6 text-balance'>Check Messages</h2>
+            <div className="overflow-x-auto min-w-full max-w-32">
+
+                <TableContainer component={Paper}>
+                    <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>Email</TableCell>
+                                <TableCell align="center">Date</TableCell>
+                                <TableCell align="center">Read Status</TableCell>
+                                <TableCell align="right">Details</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {messages.map((row: Data, index) => <MessageRow key={index} row={row} />)}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </div>
+        </>
     );
 }
