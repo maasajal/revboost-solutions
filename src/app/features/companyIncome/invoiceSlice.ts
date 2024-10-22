@@ -12,7 +12,7 @@ export interface Item {
   totalAmount: number;
 }
 
-export interface IncomeData {
+export interface InvoiceData {
   companyEmail: string;
   customerName: string;
   companyName: string;
@@ -23,14 +23,13 @@ export interface IncomeData {
   items: Item[];
 }
 
-interface IncomeState {
-  incomes: IncomeData[];
+interface InvoiceState {
+  invoices: InvoiceData[];
   loading: boolean;
   error: string | null;
 }
-
-const initialState: IncomeState = {
-  incomes: [],
+const initialState: InvoiceState = {
+  invoices: [],
   loading: false,
   error: null,
 };
@@ -40,7 +39,7 @@ export const fetchInvoices = createAsyncThunk(
   "invoices/fetchInvoices",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get<IncomeData[]>(
+      const response = await axios.get<InvoiceData[]>(
         "https://revboost-solutions.vercel.app/api/v1/invoices/all"
       );
       return response.data;
@@ -55,9 +54,9 @@ export const fetchInvoices = createAsyncThunk(
 // Async Thunk to create a new invoice
 export const createInvoice = createAsyncThunk(
   "invoices/createInvoice",
-  async (invoice: IncomeData, { rejectWithValue }) => {
+  async (invoice: InvoiceData, { rejectWithValue }) => {
     try {
-      const response = await axios.post<IncomeData>(
+      const response = await axios.post<InvoiceData>(
         "https://revboost-solutions.vercel.app/api/v1/invoices/create",
         // `${import.meta.env.VITE_API}/invoices/create`,
         invoice
@@ -74,7 +73,7 @@ export const createInvoice = createAsyncThunk(
 
 // Create Slice
 const invoiceSlice = createSlice({
-  name: "incomes",
+  name: 'invoices',
   initialState,
   reducers: {
     // You can add synchronous actions here if needed
@@ -85,29 +84,24 @@ const invoiceSlice = createSlice({
       state.loading = true;
       state.error = null;
     });
-    builder.addCase(
-      fetchInvoices.fulfilled,
-      (state, action: PayloadAction<IncomeData[]>) => {
-        state.loading = false;
-        state.incomes = action.payload;
-      }
-    );
+    builder.addCase(fetchInvoices.fulfilled, (state, action: PayloadAction<InvoiceData[]>) => {
+      state.loading = false;
+      state.invoices = action.payload;
+    });
     builder.addCase(fetchInvoices.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload as string;
     });
+
     // Handle createInvoice
     builder.addCase(createInvoice.pending, (state) => {
       state.loading = true;
       state.error = null;
     });
-    builder.addCase(
-      createInvoice.fulfilled,
-      (state, action: PayloadAction<IncomeData>) => {
-        state.loading = false;
-        state.incomes.push(action.payload);
-      }
-    );
+    builder.addCase(createInvoice.fulfilled, (state, action: PayloadAction<InvoiceData>) => {
+      state.loading = false;
+      state.invoices.push(action.payload);
+    });
     builder.addCase(createInvoice.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload as string;

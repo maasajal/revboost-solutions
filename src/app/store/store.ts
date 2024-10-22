@@ -4,6 +4,7 @@ import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // স্থানীয় স্টোরেজ ব্যবহার করুন
 import addressSlice from "../features/companyExpense/addressSlice";
 import incomesReducer from "../features/companyIncome/incomeSlice";
+import invoiceReducer from "../features/companyIncome/invoiceSlice"
 import expenseReducer from "../features/expenses/expenseSlice";
 import authReducer from "../features/firebaseAuthentication/authSlice"; // আপনার authSlice এর সঠিক পাথ ব্যবহার করুন
 import getAllUsersSlice from "../features/getAllUsers/getAllUsersSlice";
@@ -34,6 +35,7 @@ export const store = configureStore({
     monthlyRevenues: monthlyRevenueReducer,
     payroll: payrollReducer,
     incomes: incomesReducer,
+    invoices: invoiceReducer,
     allIncome: allIncomeReducer,
     expenses: expenseReducer,
     address: addressSlice,
