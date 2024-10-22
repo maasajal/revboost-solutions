@@ -10,8 +10,8 @@ export interface MonthlyRevenueState {
 }
 
 export interface IQuarterlyRevenue {
-  currentQuarter: number;
-  previousQuarter: number;
+  currentQuarter: string;
+  previousQuarter: string;
   currentQuarterRevenue: number;
   previousQuarterRevenue: number;
   quarterlyGrowth: string;
