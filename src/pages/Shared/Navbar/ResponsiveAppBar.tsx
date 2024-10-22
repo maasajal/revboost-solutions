@@ -23,7 +23,7 @@ import { signOut } from "firebase/auth";
 import { logoutSuccess } from "../../../app/features/firebaseAuthentication/authSlice";
 import Swal from "sweetalert2";
 import userPhoto from "../../../assets/revBoostSolutions.png";
-import logo from "../../../assets/logo.png";
+import logo from "../../../assets/RevLogo.jpg";
 import { MdOutlineMenu } from "react-icons/md";
 
 const navItems = [
@@ -105,13 +105,13 @@ function ResponsiveAppBar() {
       className="px-2 md:px-14 lg:px-20 top-0 z-20"
       sx={{ backgroundColor: "#2C3E5080" }}
     >
-      <Container maxWidth="xl">
+      <Container maxWidth="xl" className="py-2">
         <Toolbar disableGutters>
-          <Link to="/" className="flex items-center">
-            <Avatar
-              alt={"Company logo"}
+          <Link to="/" className="flex items-center gap-3">
+            <img
               src={logo}
-              sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
+              alt={userDetails?.name || "RevBoost Solutions logo"}
+              className="w-24 rounded-xl hidden md:flex"
             />
             <Typography
               variant="h6"
@@ -126,9 +126,7 @@ function ResponsiveAppBar() {
                 color: "inherit",
                 textDecoration: "none",
               }}
-            >
-              RevBoost
-            </Typography>
+            ></Typography>
           </Link>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -177,10 +175,10 @@ function ResponsiveAppBar() {
             </Menu>
           </Box>
           <Link to="/">
-            <Avatar
-              alt={userDetails?.name || "User Photo"}
+            <img
               src={logo}
-              sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}
+              alt={userDetails?.name || "RevBoost Solutions logo"}
+              className="w-24 rounded-xl flex md:hidden mr-3"
             />
           </Link>
           <Typography
@@ -197,9 +195,7 @@ function ResponsiveAppBar() {
               color: "inherit",
               textDecoration: "none",
             }}
-          >
-            RevBoost
-          </Typography>
+          ></Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {navItems.map((nav) => (
