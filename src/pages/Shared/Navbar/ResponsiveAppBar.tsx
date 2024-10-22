@@ -248,22 +248,33 @@ function ResponsiveAppBar() {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                {userDetails.role === "admin" && (
-                  <Link to="/dashboard/admin" className="text-center">
-                    <MenuItem onClick={handleCloseUserMenu}>
-                      Admin Dashboard
-                    </MenuItem>
-                  </Link>
+                {userDetails.role === "admin" ? (
+                  <MenuItem
+                    component={Link}
+                    to="/dashboard/admin"
+                    onClick={handleCloseUserMenu}
+                  >
+                    Admin Dashboard
+                  </MenuItem>
+                ) : (
+                  <MenuItem
+                    to="/dashboard"
+                    component={Link}
+                    onClick={handleCloseUserMenu}
+                  >
+                    Dashboard
+                  </MenuItem>
                 )}
-                <Link to="/dashboard" className="text-center">
-                  <MenuItem onClick={handleCloseUserMenu}>Dashboard</MenuItem>
-                </Link>
-                <Link to="/dashboard/profile" className="text-center">
-                  <MenuItem onClick={handleCloseUserMenu}>Profile</MenuItem>
-                </Link>
-                <Link to="/" className="text-center">
-                  <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
-                </Link>
+                <MenuItem
+                  to="/dashboard/profile"
+                  component={Link}
+                  onClick={handleCloseUserMenu}
+                >
+                  Profile
+                </MenuItem>
+                <MenuItem to="/" component={Link} onClick={handleSignOut}>
+                  Sign Out
+                </MenuItem>
               </Menu>
             </Box>
           ) : (
