@@ -48,11 +48,25 @@ const RevenueGrowth: React.FC = () => {
     dispatch(getMonthlyRevenue(userId));
   }, [dispatch, currentUser._id]);
 
+  const { previousMonthRevenue, currentMonthRevenue, monthlyGrowth } =
+    useAppSelector((state: RootState) => state.monthlyRevenue.monthlyRevenue);
+
   const {
-    previousMonthRevenue,
-    currentMonthRevenue,
-    growth: monthlyGrowth,
-  } = useAppSelector((state: RootState) => state.monthlyRevenue.monthlyRevenue);
+    currentQuarter,
+    previousQuarter,
+    currentQuarterRevenue,
+    previousQuarterRevenue,
+    quarterlyGrowth,
+  } = useAppSelector(
+    (state: RootState) => state.quarterlyRevenue.quarterlyRevenue
+  );
+  console.log(
+    currentQuarter,
+    previousQuarter,
+    currentQuarterRevenue,
+    previousQuarterRevenue,
+    quarterlyGrowth
+  );
 
   const { revenueEntries } = useAppSelector((state) => state.revenue);
 
@@ -84,9 +98,18 @@ const RevenueGrowth: React.FC = () => {
         <Grid container spacing={4}>
           <Grid item xs={12} md={6}>
             <RevenueCard
+              title={"Monthly Revenue"}
               current={currentMonthRevenue}
               previous={previousMonthRevenue}
               growth={monthlyGrowth}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <RevenueCard
+              title={"Quarterly Revenue"}
+              current={currentQuarterRevenue}
+              previous={previousQuarterRevenue}
+              growth={quarterlyGrowth}
             />
           </Grid>
         </Grid>

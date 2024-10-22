@@ -3,12 +3,14 @@ import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 
 interface RevenueCardProps {
+  title: string;
   current: number;
   previous: number;
   growth: string;
 }
 
 const RevenueCard: React.FC<RevenueCardProps> = ({
+  title,
   current,
   previous,
   growth,
@@ -17,9 +19,9 @@ const RevenueCard: React.FC<RevenueCardProps> = ({
 
   return (
     <Card sx={{ minWidth: 275 }}>
-      <CardContent>
+      <CardContent className="space-y-5">
         <Typography variant="h5" component="div">
-          Monthly Revenue
+          {title}
         </Typography>
         <Box display="flex" justifyContent="space-between" alignItems="center">
           <Typography variant="body2" color="text.secondary">
