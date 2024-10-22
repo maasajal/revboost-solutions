@@ -8,8 +8,26 @@ import {
   revenueGrowthRequestFailure,
 } from "../features/revenueGrowth/revenueGrowthSlice";
 import { axiosPublic } from "../hooks/useAxiosPublic";
+// import { axiosSecure } from "../hooks/useAxiosSecure";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 
 const API_BASE_URL = "/revenue-growth";
+
+export const getMonthlyRevenue = createAsyncThunk(
+  "monthlyRevenues/getMonthlyRevenue",
+  async (userId: string, { rejectWithValue }) => {
+    try {
+      const response = await axiosPublic.get(`/monthly-revenue/${userId}`);
+      console.log(response.data);
+      return response.data;
+    } catch (error: any) {
+      console.error("Error fetching monthly revenue: ", error.message);
+      return rejectWithValue(
+        error.message?.data || "Error fetching monthly revenue"
+      );
+    }
+  }
+);
 
 // Fetch Revenue Growth Data
 export const fetchRevenueGrowth = (userId: string) => async (dispatch: any) => {
