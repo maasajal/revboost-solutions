@@ -13,7 +13,6 @@ export interface Item {
 }
 
 export interface InvoiceData {
-  data: any;
   companyEmail: string;
   customerName: string;
   companyName: string;

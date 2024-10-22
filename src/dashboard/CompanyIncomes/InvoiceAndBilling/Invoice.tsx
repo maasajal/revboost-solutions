@@ -48,6 +48,11 @@ const Invoice = () => {
     dispatch(getCurrentUser());
     dispatch(fetchInvoices);
   }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(fetchInvoices());
+  }, [dispatch]);
+
   // const [currentDate, setCurrentDate] = useState(getDate());
 
  
@@ -84,6 +89,7 @@ const Invoice = () => {
       console.error("User ID or email is missing");
       return;
     }
+
     // // Calculate totalAmount for each item
     // const updatedItems: Item[] = data.items.map((item) => ({
     //   ...item,
@@ -92,9 +98,9 @@ const Invoice = () => {
     const invoiceData: InvoiceData = { ...data};
     // Dispatch the createInvoice thunk
     await dispatch(createInvoice(invoiceData));
-    if (createInvoice.fulfilled.match(invoiceData)){
-      dispatch(fetchInvoices())
-    }
+    // if (createInvoice.fulfilled.match(invoiceData)){
+    //   dispatch(fetchInvoices())
+    // }
   };
 
   // const onSubmit = handleSubmit((data: IncomeData) => {
@@ -333,15 +339,15 @@ const Invoice = () => {
             <TableBody>
               
               {invoices && invoices.length > 0 ? (
-                invoices.map((entry) => (
+                invoices.map((invoice) => (
                   <>
                   
-                  <TableRow  key={entry.data?.invoiceNumber}>
-                    <TableCell>{entry.data?.invoiceNumber}</TableCell>
-                    <TableCell>{entry.data?.companyName}</TableCell>
-                    <TableCell>{entry.data?.date}</TableCell>
-                    <TableCell>{entry.data.invoiceDueDate}</TableCell>
-                    <TableCell>$ {entry.data?.customerAddress}</TableCell>
+                  <TableRow  key={invoice?.invoiceNumber}>
+                    <TableCell>{invoice?.invoiceNumber}</TableCell>
+                    <TableCell>{invoice?.companyName}</TableCell>
+                    <TableCell>{invoice?.date}</TableCell>
+                    <TableCell>{invoice?.invoiceDueDate}</TableCell>
+                    <TableCell>$ {invoice?.customerAddress}</TableCell>
                   </TableRow>
                   </>
                 ))
