@@ -71,21 +71,28 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/dashboard",
-        element: <DashboardHome />, // User Profile component will be call here.
+        element: (
+          <PrivateRoute>
+            <DashboardHome />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/dashboard/profile",
-        element: <UserProfile />, // User Profile component will be call here.
+        element: (
+          <PrivateRoute>
+            <UserProfile />
+          </PrivateRoute>
+        ),
       },
       // // Income tracking Route
       {
         path: "/dashboard/incomes",
         element: (
           <BasicRoute>
-            {" "}
             <Incomes />
           </BasicRoute>
-        ), // User Profile component will be call here.
+        ),
       },
       // Invoice & Billing Route
       {
@@ -94,14 +101,13 @@ const router = createBrowserRouter([
           <PremiumRoute>
             <Invoice />
           </PremiumRoute>
-        ), // User Profile component will be call here.
+        ),
       },
       // Expense tracking Route
       {
         path: "/dashboard/expenses",
         element: (
           <BasicRoute>
-            {" "}
             <Expenses />
           </BasicRoute>
         ),
@@ -111,7 +117,6 @@ const router = createBrowserRouter([
         path: "/dashboard/revenue-growth",
         element: (
           <BasicRoute>
-            {" "}
             <RevenueGrowth />
           </BasicRoute>
         ),
@@ -120,7 +125,6 @@ const router = createBrowserRouter([
         path: "/dashboard/payroll",
         element: (
           <StandardRoute>
-            {" "}
             <Payroll />
           </StandardRoute>
         ),

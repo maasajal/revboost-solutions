@@ -25,68 +25,9 @@ import { FaFileInvoiceDollar } from "react-icons/fa";
 
 import revTheme from "../components/utils/theme";
 import { AiTwotoneCalculator } from "react-icons/ai";
-
-// Define the navigation menu items
-const NAVIGATION: Navigation = [
-  {
-    kind: "header",
-    title: "Company Details",
-  },
-  {
-    segment: "dashboard",
-    title: "Dashboard",
-    icon: <DashboardIcon />,
-  },
-  {
-    segment: "dashboard/incomes",
-    title: "Incomes",
-    icon: <MonetizationOnIcon />,
-  },
-  {
-    segment: "dashboard/expenses",
-    title: "Expenses",
-    icon: <CurrencyExchangeIcon />,
-  },
-  {
-    segment: "dashboard/payroll",
-    title: "Payroll Management",
-    icon: <PaymentsIcon />,
-  },
-  {
-    segment: "dashboard/invoice-&-billing",
-    title: "Invoice & Billing",
-    icon: <FaFileInvoiceDollar className="text-2xl" />,
-  },
-  {
-    kind: "divider",
-  },
-  {
-    kind: "header",
-    title: "Analytics",
-  },
-  {
-    segment: "dashboard/revenue-growth",
-    title: "Revenue Growth",
-    icon: <AutoGraphIcon />,
-  },
-  {
-    segment: "dashboard/vat",
-    title: "VAT & TAX",
-    icon: <AiTwotoneCalculator className="text-2xl" />,
-  },
-  {
-    kind: "divider",
-  },
-  {
-    kind: "header",
-    title: "Settings",
-  },
-  {
-    segment: "dashboard/profile",
-    title: "Profile",
-    icon: <AccountCircleIcon />,
-  },
-];
+import { Breadcrumbs } from "@mui/material";
+import MessageIcon from "@mui/icons-material/Message";
+import ChatIcon from "@mui/icons-material/Chat";
 
 // Define the `FeaturePages` component to display the content based on the current path
 function FeaturePages({ pathname }: { pathname: string }) {
@@ -99,7 +40,9 @@ function FeaturePages({ pathname }: { pathname: string }) {
         textAlign: "center",
       }}
     >
-      <Typography>Path: {pathname}</Typography>
+      <Breadcrumbs aria-label="breadcrumb" className="pl-5">
+        <Typography sx={{ color: "text.primary" }}>Path: {pathname}</Typography>
+      </Breadcrumbs>
       <main className="py-10 px-5 min-h-screen">
         <Outlet />
       </main>
@@ -127,7 +70,7 @@ export default function DashboardLayoutBasic(props: DemoProps) {
     (state: RootState) => state.currentUser?.user
   ) as User;
 
-  const { name, email, photo } = userDetails || {};
+  const { name, email, photo, role } = userDetails || {};
   const [session, setSession] = useState<Session | null>({
     user: {
       name: name || "RevBoost Solutions",
@@ -174,15 +117,107 @@ export default function DashboardLayoutBasic(props: DemoProps) {
       pathname,
       searchParams: new URLSearchParams(), // Grabbing the current search params from the URL
       navigate: (path: string | URL) => {
-        setPathname(String(path));
-        navigate(String(path));
+        if (path === "/dashboard/admin" && role !== "admin") {
+          navigate("/dashboard"); // Redirect non-admin users
+        } else {
+          setPathname(String(path));
+          navigate(String(path));
+        }
       },
     }),
-    [pathname, navigate]
+    [pathname, navigate, role]
   );
 
   // For handling the window object when in an iframe
   const demoWindow = window !== undefined ? window() : undefined;
+
+  const NAVIGATION: Navigation = [
+    {
+      kind: "header",
+      title: "Company Details",
+    },
+    ...(role === "admin"
+      ? [
+          {
+            segment: "dashboard",
+            title: "Admin Dashboard",
+            icon: <DashboardIcon />,
+            children: [
+              {
+                segment: "admin",
+                title: "Manage All User",
+                icon: <DashboardIcon />,
+              },
+              {
+                segment: "messages",
+                title: "All Message",
+                icon: <MessageIcon />,
+              },
+              {
+                segment: "messages-details/:id",
+                title: "Messages Details",
+                icon: <ChatIcon />,
+              },
+            ],
+          },
+        ]
+      : [
+          {
+            segment: "dashboard",
+            title: "Dashboard",
+            icon: <DashboardIcon />,
+          },
+        ]),
+    {
+      segment: "dashboard/incomes",
+      title: "Incomes",
+      icon: <MonetizationOnIcon />,
+    },
+    {
+      segment: "dashboard/expenses",
+      title: "Expenses",
+      icon: <CurrencyExchangeIcon />,
+    },
+    {
+      segment: "dashboard/payroll",
+      title: "Payroll Management",
+      icon: <PaymentsIcon />,
+    },
+    {
+      segment: "dashboard/invoice-&-billing",
+      title: "Invoice & Billing",
+      icon: <FaFileInvoiceDollar className="text-2xl" />,
+    },
+    {
+      kind: "divider",
+    },
+    {
+      kind: "header",
+      title: "Analytics",
+    },
+    {
+      segment: "dashboard/revenue-growth",
+      title: "Revenue Growth",
+      icon: <AutoGraphIcon />,
+    },
+    {
+      segment: "dashboard/vat",
+      title: "VAT & TAX",
+      icon: <AiTwotoneCalculator className="text-2xl" />,
+    },
+    {
+      kind: "divider",
+    },
+    {
+      kind: "header",
+      title: "Settings",
+    },
+    {
+      segment: "dashboard/profile",
+      title: "Profile",
+      icon: <AccountCircleIcon />,
+    },
+  ];
 
   return (
     <AppProvider
@@ -190,7 +225,13 @@ export default function DashboardLayoutBasic(props: DemoProps) {
       authentication={authentication}
       navigation={NAVIGATION}
       branding={{
-        logo: <img src={photo ? photo : logo} alt="RevBoost Solutions logo" />,
+        logo: (
+          <img
+            src={photo ? photo : logo}
+            alt="RevBoost Solutions logo"
+            className="mr-3 rounded-xl"
+          />
+        ),
         title: `${name}`,
       }}
       router={router}
