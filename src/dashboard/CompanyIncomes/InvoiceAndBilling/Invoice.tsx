@@ -4,16 +4,7 @@ import {
   useFieldArray,
   useForm,
 } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../../app/store/store";
-import {
-  createInvoice,
-  InvoiceData,
-} from "../../../app/features/companyIncome/invoiceSlice";
-import { useEffect } from "react";
-import { getCurrentUser } from "../../../app/api/currentUserAPI";
-import { useAppSelector } from "../../../app/hooks/useAppSelector";
-import User from "../../../app/features/users/UserType";
+
 
 // export interface InvoiceData {
 //   companyEmail: string;
@@ -27,22 +18,22 @@ import User from "../../../app/features/users/UserType";
 // }
 // new try
 
-// type InvoiceData = {
-//   companyEmail: string;
-//   customerName: string;
-//   companyName: string;
-//   invoiceNumber: string;
-//   date: string;
-//   invoiceDueDate: string;
-//   customerAddress: string;
-//   items: {
-//     no: number;
-//     item: string;
-//     quantity: number;
-//     unitPrice: number;
-//     totalAmount: number;
-//   }[];
-// };
+type InvoiceData = {
+  companyEmail: string;
+  customerName: string;
+  companyName: string;
+  invoiceNumber: string;
+  date: string;
+  invoiceDueDate: string;
+  customerAddress: string;
+  items: {
+    no: number;
+    item: string;
+    quantity: number;
+    unitPrice: number;
+    totalAmount: number;
+  }[];
+};
 // Get Date
 function getDate() {
   const today = new Date();
@@ -53,25 +44,24 @@ function getDate() {
 }
 
 const Invoice = () => {
-  const dispatch = useDispatch<AppDispatch>();
+ 
 
-  // for user
-  useEffect(() => {
-    dispatch(getCurrentUser());
-  }, [dispatch]);
   // const [currentDate, setCurrentDate] = useState(getDate());
 
-  const { _id: userId, email: userEmail } = useAppSelector(
-    (state) => state.currentUser.user
-  ) as User;
-
-  // Selectors
-  const { loading, error, invoices } = useSelector(
-    (state: RootState) => state.invoices
-  );
-  console.log(loading, error, invoices);
+  // const { control, handleSubmit, register  } = useForm<IncomeData>({
+  //   defaultValues: {
+  //     companyEmail: "",
+  //     customerName: "",
+  //     companyName: "",
+  //     invoiceNumber: "",
+  //     date: "",
+  //     invoiceDueDate: "",
+  //     customerAddress: "",
+  //     items: [{ no: 1, item: "", quantity: 0, unitPrice: 0, totalAmount: 0 }],
+  //   },
+  // });
   // Initialize React Hook Form
-  const { register, control, handleSubmit } = useForm<InvoiceData>({
+  const { register, control, handleSubmit} = useForm<InvoiceData>({
     defaultValues: {
       companyEmail: "",
       customerName: "",
@@ -93,18 +83,7 @@ const Invoice = () => {
   // Handle form submission
   const onSubmit: SubmitHandler<InvoiceData> = async (data) => {
     console.log(data);
-    if (!userId || !userEmail) {
-      console.error("User ID or email is missing");
-      return;
-    }
-    // Calculate totalAmount for each item
-    const updatedItems: Item[] = data.items.map((item) => ({
-      ...item,
-      totalAmount: item.quantity * item.unitPrice,
-    }));
-    const invoiceData: InvoiceData = { ...data, items: updatedItems };
-    // Dispatch the createInvoice thunk
-    await dispatch(createInvoice(invoiceData));
+    
   };
 
   // const onSubmit = handleSubmit((data: IncomeData) => {
@@ -284,10 +263,8 @@ const Invoice = () => {
                   type="submit"
                   className="w-full p-3 text-sm font-bold tracking-wide uppercase rounded dark:bg-red-400 dark:text-gray-50"
                 >
-                  {loading ? "Saving..." : "Save Invoice"}
+                  save
                 </button>
-                {/* Error Message */}
-                {error && <p className="text-red-400">{error}</p>}
               </div>
             </div>
             {/* Error Message */}
@@ -340,38 +317,32 @@ const Invoice = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {invoices.length === 0 ? (
-                    <p>No invoices found.</p>
-                  ) : (
-                    <>
-                      {invoices.map((invoice, index) => {
-                        <tr key={index} className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50">
-                          <td className="p-3">
-                            <p>{invoice.invoiceNumber}</p>
-                          </td>
-                          <td className="p-3">
-                            <p>Coca Cola co.</p>
-                          </td>
-                          <td className="p-3">
-                            <p>14 Jan 2022</p>
-                            <p className="dark:text-gray-600">Friday</p>
-                          </td>
-                          <td className="p-3">
-                            <p>01 Feb 2022</p>
-                            <p className="dark:text-gray-600">Tuesday</p>
-                          </td>
-                          <td className="p-3 text-right">
-                            <p>$8,950,500</p>
-                          </td>
-                          <td className="p-3 text-right">
-                            <span className="px-3 py-1 font-semibold rounded-md dark:bg-red-400 dark:text-gray-50">
-                              <span>Delete</span>
-                            </span>
-                          </td>
-                        </tr>;
-                      })}
-                    </>
-                  )}
+                 
+
+                  <tr className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50">
+                    <td className="p-3">
+                      <p>97412378923</p>
+                    </td>
+                    <td className="p-3">
+                      <p>Tesla Inc.</p>
+                    </td>
+                    <td className="p-3">
+                      <p>14 Jan 2022</p>
+                      <p className="dark:text-gray-600">Friday</p>
+                    </td>
+                    <td className="p-3">
+                      <p>01 Feb 2022</p>
+                      <p className="dark:text-gray-600">Tuesday</p>
+                    </td>
+                    <td className="p-3 text-right">
+                      <p>$275</p>
+                    </td>
+                    <td className="p-3 text-right">
+                      <span className="px-3 py-1 font-semibold rounded-md dark:bg-red-400 dark:text-gray-50">
+                        <span>Delete</span>
+                      </span>
+                    </td>
+                  </tr>
                   <tr className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50">
                     <td className="p-3">
                       <p>97412378923</p>
