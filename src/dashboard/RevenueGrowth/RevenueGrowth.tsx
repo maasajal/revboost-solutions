@@ -7,6 +7,7 @@ import {
   fetchHalfYearlyRevenue,
   fetchMonthlyRevenue,
   fetchQuarterlyRevenue,
+  fetchYearlyRevenue,
 } from "../../app/api/revenueGrowthAPI";
 import User from "../../app/features/users/UserType";
 import { fetchRevenueData } from "../../app/features/revenueGrowth/revenueSlice";
@@ -26,6 +27,7 @@ const RevenueGrowth: React.FC = () => {
       dispatch(fetchMonthlyRevenue(currentUser._id));
       dispatch(fetchQuarterlyRevenue(currentUser._id));
       dispatch(fetchHalfYearlyRevenue(currentUser._id));
+      dispatch(fetchYearlyRevenue(currentUser._id));
     }
   }, [dispatch, currentUser._id]);
 
@@ -54,6 +56,22 @@ const RevenueGrowth: React.FC = () => {
     halfYearlyGrowth,
   } = useAppSelector(
     (state: RootState) => state.halfYearlyRevenue.halfYearlyRevenue
+  );
+
+  const {
+    currentYear,
+    previousYear,
+    currentYearRevenue,
+    previousYearRevenue,
+    yearlyGrowth,
+  } = useAppSelector((state: RootState) => state.yearlyRevenue.yearlyRevenue);
+
+  console.log(
+    currentYear,
+    previousYear,
+    currentYearRevenue,
+    previousYearRevenue,
+    yearlyGrowth
   );
 
   if (loading) return <CircularProgress size="3rem" />;
@@ -96,6 +114,16 @@ const RevenueGrowth: React.FC = () => {
             growth={halfYearlyGrowth}
           />
         </Grid>
+        <Grid item xs={2} sm={4} md={4}>
+          <RevenueCard
+            title={"Yearly Revenue"}
+            current_time={currentYear}
+            previous_time={previousYear}
+            current={currentYearRevenue}
+            previous={previousYearRevenue}
+            growth={yearlyGrowth}
+          />
+        </Grid>
       </section>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-8 py-10">
@@ -105,8 +133,13 @@ const RevenueGrowth: React.FC = () => {
         </Typography>
         <Typography variant="body2" className={`p-4 rounded-md shadow-xl`}>
           <p className="text-lg">Last 12 Months Revenue:</p>
+          <h2 className="text-3xl font-bold">$ {currentYearRevenue}</h2>
+        </Typography>
+
+        <Typography variant="body2" className={`p-4 rounded-md shadow-xl`}>
+          <p className="text-lg">Last 24 Months Revenue:</p>
           <h2 className="text-3xl font-bold">
-            $ {currentHalfYearRevenue + previousHalfYearRevenue}
+            $ {currentYearRevenue + previousYearRevenue}
           </h2>
         </Typography>
       </div>

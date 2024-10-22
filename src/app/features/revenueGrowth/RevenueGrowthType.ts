@@ -34,3 +34,16 @@ export interface HalfYearlyRevenueState {
   loading: boolean;
   error: string | null;
 }
+
+export interface IYearlyRevenue {
+  currentYear: string;
+  previousYear: string;
+  currentYearRevenue: number;
+  previousYearRevenue: number;
+  yearlyGrowth: string;
+}
+export interface YearlyRevenueState {
+  yearlyRevenue: IYearlyRevenue;
+  loading: boolean;
+  error: string | null;
+}
