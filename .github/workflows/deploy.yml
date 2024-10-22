@@ -31,6 +31,12 @@ jobs:
           VITE_EMAILJS_TEMPLATE_ID=${{secrets.VITE_EMAILJS_TEMPLATE_ID}} \
           VITE_EMAILJS_PUBLIC_KEY=${{secrets.VITE_EMAILJS_PUBLIC_KEY}} \
           VITE_API=${{secrets.VITE_API}} \
+          VITE_apiKey=${{secrets.VITE_apiKey}} \
+          VITE_authDomain=${{secrets.VITE_authDomain}} \
+          VITE_projectId=${{secrets.VITE_projectId}} \
+          VITE_storageBucket=${{secrets.VITE_storageBucket}} \
+          VITE_messagingSenderId=${{secrets.VITE_messagingSenderId}} \
+          VITE_appId=${{secrets.VITE_appId}} \
           npm run build
 
       # Step 5: Deploy to Hostinger via FTP
