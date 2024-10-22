@@ -58,6 +58,7 @@ const incomesSlice = createSlice({
       (state, action: PayloadAction<IIncomeEntry[]>) => {
         state.incomeEntries = action.payload;
         state.loading = false;
+        state.error = null;
       }
     );
     builder.addCase(fetchIncomes.rejected, (state, action) => {

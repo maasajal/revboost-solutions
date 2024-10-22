@@ -4,12 +4,16 @@ import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // স্থানীয় স্টোরেজ ব্যবহার করুন
 import addressSlice from "../features/companyExpense/addressSlice";
 import incomesReducer from "../features/companyIncome/incomeSlice";
-import invoiceReducer from "../features/companyIncome/invoiceSlice"
+import invoiceReducer from "../features/companyIncome/invoiceSlice";
 import expenseReducer from "../features/expenses/expenseSlice";
 import authReducer from "../features/firebaseAuthentication/authSlice"; // আপনার authSlice এর সঠিক পাথ ব্যবহার করুন
 import getAllUsersSlice from "../features/getAllUsers/getAllUsersSlice";
 import payrollReducer from "../features/payroll/payrollSlice";
 import revenueGrowthReducer from "../features/revenueGrowth/revenueGrowthSlice";
+import monthlyRevenueReducer from "../features/revenueGrowth/monthlyRevenueSlice";
+import quarterlyRevenueReducer from "../features/revenueGrowth/quarterlyRevenueSlice";
+import halfYearlyRevenueReducer from "../features/revenueGrowth/halfYearlyRevenueSlice";
+import yearlyRevenueReducer from "../features/revenueGrowth/yearlyRevenueSlice";
 import revenueReducer from "../features/revenueGrowth/revenueSlice";
 import roleManageSlice from "../features/roleManage/roleManageSlice";
 import currentUserReducer from "../features/users/currentUserSlice";
@@ -31,6 +35,10 @@ export const store = configureStore({
     currentUser: currentUserReducer,
     revenueGrowth: revenueGrowthReducer,
     revenue: revenueReducer,
+    monthlyRevenue: monthlyRevenueReducer,
+    quarterlyRevenue: quarterlyRevenueReducer,
+    halfYearlyRevenue: halfYearlyRevenueReducer,
+    yearlyRevenue: yearlyRevenueReducer,
     payroll: payrollReducer,
     incomes: incomesReducer,
     invoices: invoiceReducer,
