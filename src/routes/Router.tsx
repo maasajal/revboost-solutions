@@ -3,6 +3,9 @@ import AdminDashboard from "../dashboard/Admin/AdminDashboard/AdminDashboard";
 import Incomes from "../dashboard/CompanyIncomes/Incomes";
 import DashboardHome from "../dashboard/DashboardHome";
 // import Expense from "../dashboard/Expense/Expense";
+import Invoice from "../dashboard/CompanyIncomes/InvoiceAndBilling/Invoice";
+import CustomerMessage from "../dashboard/CustomerMessage/CustomerMessage";
+import CustomerMessageDetails from "../dashboard/CustomerMessageDetails/CustomerMessageDetails";
 import Expenses from "../dashboard/Expense/Expenses";
 import Payroll from "../dashboard/Payroll/Payroll";
 import UserProfile from "../dashboard/Profile/Profile";
@@ -21,10 +24,9 @@ import Login from "../pages/authentication/login/Login";
 import Register from "../pages/authentication/register/Register";
 import AdminRoute from "./AdminRoute";
 import BasicRoute from "./BasicRoute";
+import PremiumRoute from "./PremiumRoute";
 import PrivateRoute from "./PrivateRoute";
 import StandardRoute from "./StandardRoute";
-import Invoice from "../dashboard/CompanyIncomes/InvoiceAndBilling/Invoice";
-import PremiumRoute from "./PremiumRoute";
 
 const router = createBrowserRouter([
   {
@@ -140,9 +142,24 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/admin",
         element: (
-          <AdminRoute>
-            {" "}
-            <AdminDashboard />{" "}
+          <AdminRoute> 
+            <AdminDashboard />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/messages",
+        element: (
+          <AdminRoute> 
+            <CustomerMessage />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/messages-details",
+        element: (
+          <AdminRoute> 
+            <CustomerMessageDetails />
           </AdminRoute>
         ),
       },
