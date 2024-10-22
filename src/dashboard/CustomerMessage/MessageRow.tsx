@@ -15,7 +15,7 @@ interface Data {
 interface MessageProps {
     row: Data;
 }
-const MessageRow: React.FC<MessageProps> = ({ row }) => {
+const MessageRow: React.FC<MessageProps> = ({ row }) => { 
     const readStatus = row.messages.some(status => status.readStatus === "unread");
     return (
         <TableRow
@@ -25,8 +25,8 @@ const MessageRow: React.FC<MessageProps> = ({ row }) => {
                 {row.email}
             </TableCell>
             <TableCell align="center">{row.createdAt}</TableCell>
-            <TableCell  sx={{ color: readStatus ? 'red' : 'green' }} align="center">{readStatus ? "unread" : "read"}</TableCell>
-            <TableCell align="right"> <Link to='/dashboard/messages-details'><Button variant="contained">Details</Button></Link></TableCell>
+            <TableCell sx={{ color: readStatus ? 'red' : 'green' }} align="center">{readStatus ? "unread" : "read"}</TableCell>
+            <TableCell align="right"> <Link to={`/dashboard/messages-details/${row._id}`}><Button variant="contained">Details</Button></Link></TableCell>
         </TableRow>
     );
 };
