@@ -3,8 +3,8 @@ import { IQuarterlyRevenue, QuarterlyRevenueState } from "./RevenueGrowthType";
 
 const initialState: QuarterlyRevenueState = {
   quarterlyRevenue: {
-    currentQuarter: 0,
-    previousQuarter: 0,
+    currentQuarter: "",
+    previousQuarter: "",
     currentQuarterRevenue: 0,
     previousQuarterRevenue: 0,
     quarterlyGrowth: "0%",

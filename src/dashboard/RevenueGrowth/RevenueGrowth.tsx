@@ -5,6 +5,7 @@ import { useAppSelector } from "../../app/hooks/useAppSelector";
 import { useEffect } from "react";
 import {
   fetchMonthlyRevenue,
+  fetchQuarterlyRevenue,
   fetchRevenueGrowth,
   getMonthlyRevenue,
 } from "../../app/api/revenueGrowthAPI";
@@ -43,6 +44,7 @@ const RevenueGrowth: React.FC = () => {
     if (currentUser._id) {
       dispatch(fetchRevenueData(currentUser._id));
       dispatch(fetchMonthlyRevenue(currentUser._id));
+      dispatch(fetchQuarterlyRevenue(currentUser._id));
     }
     dispatch(fetchRevenueGrowth(userId));
     dispatch(getMonthlyRevenue(userId));
@@ -95,8 +97,8 @@ const RevenueGrowth: React.FC = () => {
         {currentUser ? currentUser.name : "Company Name"}
       </h1>
       <Container>
-        <Grid container spacing={4}>
-          <Grid item xs={12} md={6}>
+        <Grid container spacing={4} columns={{ xs: 4, sm: 8, md: 12 }}>
+          <Grid item xs={2} sm={4} md={4}>
             <RevenueCard
               title={"Monthly Revenue"}
               current={currentMonthRevenue}
@@ -104,7 +106,7 @@ const RevenueGrowth: React.FC = () => {
               growth={monthlyGrowth}
             />
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={2} sm={4} md={4}>
             <RevenueCard
               title={"Quarterly Revenue"}
               current={currentQuarterRevenue}

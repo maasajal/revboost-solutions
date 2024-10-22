@@ -57,8 +57,8 @@ export const fetchQuarterlyRevenue =
     try {
       dispatch(fetchQuarterlyRevenueStart());
 
-      const response = await axiosSecure.get(`/quarterly-revenue/${userId}`);
-
+      const response = await axiosPublic.get(`/quarterly-revenue/${userId}`);
+      console.log("API Response:", response.data);
       const {
         currentQuarter,
         previousQuarter,
