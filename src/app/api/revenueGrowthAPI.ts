@@ -10,8 +10,43 @@ import {
 import { axiosPublic } from "../hooks/useAxiosPublic";
 // import { axiosSecure } from "../hooks/useAxiosSecure";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import {
+  fetchMonthlyRevenueStart,
+  fetchMonthlyRevenueSuccess,
+  fetchMonthlyRevenueFailure,
+} from "../features/revenueGrowth/monthlyRevenueSlice";
+import { axiosSecure } from "../hooks/useAxiosSecure";
+import { AppDispatch } from "../store/store";
 
 const API_BASE_URL = "/revenue-growth";
+
+export const fetchMonthlyRevenue =
+  (userId: string) => async (dispatch: AppDispatch) => {
+    try {
+      dispatch(fetchMonthlyRevenueStart());
+
+      const response = await axiosSecure.get(`/monthly-revenue/${userId}`);
+
+      const { currentMonthRevenue, previousMonthRevenue, growth } =
+        response.data;
+
+      // Dispatch the success action with payload
+      dispatch(
+        fetchMonthlyRevenueSuccess({
+          currentMonthRevenue,
+          previousMonthRevenue,
+          growth,
+        })
+      );
+    } catch (error: any) {
+      // Handle the error and dispatch the failure action
+      dispatch(
+        fetchMonthlyRevenueFailure(
+          error.message || "Failed to fetch monthly revenue"
+        )
+      );
+    }
+  };
 
 export const getMonthlyRevenue = createAsyncThunk(
   "monthlyRevenues/getMonthlyRevenue",

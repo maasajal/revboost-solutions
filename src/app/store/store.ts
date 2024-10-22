@@ -9,7 +9,7 @@ import authReducer from "../features/firebaseAuthentication/authSlice"; // à¦†à¦
 import getAllUsersSlice from "../features/getAllUsers/getAllUsersSlice";
 import payrollReducer from "../features/payroll/payrollSlice";
 import revenueGrowthReducer from "../features/revenueGrowth/revenueGrowthSlice";
-import monthlyRevenueReducer from "../features/revenueGrowth/montlyRevenueSlice";
+import monthlyRevenueReducer from "../features/revenueGrowth/monthlyRevenueSlice";
 import revenueReducer from "../features/revenueGrowth/revenueSlice";
 import roleManageSlice from "../features/roleManage/roleManageSlice";
 import currentUserReducer from "../features/users/currentUserSlice";
@@ -31,7 +31,7 @@ export const store = configureStore({
     currentUser: currentUserReducer,
     revenueGrowth: revenueGrowthReducer,
     revenue: revenueReducer,
-    monthlyRevenues: monthlyRevenueReducer,
+    monthlyRevenue: monthlyRevenueReducer,
     payroll: payrollReducer,
     incomes: incomesReducer,
     allIncome: allIncomeReducer,
