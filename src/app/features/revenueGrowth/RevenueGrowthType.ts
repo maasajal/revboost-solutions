@@ -21,3 +21,16 @@ export interface QuarterlyRevenueState {
   loading: boolean;
   error: string | null;
 }
+
+export interface IHalfYearlyRevenue {
+  currentHalfYear: string;
+  previousHalfYear: string;
+  currentHalfYearRevenue: number;
+  previousHalfYearRevenue: number;
+  halfYearlyGrowth: string;
+}
+export interface HalfYearlyRevenueState {
+  halfYearlyRevenue: IHalfYearlyRevenue;
+  loading: boolean;
+  error: string | null;
+}

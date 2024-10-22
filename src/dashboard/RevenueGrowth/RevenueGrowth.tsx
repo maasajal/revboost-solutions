@@ -4,29 +4,16 @@ import { useAppDispatch } from "../../app/hooks/useAppDispatch";
 import { useAppSelector } from "../../app/hooks/useAppSelector";
 import { useEffect } from "react";
 import {
+  fetchHalfYearlyRevenue,
   fetchMonthlyRevenue,
   fetchQuarterlyRevenue,
-  fetchRevenueGrowth,
-  getMonthlyRevenue,
 } from "../../app/api/revenueGrowthAPI";
 import User from "../../app/features/users/UserType";
 import { fetchRevenueData } from "../../app/features/revenueGrowth/revenueSlice";
 import { getCurrentUser } from "../../app/api/currentUserAPI";
 import { RootState } from "../../app/store/store";
-import { CircularProgress, Grid } from "@mui/material";
+import { CircularProgress, Grid, Typography } from "@mui/material";
 import RevenueCard from "./RevenueCard";
-
-interface RevenueData {
-  month: number;
-  totalRevenue: number;
-}
-
-const revenueData: RevenueData[] = [
-  { month: 6, totalRevenue: 23345 },
-  { month: 12, totalRevenue: 33345 },
-  { month: 24, totalRevenue: 43345 },
-  { month: 36, totalRevenue: 53345 },
-];
 
 const RevenueGrowth: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -38,9 +25,8 @@ const RevenueGrowth: React.FC = () => {
       dispatch(fetchRevenueData(currentUser._id));
       dispatch(fetchMonthlyRevenue(currentUser._id));
       dispatch(fetchQuarterlyRevenue(currentUser._id));
+      dispatch(fetchHalfYearlyRevenue(currentUser._id));
     }
-    dispatch(fetchRevenueGrowth(currentUser._id));
-    dispatch(getMonthlyRevenue(currentUser._id));
   }, [dispatch, currentUser._id]);
 
   const { loading, error } = useAppSelector(
@@ -60,22 +46,15 @@ const RevenueGrowth: React.FC = () => {
     (state: RootState) => state.quarterlyRevenue.quarterlyRevenue
   );
 
-  const { revenueEntries } = useAppSelector((state) => state.revenue);
-
-  const calculateRevenueGrowth = (
-    previousRevenue: number,
-    currentRevenue: number
-  ): number => {
-    if (previousRevenue === 0) return 0;
-    const growth = ((currentRevenue - previousRevenue) / previousRevenue) * 100;
-    return growth;
-  };
-
-  const lastTwoRevenues = revenueEntries.slice(-2);
-  if (lastTwoRevenues.length === 2) {
-    const [previous, current] = lastTwoRevenues;
-    calculateRevenueGrowth(previous.revenue, current.revenue);
-  }
+  const {
+    currentHalfYear,
+    previousHalfYear,
+    currentHalfYearRevenue,
+    previousHalfYearRevenue,
+    halfYearlyGrowth,
+  } = useAppSelector(
+    (state: RootState) => state.halfYearlyRevenue.halfYearlyRevenue
+  );
 
   if (loading) return <CircularProgress size="3rem" />;
   if (error) return <p>Error: {error}</p>;
@@ -107,20 +86,29 @@ const RevenueGrowth: React.FC = () => {
             growth={quarterlyGrowth}
           />
         </Grid>
+        <Grid item xs={2} sm={4} md={4}>
+          <RevenueCard
+            title={"Half Year Revenue"}
+            current_time={currentHalfYear}
+            previous_time={previousHalfYear}
+            current={currentHalfYearRevenue}
+            previous={previousHalfYearRevenue}
+            growth={halfYearlyGrowth}
+          />
+        </Grid>
       </section>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-8 py-10">
-        {revenueData.map((data) => (
-          <div
-            key={data.month}
-            className={`p-4 rounded-md text-white shadow-xl`}
-          >
-            <p className="text-lg">Total Revenue (Month {data.month})</p>
-            <h2 className="text-3xl font-bold">
-              ${data.totalRevenue.toLocaleString()}
-            </h2>
-          </div>
-        ))}
+        <Typography variant="body2" className={`p-4 rounded-md shadow-xl`}>
+          <p className="text-lg">Last 6 Months Revenue:</p>
+          <h2 className="text-3xl font-bold"> $ {currentHalfYearRevenue}</h2>
+        </Typography>
+        <Typography variant="body2" className={`p-4 rounded-md shadow-xl`}>
+          <p className="text-lg">Last 12 Months Revenue:</p>
+          <h2 className="text-3xl font-bold">
+            $ {currentHalfYearRevenue + previousHalfYearRevenue}
+          </h2>
+        </Typography>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
