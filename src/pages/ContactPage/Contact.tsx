@@ -37,6 +37,7 @@ const Contact: React.FC = () => {
         );
     }
   };
+  console.log("Please use this function to send email", sendEmail)
 
   return (
     <div>

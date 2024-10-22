@@ -3,10 +3,14 @@ import RevenueComparisonPieChart from "./RevenueComparisonPieChart";
 import { useAppDispatch } from "../../app/hooks/useAppDispatch";
 import { useAppSelector } from "../../app/hooks/useAppSelector";
 import { useEffect } from "react";
-import { fetchRevenueGrowth } from "../../app/api/revenueGrowthAPI";
+import {
+  fetchRevenueGrowth,
+  getMonthlyRevenue,
+} from "../../app/api/revenueGrowthAPI";
 import User from "../../app/features/users/UserType";
 import { fetchRevenueData } from "../../app/features/revenueGrowth/revenueSlice";
 import { getCurrentUser } from "../../app/api/currentUserAPI";
+import { RootState } from "../../app/store/store";
 
 interface RevenueData {
   month: number;
@@ -37,10 +41,17 @@ const RevenueGrowth: React.FC = () => {
       dispatch(fetchRevenueData(currentUser._id));
     }
     dispatch(fetchRevenueGrowth(userId));
+    dispatch(getMonthlyRevenue(userId));
   }, [dispatch, currentUser._id]);
 
+  const { monthlyRevenue } = useAppSelector(
+    (state: RootState) => state.monthlyRevenues
+  );
+
+  console.log("monthly revenue", monthlyRevenue);
+
   const { revenueEntries } = useAppSelector((state) => state.revenue);
-  // console.log("revenue entries", revenueEntries);
+
   const calculateRevenueGrowth = (
     previousRevenue: number,
     currentRevenue: number
