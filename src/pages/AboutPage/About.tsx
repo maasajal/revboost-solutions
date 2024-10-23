@@ -86,7 +86,7 @@ const About = () => {
             content="Solution For Your Bussiness"
           />
           <div className=" w-full mx-auto my-8 space-y-4 text-center xl:col-span-2 xl:text-left">
-            <p className="dark:text-gray-600 text-center">
+            <p className="dark:text-gray-600 text-center w-3/4 mx-auto">
               We're proposing to build a web-based platform, "RevBoost,"
               designed to help your business streamline and optimize its revenue
               generation processes. The platform will be developed using Next.js
