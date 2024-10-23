@@ -67,14 +67,6 @@ const RevenueGrowth: React.FC = () => {
     yearlyGrowth,
   } = useAppSelector((state: RootState) => state.yearlyRevenue.yearlyRevenue);
 
-  console.log(
-    currentYear,
-    previousYear,
-    currentYearRevenue,
-    previousYearRevenue,
-    yearlyGrowth
-  );
-
   if (loading) return <CircularProgress size="3rem" />;
   if (error) return <p>Error: {error}</p>;
 
