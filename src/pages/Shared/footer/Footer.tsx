@@ -2,7 +2,7 @@ import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="footer bg-footerBGColor text-neutral-content py-10 px-10 sm:px-20 md:px-32 mt-32">
+    <footer className="footer bg-footerBGColor text-neutral-content py-10 px-10 sm:px-20 md:px-32 mt-5">
       <nav>
         <h6 className="font-bold mb-2 text-xl">Services</h6>
         <a className="link link-hover">Pricing</a>

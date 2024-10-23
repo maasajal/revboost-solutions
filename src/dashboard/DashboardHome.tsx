@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom";
 import RevenueForecastChart from "./RevenueGrowth/RevenueForecastChart";
 import RevenueComparisonPieChart from "./RevenueGrowth/RevenueComparisonPieChart";
 import { Helmet } from "react-helmet";
+import SectionTitle from "../components/SectionTitle";
 
 const DashboardHome: React.FC = () => {
   return (
@@ -14,7 +15,11 @@ const DashboardHome: React.FC = () => {
         <meta charSet="utf-8" />
         <title>User Dashboard - RevBoost Solutions</title>
       </Helmet>
-      <h1 className="text-center">Dashboard Home</h1>
+      <SectionTitle
+        title="All at a glance"
+        intro={"Dashboard"}
+        content="Company Revenue Growth Live!"
+      />
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 py-10">
         <div className="h-full py-10 px-5 rounded-xl border">
           <RevenueForecastChart />
@@ -23,6 +28,11 @@ const DashboardHome: React.FC = () => {
           <RevenueComparisonPieChart />
         </div>
       </div>
+      <SectionTitle
+        title="Main Features"
+        intro={"Dashboard"}
+        content="Find-out more about the features!"
+      />
       <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-10 py-20">
         {dashNavLinks.map((nav) => (
           <div key={nav.path} className="p-10 rounded-xl shadow-xl">

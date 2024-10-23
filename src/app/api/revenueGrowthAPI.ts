@@ -28,6 +28,11 @@ import {
   fetchYearlyRevenueStart,
   fetchYearlyRevenueSuccess,
 } from "../features/revenueGrowth/yearlyRevenueSlice";
+import {
+  fetchTotalRevenueFailure,
+  fetchTotalRevenueStart,
+  fetchTotalRevenueSuccess,
+} from "../features/revenueGrowth/totalRevenueSlice";
 
 export const fetchMonthlyRevenue =
   (userId: string) => async (dispatch: AppDispatch) => {
@@ -139,6 +144,31 @@ export const fetchYearlyRevenue =
     } catch (error: any) {
       dispatch(
         fetchYearlyRevenueFailure(
+          error.message || "Failed to fetch  Yearly revenue"
+        )
+      );
+    }
+  };
+
+export const fetchTotalRevenue =
+  (userId: string) => async (dispatch: AppDispatch) => {
+    try {
+      dispatch(fetchTotalRevenueStart());
+      const response = await axiosSecure.get(`/total-revenue/${userId}`);
+      const { totalIncome, totalExpenses, growthPercentage, forecast } =
+        response.data;
+
+      dispatch(
+        fetchTotalRevenueSuccess({
+          totalIncome,
+          totalExpenses,
+          growthPercentage,
+          forecast,
+        })
+      );
+    } catch (error: any) {
+      dispatch(
+        fetchTotalRevenueFailure(
           error.message || "Failed to fetch  Yearly revenue"
         )
       );

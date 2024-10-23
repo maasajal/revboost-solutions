@@ -10,7 +10,6 @@ import { AppDispatch, RootState } from "../../../app/store/store";
 import {
   createInvoice,
   fetchIndivitualInvoices,
-  fetchInvoices,
   InvoiceData,
 } from "../../../app/features/companyIncome/invoiceSlice";
 import { useEffect } from "react";

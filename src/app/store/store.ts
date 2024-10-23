@@ -14,6 +14,7 @@ import monthlyRevenueReducer from "../features/revenueGrowth/monthlyRevenueSlice
 import quarterlyRevenueReducer from "../features/revenueGrowth/quarterlyRevenueSlice";
 import halfYearlyRevenueReducer from "../features/revenueGrowth/halfYearlyRevenueSlice";
 import yearlyRevenueReducer from "../features/revenueGrowth/yearlyRevenueSlice";
+import totalRevenueGrowthReducer from "../features/revenueGrowth/totalRevenueSlice";
 import revenueReducer from "../features/revenueGrowth/revenueSlice";
 import roleManageSlice from "../features/roleManage/roleManageSlice";
 import currentUserReducer from "../features/users/currentUserSlice";
@@ -39,6 +40,7 @@ export const store = configureStore({
     quarterlyRevenue: quarterlyRevenueReducer,
     halfYearlyRevenue: halfYearlyRevenueReducer,
     yearlyRevenue: yearlyRevenueReducer,
+    totalRevenueGrowth: totalRevenueGrowthReducer,
     payroll: payrollReducer,
     incomes: incomesReducer,
     invoices: invoicesReducer,
