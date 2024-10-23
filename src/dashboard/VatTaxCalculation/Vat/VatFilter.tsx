@@ -7,11 +7,13 @@ import { RootState } from "../../../app/store/store";
 
 interface YearMonthSelectorProps {
     years: number[];
-    fetchIncomesData:(year: number | null, month: string | null) => Promise<void>
-    loading: boolean;  
+    fetchIncomesData: (year: number | null, month: string | null) => Promise<void>
+    loading: boolean;
+    refetch: boolean;
+    // setRefetch: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const VatFilter: React.FC<YearMonthSelectorProps> = ({ years, fetchIncomesData,  loading }) => {
+const VatFilter: React.FC<YearMonthSelectorProps> = ({ years, fetchIncomesData, loading, refetch }) => {
     const { _id: userId } = useAppSelector((state: RootState) => state.currentUser.user) as User;
     const [selectedYear, setSelectedYear] = useState<number | null>(null);
     const [selectedMonth, setSelectedMonth] = useState<string | null>(null);
@@ -46,9 +48,9 @@ const VatFilter: React.FC<YearMonthSelectorProps> = ({ years, fetchIncomesData, 
         fetchIncomesData(selectedYear, selectedMonth)
 
     }
-    useEffect(() => { 
+    useEffect(() => {
         fetchIncomesData(selectedYear, selectedMonth)
-    }, [userId])
+    }, [userId, refetch])
     if (loading) return <>Loading data </>
     return (
         <div className="flex flex-col gap-4 md:flex-row md:items-center my-12">
