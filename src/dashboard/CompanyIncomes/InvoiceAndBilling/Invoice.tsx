@@ -27,6 +27,7 @@ import {
   TableRow,
 } from "@mui/material";
 import { Helmet } from "react-helmet";
+import OCRFeature from "./OCRFeature";
 
 // type InvoiceData = {
 //   companyEmail: string;
@@ -151,6 +152,7 @@ const Invoice = () => {
       <section className="container mx-auto mt-10 space-y-8">
         <h2>Company Invoice</h2>
         {/* pdf reader */}
+        <OCRFeature></OCRFeature>
         <div>
           <form
             onSubmit={handleSubmit(onSubmit)}
