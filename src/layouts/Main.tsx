@@ -1,13 +1,13 @@
 import { onAuthStateChanged } from "firebase/auth";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Outlet } from "react-router-dom";
 import { setUser } from "../app/features/firebaseAuthentication/authSlice";
 import { auth } from "../firebase/firebase.config";
-import Navbar from "../pages/Shared/Navbar/Navbar";
 import Footer from "../pages/Shared/footer/Footer";
+import ResponsiveAppBar from "../pages/Shared/Navbar/ResponsiveAppBar";
 
-const Main = () => {
+const Main: React.FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -24,7 +24,7 @@ const Main = () => {
 
   return (
     <div>
-      <Navbar />
+      <ResponsiveAppBar />
       <main className="font-roboto">
         <Outlet />
       </main>

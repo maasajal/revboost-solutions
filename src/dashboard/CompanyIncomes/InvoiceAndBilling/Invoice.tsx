@@ -5,35 +5,45 @@ import {
   useForm,
 } from "react-hook-form";
 
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../app/store/store";
+import {
+  createInvoice,
+  fetchInvoices,
+  InvoiceData,
+} from "../../../app/features/companyIncome/invoiceSlice";
+import { useEffect } from "react";
+import { getCurrentUser } from "../../../app/api/currentUserAPI";
+import { useAppSelector } from "../../../app/hooks/useAppSelector";
+import User from "../../../app/features/users/UserType";
 
-// export interface InvoiceData {
+import {
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@mui/material";
+
+// type InvoiceData = {
 //   companyEmail: string;
 //   customerName: string;
 //   companyName: string;
 //   invoiceNumber: string;
-//   invoiceDueDate: string;
 //   date: string;
+//   invoiceDueDate: string;
 //   customerAddress: string;
-//   items: Item[];
-// }
-// new try
+//   items: {
+//     no: number;
+//     item: string;
+//     quantity: number;
+//     unitPrice: number;
+//     totalAmount: number;
+//   }[];
+// };
 
-type InvoiceData = {
-  companyEmail: string;
-  customerName: string;
-  companyName: string;
-  invoiceNumber: string;
-  date: string;
-  invoiceDueDate: string;
-  customerAddress: string;
-  items: {
-    no: number;
-    item: string;
-    quantity: number;
-    unitPrice: number;
-    totalAmount: number;
-  }[];
-};
 // Get Date
 function getDate() {
   const today = new Date();
@@ -44,6 +54,29 @@ function getDate() {
 }
 
 const Invoice = () => {
+
+  const dispatch = useDispatch<AppDispatch>();
+  const { _id: userId, email: userEmail } = useAppSelector(
+    (state) => state.currentUser.user
+  ) as User;
+  // // for user
+  useEffect(() => {
+    dispatch(getCurrentUser());
+    dispatch(fetchInvoices);
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(fetchInvoices());
+  }, [dispatch]);
+
+  // const [currentDate, setCurrentDate] = useState(getDate());
+
+  // Selectors
+  const { loading, error, invoices } = useSelector(
+    (state: RootState) => state.invoices
+  );
+  console.log(loading, error, invoices);
+
  
 
   // const [currentDate, setCurrentDate] = useState(getDate());
@@ -60,8 +93,9 @@ const Invoice = () => {
   //     items: [{ no: 1, item: "", quantity: 0, unitPrice: 0, totalAmount: 0 }],
   //   },
   // });
+
   // Initialize React Hook Form
-  const { register, control, handleSubmit} = useForm<InvoiceData>({
+  const { register, control, handleSubmit } = useForm<InvoiceData>({
     defaultValues: {
       companyEmail: "",
       customerName: "",
@@ -83,25 +117,31 @@ const Invoice = () => {
   // Handle form submission
   const onSubmit: SubmitHandler<InvoiceData> = async (data) => {
     console.log(data);
-    
+
+    if (!userId || !userEmail) {
+      console.error("User ID or email is missing");
+      return;
+    }
+
+    // // Calculate totalAmount for each item
+    // const updatedItems: Item[] = data.items.map((item) => ({
+    //   ...item,
+    //   totalAmount: item.quantity * item.unitPrice,
+    // }));
+    const invoiceData: InvoiceData = { ...data };
+    // Dispatch the createInvoice thunk
+    await dispatch(createInvoice(invoiceData));
+    // if (createInvoice.fulfilled.match(invoiceData)){
+    //   dispatch(fetchInvoices())
+    // }
+
   };
-
-  // const onSubmit = handleSubmit((data: IncomeData) => {
-  //   console.table(data);
-
-  //   axios
-  //     .post("https://revboost-solutions.vercel.app/api/v1/invoices/create", data)
-  //     .then((response) => {
-  //       console.log("Invoice saved successfully:", response.data);
-
-  //     })
-  //     .catch((error) => console.error("Error saving invoice:", error));
-  // });
 
   return (
     <>
       <section className="container mx-auto mt-10 space-y-8">
-        <h2>Company Income</h2>
+        <h2>Company Invoice</h2>
+        {/* pdf reader */}
         <div>
           <form
             onSubmit={handleSubmit(onSubmit)}
@@ -109,75 +149,76 @@ const Invoice = () => {
           >
             <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4">
               <div className="space-y-4">
-                <div>
+                <div className="shadow-2xl rounded">
                   <label className="text-sm">Company Email</label>
                   <input
                     {...register("companyEmail", { required: true })}
                     id="companyEmail"
                     placeholder="Your company @email"
-                    className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
+                    className="w-full p-3 rounded  focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
                   />
                 </div>
-                <div>
+                <div className="shadow-2xl rounded">
                   <label className="text-sm">Customer Name</label>
                   <input
                     {...register("customerName", { required: true })}
                     id="customerName"
                     placeholder="Customer Name"
-                    className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
+                    className="w-full p-3 rounded  focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
                   />
                 </div>
-                <div>
+                <div className="shadow-2xl rounded">
                   <label className="text-sm">Your Company Name</label>
                   <input
                     {...register("companyName", { required: true })}
                     id="companyName"
                     type="text"
-                    className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
+                    placeholder="Company name"
+                    className="w-full p-3 rounded focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
                   />
                 </div>
               </div>
               <div className="space-y-4">
-                <div>
+                <div className="shadow-2xl rounded">
                   <label className="text-sm">Invoice Number</label>
                   <input
                     {...register("invoiceNumber", { required: true })}
                     id="invoiceNumber"
                     type="number"
-                    placeholder=""
-                    className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
+                    placeholder="Invoice maunally"
+                    className="w-full p-3 rounded  focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
                   />
                 </div>
-                <div>
+                <div  className="shadow-2xl rounded">
                   <label className="text-sm">Invoice Creation Date</label>
                   <input
                     {...register("date")}
                     id="invoiceCreationDate"
-                    // type="date"
-                    placeholder={getDate()}
-                    className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
+                    type="date"
+                   
+                    className="w-full p-3 rounded  focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
                   />
                 </div>
               </div>
               <div className="space-y-4">
-                <div>
+                <div  className="shadow-2xl rounded">
                   <label className="text-sm">Due Date</label>
                   <input
                     {...register("invoiceDueDate", { required: true })}
                     id="InvoiceDueDate"
                     type="text"
-                    placeholder=""
-                    className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
+                    placeholder={getDate()}
+                    className="w-full p-3 rounded  focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
                   />
                 </div>
-                <div>
+                <div className="shadow-2xl">
                   <label className="text-sm">Customer Address</label>
                   <input
                     {...register("customerAddress", { required: true })}
                     id="customerAddress"
                     placeholder="Your address"
                     type="text"
-                    className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
+                    className="w-full p-3 rounded focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
                   />
                 </div>
               </div>
@@ -186,7 +227,7 @@ const Invoice = () => {
                 Items:
               </h3>
               {fields.map((item, index) => (
-                <div key={item.id} className="space-y-2">
+                <div key={item.id} className="space-y-2 shadow-2xl">
                   <label>No</label>
                   <Controller
                     name={`items.${index}.no`}
@@ -194,7 +235,7 @@ const Invoice = () => {
                     render={({ field }) => (
                       <input
                         type="number"
-                        className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
+                        className="w-full p-3 rounded focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
                         {...field}
                       />
                     )}
@@ -202,21 +243,21 @@ const Invoice = () => {
                   <label>Item</label>
                   <input
                     {...register(`items.${index}.item`)}
-                    className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
+                    className="w-full p-3 rounded focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
                     required
                   />
                   <label>Quantity</label>
                   <input
                     type="number"
                     {...register(`items.${index}.quantity`)}
-                    className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
+                    className="w-full p-3 rounded  focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
                     required
                   />
                   <label>Unit Price</label>
                   <input
                     type="number"
                     {...register(`items.${index}.unitPrice`)}
-                    className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
+                    className="w-full p-3 rounded  focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
                     required
                   />
                   <label>Total Amount</label>
@@ -226,7 +267,7 @@ const Invoice = () => {
                     render={({ field }) => (
                       <input
                         type="number"
-                        className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
+                        className="w-full p-3 rounded  focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
                         // defaultValue={item.quantity * item.unitPrice}
                         // placeholder={ `${item.quantity * item.unitPrice}`}
                         {...field}
@@ -235,7 +276,7 @@ const Invoice = () => {
                     )}
                   />
                   <button
-                    className="w-full mt-4 p-3 rounded  bg-red-200 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 "
+                    className="w-full  mt-4 p-3 rounded  bg-red-300 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 "
                     type="button"
                     onClick={() => remove(index)}
                   >
@@ -243,9 +284,9 @@ const Invoice = () => {
                   </button>
                 </div>
               ))}
-              <div className="flex gap-2">
+              <div className="flex gap-4 max-h-12 shadow-2xl">
                 <button
-                  className="w-full p-3 rounded dark:bg-gray-100 focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
+                  className="w-full p-3 rounded  focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
                   type="button"
                   onClick={() =>
                     append({
@@ -261,21 +302,23 @@ const Invoice = () => {
                 </button>
                 <button
                   type="submit"
-                  className="w-full p-3 text-sm font-bold tracking-wide uppercase rounded dark:bg-red-400 dark:text-gray-50"
+                  className={loading === true ? `animate-bounce w-full p-3 text-sm font-bold tracking-wide uppercase rounded dark:bg-red-400 dark:text-gray-50`:  `w-full p-3 text-sm font-bold tracking-wide uppercase rounded dark:bg-blue-400 dark:text-gray-50`}
                 >
-                  save
+                  {loading ? "Saving..." : "Save Invoice"}
                 </button>
+                {/* Error Message */}
+                {error && <p className="text-red-400">{error}</p>}
               </div>
             </div>
             {/* Error Message */}
           </form>
         </div>
         {/* Add Item */}
-
+        
         {/* Table */}
         <div className="space-y-6 border-2 p-4 shadow-2xl rounded-lg">
           <h2 className="mb-4 text-center text-2xl font-bold leading-tight">
-            Your Incomes
+            Your Invoice
           </h2>
           <div className="flex justify-between">
             <div className="space-y-4">
@@ -295,6 +338,52 @@ const Invoice = () => {
               <p className="text-red-400">Due Date:</p>
             </div>
           </div>
+          <TableContainer component={Paper} className="overflow-x-auto">
+            <Table>
+              <TableHead className="bg-blue-300 border-b border-opacity-20">
+                <TableRow>
+                  <TableCell>
+                    <strong>#invoice</strong>
+                  </TableCell>
+                  <TableCell>
+                    <strong>Client</strong>
+                  </TableCell>
+                  <TableCell>
+                    <strong>Issued</strong>
+                  </TableCell>
+                  <TableCell>
+                    <strong>Due</strong>
+                  </TableCell>
+                  <TableCell>
+                    <strong>Address</strong>
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+
+              <TableBody>
+                {invoices && invoices.length > 0 ? (
+                  invoices.map((invoice) => (
+                    <>
+                      <TableRow key={invoice?.invoiceNumber}>
+                        <TableCell>{invoice?.invoiceNumber}</TableCell>
+                        <TableCell>{invoice?.companyName}</TableCell>
+                        <TableCell>{invoice?.date}</TableCell>
+                        <TableCell>{invoice?.invoiceDueDate}</TableCell>
+                        <TableCell>$ {invoice?.customerAddress}</TableCell>
+                      </TableRow>
+                    </>
+                  ))
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={4} align="center">
+                      No expenses found.
+                    </TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+
           <div className=" dark:text-gray-800">
             <div className="overflow-x-auto">
               <table className="min-w-full text-xs">
@@ -306,18 +395,8 @@ const Invoice = () => {
                   <col />
                   <col className="w-24" />
                 </colgroup>
-                <thead className="dark:bg-red-400">
-                  <tr className="text-left">
-                    <th className="p-3">Invoice #</th>
-                    <th className="p-3">Client</th>
-                    <th className="p-3">Issued</th>
-                    <th className="p-3">Due</th>
-                    <th className="p-3 text-right">Amount</th>
-                    <th className="p-3 text-right"></th>
-                  </tr>
-                </thead>
+                <thead className="dark:bg-red-400"></thead>
                 <tbody>
-                 
 
                   <tr className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50">
                     <td className="p-3">
@@ -343,55 +422,7 @@ const Invoice = () => {
                       </span>
                     </td>
                   </tr>
-                  <tr className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50">
-                    <td className="p-3">
-                      <p>97412378923</p>
-                    </td>
-                    <td className="p-3">
-                      <p>Coca Cola co.</p>
-                    </td>
-                    <td className="p-3">
-                      <p>14 Jan 2022</p>
-                      <p className="dark:text-gray-600">Friday</p>
-                    </td>
-                    <td className="p-3">
-                      <p>01 Feb 2022</p>
-                      <p className="dark:text-gray-600">Tuesday</p>
-                    </td>
-                    <td className="p-3 text-right">
-                      <p>$8,950,500</p>
-                    </td>
-                    <td className="p-3 text-right">
-                      <span className="px-3 py-1 font-semibold rounded-md dark:bg-red-400 dark:text-gray-50">
-                        <span>Delete</span>
-                      </span>
-                    </td>
-                  </tr>
-                  <tr className="border-b border-opacity-20 dark:border-red-300 dark:bg-gray-50">
-                    <td className="p-3">
-                      <p>97412378923</p>
-                    </td>
-                    <td className="p-3">
-                      <p>Nvidia Corporation</p>
-                    </td>
-                    <td className="p-3">
-                      <p>14 Jan 2022</p>
-                      <p className="dark:text-gray-600">Friday</p>
-                    </td>
-                    <td className="p-3">
-                      <p>01 Feb 2022</p>
-                      <p className="dark:text-gray-600">Tuesday</p>
-                    </td>
-                    <td className="p-3 text-right">
-                      <p>$98,218</p>
-                    </td>
-                    <td className="p-3 text-right">
-                      <span className="px-3 py-1 font-semibold rounded-md dark:bg-red-400 dark:text-gray-50">
-                        <span>Delete</span>
-                      </span>
-                    </td>
-                  </tr>
-
+                  
                   <tr className="border-b border-opacity-20">
                     <td className="p-3">
                       <p></p>
@@ -410,7 +441,7 @@ const Invoice = () => {
                     <td className="p-3 text-right">
                       {/* Write Total Below  */}
 
-                      <h5>$6000</h5>
+                      <h5>$</h5>
                     </td>
                     <td className="p-3 text-right">
                       <span className="px-3 py-1 font-semibold rounded-md dark:text-gray-50">
@@ -436,7 +467,7 @@ const Invoice = () => {
                     <td className="p-3 text-right">
                       {/* Write VAT Below  */}
 
-                      <h5>$6000</h5>
+                      <h5>$</h5>
                     </td>
                     <td className="p-3 text-right">
                       <span className="px-3 py-1 font-semibold rounded-md dark:text-gray-50">
@@ -459,10 +490,10 @@ const Invoice = () => {
                       <h4>total</h4>
                       <p className="dark:text-gray-600"></p>
                     </td>
-                    <td className="p-3 text-right">
+                    <td className="p-3 text-right animate-bounce">
                       {/* Write Total Below  */}
 
-                      <h4>$7500</h4>
+                      <h4>$</h4>
                     </td>
                     <td className="p-3 text-right">
                       <span className="px-3 py-1 font-semibold rounded-md dark:text-gray-50">

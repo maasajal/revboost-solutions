@@ -1,16 +1,35 @@
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../app/store/store";
 import { useEffect, useState } from "react";
-import { fetchIncomeCollection, addIncomeEntry, IncomeEntry } from "../../app/features/companyIncome/incomeSlice"
+import {
+  addIncomeEntry,
+  fetchIncomeCollection,
+  IncomeEntry,
+} from "../../app/features/companyIncome/incomeSlice";
+import { RootState } from "../../app/store/store";
 
+import {
+  Alert,
+  Box,
+  Button,
+  CircularProgress,
+  Modal,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TextField,
+  Typography,
+} from "@mui/material";
 
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
-import { TextField } from "@mui/material";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { getCurrentUser } from "../../app/api/currentUserAPI";
+import { fetchIncomes } from "../../app/features/companyIncome/incomesSlice";
+import User from "../../app/features/users/UserType";
+import { useAppDispatch } from "../../app/hooks/useAppDispatch";
 import { useAppSelector } from "../../app/hooks/useAppSelector";
+import IncomeForm from "./IncomeForm";
 
 // form input
 interface IncomeFormInputs {
@@ -33,24 +52,34 @@ const style = {
 };
 
 const Incomes: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  // Getting userId
-  const currentUser = useAppSelector((state) => state.currentUser.user);
-  console.log("currentUser", currentUser);
-  
-  const userId = 'user1_id'; // Replace with dynamic user ID as needed
-
-  useEffect(() => {
-    dispatch(fetchIncomeCollection(userId));
-  }, [dispatch, userId]);
-
-
-  const {incomeCollection, loading} = useSelector((state: RootState) => state.incomes);
-  console.log(incomeCollection,dispatch);
   //  mui modal
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const dispatch = useAppDispatch();
+
+  const {
+    _id: userId,
+    email: userEmail,
+    name,
+  } = useAppSelector((state: RootState) => state.currentUser.user) as User;
+
+  // ------------
+  useEffect(() => {
+    dispatch(getCurrentUser());
+    if (userId) {
+      dispatch(fetchIncomes(userId));
+    }
+  }, [dispatch, userId]);
+
+  // const { incomeCollection, loading, error } = useAppSelector(
+  //   (state: RootState) => state.incomes
+  // );
+
+  const { incomeEntries, loading, error } = useAppSelector(
+    (state: RootState) => state.allIncome
+  );  
+  
   // form section
   const {
     register,
@@ -58,22 +87,79 @@ const Incomes: React.FC = () => {
     reset,
     formState: { errors },
   } = useForm<IncomeFormInputs>();
-  const onSubmit: SubmitHandler<IncomeFormInputs> = (data) => {
-    console.log(data);
 
+  const onSubmit: SubmitHandler<IncomeFormInputs> = async (data) => {
+    console.log(data);
+    if (!userId || !userEmail) {
+      console.error("User ID or email is missing");
+      return;
+    }
     const newEntry: IncomeEntry = {
       incomeId: data.incomeId,
       amount: data.amount,
       source: data.source,
       date: data.date,
     };
-    console.log(newEntry)
-    dispatch(addIncomeEntry({ userId, entry: newEntry }));
+    const savedIncome = await dispatch(
+      addIncomeEntry({ userId, userEmail, entry: newEntry })
+    );
+    if (addIncomeEntry.fulfilled.match(savedIncome)) {
+      dispatch(fetchIncomeCollection(userId));
+    }
     reset();
+    handleClose();
   };
   return (
-    <section className="container mx-auto mt-10 space-y-4">
-      <h2 className="text-center">Income Page</h2>
+    <section className="container mx-auto mt-10 space-y-5">
+      <h2 className="text-center">Income Tracking of {name}</h2>
+      {loading && (
+        <Box display="flex" justifyContent="center" marginY={2}>
+          <CircularProgress />
+        </Box>
+      )}
+      {error && (
+        <Alert severity="error" sx={{ marginY: 2 }}>
+          {error}
+        </Alert>
+      )}
+      <section className="p-5">
+        <TableContainer component={Paper} className="overflow-x-auto">
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>
+                  <strong>ID</strong>
+                </TableCell>
+                <TableCell>
+                  <strong>Source</strong>
+                </TableCell>
+                <TableCell>
+                  <strong>Amount</strong>
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {incomeEntries && incomeEntries.length > 0 ? (
+                incomeEntries.map((entry) => (
+                  <TableRow key={entry.incomeId}>
+                    <TableCell>{entry.incomeId}</TableCell>
+                    <TableCell>{entry.source}</TableCell>
+                    <TableCell>$ {entry.amount}</TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={4} align="center">
+                    No expenses found.
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </section>
+      <IncomeForm />
+
       <div className="space-y-6 border-2 p-4 shadow-2xl rounded-lg">
         <h3 className="mb-4 text-center text-2xl font-bold leading-tight">
           Your Incomes details
@@ -87,8 +173,10 @@ const Incomes: React.FC = () => {
             {/* MODAL*/}
             <div>
               {/* mui modal */}
-              <div>
-                <Button className="animate-bounce" onClick={handleOpen}>Add Income details</Button>
+              <div className="space-y-4">
+                <Button className="animate-bounce" onClick={handleOpen}>
+                  Add Income details
+                </Button>
                 <Modal
                   open={open}
                   onClose={handleClose}
@@ -160,7 +248,7 @@ const Incomes: React.FC = () => {
                           {errors.date.message}
                         </span>
                       )}
-                      
+
                       <button
                         type="submit"
                         disabled={loading}
@@ -174,9 +262,10 @@ const Incomes: React.FC = () => {
                         {loading ? "Saving..." : "Add Income"}
                       </button>
                     </form>{" "}
+                    {loading && <p>Loading...</p>}
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                      Duis mollis, est non commodo luctus, nisi erat porttitor
-                      ligula.
+                      Complete the input fields and{" "}
+                      <span className="text-green-300">add income</span>
                     </Typography>
                   </Box>
                 </Modal>
@@ -195,6 +284,7 @@ const Incomes: React.FC = () => {
         </div>
 
         <div className=" dark:text-gray-800">
+          <h2>Income Entries</h2>
           <div className="overflow-x-auto">
             <table className="min-w-full text-xs">
               <colgroup>
@@ -216,8 +306,54 @@ const Incomes: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                
-
+                {/* test col */}
+                {/* Display Current Income Entries */}
+                {/* <div className="dark:border-gray-300 dark:bg-gray-50">
+                  {loading && <p>Loading...</p>}
+                  {error && <p className="text-red-400 flex">{error}</p>}
+                  {incomeCollection &&
+                  incomeCollection.incomeEntries.length > 0 ? (
+                    <table
+                      border={1}
+                      cellPadding={5}
+                      cellSpacing={0}
+                      style={{ width: "100%", marginTop: "10px" }}
+                      className="min-w-full text-xs"
+                    >
+                      <colgroup>
+                        <col />
+                        <col />
+                        <col />
+                        <col />
+                        <col />
+                        <col className="w-24" />
+                      </colgroup>
+                      <thead className="dark:bg-red-400">
+                        <tr className="text-left">
+                          <th className="p-3">Invoice #</th>
+                          <th className="p-3">Client</th>
+                          <th className="p-3">Issued</th>
+                          <th className="p-3">Due</th>
+                          <th className="p-3 text-right">Amount</th>
+                          <th className="p-3 text-right"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {incomeCollection.incomeEntries.map((entry) => (
+                          <tr key={entry.incomeId}>
+                            <td>{entry.incomeId}</td>
+                            <td>{entry.amount}</td>
+                            <td>{entry.source}</td>
+                            <td>{new Date(entry.date).toLocaleDateString()}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  ) : (
+                    !loading && <p>No income entries found.</p>
+                  )}
+                </div> */}
+                {/* ^^^end test */}
                 {/* <tr className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50">
                     <td className="p-3">
                       <p>97412378923</p>
@@ -306,7 +442,7 @@ const Incomes: React.FC = () => {
                     <h5>Subtotal</h5>
                     <p className="dark:text-gray-600"></p>
                   </td>
-                  <td className="p-3 text-right">
+                  <td className="p-3 text-right ">
                     {/* Write Total Below  */}
 
                     <h5>$</h5>
@@ -358,7 +494,7 @@ const Incomes: React.FC = () => {
                     <h4>total</h4>
                     <p className="dark:text-gray-600"></p>
                   </td>
-                  <td className="p-3 text-right">
+                  <td className="p-3 text-right animate-bounce">
                     {/* Write Total Below  */}
 
                     <h4>$</h4>

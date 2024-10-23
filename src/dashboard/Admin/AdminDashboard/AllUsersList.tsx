@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { IoMdSearch } from "react-icons/io";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAllUsers } from "../../../app/features/getAllUsers/fetchAllUsersAction";
 import useAxiosSecure from "../../../app/hooks/useAxiosSecure";
+import { AppDispatch, RootState } from "../../../app/store/store";
 import RevButton from "../../../components/RevButton";
 
-interface User {
-    _id: string;
-    name: string;
-    email: string;
-    subscriptionPlan: string;
-    subscriptionStatus: string;
-    role: string;
-    photo?: string;
-}
+
 
 const TABS = [
     { label: "All", value: "all" },
@@ -21,25 +16,16 @@ const TABS = [
 
 const AllUsersList: React.FC = () => {
     const axiosSecure = useAxiosSecure();
-    const [loading, setLoading] = useState<boolean>(true);
-    const [users, setUsers] = useState<User[]>([]);
     const [activeTab, setActiveTab] = useState<string>("all");
     const [searchQuery, setSearchQuery] = useState<string>("");
 
-    const getAllUsers = async () => {
-        try {
-            const response = await axiosSecure.get("/users");
-            setUsers(response.data.users);
-        } catch (error) {
-            console.error("Error fetching users:", error);
-        } finally {
-            setLoading(false);
-        }
-    };
+    const dispatch = useDispatch<AppDispatch>();
+    const { users, loading } = useSelector((state: RootState) => state.allUsers);
+ 
 
     useEffect(() => {
-        getAllUsers();
-    }, []);
+        dispatch(fetchAllUsers(axiosSecure));  // Dispatch fetchUsers with axiosSecure
+    }, [dispatch, axiosSecure]);
 
     if (loading) return <>Loading ...</>;
 
@@ -102,7 +88,7 @@ const AllUsersList: React.FC = () => {
                                                 src={user.photo || placeholderImage} // Use placeholder if photo is missing
                                                 alt={user.name}
                                                 className="w-14 h-14 rounded-full object-cover"
-                                                onLoad={() => console.log(`Image loaded successfully for user: ${user.name}`)}
+                                                // onLoad={() => console.log(`Image loaded successfully for user: ${user.name}`)}
                                                 onError={(e) => {
                                                     console.log(`Image load error for user: ${user.name}`);
                                                     e.currentTarget.src = placeholderImage; // Set placeholder on error

@@ -1,5 +1,5 @@
-import { AiOutlineCreditCard } from "react-icons/ai";
-import { FaHome } from "react-icons/fa";
+import { AiOutlineCreditCard, AiTwotoneCalculator } from "react-icons/ai";
+import { FaFileInvoiceDollar, FaHome } from "react-icons/fa";
 import { GiExpense, GiTreeGrowth } from "react-icons/gi";
 import { PiInvoiceBold } from "react-icons/pi";
 import { NavLink } from "react-router-dom";
@@ -11,10 +11,10 @@ const DashboardHome: React.FC = () => {
     <div className="container mx-auto px-5">
       <h1 className="text-center">Dashboard Home</h1>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 py-10">
-        <div className="h-full py-10 bg-gray-100 border">
+        <div className="h-full py-10 px-5 rounded-xl border">
           <RevenueForecastChart />
         </div>
-        <div className="h-full py-10 bg-gray-100 border">
+        <div className="h-full py-10 px-5 rounded-xl border">
           <RevenueComparisonPieChart />
         </div>
       </div>
@@ -44,12 +44,12 @@ const dashNavLinks = [
   },
   {
     navName: "Company Incomes",
-    path: "/dashboard/company-incomes",
+    path: "/dashboard/incomes",
     icon: <PiInvoiceBold className="text-2xl text-secondary" />,
   },
   {
     navName: "Company Expenses",
-    path: "/dashboard/company-expenses",
+    path: "/dashboard/expenses",
     icon: <GiExpense className="text-2xl text-secondary" />,
   },
   {
@@ -61,5 +61,15 @@ const dashNavLinks = [
     navName: "Payroll Management",
     path: "/dashboard/payroll",
     icon: <AiOutlineCreditCard className="text-2xl text-secondary" />,
+  },
+  {
+    navName: "VAT & TAX Calculation",
+    path: "/dashboard/vat",
+    icon: <AiTwotoneCalculator className="text-2xl text-secondary" />,
+  },
+  {
+    navName: "Invoice & Billing",
+    path: "/dashboard/invoice-&-billing",
+    icon: <FaFileInvoiceDollar className="text-2xl text-secondary" />,
   },
 ];

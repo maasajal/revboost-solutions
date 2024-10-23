@@ -20,6 +20,7 @@ import {
   Grid,
 } from "@mui/material";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import { getCurrentUser } from "../../app/api/currentUserAPI";
 
 // Define types for the package data
 interface Package {
@@ -28,11 +29,13 @@ interface Package {
   shortMessage: string;
   description: string;
   features: string[];
+  planFeature: string[];
 }
 interface UpdateMembershipRequest {
   role: string;
   subscriptionStatus: string;
   subscriptionPlan: string;
+  features: string[];
 }
 
 const Pricing: React.FC = () => {
@@ -45,6 +48,13 @@ const Pricing: React.FC = () => {
   const user = useAppSelector(
     (state: RootState) => state.currentUser?.user
   ) as User | null;
+  // const { _id, name, email, role, subscriptionPlan, subscriptionStatus } =
+  //   user || {};
+  // console.log(_id, name, email, role, subscriptionPlan, subscriptionStatus);
+
+  useEffect(() => {
+    dispatch(getCurrentUser());
+  }, [dispatch]);
 
   // Fetch Monthly Packages
   useEffect(() => {
@@ -66,6 +76,7 @@ const Pricing: React.FC = () => {
       );
   }, []);
 
+  // main handlerSubscriptionClick
   const handleSubscriptionClick = async (pkg: Package) => {
     if (!user) {
       // If user is not logged in or email is undefined, navigate to the login page
@@ -76,6 +87,7 @@ const Pricing: React.FC = () => {
           role: "member",
           subscriptionStatus: "active",
           subscriptionPlan: pkg.packageName,
+          features: pkg?.planFeature,
         };
         await dispatch(updateUser(user?.email, requestBody));
 
@@ -129,6 +141,7 @@ const Pricing: React.FC = () => {
           </Box>
           <Box sx={{ mt: 3 }}>
             <Button
+              disabled={user?.role === "admin"}
               variant="contained"
               color="secondary"
               fullWidth
@@ -234,13 +247,13 @@ const Pricing: React.FC = () => {
         {/* Monthly Packages Tab */}
         <TabPanel>
           <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center container mx-auto py-10">
-            {monthlyPackages.map((pkg) => renderPackageCard(pkg))}
+            {monthlyPackages.map((pkg) => <div key={pkg.price}>{renderPackageCard(pkg)}</div>)}
           </section>
         </TabPanel>
         {/* Yearly Packages Tab */}
         <TabPanel>
           <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center container mx-auto py-10">
-            {yearlyPackages.map((pkg) => renderPackageCard(pkg))}
+            {yearlyPackages.map((pkg) => <div key={pkg.price}>{renderPackageCard(pkg)}</div>)}
           </section>
         </TabPanel>
       </Tabs>

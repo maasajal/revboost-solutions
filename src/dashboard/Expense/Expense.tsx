@@ -1,10 +1,10 @@
 import axios from "axios";
 import { useState } from "react";
-import toast from "react-hot-toast";
 import {
   ADDRESS_END_POINT,
   EXPENSE_END_POINT,
 } from "../../components/utils/constant";
+import toast from "react-hot-toast";
 
 const Expense = () => {
   const [address, setAddress] = useState({
@@ -65,6 +65,7 @@ const Expense = () => {
       console.error(error);
     }
   };
+
   return (
     <div className="container mx-auto p-5 space-y-10">
       <h1 className="text-center">Add your Expenses</h1>
@@ -159,7 +160,7 @@ const Expense = () => {
         </div>
       </form>
       <div className="divider"></div>
-      <section className="w-full py-5 md:mt-10 bg-white drop-shadow-md rounded-xl">
+      <section className="w-full py-5 md:mt-10 bg-gray-400 drop-shadow-md rounded-xl">
         <h1 className="text-center mt-5 md:mt-10">Monthly Expense Statement</h1>
         <h4 className="text-center mt-5">Creation month</h4>
         <p className="ml-11 lg:ml-20 ">Company Name</p>
@@ -176,13 +177,7 @@ const Expense = () => {
               </tr>
             </thead>
             <tbody>
-              <tr className="hover">
-                <th>2</th>
-                <td>Hart Hagerty</td>
-                <td>Desktop Support Technician</td>
-                <td>Purple</td>
-                <td>Purple</td>
-              </tr>
+              <tr className="hover"></tr>
             </tbody>
           </table>
         </div>

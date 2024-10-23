@@ -8,12 +8,21 @@ import { auth } from "../../../firebase/firebase.config";
 import userPhoto from "../../../assets/revBoostSolutions.png";
 import Swal from "sweetalert2";
 import { useAppSelector } from "../../../app/hooks/useAppSelector";
+import User from "../../../app/features/users/UserType";
+import { getCurrentUser } from "../../../app/api/currentUserAPI";
+import { useEffect } from "react";
 
 const Navbar = () => {
   const dispatch = useDispatch<AppDispatch>(); // টাইপড useDispatch ব্যবহার করুন
+  const user = useAppSelector((state: RootState) => state.auth.user);
 
-  // const user = useSelector((state: RootState) => state.auth.user);
-  const user = useAppSelector((state: RootState) => state.currentUser?.user);
+  useEffect(() => {
+    dispatch(getCurrentUser());
+  }, [dispatch]);
+
+  const userDetails = useAppSelector(
+    (state: RootState) => state.currentUser?.user
+  ) as User;
 
   const navItems = [
     {
@@ -45,6 +54,7 @@ const Navbar = () => {
     try {
       await signOut(auth);
       dispatch(logoutSuccess());
+      localStorage.removeItem("user-token");
       Swal.fire({
         position: "top-end",
         title: "Signed Out successfully!",
@@ -126,7 +136,7 @@ const Navbar = () => {
       <div className="ml-auto">
         {user ? (
           <div
-            data-tip={"Company Name"}
+            data-tip={userDetails ? userDetails.name : "Company Name"}
             className="dropdown dropdown-end mr-1 tooltip tooltip-bottom tooltip-primary z-10"
           >
             {
@@ -136,7 +146,10 @@ const Navbar = () => {
                 className="btn btn-ghost btn-circle avatar"
               >
                 <div className="w-10 rounded-full">
-                  <img src={userPhoto} alt="Logged user photo" />
+                  <img
+                    src={userDetails?.photo ? userDetails?.photo : userPhoto}
+                    alt="Logged user photo"
+                  />
                 </div>
               </div>
             }
@@ -144,9 +157,11 @@ const Navbar = () => {
               tabIndex={0}
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-[#b1b6c0] text-black rounded-box w-52 uppercase space-y-3"
             >
-              <li>
-                <Link to="/dashboard/admin">Admin Dashboard</Link>
-              </li>
+              {userDetails.role === "admin" && (
+                <li>
+                  <Link to="/dashboard/admin">Admin Dashboard</Link>
+                </li>
+              )}
               <li>
                 <Link to="/dashboard">Dashboard</Link>
               </li>

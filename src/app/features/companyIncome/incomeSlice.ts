@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import axios from "axios";
+import { axiosSecure } from "../../hooks/useAxiosSecure";
 
 // Define TypeScript interfaces
 export interface IncomeEntry {
@@ -32,31 +32,38 @@ export const fetchIncomeCollection = createAsyncThunk<
   IncomeCollection,
   string,
   { rejectValue: string }
->(
-  'income/fetchIncomeCollection',
-  async (userId, { rejectWithValue }) => {
-    try {
-      const response = await axios.get<IncomeCollection>(`https://revboost-solutions.vercel.app/api/v1/income/${userId}`);
-      return response.data;
-    } catch (error: any) {
-      return rejectWithValue(error.response?.data?.message || 'Failed to fetch income collection');
-    }
+>("income/fetchIncomeCollection", async (userId, { rejectWithValue }) => {
+  try {
+    const response = await axiosSecure.get<IncomeCollection>(
+      `/income/${userId}`
+    );
+    return response.data;
+  } catch (error: any) {
+    return rejectWithValue(
+      error.response?.data?.message || "Failed to fetch income collection"
+    );
   }
-);
+});
 
 // Thunk to add a new income entry
 export const addIncomeEntry = createAsyncThunk<
   IncomeCollection,
-  { userId: string; entry: IncomeEntry },
+  { userId: string; userEmail: string; entry: IncomeEntry },
   { rejectValue: string }
 >(
-  'income/addIncomeEntry',
-  async ({ userId, entry }, { rejectWithValue }) => {
+  "income/addIncomeEntry",
+  async ({ userId, userEmail, entry }, { rejectWithValue }) => {
     try {
-      const response = await axios.post<IncomeCollection>(`https://revboost-solutions.vercel.app/api/v1/income/${userId}`, entry);
+      const response = await axiosSecure.post<IncomeCollection>(
+        `/income/add-income-entry`,
+        { userId, userEmail, entry }
+      );
+      console.log("income post request", response);
       return response.data;
     } catch (error: any) {
-      return rejectWithValue(error.response?.data?.message || 'Failed to add income entry');
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to add income entry"
+      );
     }
   }
 );

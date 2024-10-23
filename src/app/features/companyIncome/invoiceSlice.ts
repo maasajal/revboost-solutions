@@ -1,7 +1,7 @@
 // src/store/incomeSlice.ts
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import axios from "axios";
 
+import { axiosSecure } from "../../hooks/useAxiosSecure";
 // Define TypeScript interfaces
 
 export interface Item {
@@ -12,7 +12,7 @@ export interface Item {
   totalAmount: number;
 }
 
-export interface IncomeData {
+export interface InvoiceData {
   companyEmail: string;
   customerName: string;
   companyName: string;
@@ -23,25 +23,26 @@ export interface IncomeData {
   items: Item[];
 }
 
-interface IncomeState {
-  incomes: IncomeData[];
+interface InvoiceState {
+  invoices: InvoiceData[];
   loading: boolean;
   error: string | null;
 }
 
-const initialState: IncomeState = {
-  incomes: [],
+const initialState: InvoiceState = {
+  invoices: [],
   loading: false,
   error: null,
 };
 
 // Async Thunk to fetch invoices
-export const fetchInvoices = createAsyncThunk(
+export const fetchInvoices = createAsyncThunk<InvoiceData[], void>(
   "invoices/fetchInvoices",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get<IncomeData[]>(
-        "https://revboost-solutions.vercel.app/api/v1/invoices/all"
+      
+      const response = await axiosSecure.get<InvoiceData[]>(
+        `/invoices/all`
       );
       return response.data;
     } catch (err: any) {
@@ -55,10 +56,10 @@ export const fetchInvoices = createAsyncThunk(
 // Async Thunk to create a new invoice
 export const createInvoice = createAsyncThunk(
   "invoices/createInvoice",
-  async (invoice: IncomeData, { rejectWithValue }) => {
+  async (invoice: InvoiceData, { rejectWithValue }) => {
     try {
-      const response = await axios.post<IncomeData>(
-        "https://revboost-solutions.vercel.app/api/v1/invoices/create",
+      const response = await axiosSecure.post<InvoiceData[]>(
+        "/invoices/create",
         // `${import.meta.env.VITE_API}/invoices/create`,
         invoice
       );
@@ -87,9 +88,9 @@ const invoiceSlice = createSlice({
     });
     builder.addCase(
       fetchInvoices.fulfilled,
-      (state, action: PayloadAction<IncomeData[]>) => {
+      (state, action: PayloadAction<InvoiceData[]>) => {
         state.loading = false;
-        state.incomes = action.payload;
+        state.invoices = action.payload;
       }
     );
     builder.addCase(fetchInvoices.rejected, (state, action) => {
@@ -101,13 +102,6 @@ const invoiceSlice = createSlice({
       state.loading = true;
       state.error = null;
     });
-    builder.addCase(
-      createInvoice.fulfilled,
-      (state, action: PayloadAction<IncomeData>) => {
-        state.loading = false;
-        state.incomes.push(action.payload);
-      }
-    );
     builder.addCase(createInvoice.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload as string;

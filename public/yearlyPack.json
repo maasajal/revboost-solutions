@@ -1,7 +1,7 @@
 {
     "packages": [
       {
-        "packageName": "Basic",
+        "packageName": "basic",
         "price": 50,
         "savePrice": 10,
         "shortMessage": "per Organization per Month",
@@ -15,10 +15,15 @@
           "24/7 Support",
           "Ability to create and send professional invoices to clients",
           "Secure access to ensure information protection"
+        ],
+        "planFeature" : [
+          "income",
+          "expense",
+          "revenue_growth"
         ]
       },
       {
-        "packageName": "Standard",
+        "packageName": "standard",
         "price": 100,
         "savePrice": 20,
         "shortMessage": "per Organization per Month",
@@ -38,10 +43,18 @@
           "24/7 Support",
           "Ability to create and send professional invoices to clients",
           "Secure access to ensure information protection"
+        ],
+        "planFeature" : [
+          "income",
+          "expense",
+          "revenue_growth",
+          "vat",
+          "tax",
+          "payroll"
         ]
       },
       {
-        "packageName": "Premium",
+        "packageName": "premium",
         "price": 200,
         "savePrice": 50,
         "shortMessage": "per Organization per Month",
@@ -68,6 +81,17 @@
           "24/7 Support",
           "Ability to create and send professional invoices to clients",
           "Secure access to ensure information protection"
+        ],
+        "planFeature" : [
+        "income",
+          "expense",
+          "revenue_growth",
+          "vat",
+          "tax",
+          "payroll",
+          "invoice",
+          "billing",
+          "client_vendor"
         ]
       }
     ]
