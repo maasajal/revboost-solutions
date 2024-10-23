@@ -78,17 +78,9 @@ const Invoice = () => {
 
 
   // // for user
-  useEffect(() => {
-    dispatch(fetchInvoices());
-    
-  }, [dispatch]);
-
-
-
-
-
   // useEffect(() => {
   //   dispatch(fetchInvoices());
+    
   // }, [dispatch]);
 
   // const [currentDate, setCurrentDate] = useState(getDate());
