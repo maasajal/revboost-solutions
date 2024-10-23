@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../app/store/store";
 import {
   createInvoice,
-  fetchInvoices,
+  fetchIndivitualInvoices,
   InvoiceData,
 } from "../../../app/features/companyIncome/invoiceSlice";
 import { useEffect } from "react";
@@ -56,18 +56,31 @@ function getDate() {
 
 const Invoice = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { _id: userId, email: userEmail } = useAppSelector(
+  
+ // Get current user data
+ const user = useAppSelector(
+  (state: RootState) => state.currentUser.user
+) as User;
+
+  const { _id: userId , email: userEmail} = useAppSelector(
     (state) => state.currentUser.user
   ) as User;
-  // // for user
-  useEffect(() => {
-    dispatch(getCurrentUser());
-    dispatch(fetchInvoices);
-  }, [dispatch]);
+
+ 
 
   useEffect(() => {
-    dispatch(fetchInvoices());
-  }, [dispatch]);
+    dispatch(getCurrentUser());
+    if (user?._id) {
+      dispatch(fetchIndivitualInvoices(user._id));
+    }
+  }, [dispatch, user._id]);
+
+
+  // // for user
+  // useEffect(() => {
+  //   dispatch(fetchInvoices());
+    
+  // }, [dispatch]);
 
   // const [currentDate, setCurrentDate] = useState(getDate());
 
@@ -79,18 +92,7 @@ const Invoice = () => {
 
   // const [currentDate, setCurrentDate] = useState(getDate());
 
-  // const { control, handleSubmit, register  } = useForm<IncomeData>({
-  //   defaultValues: {
-  //     companyEmail: "",
-  //     customerName: "",
-  //     companyName: "",
-  //     invoiceNumber: "",
-  //     date: "",
-  //     invoiceDueDate: "",
-  //     customerAddress: "",
-  //     items: [{ no: 1, item: "", quantity: 0, unitPrice: 0, totalAmount: 0 }],
-  //   },
-  // });
+
 
   // Initialize React Hook Form
   const { register, control, handleSubmit } = useForm<InvoiceData>({
@@ -126,12 +128,18 @@ const Invoice = () => {
     //   ...item,
     //   totalAmount: item.quantity * item.unitPrice,
     // }));
+
+    
     const invoiceData: InvoiceData = { ...data };
+    const savedInvoice = await dispatch(
+      createInvoice(invoiceData)
+    )
+
     // Dispatch the createInvoice thunk
     await dispatch(createInvoice(invoiceData));
-    // if (createInvoice.fulfilled.match(invoiceData)){
-    //   dispatch(fetchInvoices())
-    // }
+    if (createInvoice.fulfilled.match(savedInvoice)){
+      dispatch(fetchIndivitualInvoices(userId))
+    }
   };
 
   return (
@@ -311,7 +319,7 @@ const Invoice = () => {
                   {loading ? "Saving..." : "Save Invoice"}
                 </button>
                 {/* Error Message */}
-                {error && <p className="text-red-400">{error}</p>}
+                {/* {error && <p className="text-red-400">{error}</p>} */}
               </div>
             </div>
             {/* Error Message */}
@@ -380,7 +388,7 @@ const Invoice = () => {
                 ) : (
                   <TableRow>
                     <TableCell colSpan={4} align="center">
-                      No expenses found.
+                      No invoice found.
                     </TableCell>
                   </TableRow>
                 )}
