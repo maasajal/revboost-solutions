@@ -41,8 +41,9 @@ const VatTable = () => {
                             </tr>
                         </thead>
                         <tbody className="">
-                            {incomeEntries.length && incomeEntries.map((item, index) => (
-                                <tr
+                            {incomeEntries.length && incomeEntries.map((item, index) => {
+                                console.log(item)
+                                return <tr
                                     key={index}
                                     className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50"
                                 >
@@ -70,7 +71,7 @@ const VatTable = () => {
                                         </span>
                                     </td>
                                 </tr>
-                            ))}
+                            })}
                         </tbody>
                     </table>
                 </div>

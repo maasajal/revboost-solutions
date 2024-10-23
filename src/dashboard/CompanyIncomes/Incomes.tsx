@@ -24,19 +24,26 @@ import {
 } from "@mui/material";
 
 import { SubmitHandler, useForm } from "react-hook-form";
+import { MdOutlineFolderDelete } from "react-icons/md";
+import Swal from "sweetalert2";
 import { getCurrentUser } from "../../app/api/currentUserAPI";
 import { fetchIncomes } from "../../app/features/companyIncome/incomesSlice";
 import User from "../../app/features/users/UserType";
 import { useAppDispatch } from "../../app/hooks/useAppDispatch";
 import { useAppSelector } from "../../app/hooks/useAppSelector";
+import useAxiosSecure from "../../app/hooks/useAxiosSecure";
+import { waringStatus } from "../../components/utils/waringStatus";
 import IncomeForm from "./IncomeForm";
-
 // form input
 interface IncomeFormInputs {
   incomeId: string;
   amount: number;
   source: string;
   date: string; // YYYY-MM-DD
+}
+interface Parameter {
+  incomeId: string;
+  userId: string;  // Assuming you have access to this in your component
 }
 
 const style = {
@@ -57,7 +64,7 @@ const Incomes: React.FC = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const dispatch = useAppDispatch();
-
+  const axiosSecure = useAxiosSecure()
   const {
     _id: userId,
     email: userEmail,
@@ -78,8 +85,8 @@ const Incomes: React.FC = () => {
 
   const { incomeEntries, loading, error } = useAppSelector(
     (state: RootState) => state.allIncome
-  );  
-  
+  );
+
   // form section
   const {
     register,
@@ -109,6 +116,36 @@ const Incomes: React.FC = () => {
     reset();
     handleClose();
   };
+
+
+  const handleDelete = async ({ incomeId, userId }: Parameter): Promise<void> => {
+    try {
+      const result = await Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      });
+      if (result.isConfirmed) {
+        // Use the productId and userId for the API call
+        await axiosSecure.delete(`/incomes/delete?userId=${userId}&incomeId=${incomeId}`);
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success"
+        });
+        dispatch(fetchIncomeCollection(userId));
+
+      }
+    } catch (error) {
+      console.error("Error during delete:", error);
+      waringStatus();
+    }
+  };
+
   return (
     <section className="container mx-auto mt-10 space-y-5">
       <h2 className="text-center">Income Tracking of {name}</h2>
@@ -136,6 +173,9 @@ const Incomes: React.FC = () => {
                 <TableCell>
                   <strong>Amount</strong>
                 </TableCell>
+                <TableCell>
+                  <strong>Action</strong>
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -145,7 +185,11 @@ const Incomes: React.FC = () => {
                     <TableCell>{entry.incomeId}</TableCell>
                     <TableCell>{entry.source}</TableCell>
                     <TableCell>$ {entry.amount}</TableCell>
+                    <TableCell><MdOutlineFolderDelete
+                      onClick={() => handleDelete({ incomeId: entry.incomeId, userId: userId })}
+                      className="text-2xl text-primary cursor-pointer" /></TableCell>
                   </TableRow>
+
                 ))
               ) : (
                 <TableRow>
