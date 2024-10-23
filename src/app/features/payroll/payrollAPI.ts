@@ -11,8 +11,8 @@ interface Payroll {
   __v: number;
 }
 
-export const getPayroll = async () => {
-  const response = await axiosPublic.get("/payroll");
+export const getPayroll = async (userId: string) => {
+  const response = await axiosPublic.get(`/payroll/${userId}`);
   return response.data;
 };
 
