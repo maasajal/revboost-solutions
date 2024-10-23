@@ -10,6 +10,7 @@ import { AppDispatch } from "../../../app/store/store";
 import moneyHome from "../../../assets/signup/MoneyHome-SignUp.png";
 import SocialLogin from "../../../components/SocialLogin";
 import logo from "../../../assets/logo.png";
+import { Helmet } from "react-helmet";
 
 type Inputs = {
   email: string;
@@ -36,6 +37,14 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Login - RevBoost Solutions</title>
+        <meta
+          name="description"
+          content="Access your RevBoost Solutions account to manage your business's revenue, expenses, and financial growth. Log in to unlock powerful tools for boosting profitability and tracking financial performance."
+        />
+      </Helmet>
       <div className="flex flex-col lg:flex-row w-full">
         {/* Left Section */}
         <div className="flex-1 bg-[#FF08008C] flex flex-col items-center pt-10 ">

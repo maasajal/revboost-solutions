@@ -3,9 +3,20 @@ import { Link } from "react-router-dom";
 import coverPhoto from "../../assets/AboutUs/cover.png";
 import whyChooseUsPhoto from "../../assets/AboutUs/whyChooseUS.png";
 import TeamMembers from "../Shared/TeamMembers/TeamMembers";
-const About = () => { 
+import { Helmet } from "react-helmet";
+import SectionTitle from "../../components/SectionTitle";
+
+const About = () => {
   return (
     <div className="container mx-auto pb-24 px-2 md:px-4 lg:px-6">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>About Us - RevBoost Solutions</title>
+        <meta
+          name="description"
+          content="Discover how RevBoost Solutions helps businesses optimize revenue growth and manage expenses. Learn about our mission, team, and innovative tools designed to streamline financial success for companies of all sizes."
+        />
+      </Helmet>
       {/* <section className="contact_banner">
         <PageCover
           bgCoverImg=""
@@ -15,6 +26,11 @@ const About = () => {
         />
       </section> */}
       <section>
+        <SectionTitle
+          title="STREAMLINING FINACIAL CLARITY FOR BUSSINESS GROWTH"
+          intro="Learn about us"
+          content="ABOUT US"
+        />
         <div className=" flex flex-col justify-center p-6 mx-auto sm:py-8 lg:py-20 lg:flex-row lg:justify-around">
           <div className="flex items-center justify-center p-6 mt-4 lg:mt-0 h-96 sm:h-80 lg:h-96 xl:h-112 2xl:h-128">
             <img
@@ -64,6 +80,11 @@ const About = () => {
       </section> */}
       <section className="dark:bg-gray-100 dark:text-gray-800">
         <div className="container px-6 py-12 mx-auto">
+          <SectionTitle
+            title="HOW REVBOOST DRIVERS FINANCIAL EFFICIENCY"
+            intro="Our Solution"
+            content="Solution For Your Bussiness"
+          />
           <div className=" w-full mx-auto my-8 space-y-4 text-center xl:col-span-2 xl:text-left">
             <h2 className="text-4xl font-bold text-center">
               We provide best solution for your business
@@ -195,6 +216,11 @@ const About = () => {
         </div>
       </section>
       <section className="p-6 my-6 bg-gray-100 dark:text-gray-800">
+        <SectionTitle
+          title="GLOBAL SERVICES AND SATISFIED CLIENS"
+          intro="Trusted Worldwide"
+          content="Clients, Projects, and Global Reach"
+        />
         <div className="container grid grid-cols-1 gap-6 mx-auto sm:grid-cols-2 xl:grid-cols-4">
           <div className="flex p-4 space-x-4 rounded-lg md:space-x-6 dark:bg-gray-50 dark:text-gray-800">
             <div className="flex justify-center p-2 align-middle rounded-lg sm:p-4 dark:bg-red-400">
@@ -278,6 +304,11 @@ const About = () => {
       </section>
 
       <section className="shadow-lg rounded-2xl dark:bg-gray-100 dark:text-gray-800">
+        <SectionTitle
+          title="REVBOOST'S JOURNEY TO SIMPLIFY FINANCIAL MANAGEMENT"
+          intro=" Evolving to Meet Your Financial Needs"
+          content="How RevBoost is Transforming Financial Solutions"
+        />
         <div className="container max-w-5xl px-4 py-12 mx-auto">
           <div className="grid gap-4 mx-4 sm:grid-cols-12">
             <div className="col-span-12 sm:col-span-3">
@@ -336,7 +367,12 @@ const About = () => {
         </div>
       </section>
       <section>
-        <h2 className="text-center py-8">Why Choose Us</h2>
+        {/* <h2 className="text-center py-8">Why Choose Us</h2> */}
+        <SectionTitle
+          title="ADVENCED REVENUE GENERATION SOLUTIONS"
+          intro="Why Chose Us"
+          content="Skills, Strategy, and Results"
+        />
         <div className="container px-6 py-16 mx-auto shadow-lg rounded-2xl bg-gray-100">
           <div className="items-center lg:flex">
             <div className="w-full lg:w-1/2">
@@ -365,14 +401,16 @@ const About = () => {
                   <span className="text-blue-500 ">Your road to success</span>
                 </h3>
                 <p className="mt-3 text-gray-600 dark:text-gray-400">
-                The proposed research aims to develop an advanced Company Revenue Generation Platform.
-                To integrate key features like lead management, sales tracking, and revenue analytics.
-                To explore the application of behavioral analytics in micro-segmentation for targeted revenue generation strategies.
+                  The proposed research aims to develop an advanced Company
+                  Revenue Generation Platform. To integrate key features like
+                  lead management, sales tracking, and revenue analytics. To
+                  explore the application of behavioral analytics in
+                  micro-segmentation for targeted revenue generation strategies.
                 </p>
                 <Link to={`/pricing`}>
-                <button className="w-full px-5 py-2 mt-6 text-sm tracking-wider text-white uppercase transition-colors duration-300 transform bg-blue-600 rounded-lg lg:w-auto hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
-                  Details
-                </button>
+                  <button className="w-full px-5 py-2 mt-6 text-sm tracking-wider text-white uppercase transition-colors duration-300 transform bg-blue-600 rounded-lg lg:w-auto hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
+                    Details
+                  </button>
                 </Link>
               </div>
             </div>
@@ -388,6 +426,11 @@ const About = () => {
         </div>
       </section>
       <section>
+        <SectionTitle
+          title="THE MINDS BEHIND REVBOOST"
+          intro=" Driving Innovation and Success"
+          content="Talented Developers, Dedicated to Excellence"
+        />
         <TeamMembers></TeamMembers>
       </section>
     </div>

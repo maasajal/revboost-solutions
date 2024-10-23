@@ -15,6 +15,7 @@ import { getCurrentUser } from "../../app/api/currentUserAPI";
 import { RootState } from "../../app/store/store";
 import { CircularProgress, Grid, Typography } from "@mui/material";
 import RevenueCard from "./RevenueCard";
+import { Helmet } from "react-helmet";
 
 const RevenueGrowth: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -79,6 +80,10 @@ const RevenueGrowth: React.FC = () => {
 
   return (
     <div className="container mx-auto p-5 space-y-10">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Revenue Growth - RevBoost Solutions</title>
+      </Helmet>
       <h1 className="text-center mb-8">
         {currentUser ? currentUser.name : "Company Name"}
       </h1>
