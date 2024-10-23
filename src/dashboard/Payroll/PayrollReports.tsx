@@ -84,6 +84,7 @@ const PayrollReports = () => {
         open={openModal}
         onClose={() => setOpenModal(false)}
         payroll={selectedPayroll}
+        userId={_id}
       />
 
       <div className="flex justify-between items-center">
