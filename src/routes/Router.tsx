@@ -3,6 +3,9 @@ import AdminDashboard from "../dashboard/Admin/AdminDashboard/AdminDashboard";
 import Incomes from "../dashboard/CompanyIncomes/Incomes";
 import DashboardHome from "../dashboard/DashboardHome";
 // import Expense from "../dashboard/Expense/Expense";
+import Invoice from "../dashboard/CompanyIncomes/InvoiceAndBilling/Invoice";
+import CustomerMessage from "../dashboard/CustomerMessage/CustomerMessage";
+import CustomerMessageDetails from "../dashboard/CustomerMessageDetails/CustomerMessageDetails";
 import Expenses from "../dashboard/Expense/Expenses";
 import Payroll from "../dashboard/Payroll/Payroll";
 import UserProfile from "../dashboard/Profile/Profile";
@@ -21,10 +24,9 @@ import Login from "../pages/authentication/login/Login";
 import Register from "../pages/authentication/register/Register";
 import AdminRoute from "./AdminRoute";
 import BasicRoute from "./BasicRoute";
+import PremiumRoute from "./PremiumRoute";
 import PrivateRoute from "./PrivateRoute";
 import StandardRoute from "./StandardRoute";
-import Invoice from "../dashboard/CompanyIncomes/InvoiceAndBilling/Invoice";
-import PremiumRoute from "./PremiumRoute";
 
 const router = createBrowserRouter([
   {
@@ -69,21 +71,28 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/dashboard",
-        element: <DashboardHome />, // User Profile component will be call here.
+        element: (
+          <PrivateRoute>
+            <DashboardHome />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/dashboard/profile",
-        element: <UserProfile />, // User Profile component will be call here.
+        element: (
+          <PrivateRoute>
+            <UserProfile />
+          </PrivateRoute>
+        ),
       },
       // // Income tracking Route
       {
         path: "/dashboard/incomes",
         element: (
           <BasicRoute>
-            {" "}
             <Incomes />
           </BasicRoute>
-        ), // User Profile component will be call here.
+        ),
       },
       // Invoice & Billing Route
       {
@@ -92,14 +101,13 @@ const router = createBrowserRouter([
           <PremiumRoute>
             <Invoice />
           </PremiumRoute>
-        ), // User Profile component will be call here.
+        ),
       },
       // Expense tracking Route
       {
         path: "/dashboard/expenses",
         element: (
           <BasicRoute>
-            {" "}
             <Expenses />
           </BasicRoute>
         ),
@@ -109,7 +117,6 @@ const router = createBrowserRouter([
         path: "/dashboard/revenue-growth",
         element: (
           <BasicRoute>
-            {" "}
             <RevenueGrowth />
           </BasicRoute>
         ),
@@ -118,7 +125,6 @@ const router = createBrowserRouter([
         path: "/dashboard/payroll",
         element: (
           <StandardRoute>
-            {" "}
             <Payroll />
           </StandardRoute>
         ),
@@ -141,8 +147,23 @@ const router = createBrowserRouter([
         path: "/dashboard/admin",
         element: (
           <AdminRoute>
-            {" "}
-            <AdminDashboard />{" "}
+            <AdminDashboard />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/messages",
+        element: (
+          <AdminRoute>
+            <CustomerMessage />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/messages-details/:id",
+        element: (
+          <AdminRoute>
+            <CustomerMessageDetails />
           </AdminRoute>
         ),
       },

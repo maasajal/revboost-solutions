@@ -247,13 +247,13 @@ const Pricing: React.FC = () => {
         {/* Monthly Packages Tab */}
         <TabPanel>
           <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center container mx-auto py-10">
-            {monthlyPackages.map((pkg) => renderPackageCard(pkg))}
+            {monthlyPackages.map((pkg) => <div key={pkg.price}>{renderPackageCard(pkg)}</div>)}
           </section>
         </TabPanel>
         {/* Yearly Packages Tab */}
         <TabPanel>
           <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center container mx-auto py-10">
-            {yearlyPackages.map((pkg) => renderPackageCard(pkg))}
+            {yearlyPackages.map((pkg) => <div key={pkg.price}>{renderPackageCard(pkg)}</div>)}
           </section>
         </TabPanel>
       </Tabs>

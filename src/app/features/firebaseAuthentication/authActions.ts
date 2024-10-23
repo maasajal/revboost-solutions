@@ -2,6 +2,7 @@ import { FirebaseError } from "firebase/app";
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
+  OAuthProvider,
   signInWithEmailAndPassword,
   signInWithPopup,
 } from "firebase/auth";
@@ -44,13 +45,48 @@ export const loginWithGoogle = () => async (dispatch: AppDispatch) => {
     // await dispatch(createUser(userData));
     const response = await axiosPublic.post(`/register`, userData);
     localStorage.setItem("user-token", response.data.message);
-    window.location.href = "/pricing";
+    if (response.data.subscriptionStatus === "active") {
+      window.location.href = "/dashboard";
+    } else {
+      window.location.href = "/pricing";
+    }
     dispatch(loginSuccess({ user: result.user })); // ইউজার তথ্য পাঠান
   } catch (error) {
     if (error instanceof FirebaseError) {
       dispatch(loginFailure({ error: error.message })); // FirebaseError হলে ত্রুটি পাঠান
     } else {
       dispatch(loginFailure({ error: "An unknown error occurred." })); // অজানা ত্রুটি পাঠান
+    }
+  }
+};
+
+// Login with Microsoft (Outlook)
+export const loginWithOutlook = () => async (dispatch: AppDispatch) => {
+  dispatch(loginStart());
+  const provider = new OAuthProvider('microsoft.com'); // Microsoft provider for Outlook
+
+  try {
+    const result = await signInWithPopup(auth, provider);
+    const name = result.user?.displayName;
+    const email = result.user?.email;
+    const photo = result.user?.photoURL;
+
+    const userData: UserData = { name, email, photo };
+    const response = await axiosPublic.post(`/register`, userData);
+    localStorage.setItem("user-token", response.data.message);
+
+    if (response.data.subscriptionStatus === "active") {
+      window.location.href = "/dashboard";
+    } else {
+      window.location.href = "/pricing";
+    }
+
+    dispatch(loginSuccess({ user: result.user }));
+  } catch (error) {
+    if (error instanceof FirebaseError) {
+      dispatch(loginFailure({ error: error.message }));
+    } else {
+      dispatch(loginFailure({ error: "An unknown error occurred." }));
     }
   }
 };
@@ -69,7 +105,11 @@ export const signInWithUserPassword =
             name,
           });
           localStorage.setItem("user-token", response.data.message);
-          window.location.href = "/pricing";
+          if (response.data.subscriptionStatus === "active") {
+            window.location.href = "/dashboard";
+          } else {
+            window.location.href = "/pricing";
+          }
           dispatch(loginSuccess({ user: result.user }));
         }
       );
@@ -77,6 +117,7 @@ export const signInWithUserPassword =
       console.log("action to error", error);
     }
   };
+
 export const loginWithEmailPassword =
   (formData: loginCredentials) => async (dispatch: AppDispatch) => {
     dispatch(loginStart());
@@ -85,7 +126,11 @@ export const loginWithEmailPassword =
       signInWithEmailAndPassword(auth, email, password).then(async (result) => {
         const response = await axiosPublic.post(`/register`, { email });
         localStorage.setItem("user-token", response.data.message);
-        window.location.href = "/dashboard";
+        if (response.data.subscriptionStatus === "active") {
+          window.location.href = "/dashboard";
+        } else {
+          window.location.href = "/pricing";
+        }
         dispatch(loginSuccess({ user: result.user }));
       });
     } catch (error) {
