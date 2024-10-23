@@ -16,6 +16,7 @@ import { RootState } from "../../app/store/store";
 import { CircularProgress, Grid, Typography } from "@mui/material";
 import RevenueCard from "./RevenueCard";
 import { Helmet } from "react-helmet";
+import SectionTitle from "../../components/SectionTitle";
 
 const RevenueGrowth: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -76,10 +77,11 @@ const RevenueGrowth: React.FC = () => {
         <meta charSet="utf-8" />
         <title>Revenue Growth - RevBoost Solutions</title>
       </Helmet>
-      <h1 className="text-center mb-8">
-        {currentUser ? currentUser.name : "Company Name"}
-      </h1>
-
+      <SectionTitle
+        title="Total Revenue & Growth Percentage"
+        intro={currentUser ? currentUser.name : "Company Name"}
+        content="Find-out Revenue with yearly and monthly basis!"
+      />
       <section className="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-8 py-10">
         <Grid item xs={2} sm={4} md={4}>
           <RevenueCard
@@ -141,6 +143,11 @@ const RevenueGrowth: React.FC = () => {
         </Typography>
       </div>
 
+      <SectionTitle
+        title="Revenue Forecast & Total Comparison Growth %"
+        intro={currentUser ? currentUser.name : "Company Name"}
+        content="Visualized the forecast & Income vs Expenses vs Revenue Growth!"
+      />
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
         <div className="h-full py-10 px-5 rounded-xl border">
           <RevenueForecastChart />
