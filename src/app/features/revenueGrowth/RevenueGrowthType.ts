@@ -47,3 +47,15 @@ export interface YearlyRevenueState {
   loading: boolean;
   error: string | null;
 }
+
+export interface ITotalRevenue {
+  totalIncome: number;
+  totalExpenses: number;
+  growthPercentage: string;
+  forecast: string;
+}
+export interface TotalRevenueState {
+  totalRevenueGrowth: ITotalRevenue;
+  loading: boolean;
+  error: string | null;
+}

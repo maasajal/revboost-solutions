@@ -86,9 +86,6 @@ const About = () => {
             content="Solution For Your Bussiness"
           />
           <div className=" w-full mx-auto my-8 space-y-4 text-center xl:col-span-2 xl:text-left">
-            <h2 className="text-4xl font-bold text-center">
-              We provide best solution for your business
-            </h2>
             <p className="dark:text-gray-600 text-center">
               We're proposing to build a web-based platform, "RevBoost,"
               designed to help your business streamline and optimize its revenue
@@ -236,7 +233,7 @@ const About = () => {
               </svg>
             </div>
             <div className="flex flex-col justify-center align-middle">
-              <p className="text-3xl font-semibold leading-none">1200</p>
+              <p className="text-3xl font-semibold leading-none">1200 +</p>
               <hr className="border-red-400 border-2" />
               <p className="capitalize">Total Client</p>
             </div>
@@ -253,7 +250,7 @@ const About = () => {
               </svg>
             </div>
             <div className="flex flex-col justify-center align-middle">
-              <p className="text-3xl font-semibold leading-none">50</p>
+              <p className="text-3xl font-semibold leading-none">50 +</p>
               <hr className="border-red-400 border-2" />
               <p className="capitalize">Country Services</p>
             </div>
@@ -275,7 +272,7 @@ const About = () => {
               </svg>
             </div>
             <div className="flex flex-col justify-center align-middle">
-              <p className="text-3xl font-semibold leading-none">4000</p>
+              <p className="text-3xl font-semibold leading-none">4000 +</p>
               <hr className="border-red-400 border-2" />
               <p className="capitalize">Total Project</p>
             </div>
@@ -295,7 +292,7 @@ const About = () => {
               </svg>
             </div>
             <div className="flex flex-col justify-center align-middle">
-              <p className="text-3xl font-semibold leading-none">1500</p>
+              <p className="text-3xl font-semibold leading-none">1500 +</p>
               <hr className="border-red-400 border-2" />
               <p className="capitalize">Total Reviews</p>
             </div>
