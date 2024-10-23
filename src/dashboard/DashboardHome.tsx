@@ -5,10 +5,15 @@ import { PiInvoiceBold } from "react-icons/pi";
 import { NavLink } from "react-router-dom";
 import RevenueForecastChart from "./RevenueGrowth/RevenueForecastChart";
 import RevenueComparisonPieChart from "./RevenueGrowth/RevenueComparisonPieChart";
+import { Helmet } from "react-helmet";
 
 const DashboardHome: React.FC = () => {
   return (
     <div className="container mx-auto px-5">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>User Dashboard - RevBoost Solutions</title>
+      </Helmet>
       <h1 className="text-center">Dashboard Home</h1>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 py-10">
         <div className="h-full py-10 px-5 rounded-xl border">

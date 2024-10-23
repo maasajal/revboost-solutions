@@ -21,6 +21,7 @@ import {
 } from "@mui/material";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { getCurrentUser } from "../../app/api/currentUserAPI";
+import { Helmet } from "react-helmet";
 
 // Define types for the package data
 interface Package {
@@ -214,6 +215,14 @@ const Pricing: React.FC = () => {
 
   return (
     <div className="container mx-auto px-5">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Pricing Plan - RevBoost Solutions</title>
+        <meta
+          name="description"
+          content="Explore flexible pricing plans at RevBoost Solutions designed to meet your business needs. Get access to powerful tools for revenue growth, expense management, VAT & tax calculation, and more—choose the plan that suits your company best."
+        />
+      </Helmet>
       {/* Hero Section */}
       <section className="bg-backgroundImg">
         <p className="text-center inter font-bold py-10 text-4xl md:text-6xl lg:text-6xl">
@@ -247,13 +256,17 @@ const Pricing: React.FC = () => {
         {/* Monthly Packages Tab */}
         <TabPanel>
           <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center container mx-auto py-10">
-            {monthlyPackages.map((pkg) => <div key={pkg.price}>{renderPackageCard(pkg)}</div>)}
+            {monthlyPackages.map((pkg) => (
+              <div key={pkg.price}>{renderPackageCard(pkg)}</div>
+            ))}
           </section>
         </TabPanel>
         {/* Yearly Packages Tab */}
         <TabPanel>
           <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center container mx-auto py-10">
-            {yearlyPackages.map((pkg) => <div key={pkg.price}>{renderPackageCard(pkg)}</div>)}
+            {yearlyPackages.map((pkg) => (
+              <div key={pkg.price}>{renderPackageCard(pkg)}</div>
+            ))}
           </section>
         </TabPanel>
       </Tabs>

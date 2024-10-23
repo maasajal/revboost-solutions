@@ -26,6 +26,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
+import { Helmet } from "react-helmet";
 
 // type InvoiceData = {
 //   companyEmail: string;
@@ -54,7 +55,6 @@ function getDate() {
 }
 
 const Invoice = () => {
-
   const dispatch = useDispatch<AppDispatch>();
   const { _id: userId, email: userEmail } = useAppSelector(
     (state) => state.currentUser.user
@@ -76,8 +76,6 @@ const Invoice = () => {
     (state: RootState) => state.invoices
   );
   console.log(loading, error, invoices);
-
- 
 
   // const [currentDate, setCurrentDate] = useState(getDate());
 
@@ -134,11 +132,14 @@ const Invoice = () => {
     // if (createInvoice.fulfilled.match(invoiceData)){
     //   dispatch(fetchInvoices())
     // }
-
   };
 
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Invoicing & Billing - RevBoost Solutions</title>
+      </Helmet>
       <section className="container mx-auto mt-10 space-y-8">
         <h2>Company Invoice</h2>
         {/* pdf reader */}
@@ -189,19 +190,18 @@ const Invoice = () => {
                     className="w-full p-3 rounded  focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
                   />
                 </div>
-                <div  className="shadow-2xl rounded">
+                <div className="shadow-2xl rounded">
                   <label className="text-sm">Invoice Creation Date</label>
                   <input
                     {...register("date")}
                     id="invoiceCreationDate"
                     type="date"
-                   
                     className="w-full p-3 rounded  focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
                   />
                 </div>
               </div>
               <div className="space-y-4">
-                <div  className="shadow-2xl rounded">
+                <div className="shadow-2xl rounded">
                   <label className="text-sm">Due Date</label>
                   <input
                     {...register("invoiceDueDate", { required: true })}
@@ -302,7 +302,11 @@ const Invoice = () => {
                 </button>
                 <button
                   type="submit"
-                  className={loading === true ? `animate-bounce w-full p-3 text-sm font-bold tracking-wide uppercase rounded dark:bg-red-400 dark:text-gray-50`:  `w-full p-3 text-sm font-bold tracking-wide uppercase rounded dark:bg-blue-400 dark:text-gray-50`}
+                  className={
+                    loading === true
+                      ? `animate-bounce w-full p-3 text-sm font-bold tracking-wide uppercase rounded dark:bg-red-400 dark:text-gray-50`
+                      : `w-full p-3 text-sm font-bold tracking-wide uppercase rounded dark:bg-blue-400 dark:text-gray-50`
+                  }
                 >
                   {loading ? "Saving..." : "Save Invoice"}
                 </button>
@@ -314,7 +318,7 @@ const Invoice = () => {
           </form>
         </div>
         {/* Add Item */}
-        
+
         {/* Table */}
         <div className="space-y-6 border-2 p-4 shadow-2xl rounded-lg">
           <h2 className="mb-4 text-center text-2xl font-bold leading-tight">
@@ -397,7 +401,6 @@ const Invoice = () => {
                 </colgroup>
                 <thead className="dark:bg-red-400"></thead>
                 <tbody>
-
                   <tr className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50">
                     <td className="p-3">
                       <p>97412378923</p>
@@ -422,7 +425,7 @@ const Invoice = () => {
                       </span>
                     </td>
                   </tr>
-                  
+
                   <tr className="border-b border-opacity-20">
                     <td className="p-3">
                       <p></p>

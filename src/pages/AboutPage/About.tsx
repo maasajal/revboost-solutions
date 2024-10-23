@@ -3,9 +3,19 @@ import { Link } from "react-router-dom";
 import coverPhoto from "../../assets/AboutUs/cover.png";
 import whyChooseUsPhoto from "../../assets/AboutUs/whyChooseUS.png";
 import TeamMembers from "../Shared/TeamMembers/TeamMembers";
-const About = () => { 
+import { Helmet } from "react-helmet";
+
+const About = () => {
   return (
     <div className="container mx-auto pb-24 px-2 md:px-4 lg:px-6">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>About Us - RevBoost Solutions</title>
+        <meta
+          name="description"
+          content="Discover how RevBoost Solutions helps businesses optimize revenue growth and manage expenses. Learn about our mission, team, and innovative tools designed to streamline financial success for companies of all sizes."
+        />
+      </Helmet>
       {/* <section className="contact_banner">
         <PageCover
           bgCoverImg=""

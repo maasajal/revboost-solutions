@@ -19,6 +19,7 @@ import {
   Alert,
   Paper,
 } from "@mui/material";
+import { Helmet } from "react-helmet";
 
 const Expenses: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -41,6 +42,10 @@ const Expenses: React.FC = () => {
 
   return (
     <section>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Expenses - RevBoost Solutions</title>
+      </Helmet>
       <Box sx={{ padding: 4 }}>
         <Typography variant="h4" gutterBottom>
           Your Expenses

@@ -2,10 +2,19 @@ import { Box } from "@mui/material";
 import SocialMedia from "../../components/SocialMedia";
 import ContactForm from "./ContactForm";
 import ContactLocation from "./ContactLocation";
+import { Helmet } from "react-helmet";
 
 const Contact: React.FC = () => {
   return (
     <div>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Contact Us - RevBoost Solutions</title>
+        <meta
+          name="description"
+          content="Have questions about RevBoost Solutions? Contact us today to learn more about our revenue growth, expense tracking, payroll, and financial forecasting tools. We're here to help your business succeed!"
+        />
+      </Helmet>
       <Box
         sx={{
           textAlign: "center",

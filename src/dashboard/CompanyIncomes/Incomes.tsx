@@ -34,6 +34,7 @@ import { useAppSelector } from "../../app/hooks/useAppSelector";
 import useAxiosSecure from "../../app/hooks/useAxiosSecure";
 import { waringStatus } from "../../components/utils/waringStatus";
 import IncomeForm from "./IncomeForm";
+import { Helmet } from "react-helmet";
 // form input
 interface IncomeFormInputs {
   incomeId: string;
@@ -43,7 +44,7 @@ interface IncomeFormInputs {
 }
 interface Parameter {
   incomeId: string;
-  userId: string;  // Assuming you have access to this in your component
+  userId: string; // Assuming you have access to this in your component
 }
 
 const style = {
@@ -64,7 +65,7 @@ const Incomes: React.FC = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const dispatch = useAppDispatch();
-  const axiosSecure = useAxiosSecure()
+  const axiosSecure = useAxiosSecure();
   const {
     _id: userId,
     email: userEmail,
@@ -117,8 +118,10 @@ const Incomes: React.FC = () => {
     handleClose();
   };
 
-
-  const handleDelete = async ({ incomeId, userId }: Parameter): Promise<void> => {
+  const handleDelete = async ({
+    incomeId,
+    userId,
+  }: Parameter): Promise<void> => {
     try {
       const result = await Swal.fire({
         title: "Are you sure?",
@@ -127,18 +130,19 @@ const Incomes: React.FC = () => {
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!"
+        confirmButtonText: "Yes, delete it!",
       });
       if (result.isConfirmed) {
         // Use the productId and userId for the API call
-        await axiosSecure.delete(`/incomes/delete?userId=${userId}&incomeId=${incomeId}`);
+        await axiosSecure.delete(
+          `/incomes/delete?userId=${userId}&incomeId=${incomeId}`
+        );
         Swal.fire({
           title: "Deleted!",
           text: "Your file has been deleted.",
-          icon: "success"
+          icon: "success",
         });
         dispatch(fetchIncomeCollection(userId));
-
       }
     } catch (error) {
       console.error("Error during delete:", error);
@@ -148,6 +152,10 @@ const Incomes: React.FC = () => {
 
   return (
     <section className="container mx-auto mt-10 space-y-5">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Incomes - RevBoost Solutions</title>
+      </Helmet>
       <h2 className="text-center">Income Tracking of {name}</h2>
       {loading && (
         <Box display="flex" justifyContent="center" marginY={2}>
@@ -185,11 +193,18 @@ const Incomes: React.FC = () => {
                     <TableCell>{entry.incomeId}</TableCell>
                     <TableCell>{entry.source}</TableCell>
                     <TableCell>$ {entry.amount}</TableCell>
-                    <TableCell><MdOutlineFolderDelete
-                      onClick={() => handleDelete({ incomeId: entry.incomeId, userId: userId })}
-                      className="text-2xl text-primary cursor-pointer" /></TableCell>
+                    <TableCell>
+                      <MdOutlineFolderDelete
+                        onClick={() =>
+                          handleDelete({
+                            incomeId: entry.incomeId,
+                            userId: userId,
+                          })
+                        }
+                        className="text-2xl text-primary cursor-pointer"
+                      />
+                    </TableCell>
                   </TableRow>
-
                 ))
               ) : (
                 <TableRow>

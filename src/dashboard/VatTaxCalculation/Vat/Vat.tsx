@@ -6,61 +6,82 @@ import useAxiosSecure from "../../../app/hooks/useAxiosSecure";
 import { RootState } from "../../../app/store/store";
 import VatFilter from "./VatFilter";
 import VatTable from "./VatTable";
+import { Helmet } from "react-helmet";
 interface IncomeEntry {
-    incomeId: string;
-    amount: number;
-    source: string;
-    date: string;
-    vat_status: string;
-    tax_status: string;
-    createdAt: string;
-    updatedAt: string;
-    vat_amount: number | null;
+  incomeId: string;
+  amount: number;
+  source: string;
+  date: string;
+  vat_status: string;
+  tax_status: string;
+  createdAt: string;
+  updatedAt: string;
+  vat_amount: number | null;
 
-    _id: string;
+  _id: string;
 }
 
 interface DataResponse {
-    _id: string;
-    userId: string;
-    userEmail: string;
-    createdAt: string;
-    updatedAt: string;
-    incomeEntries: IncomeEntry[];
-    __v: number;
+  _id: string;
+  userId: string;
+  userEmail: string;
+  createdAt: string;
+  updatedAt: string;
+  incomeEntries: IncomeEntry[];
+  __v: number;
 }
 const Vat = () => {
-    const { _id: userId } = useAppSelector((state: RootState) => state.currentUser.user) as User;
+  const { _id: userId } = useAppSelector(
+    (state: RootState) => state.currentUser.user
+  ) as User;
 
-    const axiosSecure = useAxiosSecure()
-    const [incomes, setIncomes] = useState<DataResponse | null>(null);
-    const [loading, setLoading] = useState(false)
-    const [refetch, setRefetch] = useState(false)
+  const axiosSecure = useAxiosSecure();
+  const [incomes, setIncomes] = useState<DataResponse | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [refetch, setRefetch] = useState(false);
 
-    const years = [2020, 2021, 2022, 2023, 2024];
-    const fetchIncomesData = async (selectedYear: number | null, selectedMonth: string | null): Promise<void> => {
-        setLoading(true)
-        try {
-            const response: AxiosResponse<DataResponse> = await axiosSecure.post(`/incomes/filter`, { selectedYear, selectedMonth, userId });
-            if (response.data) {
-                setIncomes(response.data);
-                console.log(response)
-                setLoading(false)
-            } else {
-                setIncomes(null);
-                setLoading(false)
-            }
-        } catch (error) {
-            console.log(error)
-        }
+  const years = [2020, 2021, 2022, 2023, 2024];
+  const fetchIncomesData = async (
+    selectedYear: number | null,
+    selectedMonth: string | null
+  ): Promise<void> => {
+    setLoading(true);
+    try {
+      const response: AxiosResponse<DataResponse> = await axiosSecure.post(
+        `/incomes/filter`,
+        { selectedYear, selectedMonth, userId }
+      );
+      if (response.data) {
+        setIncomes(response.data);
+        console.log(response);
+        setLoading(false);
+      } else {
+        setIncomes(null);
+        setLoading(false);
+      }
+    } catch (error) {
+      console.log(error);
     }
-    return (
-        <div>
-            <VatFilter years={years} fetchIncomesData={fetchIncomesData} loading={loading} refetch={refetch} />
-            {incomes ? <VatTable incomes={incomes} refetch={refetch} setRefetch={setRefetch} /> : ""}
-        </div>
-    );
+  };
+  return (
+    <div>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>VAT - RevBoost Solutions</title>
+      </Helmet>
+      <VatFilter
+        years={years}
+        fetchIncomesData={fetchIncomesData}
+        loading={loading}
+        refetch={refetch}
+      />
+      {incomes ? (
+        <VatTable incomes={incomes} refetch={refetch} setRefetch={setRefetch} />
+      ) : (
+        ""
+      )}
+    </div>
+  );
 };
 
 export default Vat;
-

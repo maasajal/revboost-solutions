@@ -16,6 +16,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { updateUser } from "../../app/api/usersAPI";
 import Swal from "sweetalert2";
 import revTheme from "../../components/utils/theme";
+import { Helmet } from "react-helmet";
 
 interface UpdateUserData {
   photo: string;
@@ -77,6 +78,10 @@ const Profile: React.FC = () => {
 
   return (
     <section className="container mx-auto px-5 space-y-5">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>{name} - RevBoost Solutions</title>
+      </Helmet>
       <h1 className="text-center">User Profile</h1>
       <div>
         {!user
