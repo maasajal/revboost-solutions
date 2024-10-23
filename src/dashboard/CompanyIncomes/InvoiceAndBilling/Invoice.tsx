@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../app/store/store";
 import {
   createInvoice,
+  fetchIndivitualInvoices,
   fetchInvoices,
   InvoiceData,
 } from "../../../app/features/companyIncome/invoiceSlice";
@@ -56,23 +57,32 @@ function getDate() {
 
 const Invoice = () => {
   const dispatch = useDispatch<AppDispatch>();
- 
- 
- // Get current user data
- const user = useAppSelector(
-  (state: RootState) => state.currentUser.user
-) as User;
-console.log(user)
-  // // for user
+
   useEffect(() => {
     dispatch(getCurrentUser());
-
-    dispatch(fetchInvoices);
   }, [dispatch]);
 
+  // Get current user data
+  // const user: User = useAppSelector(
+  //   (state: RootState) => state.currentUser.user
+  // ) as User;
+  // console.log(user);
+
+  // // for user
   useEffect(() => {
     dispatch(fetchInvoices());
+    
   }, [dispatch]);
+
+
+  const { _id: userId , email: userEmail} = useAppSelector(
+    (state) => state.currentUser.user
+  ) as User;
+
+
+  // useEffect(() => {
+  //   dispatch(fetchInvoices());
+  // }, [dispatch]);
 
   // const [currentDate, setCurrentDate] = useState(getDate());
 
@@ -131,12 +141,18 @@ console.log(user)
     //   ...item,
     //   totalAmount: item.quantity * item.unitPrice,
     // }));
+
+    
     const invoiceData: InvoiceData = { ...data };
+    const savedInvoice = await dispatch(
+      createInvoice(invoiceData)
+    )
+
     // Dispatch the createInvoice thunk
     await dispatch(createInvoice(invoiceData));
-    // if (createInvoice.fulfilled.match(invoiceData)){
-    //   dispatch(fetchInvoices())
-    // }
+    if (createInvoice.fulfilled.match(savedInvoice)){
+      dispatch(fetchIndivitualInvoices(userId))
+    }
   };
 
   return (
@@ -316,7 +332,7 @@ console.log(user)
                   {loading ? "Saving..." : "Save Invoice"}
                 </button>
                 {/* Error Message */}
-                {error && <p className="text-red-400">{error}</p>}
+                {/* {error && <p className="text-red-400">{error}</p>} */}
               </div>
             </div>
             {/* Error Message */}
@@ -385,7 +401,7 @@ console.log(user)
                 ) : (
                   <TableRow>
                     <TableCell colSpan={4} align="center">
-                      No expenses found.
+                      No invoice found.
                     </TableCell>
                   </TableRow>
                 )}

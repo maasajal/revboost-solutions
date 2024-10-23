@@ -13,6 +13,7 @@ export interface Item {
 }
 
 export interface InvoiceData {
+  invoiceId: string;
   companyEmail: string;
   customerName: string;
   companyName: string;
@@ -35,7 +36,7 @@ const initialState: InvoiceState = {
   error: null,
 };
 
-// Async Thunk to fetch invoices
+// Async Thunk to fetch  invoices
 export const fetchInvoices = createAsyncThunk<InvoiceData[], void>(
   "invoices/fetchInvoices",
   async (_, { rejectWithValue }) => {
@@ -46,6 +47,24 @@ export const fetchInvoices = createAsyncThunk<InvoiceData[], void>(
       );
       return response.data;
     } catch (err: any) {
+      return rejectWithValue(
+        err.response.data.error || "Failed to fetch invoices"
+      );
+    }
+  }
+);
+// Async Thunk to fetch indivitual invoices
+export const fetchIndivitualInvoices = createAsyncThunk(
+  "invoices/fetchInvoices",
+  async (userId: string, { rejectWithValue }) => {
+    try {
+      
+      const response = await axiosSecure.get(
+        `/invoices/create/${userId}`
+      );
+      return response.data;
+    } catch (err: any) {
+      console.error("Error fetching invoice: ", err.message);
       return rejectWithValue(
         err.response.data.error || "Failed to fetch invoices"
       );
