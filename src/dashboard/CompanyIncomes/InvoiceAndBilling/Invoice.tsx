@@ -141,6 +141,7 @@ const Invoice = () => {
     <>
       <section className="container mx-auto mt-10 space-y-8">
         <h2>Company Invoice</h2>
+        {/* pdf reader */}
         <div>
           <form
             onSubmit={handleSubmit(onSubmit)}
@@ -148,7 +149,7 @@ const Invoice = () => {
           >
             <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4">
               <div className="space-y-4">
-                <div>
+                <div className="shadow-2xl rounded">
                   <label className="text-sm">Company Email</label>
                   <input
                     {...register("companyEmail", { required: true })}
@@ -157,7 +158,7 @@ const Invoice = () => {
                     className="w-full p-3 rounded  focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
                   />
                 </div>
-                <div>
+                <div className="shadow-2xl rounded">
                   <label className="text-sm">Customer Name</label>
                   <input
                     {...register("customerName", { required: true })}
@@ -166,50 +167,51 @@ const Invoice = () => {
                     className="w-full p-3 rounded  focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
                   />
                 </div>
-                <div>
+                <div className="shadow-2xl rounded">
                   <label className="text-sm">Your Company Name</label>
                   <input
                     {...register("companyName", { required: true })}
                     id="companyName"
                     type="text"
+                    placeholder="Company name"
                     className="w-full p-3 rounded focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
                   />
                 </div>
               </div>
               <div className="space-y-4">
-                <div>
+                <div className="shadow-2xl rounded">
                   <label className="text-sm">Invoice Number</label>
                   <input
                     {...register("invoiceNumber", { required: true })}
                     id="invoiceNumber"
                     type="number"
-                    placeholder=""
+                    placeholder="Invoice maunally"
                     className="w-full p-3 rounded  focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
                   />
                 </div>
-                <div>
+                <div  className="shadow-2xl rounded">
                   <label className="text-sm">Invoice Creation Date</label>
                   <input
                     {...register("date")}
                     id="invoiceCreationDate"
-                    // type="date"
-                    placeholder={getDate()}
+                    type="date"
+                   
                     className="w-full p-3 rounded  focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
                   />
                 </div>
               </div>
               <div className="space-y-4">
-                <div>
+                <div  className="shadow-2xl rounded">
                   <label className="text-sm">Due Date</label>
                   <input
                     {...register("invoiceDueDate", { required: true })}
                     id="InvoiceDueDate"
                     type="text"
-                    placeholder=""
+                    placeholder={getDate()}
                     className="w-full p-3 rounded  focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
                   />
                 </div>
-                <div>
+                <div className="shadow-2xl">
                   <label className="text-sm">Customer Address</label>
                   <input
                     {...register("customerAddress", { required: true })}
@@ -225,7 +227,7 @@ const Invoice = () => {
                 Items:
               </h3>
               {fields.map((item, index) => (
-                <div key={item.id} className="space-y-2">
+                <div key={item.id} className="space-y-2 shadow-2xl">
                   <label>No</label>
                   <Controller
                     name={`items.${index}.no`}
@@ -274,7 +276,7 @@ const Invoice = () => {
                     )}
                   />
                   <button
-                    className="w-full mt-4 p-3 rounded  bg-red-200 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 "
+                    className="w-full  mt-4 p-3 rounded  bg-red-300 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 "
                     type="button"
                     onClick={() => remove(index)}
                   >
@@ -282,7 +284,7 @@ const Invoice = () => {
                   </button>
                 </div>
               ))}
-              <div className="flex gap-2">
+              <div className="flex gap-4 max-h-12 shadow-2xl">
                 <button
                   className="w-full p-3 rounded  focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
                   type="button"
@@ -300,7 +302,7 @@ const Invoice = () => {
                 </button>
                 <button
                   type="submit"
-                  className="w-full p-3 text-sm font-bold tracking-wide uppercase rounded dark:bg-red-400 dark:text-gray-50"
+                  className={loading === true ? `animate-bounce w-full p-3 text-sm font-bold tracking-wide uppercase rounded dark:bg-red-400 dark:text-gray-50`:  `w-full p-3 text-sm font-bold tracking-wide uppercase rounded dark:bg-blue-400 dark:text-gray-50`}
                 >
                   {loading ? "Saving..." : "Save Invoice"}
                 </button>
@@ -312,7 +314,7 @@ const Invoice = () => {
           </form>
         </div>
         {/* Add Item */}
-
+        
         {/* Table */}
         <div className="space-y-6 border-2 p-4 shadow-2xl rounded-lg">
           <h2 className="mb-4 text-center text-2xl font-bold leading-tight">
@@ -338,7 +340,7 @@ const Invoice = () => {
           </div>
           <TableContainer component={Paper} className="overflow-x-auto">
             <Table>
-              <TableHead className="bg-gray-600">
+              <TableHead className="bg-blue-300 border-b border-opacity-20">
                 <TableRow>
                   <TableCell>
                     <strong>#invoice</strong>
@@ -420,54 +422,7 @@ const Invoice = () => {
                       </span>
                     </td>
                   </tr>
-                  <tr className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50">
-                    <td className="p-3">
-                      <p>97412378923</p>
-                    </td>
-                    <td className="p-3">
-                      <p>Coca Cola co.</p>
-                    </td>
-                    <td className="p-3">
-                      <p>14 Jan 2022</p>
-                      <p className="dark:text-gray-600">Friday</p>
-                    </td>
-                    <td className="p-3">
-                      <p>01 Feb 2022</p>
-                      <p className="dark:text-gray-600">Tuesday</p>
-                    </td>
-                    <td className="p-3 text-right">
-                      <p>$8,950,500</p>
-                    </td>
-                    <td className="p-3 text-right">
-                      <span className="px-3 py-1 font-semibold rounded-md dark:bg-red-400 dark:text-gray-50">
-                        <span>Delete</span>
-                      </span>
-                    </td>
-                  </tr>
-                  <tr className="border-b border-opacity-20 dark:border-red-300 dark:bg-gray-50">
-                    <td className="p-3">
-                      <p>97412378923</p>
-                    </td>
-                    <td className="p-3">
-                      <p>Nvidia Corporation</p>
-                    </td>
-                    <td className="p-3">
-                      <p>14 Jan 2022</p>
-                      <p className="dark:text-gray-600">Friday</p>
-                    </td>
-                    <td className="p-3">
-                      <p>01 Feb 2022</p>
-                      <p className="dark:text-gray-600">Tuesday</p>
-                    </td>
-                    <td className="p-3 text-right">
-                      <p>$98,218</p>
-                    </td>
-                    <td className="p-3 text-right">
-                      <span className="px-3 py-1 font-semibold rounded-md dark:bg-red-400 dark:text-gray-50">
-                        <span></span>
-                      </span>
-                    </td>
-                  </tr>
+                  
                   <tr className="border-b border-opacity-20">
                     <td className="p-3">
                       <p></p>
