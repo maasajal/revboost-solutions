@@ -11,6 +11,7 @@ import moneyHome from "../../../assets/signup/MoneyHome-SignUp.png";
 import SocialLogin from "../../../components/SocialLogin";
 import logo from "../../../assets/logo.png";
 import { Helmet } from "react-helmet";
+import { TextField } from "@mui/material";
 
 type Inputs = {
   email: string;
@@ -67,32 +68,30 @@ const Login = () => {
             </h2>
 
             <div className="form-control mt-4">
-              <label className="label">
-                <span className="label-text">Email</span>
-              </label>
-              <input
-                type="email"
-                placeholder="Email"
-                className="input input-bordered w-full"
-                {...register("email", { required: true })}
-              />
+               <TextField
+                  className="w-full"
+                  label="Email"
+                  type="email"
+                  {...register("email", { required: true })}
+                  error={!!errors.email}
+                  helperText={errors.email ? "email is required" : ""}
+                />
               {errors.email && (
                 <small className="text-red-400 mt-2">
-                  This field is required
+                  Email field is required
                 </small>
               )}
             </div>
 
             <div className="form-control mt-4">
-              <label className="label">
-                <span className="label-text">Password</span>
-              </label>
               <div className="flex items-center relative">
-                <input
+                 <TextField
+                  className="w-full"
+                  label="Password"
                   type={showPassword ? "text" : "password"}
-                  placeholder="Password"
-                  className="input input-bordered w-full"
                   {...register("password", { required: true })}
+                  error={!!errors.password}
+                  helperText={errors.password ? "password is required" : ""}
                 />
                 <div
                   className="absolute right-0 mr-4 *:size-5 cursor-pointer"
