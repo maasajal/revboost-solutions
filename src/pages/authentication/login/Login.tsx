@@ -46,10 +46,12 @@ const Login = () => {
           content="Access your RevBoost Solutions account to manage your business's revenue, expenses, and financial growth. Log in to unlock powerful tools for boosting profitability and tracking financial performance."
         />
       </Helmet>
-      <div className="flex flex-col md:flex-row lg:flex-row w-full">
+      <div className="flex flex-col sm:flex-row md:flex-row lg:flex-row w-full">
         {/* Left Section */}
-        <div className="flex-1 bg-[#FF08008C] flex flex-col items-center pt-10 ">
-        <Link  to="/"><img  src={logo} alt="logo" className="w-1/3 2xl:w-1/4 mx-auto" /></Link>
+        <div className="flex-1 bg-[#FF08008C] flex flex-col items-center pt-10 px-5">
+          <Link to="/">
+            <img src={logo} alt="logo" className="w-1/3 2xl:w-1/4 mx-auto" />
+          </Link>
           <p className="text-lg text-white">
             A Modern Revenue Generation Platform
           </p>
@@ -68,14 +70,14 @@ const Login = () => {
             </h2>
 
             <div className="form-control mt-4">
-               <TextField
-                  className="w-full"
-                  label="Email"
-                  type="email"
-                  {...register("email", { required: true })}
-                  error={!!errors.email}
-                  helperText={errors.email ? "email is required" : ""}
-                />
+              <TextField
+                className="w-full"
+                label="Email"
+                type="email"
+                {...register("email", { required: true })}
+                error={!!errors.email}
+                helperText={errors.email ? "email is required" : ""}
+              />
               {errors.email && (
                 <small className="text-red-400 mt-2">
                   Email field is required
@@ -85,7 +87,7 @@ const Login = () => {
 
             <div className="form-control mt-4">
               <div className="flex items-center relative">
-                 <TextField
+                <TextField
                   className="w-full"
                   label="Password"
                   type={showPassword ? "text" : "password"}
