@@ -301,7 +301,7 @@ const Invoice = () => {
                 </button>
                 <button
                   type="submit"
-                  className="w-full p-3 text-sm font-bold tracking-wide uppercase rounded dark:bg-red-400 dark:text-gray-50"
+                  className={loading === true ? `animate-spin w-full p-3 text-sm font-bold tracking-wide uppercase rounded dark:bg-red-400 dark:text-gray-50`:  `w-full p-3 text-sm font-bold tracking-wide uppercase rounded dark:bg-blue-400 dark:text-gray-50`}
                 >
                   {loading ? "Saving..." : "Save Invoice"}
                 </button>
