@@ -224,7 +224,7 @@ const About = () => {
               </svg>
             </div>
             <div className="flex flex-col justify-center align-middle">
-              <p className="text-3xl font-semibold leading-none">1200</p>
+              <p className="text-3xl font-semibold leading-none">1200 +</p>
               <hr className="border-red-400 border-2" />
               <p className="capitalize">Total Client</p>
             </div>
@@ -241,7 +241,7 @@ const About = () => {
               </svg>
             </div>
             <div className="flex flex-col justify-center align-middle">
-              <p className="text-3xl font-semibold leading-none">50</p>
+              <p className="text-3xl font-semibold leading-none">50 +</p>
               <hr className="border-red-400 border-2" />
               <p className="capitalize">Country Services</p>
             </div>
@@ -263,7 +263,7 @@ const About = () => {
               </svg>
             </div>
             <div className="flex flex-col justify-center align-middle">
-              <p className="text-3xl font-semibold leading-none">4000</p>
+              <p className="text-3xl font-semibold leading-none">4000 +</p>
               <hr className="border-red-400 border-2" />
               <p className="capitalize">Total Project</p>
             </div>
@@ -283,7 +283,7 @@ const About = () => {
               </svg>
             </div>
             <div className="flex flex-col justify-center align-middle">
-              <p className="text-3xl font-semibold leading-none">1500</p>
+              <p className="text-3xl font-semibold leading-none">1500 +</p>
               <hr className="border-red-400 border-2" />
               <p className="capitalize">Total Reviews</p>
             </div>
