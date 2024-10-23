@@ -31,8 +31,8 @@ const initialState: PayrollState = {
 
 export const fetchPayroll = createAsyncThunk(
   "payroll/fetchPayroll",
-  async () => {
-    const payroll = getPayroll();
+  async (userId: string) => {
+    const payroll = getPayroll(userId);
     return payroll;
   }
 );

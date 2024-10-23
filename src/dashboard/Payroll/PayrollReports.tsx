@@ -9,6 +9,7 @@ import { AppDispatch, RootState } from "../../app/store/store";
 import toast from "react-hot-toast";
 import SelectField from "./payrollComponents/SelectField";
 import PayrollUpdateModal from "./payrollComponents/PayrollUpdateModal";
+import User from "../../app/features/users/UserType";
 
 interface Payroll {
   _id: string;
@@ -26,9 +27,16 @@ const PayrollReports = () => {
   const { payrolls } = useSelector((state: RootState) => state.payroll);
   const dispatch: AppDispatch = useDispatch();
 
+  // Get current user data
+  const user = useSelector(
+    (state: RootState) => state.currentUser.user
+  ) as User;
+  const { _id, email } = user;
+  console.log(_id, email); // undefined undefined
+
   useEffect(() => {
-    dispatch(fetchPayroll());
-  }, [dispatch]);
+    dispatch(fetchPayroll("670de31140abc753ec86c509"));
+  }, [dispatch, _id]);
 
   // Inside the component
   const [openModal, setOpenModal] = useState(false);
