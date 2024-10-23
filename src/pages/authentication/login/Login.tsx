@@ -37,17 +37,17 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center">
-      <div className="flex flex-col lg:flex-row w-full">
+      <div className="flex flex-col md:flex-row lg:flex-row w-full">
         {/* Left Section */}
         <div className="flex-1 bg-[#FF08008C] flex flex-col items-center pt-10 ">
-          <img src={logo} alt="logo" className="w-1/3 2xl:w-1/4" />
+        <Link  to="/"><img  src={logo} alt="logo" className="w-1/3 2xl:w-1/4 mx-auto" /></Link>
           <p className="text-lg text-white">
             A Modern Revenue Generation Platform
           </p>
           <img
             src={moneyHome}
             alt="Money Home"
-            className="w-3/4 mt-10 lg:ml-40 lg:-mr-40 z-10 2xl:w-1/2 2xl:ml-80 2xl:-mr-80"
+            className="w-3/4 pb-8 mt-10 lg:ml-40 lg:-mr-40 z-10 2xl:w-1/2 2xl:ml-80 2xl:-mr-80"
           />
         </div>
 
@@ -85,7 +85,7 @@ const Login = () => {
                   helperText={errors.password ? "password is required" : ""}
                 />
                 <div
-                  className="absolute right-0 mr-4 *:size-5 cursor-pointer"
+                  className="absolute right-0 mr-4 *:size-5"
                   onClick={togglePasswordVisibility}
                 >
                   {showPassword ? <TbEyeClosed /> : <FaRegEye />}
