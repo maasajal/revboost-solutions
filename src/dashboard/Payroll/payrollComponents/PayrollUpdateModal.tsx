@@ -26,12 +26,14 @@ type PayrollUpdateModalProps = {
   open: boolean;
   onClose: () => void;
   payroll: Inputs | null;
+  userId: string;
 };
 
 const PayrollUpdateModal = ({
   open,
   onClose,
   payroll,
+  userId, // Destructure userId from props
 }: PayrollUpdateModalProps) => {
   const {
     register,
@@ -64,8 +66,14 @@ const PayrollUpdateModal = ({
     };
 
     console.log("Updated form data: ", payload);
-    await dispatch(updatePayroll({ id: data._id, payrollData: payload }));
-    await dispatch(fetchPayroll());
+    await dispatch(
+      updatePayroll({
+        userId, // Pass userId from the parent component
+        payrollId: data._id,
+        payrollData: payload,
+      })
+    );
+    await dispatch(fetchPayroll(userId)); // Refetch the updated payroll data
     toast.success("Updated Successfully.");
     onClose();
   };
