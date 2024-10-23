@@ -226,7 +226,7 @@ const Invoice = () => {
                 Items:
               </h3>
               {fields.map((item, index) => (
-                <div key={item.id} className="space-y-2">
+                <div key={item.id} className="space-y-2 shadow-2xl">
                   <label>No</label>
                   <Controller
                     name={`items.${index}.no`}
@@ -275,7 +275,7 @@ const Invoice = () => {
                     )}
                   />
                   <button
-                    className="w-full mt-4 p-3 rounded  bg-red-200 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 "
+                    className="w-full mt-4 p-3 rounded  bg-red-300 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 "
                     type="button"
                     onClick={() => remove(index)}
                   >
@@ -283,7 +283,7 @@ const Invoice = () => {
                   </button>
                 </div>
               ))}
-              <div className="flex gap-2">
+              <div className="flex gap-4 max-h-12 shadow-2xl">
                 <button
                   className="w-full p-3 rounded  focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
                   type="button"
