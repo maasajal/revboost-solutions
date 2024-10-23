@@ -9,6 +9,7 @@ import { AppDispatch, RootState } from "../../app/store/store";
 import FormField from "./payrollComponents/FormField";
 import SelectField from "./payrollComponents/SelectField";
 import { FaSpinner } from "react-icons/fa";
+import User from "../../app/features/users/UserType";
 
 interface Payroll {
   _id: string;
@@ -32,6 +33,19 @@ type Inputs = {
   __v: number;
 };
 
+interface IPayload {
+  userId: string;
+  userEmail: string;
+  payrollEntries: {
+    employeeName: string;
+    position: string;
+    salary: number;
+    bonus: number;
+    taxDeduction: number;
+    month: string;
+  }[];
+}
+
 const PayrollForm = () => {
   const {
     register,
@@ -44,11 +58,35 @@ const PayrollForm = () => {
 
   const dispatch: AppDispatch = useDispatch();
 
+  // Get current user data
+  const user = useSelector(
+    (state: RootState) => state.currentUser.user
+  ) as User;
+  const { _id, email } = user;
+  console.log(_id, email);
+
   const onSubmit: SubmitHandler<Inputs> = async (data: Payroll) => {
     console.log(data);
+
+    // Format the data according to your backend API structure
+    const payload: IPayload = {
+      userId: _id, // Current user's ID
+      userEmail: email, // Current user's email
+      payrollEntries: [
+        {
+          employeeName: data.employeeName,
+          position: data.position,
+          salary: data.salary,
+          bonus: data.bonus,
+          taxDeduction: data.taxDeduction,
+          month: data.month,
+        },
+      ],
+    };
+
     try {
-      await dispatch(addPayroll(data));
-      await dispatch(fetchPayroll()); // Fetch the updated list of payrolls
+      await dispatch(addPayroll(payload));
+      await dispatch(fetchPayroll(_id)); // Fetch the updated list of payrolls
       toast.success("Saved Successfully.");
       reset();
       // eslint-disable-next-line @typescript-eslint/no-unused-vars

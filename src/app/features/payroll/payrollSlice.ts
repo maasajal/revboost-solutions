@@ -29,6 +29,19 @@ const initialState: PayrollState = {
   error: null,
 };
 
+interface IPayload {
+  userId: string;
+  userEmail: string;
+  payrollEntries: {
+    employeeName: string;
+    position: string;
+    salary: number;
+    bonus: number;
+    taxDeduction: number;
+    month: string;
+  }[];
+}
+
 export const fetchPayroll = createAsyncThunk(
   "payroll/fetchPayroll",
   async (userId: string) => {
@@ -39,7 +52,7 @@ export const fetchPayroll = createAsyncThunk(
 
 export const addPayroll = createAsyncThunk(
   "payroll/addPayroll",
-  async (payrollData: Payroll) => {
+  async (payrollData: IPayload) => {
     const newPayroll = await createPayroll(payrollData);
     return newPayroll;
   }
@@ -55,9 +68,9 @@ export const updatePayroll = createAsyncThunk(
 
 export const removePayroll = createAsyncThunk(
   "payroll/removePayroll",
-  async (id: string) => {
-    await deletePayroll(id);
-    return id;
+  async ({ userId, payrollId }: { userId: string; payrollId: string }) => {
+    await deletePayroll(userId, payrollId);
+    return payrollId;
   }
 );
 

@@ -32,10 +32,10 @@ const PayrollReports = () => {
     (state: RootState) => state.currentUser.user
   ) as User;
   const { _id, email } = user;
-  console.log(_id, email); // undefined undefined
+  console.log(_id, email);
 
   useEffect(() => {
-    dispatch(fetchPayroll("670de31140abc753ec86c509"));
+    dispatch(fetchPayroll(_id));
   }, [dispatch, _id]);
 
   // Inside the component
@@ -49,9 +49,9 @@ const PayrollReports = () => {
   };
 
   // Handle payroll deletion
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (payrollId: string) => {
     try {
-      await dispatch(removePayroll(id));
+      await dispatch(removePayroll({ userId: _id, payrollId })); // Send both userId and payrollId
       toast.success("Deleted successfully!");
     } catch (err) {
       console.log(err);
