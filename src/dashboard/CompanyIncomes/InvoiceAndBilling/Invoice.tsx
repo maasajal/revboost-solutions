@@ -308,7 +308,7 @@ const Invoice = () => {
                     })
                   }
                 >
-                  Add Item
+                  Add Item ( optional )
                 </button>
                 <button
                   type="submit"
