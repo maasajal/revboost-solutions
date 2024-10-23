@@ -54,14 +54,14 @@ const Register = () => {
       <div className="flex flex-col lg:flex-row w-full">
         {/* Left Section */}
         <div className="flex-1 bg-[#FF08008C] flex flex-col items-center pt-10 ">
-          <img src={logo} alt="logo" className="w-1/3" />
+        <Link  to="/"><img  src={logo} alt="logo" className="w-1/3 2xl:w-1/4 mx-auto" /></Link>
           <p className="text-lg text-white">
             A Modern Revenue Generation Platform
           </p>
           <img
             src={moneyHome}
             alt="Money Home"
-            className="w-3/4 md:w-1/2 lg:w-full xl:w-3/4 2xl:w-1/2 mt-10 -mb-12 lg:mb-0 lg:ml-20 lg:-mr-40 2xl:ml-80 2xl:-mr-80 z-10"
+            className="w-3/4 pb-8 mt-10 lg:ml-40 lg:-mr-40 z-10 2xl:w-1/2 2xl:ml-80 2xl:-mr-80"
           />
         </div>
 
