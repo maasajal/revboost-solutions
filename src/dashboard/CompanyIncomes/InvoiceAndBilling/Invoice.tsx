@@ -5,35 +5,45 @@ import {
   useForm,
 } from "react-hook-form";
 
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../app/store/store";
+import {
+  createInvoice,
+  fetchInvoices,
+  InvoiceData,
+} from "../../../app/features/companyIncome/invoiceSlice";
+import { useEffect } from "react";
+import { getCurrentUser } from "../../../app/api/currentUserAPI";
+import { useAppSelector } from "../../../app/hooks/useAppSelector";
+import User from "../../../app/features/users/UserType";
 
-// export interface InvoiceData {
+import {
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@mui/material";
+
+// type InvoiceData = {
 //   companyEmail: string;
 //   customerName: string;
 //   companyName: string;
 //   invoiceNumber: string;
-//   invoiceDueDate: string;
 //   date: string;
+//   invoiceDueDate: string;
 //   customerAddress: string;
-//   items: Item[];
-// }
-// new try
+//   items: {
+//     no: number;
+//     item: string;
+//     quantity: number;
+//     unitPrice: number;
+//     totalAmount: number;
+//   }[];
+// };
 
-type InvoiceData = {
-  companyEmail: string;
-  customerName: string;
-  companyName: string;
-  invoiceNumber: string;
-  date: string;
-  invoiceDueDate: string;
-  customerAddress: string;
-  items: {
-    no: number;
-    item: string;
-    quantity: number;
-    unitPrice: number;
-    totalAmount: number;
-  }[];
-};
 // Get Date
 function getDate() {
   const today = new Date();
@@ -44,6 +54,29 @@ function getDate() {
 }
 
 const Invoice = () => {
+
+  const dispatch = useDispatch<AppDispatch>();
+  const { _id: userId, email: userEmail } = useAppSelector(
+    (state) => state.currentUser.user
+  ) as User;
+  // // for user
+  useEffect(() => {
+    dispatch(getCurrentUser());
+    dispatch(fetchInvoices);
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(fetchInvoices());
+  }, [dispatch]);
+
+  // const [currentDate, setCurrentDate] = useState(getDate());
+
+  // Selectors
+  const { loading, error, invoices } = useSelector(
+    (state: RootState) => state.invoices
+  );
+  console.log(loading, error, invoices);
+
  
 
   // const [currentDate, setCurrentDate] = useState(getDate());
@@ -60,8 +93,9 @@ const Invoice = () => {
   //     items: [{ no: 1, item: "", quantity: 0, unitPrice: 0, totalAmount: 0 }],
   //   },
   // });
+
   // Initialize React Hook Form
-  const { register, control, handleSubmit} = useForm<InvoiceData>({
+  const { register, control, handleSubmit } = useForm<InvoiceData>({
     defaultValues: {
       companyEmail: "",
       customerName: "",
@@ -83,20 +117,25 @@ const Invoice = () => {
   // Handle form submission
   const onSubmit: SubmitHandler<InvoiceData> = async (data) => {
     console.log(data);
-    
+
+    if (!userId || !userEmail) {
+      console.error("User ID or email is missing");
+      return;
+    }
+
+    // // Calculate totalAmount for each item
+    // const updatedItems: Item[] = data.items.map((item) => ({
+    //   ...item,
+    //   totalAmount: item.quantity * item.unitPrice,
+    // }));
+    const invoiceData: InvoiceData = { ...data };
+    // Dispatch the createInvoice thunk
+    await dispatch(createInvoice(invoiceData));
+    // if (createInvoice.fulfilled.match(invoiceData)){
+    //   dispatch(fetchInvoices())
+    // }
+
   };
-
-  // const onSubmit = handleSubmit((data: IncomeData) => {
-  //   console.table(data);
-
-  //   axios
-  //     .post("https://revboost-solutions.vercel.app/api/v1/invoices/create", data)
-  //     .then((response) => {
-  //       console.log("Invoice saved successfully:", response.data);
-
-  //     })
-  //     .catch((error) => console.error("Error saving invoice:", error));
-  // });
 
   return (
     <>
@@ -263,8 +302,10 @@ const Invoice = () => {
                   type="submit"
                   className="w-full p-3 text-sm font-bold tracking-wide uppercase rounded dark:bg-red-400 dark:text-gray-50"
                 >
-                  save
+                  {loading ? "Saving..." : "Save Invoice"}
                 </button>
+                {/* Error Message */}
+                {error && <p className="text-red-400">{error}</p>}
               </div>
             </div>
             {/* Error Message */}
@@ -295,6 +336,52 @@ const Invoice = () => {
               <p className="text-red-400">Due Date:</p>
             </div>
           </div>
+          <TableContainer component={Paper} className="overflow-x-auto">
+            <Table>
+              <TableHead className="bg-gray-600">
+                <TableRow>
+                  <TableCell>
+                    <strong>#invoice</strong>
+                  </TableCell>
+                  <TableCell>
+                    <strong>Client</strong>
+                  </TableCell>
+                  <TableCell>
+                    <strong>Issued</strong>
+                  </TableCell>
+                  <TableCell>
+                    <strong>Due</strong>
+                  </TableCell>
+                  <TableCell>
+                    <strong>Address</strong>
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+
+              <TableBody>
+                {invoices && invoices.length > 0 ? (
+                  invoices.map((invoice) => (
+                    <>
+                      <TableRow key={invoice?.invoiceNumber}>
+                        <TableCell>{invoice?.invoiceNumber}</TableCell>
+                        <TableCell>{invoice?.companyName}</TableCell>
+                        <TableCell>{invoice?.date}</TableCell>
+                        <TableCell>{invoice?.invoiceDueDate}</TableCell>
+                        <TableCell>$ {invoice?.customerAddress}</TableCell>
+                      </TableRow>
+                    </>
+                  ))
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={4} align="center">
+                      No expenses found.
+                    </TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+
           <div className=" dark:text-gray-800">
             <div className="overflow-x-auto">
               <table className="min-w-full text-xs">
@@ -306,18 +393,8 @@ const Invoice = () => {
                   <col />
                   <col className="w-24" />
                 </colgroup>
-                <thead className="dark:bg-red-400">
-                  <tr className="text-left">
-                    <th className="p-3">Invoice #</th>
-                    <th className="p-3">Client</th>
-                    <th className="p-3">Issued</th>
-                    <th className="p-3">Due</th>
-                    <th className="p-3 text-right">Amount</th>
-                    <th className="p-3 text-right"></th>
-                  </tr>
-                </thead>
+                <thead className="dark:bg-red-400"></thead>
                 <tbody>
-                 
 
                   <tr className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50">
                     <td className="p-3">
@@ -391,7 +468,6 @@ const Invoice = () => {
                       </span>
                     </td>
                   </tr>
-
                   <tr className="border-b border-opacity-20">
                     <td className="p-3">
                       <p></p>
