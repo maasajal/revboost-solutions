@@ -26,6 +26,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
+import OCRFeature from "./OCRFeature";
 
 // type InvoiceData = {
 //   companyEmail: string;
@@ -141,6 +142,8 @@ const Invoice = () => {
     <>
       <section className="container mx-auto mt-10 space-y-8">
         <h2>Company Invoice</h2>
+        {/* pdf reader */}
+        <OCRFeature></OCRFeature>
         <div>
           <form
             onSubmit={handleSubmit(onSubmit)}
@@ -312,7 +315,7 @@ const Invoice = () => {
           </form>
         </div>
         {/* Add Item */}
-
+        
         {/* Table */}
         <div className="space-y-6 border-2 p-4 shadow-2xl rounded-lg">
           <h2 className="mb-4 text-center text-2xl font-bold leading-tight">
