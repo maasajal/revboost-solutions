@@ -64,11 +64,11 @@ const About = () => {
       </section> */}
       <section className="dark:bg-gray-100 dark:text-gray-800">
         <div className="container px-6 py-12 mx-auto">
-          <div className="max-w-2xl mx-auto my-8 space-y-4 text-center xl:col-span-2 xl:text-left">
-            <h2 className="text-4xl font-bold">
+          <div className=" w-full mx-auto my-8 space-y-4 text-center xl:col-span-2 xl:text-left">
+            <h2 className="text-4xl font-bold text-center">
               We provide best solution for your business
             </h2>
-            <p className="dark:text-gray-600">
+            <p className="dark:text-gray-600 text-center">
               We're proposing to build a web-based platform, "RevBoost,"
               designed to help your business streamline and optimize its revenue
               generation processes. The platform will be developed using Next.js
