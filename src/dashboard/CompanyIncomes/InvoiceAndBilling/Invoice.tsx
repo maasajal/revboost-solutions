@@ -4,7 +4,6 @@ import {
   useFieldArray,
   useForm,
 } from "react-hook-form";
-<<<<<<< HEAD
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../app/store/store";
 import {
@@ -16,9 +15,6 @@ import { useEffect } from "react";
 import { getCurrentUser } from "../../../app/api/currentUserAPI";
 import { useAppSelector } from "../../../app/hooks/useAppSelector";
 import User from "../../../app/features/users/UserType";
-=======
-
->>>>>>> a4f6d7e002cb49a2fc26faae97a5d3605ca37333
 
 import {
   Paper,
@@ -30,25 +26,6 @@ import {
   TableRow,
 } from "@mui/material";
 
-<<<<<<< HEAD
-=======
-type InvoiceData = {
-  companyEmail: string;
-  customerName: string;
-  companyName: string;
-  invoiceNumber: string;
-  date: string;
-  invoiceDueDate: string;
-  customerAddress: string;
-  items: {
-    no: number;
-    item: string;
-    quantity: number;
-    unitPrice: number;
-    totalAmount: number;
-  }[];
-};
->>>>>>> a4f6d7e002cb49a2fc26faae97a5d3605ca37333
 // Get Date
 function getDate() {
   const today = new Date();
@@ -59,7 +36,6 @@ function getDate() {
 }
 
 const Invoice = () => {
-<<<<<<< HEAD
   const dispatch = useDispatch<AppDispatch>();
   const { _id: userId, email: userEmail } = useAppSelector(
     (state) => state.currentUser.user
@@ -81,26 +57,8 @@ const Invoice = () => {
     (state: RootState) => state.invoices
   );
   console.log(loading, error, invoices);
-=======
- 
-
-  // const [currentDate, setCurrentDate] = useState(getDate());
-
-  // const { control, handleSubmit, register  } = useForm<IncomeData>({
-  //   defaultValues: {
-  //     companyEmail: "",
-  //     customerName: "",
-  //     companyName: "",
-  //     invoiceNumber: "",
-  //     date: "",
-  //     invoiceDueDate: "",
-  //     customerAddress: "",
-  //     items: [{ no: 1, item: "", quantity: 0, unitPrice: 0, totalAmount: 0 }],
-  //   },
-  // });
->>>>>>> a4f6d7e002cb49a2fc26faae97a5d3605ca37333
   // Initialize React Hook Form
-  const { register, control, handleSubmit} = useForm<InvoiceData>({
+  const { register, control, handleSubmit } = useForm<InvoiceData>({
     defaultValues: {
       companyEmail: "",
       customerName: "",
@@ -122,7 +80,6 @@ const Invoice = () => {
   // Handle form submission
   const onSubmit: SubmitHandler<InvoiceData> = async (data) => {
     console.log(data);
-<<<<<<< HEAD
     if (!userId || !userEmail) {
       console.error("User ID or email is missing");
       return;
@@ -139,9 +96,6 @@ const Invoice = () => {
     // if (createInvoice.fulfilled.match(invoiceData)){
     //   dispatch(fetchInvoices())
     // }
-=======
-    
->>>>>>> a4f6d7e002cb49a2fc26faae97a5d3605ca37333
   };
 
   return (
@@ -309,8 +263,10 @@ const Invoice = () => {
                   type="submit"
                   className="w-full p-3 text-sm font-bold tracking-wide uppercase rounded dark:bg-red-400 dark:text-gray-50"
                 >
-                  save
+                  {loading ? "Saving..." : "Save Invoice"}
                 </button>
+                {/* Error Message */}
+                {error && <p className="text-red-400">{error}</p>}
               </div>
             </div>
             {/* Error Message */}
@@ -400,84 +356,6 @@ const Invoice = () => {
                 </colgroup>
                 <thead className="dark:bg-red-400"></thead>
                 <tbody>
-<<<<<<< HEAD
-=======
-                 
-
-                  <tr className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50">
-                    <td className="p-3">
-                      <p>97412378923</p>
-                    </td>
-                    <td className="p-3">
-                      <p>Tesla Inc.</p>
-                    </td>
-                    <td className="p-3">
-                      <p>14 Jan 2022</p>
-                      <p className="dark:text-gray-600">Friday</p>
-                    </td>
-                    <td className="p-3">
-                      <p>01 Feb 2022</p>
-                      <p className="dark:text-gray-600">Tuesday</p>
-                    </td>
-                    <td className="p-3 text-right">
-                      <p>$275</p>
-                    </td>
-                    <td className="p-3 text-right">
-                      <span className="px-3 py-1 font-semibold rounded-md dark:bg-red-400 dark:text-gray-50">
-                        <span>Delete</span>
-                      </span>
-                    </td>
-                  </tr>
-                  <tr className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50">
-                    <td className="p-3">
-                      <p>97412378923</p>
-                    </td>
-                    <td className="p-3">
-                      <p>Coca Cola co.</p>
-                    </td>
-                    <td className="p-3">
-                      <p>14 Jan 2022</p>
-                      <p className="dark:text-gray-600">Friday</p>
-                    </td>
-                    <td className="p-3">
-                      <p>01 Feb 2022</p>
-                      <p className="dark:text-gray-600">Tuesday</p>
-                    </td>
-                    <td className="p-3 text-right">
-                      <p>$8,950,500</p>
-                    </td>
-                    <td className="p-3 text-right">
-                      <span className="px-3 py-1 font-semibold rounded-md dark:bg-red-400 dark:text-gray-50">
-                        <span>Delete</span>
-                      </span>
-                    </td>
-                  </tr>
-                  <tr className="border-b border-opacity-20 dark:border-red-300 dark:bg-gray-50">
-                    <td className="p-3">
-                      <p>97412378923</p>
-                    </td>
-                    <td className="p-3">
-                      <p>Nvidia Corporation</p>
-                    </td>
-                    <td className="p-3">
-                      <p>14 Jan 2022</p>
-                      <p className="dark:text-gray-600">Friday</p>
-                    </td>
-                    <td className="p-3">
-                      <p>01 Feb 2022</p>
-                      <p className="dark:text-gray-600">Tuesday</p>
-                    </td>
-                    <td className="p-3 text-right">
-                      <p>$98,218</p>
-                    </td>
-                    <td className="p-3 text-right">
-                      <span className="px-3 py-1 font-semibold rounded-md dark:bg-red-400 dark:text-gray-50">
-                        <span></span>
-                      </span>
-                    </td>
-                  </tr>
-
->>>>>>> a4f6d7e002cb49a2fc26faae97a5d3605ca37333
                   <tr className="border-b border-opacity-20">
                     <td className="p-3">
                       <p></p>
