@@ -1,29 +1,7 @@
-import { useEffect, useState } from "react";
-import {
-  addIncomeEntry,
-  fetchIncomeCollection,
-  IncomeEntry,
-} from "../../app/features/companyIncome/incomeSlice";
+import { useEffect } from "react";
+import { fetchIncomeCollection } from "../../app/features/companyIncome/incomeSlice";
 import { RootState } from "../../app/store/store";
-
-import {
-  Alert,
-  Box,
-  Button,
-  CircularProgress,
-  Modal,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  TextField,
-  Typography,
-} from "@mui/material";
-
-import { SubmitHandler, useForm } from "react-hook-form";
+import { Alert, Box, CircularProgress } from "@mui/material";
 import { MdOutlineFolderDelete } from "react-icons/md";
 import Swal from "sweetalert2";
 import { getCurrentUser } from "../../app/api/currentUserAPI";
@@ -35,88 +13,67 @@ import useAxiosSecure from "../../app/hooks/useAxiosSecure";
 import { waringStatus } from "../../components/utils/waringStatus";
 import IncomeForm from "./IncomeForm";
 import { Helmet } from "react-helmet";
-// form input
-interface IncomeFormInputs {
-  incomeId: string;
-  amount: number;
-  source: string;
-  date: string; // YYYY-MM-DD
-}
+import SectionTitle from "../../components/SectionTitle";
+import { fetchTotalRevenue } from "../../app/api/revenueGrowthAPI";
+
 interface Parameter {
   incomeId: string;
-  userId: string; // Assuming you have access to this in your component
+  userId: string;
 }
 
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 800,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
-
 const Incomes: React.FC = () => {
-  //  mui modal
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
   const dispatch = useAppDispatch();
   const axiosSecure = useAxiosSecure();
-  const {
-    _id: userId,
-    email: userEmail,
-    name,
-  } = useAppSelector((state: RootState) => state.currentUser.user) as User;
+  const { _id: userId, name } = useAppSelector(
+    (state: RootState) => state.currentUser.user
+  ) as User;
 
   // ------------
   useEffect(() => {
     dispatch(getCurrentUser());
     if (userId) {
       dispatch(fetchIncomes(userId));
+      dispatch(fetchTotalRevenue(userId));
     }
   }, [dispatch, userId]);
-
-  // const { incomeCollection, loading, error } = useAppSelector(
-  //   (state: RootState) => state.incomes
-  // );
 
   const { incomeEntries, loading, error } = useAppSelector(
     (state: RootState) => state.allIncome
   );
 
-  // form section
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<IncomeFormInputs>();
+  const { totalIncome } = useAppSelector(
+    (state: RootState) => state.totalRevenueGrowth.totalRevenueGrowth
+  );
 
-  const onSubmit: SubmitHandler<IncomeFormInputs> = async (data) => {
-    console.log(data);
-    if (!userId || !userEmail) {
-      console.error("User ID or email is missing");
-      return;
-    }
-    const newEntry: IncomeEntry = {
-      incomeId: data.incomeId,
-      amount: data.amount,
-      source: data.source,
-      date: data.date,
-    };
-    const savedIncome = await dispatch(
-      addIncomeEntry({ userId, userEmail, entry: newEntry })
-    );
-    if (addIncomeEntry.fulfilled.match(savedIncome)) {
-      dispatch(fetchIncomeCollection(userId));
-    }
-    reset();
-    handleClose();
-  };
+  // form section
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   reset,
+  //   formState: { errors },
+  // } = useForm<IncomeFormInputs>();
+
+  // const onSubmit: SubmitHandler<IncomeFormInputs> = async (data) => {
+  //   console.log(data);
+  //   if (!userId || !userEmail) {
+  //     console.error("User ID or email is missing");
+  //     return;
+  //   }
+  //   const newEntry: IncomeEntry = {
+  //     incomeId: data.incomeId,
+  //     amount: data.amount,
+  //     source: data.source,
+  //     date: data.date,
+  //   };
+  //   const savedIncome = await dispatch(
+  //     addIncomeEntry({ userId, userEmail, entry: newEntry })
+  //   );
+  //   if (addIncomeEntry.fulfilled.match(savedIncome)) {
+  //     dispatch(fetchIncomeCollection(userId));
+  //   }
+  //   reset();
+  //   handleClose();
+  // };
 
   const handleDelete = async ({
     incomeId,
@@ -156,7 +113,11 @@ const Incomes: React.FC = () => {
         <meta charSet="utf-8" />
         <title>Incomes - RevBoost Solutions</title>
       </Helmet>
-      <h2 className="text-center">Income Tracking of {name}</h2>
+      <SectionTitle
+        title={`Income Tracking of ${name}`}
+        intro={"Income"}
+        content="All your income entries & add new income!"
+      />
       {loading && (
         <Box display="flex" justifyContent="center" marginY={2}>
           <CircularProgress />
@@ -167,7 +128,8 @@ const Incomes: React.FC = () => {
           {error}
         </Alert>
       )}
-      <section className="p-5">
+
+      {/* <section className="p-5">
         <TableContainer component={Paper} className="overflow-x-auto">
           <Table>
             <TableHead>
@@ -216,358 +178,81 @@ const Incomes: React.FC = () => {
             </TableBody>
           </Table>
         </TableContainer>
-      </section>
+      </section> */}
+
       <IncomeForm />
-
-      <div className="space-y-6 border-2 p-4 shadow-2xl rounded-lg">
-        <h3 className="mb-4 text-center text-2xl font-bold leading-tight">
-          Your Incomes details
-        </h3>
-        <div className="flex justify-between">
-          <div className="space-y-4">
-            <div>
-              <h5>From:</h5>
-              <p>Company Name:</p>
-            </div>
-            {/* MODAL*/}
-            <div>
-              {/* mui modal */}
-              <div className="space-y-4">
-                <Button className="animate-bounce" onClick={handleOpen}>
-                  Add Income details
-                </Button>
-                <Modal
-                  open={open}
-                  onClose={handleClose}
-                  aria-labelledby="modal-modal-title"
-                  aria-describedby="modal-modal-description"
+      <div className="overflow-x-auto min-w-full max-w-32 px-5">
+        <table className="table-auto text-sm md:text-base w-full">
+          <thead>
+            <tr className="text-left border-b border-opacity-20 dark:border-gray-300">
+              <th className="p-2 md:p-3">Income ID</th>
+              <th className="p-2 md:p-3">Source</th>
+              <th className="p-2 md:p-3">Amount</th>
+              <th className="p-2 md:p-3">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {incomeEntries && incomeEntries.length > 0 ? (
+              incomeEntries.map((entry) => (
+                <tr
+                  key={entry.incomeId}
+                  className="border-b border-opacity-20 dark:border-gray-300 hover:bg-slate-600"
                 >
-                  <Box sx={style}>
-                    <Typography
-                      id="modal-modal-title"
-                      variant="h6"
-                      component="h2"
-                    >
-                      Add your item here
-                    </Typography>
-                    <form
-                      onSubmit={handleSubmit(onSubmit)}
-                      className="gap-6 grid grid-cols-1 md:grid-cols-2"
-                    >
-                      <TextField
-                        id="incomeId"
-                        {...register("incomeId", {
-                          required: "Income ID is required",
-                        })}
-                        label="IncomeId"
-                        variant="outlined"
-                      />
-                      {errors.incomeId && (
-                        <span className="text-red-400">
-                          {errors.incomeId.message}
-                        </span>
-                      )}
-                      <TextField
-                        id="amount"
-                        type="number"
-                        {...register("amount", {
-                          required: "Amount is required",
-                          min: { value: 0, message: "Amount must be positive" },
-                        })}
-                        label="Amount"
-                        variant="outlined"
-                      />
-                      {errors.amount && (
-                        <span className="text-red-400">
-                          {errors.amount.message}
-                        </span>
-                      )}
-                      <TextField
-                        id="source"
-                        {...register("source", {
-                          required: "Source is required",
-                        })}
-                        label="Source"
-                        variant="outlined"
-                      />
-                      {errors.source && (
-                        <span style={{ color: "red" }}>
-                          {errors.source.message}
-                        </span>
-                      )}
-
-                      <TextField
-                        id="date"
-                        type="date"
-                        {...register("date", { required: "Date is required" })}
-                        variant="outlined"
-                      />
-                      {errors.date && (
-                        <span style={{ color: "red" }}>
-                          {errors.date.message}
-                        </span>
-                      )}
-
-                      <button
-                        type="submit"
-                        disabled={loading}
-                        style={{
-                          padding: "10px",
-                          backgroundColor: "#4CAF50",
-                          color: "white",
-                          border: "none",
-                        }}
-                      >
-                        {loading ? "Saving..." : "Add Income"}
-                      </button>
-                    </form>{" "}
-                    {loading && <p>Loading...</p>}
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                      Complete the input fields and{" "}
-                      <span className="text-green-300">add income</span>
-                    </Typography>
-                  </Box>
-                </Modal>
-              </div>
-            </div>
-            <div>
-              <h5 className="underline">Bill To:</h5>
-              <p>Customer Name</p>
-              <p>Customer Address</p>
-            </div>
-          </div>
-          <div className="space-y-4">
-            <p>Creation Date:</p>
-            <p className="text-red-400">Due Date:</p>
-          </div>
-        </div>
-
-        <div className=" dark:text-gray-800">
-          <h2>Income Entries</h2>
-          <div className="overflow-x-auto">
-            <table className="min-w-full text-xs">
-              <colgroup>
-                <col />
-                <col />
-                <col />
-                <col />
-                <col />
-                <col className="w-24" />
-              </colgroup>
-              <thead className="dark:bg-red-400">
-                <tr className="text-left">
-                  <th className="p-3">Invoice #</th>
-                  <th className="p-3">Client</th>
-                  <th className="p-3">Issued</th>
-                  <th className="p-3">Due</th>
-                  <th className="p-3 text-right">Amount</th>
-                  <th className="p-3 text-right"></th>
-                </tr>
-              </thead>
-              <tbody>
-                {/* test col */}
-                {/* Display Current Income Entries */}
-                {/* <div className="dark:border-gray-300 dark:bg-gray-50">
-                  {loading && <p>Loading...</p>}
-                  {error && <p className="text-red-400 flex">{error}</p>}
-                  {incomeCollection &&
-                  incomeCollection.incomeEntries.length > 0 ? (
-                    <table
-                      border={1}
-                      cellPadding={5}
-                      cellSpacing={0}
-                      style={{ width: "100%", marginTop: "10px" }}
-                      className="min-w-full text-xs"
-                    >
-                      <colgroup>
-                        <col />
-                        <col />
-                        <col />
-                        <col />
-                        <col />
-                        <col className="w-24" />
-                      </colgroup>
-                      <thead className="dark:bg-red-400">
-                        <tr className="text-left">
-                          <th className="p-3">Invoice #</th>
-                          <th className="p-3">Client</th>
-                          <th className="p-3">Issued</th>
-                          <th className="p-3">Due</th>
-                          <th className="p-3 text-right">Amount</th>
-                          <th className="p-3 text-right"></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {incomeCollection.incomeEntries.map((entry) => (
-                          <tr key={entry.incomeId}>
-                            <td>{entry.incomeId}</td>
-                            <td>{entry.amount}</td>
-                            <td>{entry.source}</td>
-                            <td>{new Date(entry.date).toLocaleDateString()}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  ) : (
-                    !loading && <p>No income entries found.</p>
-                  )}
-                </div> */}
-                {/* ^^^end test */}
-                {/* <tr className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50">
-                    <td className="p-3">
-                      <p>97412378923</p>
-                    </td>
-                    <td className="p-3">
-                      <p>Tesla Inc.</p>
-                    </td>
-                    <td className="p-3">
-                      <p>14 Jan 2022</p>
-                      <p className="dark:text-gray-600">Friday</p>
-                    </td>
-                    <td className="p-3">
-                      <p>01 Feb 2022</p>
-                      <p className="dark:text-gray-600">Tuesday</p>
-                    </td>
-                    <td className="p-3 text-right">
-                      <p>$275</p>
-                    </td>
-                    <td className="p-3 text-right">
-                      <span className="px-3 py-1 font-semibold rounded-md dark:bg-red-400 dark:text-gray-50">
-                        <span>Delete</span>
-                      </span>
-                    </td>
-                  </tr>
-                  <tr className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50">
-                    <td className="p-3">
-                      <p>97412378923</p>
-                    </td>
-                    <td className="p-3">
-                      <p>Coca Cola co.</p>
-                    </td>
-                    <td className="p-3">
-                      <p>14 Jan 2022</p>
-                      <p className="dark:text-gray-600">Friday</p>
-                    </td>
-                    <td className="p-3">
-                      <p>01 Feb 2022</p>
-                      <p className="dark:text-gray-600">Tuesday</p>
-                    </td>
-                    <td className="p-3 text-right">
-                      <p>$8,950,500</p>
-                    </td>
-                    <td className="p-3 text-right">
-                      <span className="px-3 py-1 font-semibold rounded-md dark:bg-red-400 dark:text-gray-50">
-                        <span>Delete</span>
-                      </span>
-                    </td>
-                  </tr>
-                  <tr className="border-b border-opacity-20 dark:border-red-300 dark:bg-gray-50">
-                    <td className="p-3">
-                      <p>97412378923</p>
-                    </td>
-                    <td className="p-3">
-                      <p>Nvidia Corporation</p>
-                    </td>
-                    <td className="p-3">
-                      <p>14 Jan 2022</p>
-                      <p className="dark:text-gray-600">Friday</p>
-                    </td>
-                    <td className="p-3">
-                      <p>01 Feb 2022</p>
-                      <p className="dark:text-gray-600">Tuesday</p>
-                    </td>
-                    <td className="p-3 text-right">
-                      <p>$98,218</p>
-                    </td>
-                    <td className="p-3 text-right">
-                      <span className="px-3 py-1 font-semibold rounded-md dark:bg-red-400 dark:text-gray-50">
-                        <span>Delete</span>
-                      </span>
-                    </td>
-                  </tr> */}
-
-                <tr className="border-b border-opacity-20">
-                  <td className="p-3">
-                    <p></p>
-                  </td>
-                  <td className="p-3">
-                    <p></p>
-                  </td>
-                  <td className="p-3">
-                    <p></p>
-                    <p className="dark:text-gray-600"></p>
-                  </td>
-                  <td className="p-3">
-                    <h5>Subtotal</h5>
-                    <p className="dark:text-gray-600"></p>
-                  </td>
-                  <td className="p-3 text-right ">
-                    {/* Write Total Below  */}
-
-                    <h5>$</h5>
-                  </td>
-                  <td className="p-3 text-right">
-                    <span className="px-3 py-1 font-semibold rounded-md dark:text-gray-50">
-                      <span></span>
-                    </span>
+                  <td className="p-2 md:p-3">{entry.incomeId}</td>
+                  <td className="p-2 md:p-3">{entry.source}</td>
+                  <td className="p-2 md:p-3">$ {entry.amount}</td>
+                  <td className="p-2 md:p-3">
+                    <MdOutlineFolderDelete
+                      onClick={() =>
+                        handleDelete({
+                          incomeId: entry.incomeId,
+                          userId: userId,
+                        })
+                      }
+                      className="text-2xl text-primary cursor-pointer"
+                    />
                   </td>
                 </tr>
-                <tr className="border-b border-opacity-20">
-                  <td className="p-3">
-                    <p></p>
-                  </td>
-                  <td className="p-3">
-                    <p></p>
-                  </td>
-                  <td className="p-3">
-                    <p></p>
-                    <p className="dark:text-gray-600"></p>
-                  </td>
-                  <td className="p-3">
-                    <h5>VAT(15%)</h5>
-                    <p className="dark:text-gray-600"></p>
-                  </td>
-                  <td className="p-3 text-right">
-                    {/* Write VAT Below  */}
-
-                    <h5>$</h5>
-                  </td>
-                  <td className="p-3 text-right">
-                    <span className="px-3 py-1 font-semibold rounded-md dark:text-gray-50">
-                      <span></span>
-                    </span>
-                  </td>
-                </tr>
-                <tr className="border-b border-opacity-20 dark:border-gray-300 dark:bg-red-50">
-                  <td className="p-3">
-                    <p></p>
-                  </td>
-                  <td className="p-3">
-                    <p></p>
-                  </td>
-                  <td className="p-3">
-                    <p></p>
-                    <p className="dark:text-gray-600"></p>
-                  </td>
-                  <td className="p-3">
-                    <h4>total</h4>
-                    <p className="dark:text-gray-600"></p>
-                  </td>
-                  <td className="p-3 text-right animate-bounce">
-                    {/* Write Total Below  */}
-
-                    <h4>$</h4>
-                  </td>
-                  <td className="p-3 text-right">
-                    <span className="px-3 py-1 font-semibold rounded-md dark:text-gray-50">
-                      <span></span>
-                    </span>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={4} align="center">
+                  No expenses found.
+                </td>
+              </tr>
+            )}
+            <tr className="border-b border-opacity-20">
+              <td className="p-3"></td>
+              <td className="p-3"></td>
+              <td className="p-3">
+                <h5>Subtotal</h5>
+              </td>
+              <td className="p-3 text-right ">
+                <h5>$ {totalIncome}</h5>
+              </td>
+            </tr>
+            <tr className="border-b border-opacity-20">
+              <td className="p-3"></td>
+              <td className="p-3"></td>
+              <td className="p-3">
+                <h5>VAT(15%)</h5>
+              </td>
+              <td className="p-3 text-right">
+                <h5>$ {totalIncome * 0.15}</h5>
+              </td>
+            </tr>
+            <tr className="border-b border-opacity-20 dark:border-gray-300">
+              <td className="p-3"></td>
+              <td className="p-3"></td>
+              <td className="p-3">
+                <h4>Total</h4>
+              </td>
+              <td className="p-3 text-right animate-bounce">
+                <h4>$ {totalIncome - totalIncome * 0.15} </h4>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </section>
   );
