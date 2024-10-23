@@ -10,6 +10,7 @@ import { AppDispatch } from "../../../app/store/store";
 import moneyHome from "../../../assets/signup/MoneyHome-SignUp.png";
 import SocialLogin from "../../../components/SocialLogin";
 import logo from "../../../assets/logo.png";
+import { TextField } from "@mui/material";
 
 type Inputs = {
   name: string;
@@ -63,15 +64,13 @@ const Register = () => {
             </h2>
 
             <div className="form-control">
-              <label className="label">
-                <span className="label-text">Company Name</span>
-              </label>
-              <input
-                type="text"
-                placeholder="Company Name"
-                className="input input-bordered w-full"
-                {...register("name", { required: true })}
-              />
+              <TextField
+                  className="w-full"
+                  label="Company Name"
+                  {...register("name", { required: true })}
+                  error={!!errors.name}
+                  helperText={errors.name ? "Name is required" : ""}
+                />
               {errors.name && (
                 <small className="text-red-400 mt-2">
                   This field is required
@@ -80,15 +79,14 @@ const Register = () => {
             </div>
 
             <div className="form-control mt-4">
-              <label className="label">
-                <span className="label-text">Email</span>
-              </label>
-              <input
-                type="email"
-                placeholder="Email"
-                className="input input-bordered w-full"
-                {...register("email", { required: true })}
-              />
+              <TextField
+                  className="w-full"
+                  label="Email"
+                  type="email"
+                  {...register("email", { required: true })}
+                  error={!!errors.email}
+                  helperText={errors.email ? "email is required" : ""}
+                />
               {errors.email && (
                 <small className="text-red-400 mt-2">
                   This field is required
@@ -97,18 +95,17 @@ const Register = () => {
             </div>
 
             <div className="form-control mt-4">
-              <label className="label">
-                <span className="label-text">Password</span>
-              </label>
               <div className="flex items-center relative">
-                <input
+                 <TextField
+                  className="w-full"
+                  label="Password"
                   type={showPassword ? "text" : "password"}
-                  placeholder="Password"
-                  className="input input-bordered w-full"
                   {...register("password", { required: true })}
+                  error={!!errors.password}
+                  helperText={errors.password ? "password is required" : ""}
                 />
                 <div
-                  className="absolute right-0 mr-4 *:size-5 cursor-pointer"
+                  className="absolute right-0 mr-4 *:size-5"
                   onClick={togglePasswordVisibility}
                 >
                   {showPassword ? <TbEyeClosed /> : <FaRegEye />}
@@ -121,16 +118,22 @@ const Register = () => {
               )}
             </div>
 
-            <div className="form-control mt-4">
-              <label className="label">
-                <span className="label-text">Confirm Password</span>
-              </label>
-              <input
-                type="password"
-                placeholder="Confirm Password"
-                className="input input-bordered w-full"
-                {...register("confirmPassword", { required: true })}
-              />
+            <div className="form-control mt-4 relative">
+               <TextField
+                  className="w-full"
+                  label="Confirm Password"
+                  type={showPassword ? "text" : "password"}
+                  // type="password"
+                  {...register("confirmPassword", { required: true })}
+                  error={!!errors.confirmPassword}
+                  helperText={errors.password ? "password is required" : ""}
+                />
+                <div
+                  className="absolute right-0 mr-4 top-1/3 hidden *:size-5"
+                  onClick={togglePasswordVisibility}
+                >
+                  {showPassword ? <TbEyeClosed /> : <FaRegEye />}
+                </div>
               {errors.confirmPassword && (
                 <small className="text-red-400 mt-2">
                   This field is required
@@ -153,7 +156,6 @@ const Register = () => {
               </Link>
             </p>
           </form>
-
           {/* Divider */}
           <div className="flex items-center py-6 space-x-1">
             <div className="flex-1 h-px bg-gray-300"></div>
