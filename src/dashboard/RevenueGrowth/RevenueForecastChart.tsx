@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   LineChart,
   Line,
@@ -11,10 +11,38 @@ import {
 } from "recharts";
 import { useAppSelector } from "../../app/hooks/useAppSelector";
 import { RootState } from "../../app/store/store";
+import { useAppDispatch } from "../../app/hooks/useAppDispatch";
+import { getCurrentUser } from "../../app/api/currentUserAPI";
+import {
+  fetchHalfYearlyRevenue,
+  fetchMonthlyRevenue,
+  fetchQuarterlyRevenue,
+  fetchTotalRevenue,
+  fetchYearlyRevenue,
+} from "../../app/api/revenueGrowthAPI";
+import User from "../../app/features/users/UserType";
+import { CircularProgress } from "@mui/material";
 
 const formatCurrency = (value: number) => `$${value.toLocaleString()}`;
 
 const RevenueForecastChart: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const currentUser = useAppSelector((state) => state.currentUser.user) as User;
+
+  useEffect(() => {
+    dispatch(getCurrentUser());
+    if (currentUser?._id) {
+      dispatch(fetchMonthlyRevenue(currentUser._id));
+      dispatch(fetchQuarterlyRevenue(currentUser._id));
+      dispatch(fetchHalfYearlyRevenue(currentUser._id));
+      dispatch(fetchYearlyRevenue(currentUser._id));
+      dispatch(fetchTotalRevenue(currentUser._id));
+    }
+  }, [dispatch, currentUser?._id]);
+  const { loading, error } = useAppSelector(
+    (state: RootState) => state.totalRevenueGrowth
+  );
+
   const {
     totalRevenueGrowth,
     monthlyRevenue,
@@ -59,6 +87,8 @@ const RevenueForecastChart: React.FC = () => {
     },
   ];
 
+  if (loading) return <CircularProgress size="3rem" />;
+  if (error) return <p>Error: {error}</p>;
   return (
     <div className="chart-container">
       <h3 className="text-center my-4">24-Month Revenue Forecast</h3>

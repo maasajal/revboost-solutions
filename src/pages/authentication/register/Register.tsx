@@ -51,10 +51,12 @@ const Register = () => {
           content="Sign up for RevBoost Solutions and streamline your business finances with advanced tools for managing revenue, expenses, and financial growth. Join today and take control of your business’s financial future."
         />
       </Helmet>
-      <div className="flex flex-col lg:flex-row w-full">
+      <div className="flex flex-col sm:flex-row md:flex-row lg:flex-row w-full">
         {/* Left Section */}
-        <div className="flex-1 bg-[#FF08008C] flex flex-col items-center pt-10 ">
-        <Link  to="/"><img  src={logo} alt="logo" className="w-1/3 2xl:w-1/4 mx-auto" /></Link>
+        <div className="flex-1 bg-[#FF08008C] flex flex-col items-center pt-10 px-5">
+          <Link to="/">
+            <img src={logo} alt="logo" className="w-1/3 2xl:w-1/4 mx-auto" />
+          </Link>
           <p className="text-lg text-white">
             A Modern Revenue Generation Platform
           </p>
@@ -74,12 +76,12 @@ const Register = () => {
 
             <div className="form-control">
               <TextField
-                  className="w-full"
-                  label="Company Name"
-                  {...register("name", { required: true })}
-                  error={!!errors.name}
-                  helperText={errors.name ? "Name is required" : ""}
-                />
+                className="w-full"
+                label="Company Name"
+                {...register("name", { required: true })}
+                error={!!errors.name}
+                helperText={errors.name ? "Name is required" : ""}
+              />
               {errors.name && (
                 <small className="text-red-400 mt-2">
                   This field is required
@@ -89,13 +91,13 @@ const Register = () => {
 
             <div className="form-control mt-4">
               <TextField
-                  className="w-full"
-                  label="Email"
-                  type="email"
-                  {...register("email", { required: true })}
-                  error={!!errors.email}
-                  helperText={errors.email ? "email is required" : ""}
-                />
+                className="w-full"
+                label="Email"
+                type="email"
+                {...register("email", { required: true })}
+                error={!!errors.email}
+                helperText={errors.email ? "email is required" : ""}
+              />
               {errors.email && (
                 <small className="text-red-400 mt-2">
                   This field is required
@@ -105,7 +107,7 @@ const Register = () => {
 
             <div className="form-control mt-4">
               <div className="flex items-center relative">
-                 <TextField
+                <TextField
                   className="w-full"
                   label="Password"
                   type={showPassword ? "text" : "password"}
@@ -128,21 +130,21 @@ const Register = () => {
             </div>
 
             <div className="form-control mt-4 relative">
-               <TextField
-                  className="w-full"
-                  label="Confirm Password"
-                  type={showPassword ? "text" : "password"}
-                  // type="password"
-                  {...register("confirmPassword", { required: true })}
-                  error={!!errors.confirmPassword}
-                  helperText={errors.password ? "password is required" : ""}
-                />
-                <div
-                  className="absolute right-0 mr-4 top-1/3 hidden *:size-5"
-                  onClick={togglePasswordVisibility}
-                >
-                  {showPassword ? <TbEyeClosed /> : <FaRegEye />}
-                </div>
+              <TextField
+                className="w-full"
+                label="Confirm Password"
+                type={showPassword ? "text" : "password"}
+                // type="password"
+                {...register("confirmPassword", { required: true })}
+                error={!!errors.confirmPassword}
+                helperText={errors.password ? "password is required" : ""}
+              />
+              <div
+                className="absolute right-0 mr-4 top-1/3 hidden *:size-5"
+                onClick={togglePasswordVisibility}
+              >
+                {showPassword ? <TbEyeClosed /> : <FaRegEye />}
+              </div>
               {errors.confirmPassword && (
                 <small className="text-red-400 mt-2">
                   This field is required
