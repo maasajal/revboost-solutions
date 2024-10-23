@@ -1,11 +1,18 @@
 
-import React, { useState } from "react";
+import { Button } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import User from "../../../app/features/users/UserType";
+import { useAppSelector } from "../../../app/hooks/useAppSelector";
+import { RootState } from "../../../app/store/store";
 
 interface YearMonthSelectorProps {
     years: number[];
+    fetchIncomesData:(year: number | null, month: string | null) => Promise<void>
+    loading: boolean;  
 }
 
-const VatFilter: React.FC<YearMonthSelectorProps> = ({ years }) => {
+const VatFilter: React.FC<YearMonthSelectorProps> = ({ years, fetchIncomesData,  loading }) => {
+    const { _id: userId } = useAppSelector((state: RootState) => state.currentUser.user) as User;
     const [selectedYear, setSelectedYear] = useState<number | null>(null);
     const [selectedMonth, setSelectedMonth] = useState<string | null>(null);
 
@@ -35,14 +42,19 @@ const VatFilter: React.FC<YearMonthSelectorProps> = ({ years }) => {
     const handleMonthChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedMonth(event.target.value);
     };
+    const handleSearch = async () => {
+        fetchIncomesData(selectedYear, selectedMonth)
 
+    }
+    useEffect(() => { 
+        fetchIncomesData(selectedYear, selectedMonth)
+    }, [userId])
+    if (loading) return <>Loading data </>
     return (
         <div className="flex flex-col gap-4 md:flex-row md:items-center my-12">
             {/* Year Dropdown */}
             <div className="w-full md:w-1/3">
-                <label htmlFor="year" className="block text-gray-700 text-sm font-bold mb-2">
-                    Year:
-                </label>
+
                 <select
                     id="year"
                     value={selectedYear || ""}
@@ -62,9 +74,7 @@ const VatFilter: React.FC<YearMonthSelectorProps> = ({ years }) => {
 
             {/* Month Dropdown */}
             <div className="w-full  md:w-1/3">
-                <label htmlFor="month" className="block text-gray-700 text-sm font-bold mb-2">
-                    Month:
-                </label>
+
                 <select
                     id="month"
                     value={selectedMonth || ""}
@@ -83,13 +93,8 @@ const VatFilter: React.FC<YearMonthSelectorProps> = ({ years }) => {
                 </select>
             </div>
 
-            {/* Display selected year and month */}
-            <div className="w-full md:w-1/3 text-gray-700 text-sm mt-4 md:mt-0">
-                <h5>
-                    Selected Year: {selectedYear ? selectedYear : "None"}, Month:{" "}
-                    {selectedMonth ? selectedMonth : "None"}
-                </h5>
-            </div>
+            <Button onClick={handleSearch} variant="contained">Search</Button>
+
         </div>
     );
 };

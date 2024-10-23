@@ -1,29 +1,32 @@
-import { useEffect } from "react";
-import { getCurrentUser } from "../../../app/api/currentUserAPI";
-import { fetchIncomes } from "../../../app/features/companyIncome/incomesSlice";
-import User from "../../../app/features/users/UserType";
-import { useAppDispatch } from "../../../app/hooks/useAppDispatch";
-import { useAppSelector } from "../../../app/hooks/useAppSelector";
-import { RootState } from "../../../app/store/store";
 import { useDate, useDayName } from "../../../useHook/useDate";
+interface IncomeEntry {
+    incomeId: string;
+    amount: number;
+    source: string;
+    date: string;
+    vat_status: string;
+    tax_status: string;
+    createdAt: string;
+    updatedAt: string;
+    _id: string;
+}
 
-const VatTable = () => {
-    const dispatch = useAppDispatch();
+interface DataResponse {
+    _id: string;
+    userId: string;
+    userEmail: string;
+    createdAt: string;
+    updatedAt: string;
+    incomeEntries: IncomeEntry[];
+    __v: number;
+}
+interface Income {
+    incomes: DataResponse
+}
+const VatTable: React.FC<Income> = ({ incomes }) => {
+    console.log(incomes)
     const date = useDate;
     const dayName = useDayName;
-    const { incomeEntries, loading } = useAppSelector((state: RootState) => state.allIncome);
-    const {
-        _id: userId,
-    } = useAppSelector((state: RootState) => state.currentUser.user) as User;
-    useEffect(() => {
-        dispatch(getCurrentUser());
-        if (userId) {
-            dispatch(fetchIncomes(userId));
-        }
-    }, [dispatch, userId]);
-    if (loading) {
-        return <>Loading</>
-    }
     return (
         <div className="w-full">
             <div className="p-4 mx-auto dark:text-gray-800">
@@ -41,8 +44,8 @@ const VatTable = () => {
                             </tr>
                         </thead>
                         <tbody className="">
-                            {incomeEntries.length && incomeEntries.map((item, index) => (
-                                <tr
+                            {incomes?.incomeEntries.length ? incomes.incomeEntries.map((item, index) => {
+                                return <tr
                                     key={index}
                                     className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50"
                                 >
@@ -70,7 +73,7 @@ const VatTable = () => {
                                         </span>
                                     </td>
                                 </tr>
-                            ))}
+                            }) : ""}
                         </tbody>
                     </table>
                 </div>
