@@ -59,7 +59,7 @@ export const fetchIndivitualInvoices = createAsyncThunk(
   async (userId: string, { rejectWithValue }) => {
     try {
       
-      const response = await axiosSecure.get(
+      const response = await axiosSecure.get<InvoiceData[]>(
         `/invoices/create/${userId}`
       );
       return response.data;
