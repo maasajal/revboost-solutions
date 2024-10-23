@@ -57,16 +57,25 @@ function getDate() {
 
 const Invoice = () => {
   const dispatch = useDispatch<AppDispatch>();
+  
+ // Get current user data
+ const user = useAppSelector(
+  (state: RootState) => state.currentUser.user
+) as User;
+
+  const { _id: userId , email: userEmail} = useAppSelector(
+    (state) => state.currentUser.user
+  ) as User;
+
+ 
 
   useEffect(() => {
     dispatch(getCurrentUser());
-  }, [dispatch]);
+    if (user?._id) {
+      dispatch(fetchIndivitualInvoices(user._id));
+    }
+  }, [dispatch, user._id]);
 
-  // Get current user data
-  // const user: User = useAppSelector(
-  //   (state: RootState) => state.currentUser.user
-  // ) as User;
-  // console.log(user);
 
   // // for user
   useEffect(() => {
@@ -75,9 +84,7 @@ const Invoice = () => {
   }, [dispatch]);
 
 
-  const { _id: userId , email: userEmail} = useAppSelector(
-    (state) => state.currentUser.user
-  ) as User;
+
 
 
   // useEffect(() => {
@@ -94,18 +101,7 @@ const Invoice = () => {
 
   // const [currentDate, setCurrentDate] = useState(getDate());
 
-  // const { control, handleSubmit, register  } = useForm<IncomeData>({
-  //   defaultValues: {
-  //     companyEmail: "",
-  //     customerName: "",
-  //     companyName: "",
-  //     invoiceNumber: "",
-  //     date: "",
-  //     invoiceDueDate: "",
-  //     customerAddress: "",
-  //     items: [{ no: 1, item: "", quantity: 0, unitPrice: 0, totalAmount: 0 }],
-  //   },
-  // });
+
 
   // Initialize React Hook Form
   const { register, control, handleSubmit } = useForm<InvoiceData>({
