@@ -56,12 +56,17 @@ function getDate() {
 
 const Invoice = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { _id: userId, email: userEmail } = useAppSelector(
-    (state) => state.currentUser.user
-  ) as User;
+ 
+ 
+ // Get current user data
+ const user = useAppSelector(
+  (state: RootState) => state.currentUser.user
+) as User;
+console.log(user)
   // // for user
   useEffect(() => {
     dispatch(getCurrentUser());
+
     dispatch(fetchInvoices);
   }, [dispatch]);
 
