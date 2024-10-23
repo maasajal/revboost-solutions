@@ -26,7 +26,6 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import OCRFeature from "./OCRFeature";
 
 // type InvoiceData = {
 //   companyEmail: string;
@@ -143,7 +142,6 @@ const Invoice = () => {
       <section className="container mx-auto mt-10 space-y-8">
         <h2>Company Invoice</h2>
         {/* pdf reader */}
-        <OCRFeature></OCRFeature>
         <div>
           <form
             onSubmit={handleSubmit(onSubmit)}
@@ -341,7 +339,7 @@ const Invoice = () => {
           </div>
           <TableContainer component={Paper} className="overflow-x-auto">
             <Table>
-              <TableHead className="bg-gray-600">
+              <TableHead className="bg-blue-300 border-b border-opacity-20">
                 <TableRow>
                   <TableCell>
                     <strong>#invoice</strong>
@@ -423,54 +421,7 @@ const Invoice = () => {
                       </span>
                     </td>
                   </tr>
-                  <tr className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50">
-                    <td className="p-3">
-                      <p>97412378923</p>
-                    </td>
-                    <td className="p-3">
-                      <p>Coca Cola co.</p>
-                    </td>
-                    <td className="p-3">
-                      <p>14 Jan 2022</p>
-                      <p className="dark:text-gray-600">Friday</p>
-                    </td>
-                    <td className="p-3">
-                      <p>01 Feb 2022</p>
-                      <p className="dark:text-gray-600">Tuesday</p>
-                    </td>
-                    <td className="p-3 text-right">
-                      <p>$8,950,500</p>
-                    </td>
-                    <td className="p-3 text-right">
-                      <span className="px-3 py-1 font-semibold rounded-md dark:bg-red-400 dark:text-gray-50">
-                        <span>Delete</span>
-                      </span>
-                    </td>
-                  </tr>
-                  <tr className="border-b border-opacity-20 dark:border-red-300 dark:bg-gray-50">
-                    <td className="p-3">
-                      <p>97412378923</p>
-                    </td>
-                    <td className="p-3">
-                      <p>Nvidia Corporation</p>
-                    </td>
-                    <td className="p-3">
-                      <p>14 Jan 2022</p>
-                      <p className="dark:text-gray-600">Friday</p>
-                    </td>
-                    <td className="p-3">
-                      <p>01 Feb 2022</p>
-                      <p className="dark:text-gray-600">Tuesday</p>
-                    </td>
-                    <td className="p-3 text-right">
-                      <p>$98,218</p>
-                    </td>
-                    <td className="p-3 text-right">
-                      <span className="px-3 py-1 font-semibold rounded-md dark:bg-red-400 dark:text-gray-50">
-                        <span></span>
-                      </span>
-                    </td>
-                  </tr>
+                  
                   <tr className="border-b border-opacity-20">
                     <td className="p-3">
                       <p></p>
