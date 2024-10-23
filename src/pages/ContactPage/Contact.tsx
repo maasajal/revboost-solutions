@@ -19,8 +19,8 @@ const Contact: React.FC = () => {
         sx={{
           textAlign: "center",
           border: 1,
-          mt: 3,
-          mb: 10,
+          mt: 0,
+          mb: 5,
         }}
       >
         <Box
