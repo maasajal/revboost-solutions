@@ -27,6 +27,7 @@ import {
   TableRow,
 } from "@mui/material";
 import { Helmet } from "react-helmet";
+import OCRFeature from "./OCRFeature";
 
 // type InvoiceData = {
 //   companyEmail: string;
@@ -151,10 +152,11 @@ const Invoice = () => {
       <section className="container mx-auto mt-10 space-y-8">
         <h2>Company Invoice</h2>
         {/* pdf reader */}
+        <OCRFeature></OCRFeature>
         <div>
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="space-y-4 shadow-lg p-4"
+            className="space-y-4 shadow-lg p-12"
           >
             <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4">
               <div className="space-y-4">
@@ -294,7 +296,7 @@ const Invoice = () => {
               ))}
               <div className="flex gap-4 max-h-12 shadow-2xl">
                 <button
-                  className="w-full p-3 rounded  focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
+                  className="w-full p-3  rounded  focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
                   type="button"
                   onClick={() =>
                     append({
@@ -306,7 +308,7 @@ const Invoice = () => {
                     })
                   }
                 >
-                  Add Item
+                  Add Item ( optional )
                 </button>
                 <button
                   type="submit"
@@ -328,7 +330,7 @@ const Invoice = () => {
         {/* Add Item */}
 
         {/* Table */}
-        <div className="space-y-6 border-2 p-4 shadow-2xl rounded-lg">
+        <div className="space-y-6 border-2 p-12 shadow-2xl rounded-lg">
           <h2 className="mb-4 text-center text-2xl font-bold leading-tight">
             Your Invoice
           </h2>
@@ -409,7 +411,7 @@ const Invoice = () => {
                 </colgroup>
                 <thead className="dark:bg-red-400"></thead>
                 <tbody>
-                  <tr className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50">
+                  {/* <tr className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50">
                     <td className="p-3">
                       <p>97412378923</p>
                     </td>
@@ -432,7 +434,7 @@ const Invoice = () => {
                         <span>Delete</span>
                       </span>
                     </td>
-                  </tr>
+                  </tr> */}
 
                   <tr className="border-b border-opacity-20">
                     <td className="p-3">
