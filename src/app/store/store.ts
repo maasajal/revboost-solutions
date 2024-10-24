@@ -20,6 +20,7 @@ import roleManageSlice from "../features/roleManage/roleManageSlice";
 import currentUserReducer from "../features/users/currentUserSlice";
 import usersReducer from "../features/users/usersSlice";
 import allIncomeReducer from "../features/companyIncome/incomesSlice";
+import paymentsSlice from "../features/payments/paymentsSlice";
 
 const persistConfig = {
   key: "root",
@@ -49,6 +50,7 @@ export const store = configureStore({
     address: addressSlice,
     allUsers: getAllUsersSlice,
     role_manage: roleManageSlice,
+    payments: paymentsSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
