@@ -52,8 +52,7 @@ const Vat = () => {
         { selectedYear, selectedMonth, userId }
       );
       if (response.data) {
-        setIncomes(response.data);
-        console.log(response);
+        setIncomes(response.data); 
         setLoading(false);
       } else {
         setIncomes(null);
