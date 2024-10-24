@@ -19,15 +19,15 @@ const Footer = () => {
       <nav>
         <h6 className="font-bold mb-2 text-xl">Social Links</h6>
         <div className="flex gap-3 text-xl">
-          <FaFacebookF />
-          <FaInstagram />
-          <FaLinkedinIn />
+          <a target="_blank" href="https://facebook.com/"><FaFacebookF /></a>
+          <a target="_blank" href="https://www.instagram.com/"><FaInstagram /></a>
+          <a target="_blank" href="https://www.linkedin.com/"><FaLinkedinIn /></a>
         </div>
       </nav>
       <nav>
         <h6 className="font-bold mb-2 text-xl">Contact Us</h6>
-        <a className="link link-hover">Phone : 00000000000</a>
-        <a className="link link-hover">Email: revboost@solution.com</a>
+        <a className="link link-hover" href="tel:+1234567890">Phone : +88 017 xxx xxx</a>
+        <a className="link link-hover" href="mailto:revbostsolutions@gmail.com">Email: revboost@solution.com</a>
       </nav>
     </footer>
   );
