@@ -26,21 +26,21 @@ const About = () => {
           headingText="We would love to hear from you"
         />
       </section> */}
-      <section>
+      <section className="w-[85%] mx-auto">
         <SectionTitle
           title="STREAMLINING FINACIAL CLARITY FOR BUSSINESS GROWTH"
           intro="Learn about us"
           content="ABOUT US"
         />
-        <div className=" flex flex-col justify-center p-6 mx-auto sm:py-8 lg:py-20 lg:flex-row lg:justify-around">
-          <div className="flex items-center justify-center p-6 mt-4 lg:mt-0 h-96 sm:h-80 lg:h-96 xl:h-112 2xl:h-128">
+        <div className=" flex flex-col justify-center items-center mx-auto lg:flex-row lg:justify-around">
+          <div className="items-center justify-center lg:mt-0 h-96 sm:h-80 lg:h-96 xl:h-112 2xl:h-128">
             <img
               src={coverPhoto}
               alt=""
-              className="object-contain h-72 sm:h-80 lg:h-96 xl:h-112 2xl:h-128"
+              className="object-contain h-72 sm:h-80 lg:h-96 rounded-[3%] xl:h-112 xl:rounded-[3%] 2xl:h-128 2xl:rounded-[3%]"
             />
           </div>
-          <div className="flex flex-col space-y-4 justify-center p-6 text-center rounded-sm lg:max-w-md xl:max-w-lg lg:text-left">
+          <div className="flex-col space-y-4 justify-center p-6 text-center rounded-sm -mt-24 md:mt-10 lg:max-w-md xl:max-w-lg lg:text-left">
             <h2>Who are we?</h2>
             <p>
               Revboost offers a streamlined, automated approach to financial
