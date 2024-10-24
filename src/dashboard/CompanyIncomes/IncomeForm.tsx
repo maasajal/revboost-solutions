@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
-import { Box, Modal, TextField, Button, Typography } from "@mui/material";
+import {
+  Box,
+  Modal,
+  TextField,
+  Button,
+  Typography,
+  InputAdornment,
+} from "@mui/material";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useAppSelector } from "../../app/hooks/useAppSelector";
 import User from "../../app/features/users/UserType";
@@ -96,6 +103,7 @@ const IncomeForm: React.FC = () => {
               })}
               label="Unique Income Id"
               variant="outlined"
+              placeholder="Any things to identify the income"
               error={!!errors.incomeId}
               helperText={errors.incomeId?.message}
             />
@@ -108,6 +116,7 @@ const IncomeForm: React.FC = () => {
               })}
               label="Income Sector"
               variant="outlined"
+              placeholder="From where did you get the income"
               error={!!errors.source}
               helperText={errors.source?.message}
             />
@@ -118,16 +127,23 @@ const IncomeForm: React.FC = () => {
               {...register("amount", { required: "amount is required" })}
               label="Amount"
               variant="outlined"
+              placeholder="How much money you earn included vat!"
               error={!!errors.amount}
               helperText={errors.amount?.message}
             />
-
             <TextField
               id="date"
               type="date"
               {...register("date", { required: "Income date is required" })}
               label="Income Date"
-              variant="outlined"
+              defaultValue={new Date().toISOString().split("T")[0]}
+              slotProps={{
+                input: {
+                  startAdornment: (
+                    <InputAdornment position="end"></InputAdornment>
+                  ),
+                },
+              }}
               error={!!errors.date}
               helperText={errors.date?.message}
             />

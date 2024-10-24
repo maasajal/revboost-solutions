@@ -1,7 +1,18 @@
 import { useEffect } from "react";
 import { fetchIncomeCollection } from "../../app/features/companyIncome/incomeSlice";
 import { RootState } from "../../app/store/store";
-import { Alert, Box, CircularProgress } from "@mui/material";
+import {
+  Alert,
+  Box,
+  CircularProgress,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@mui/material";
 import { MdOutlineFolderDelete } from "react-icons/md";
 import Swal from "sweetalert2";
 import { getCurrentUser } from "../../app/api/currentUserAPI";
@@ -28,7 +39,6 @@ const Incomes: React.FC = () => {
     (state: RootState) => state.currentUser.user
   ) as User;
 
-  // ------------
   useEffect(() => {
     dispatch(getCurrentUser());
     if (userId) {
@@ -44,36 +54,6 @@ const Incomes: React.FC = () => {
   const { totalIncome } = useAppSelector(
     (state: RootState) => state.totalRevenueGrowth.totalRevenueGrowth
   );
-
-  // form section
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   reset,
-  //   formState: { errors },
-  // } = useForm<IncomeFormInputs>();
-
-  // const onSubmit: SubmitHandler<IncomeFormInputs> = async (data) => {
-  //   console.log(data);
-  //   if (!userId || !userEmail) {
-  //     console.error("User ID or email is missing");
-  //     return;
-  //   }
-  //   const newEntry: IncomeEntry = {
-  //     incomeId: data.incomeId,
-  //     amount: data.amount,
-  //     source: data.source,
-  //     date: data.date,
-  //   };
-  //   const savedIncome = await dispatch(
-  //     addIncomeEntry({ userId, userEmail, entry: newEntry })
-  //   );
-  //   if (addIncomeEntry.fulfilled.match(savedIncome)) {
-  //     dispatch(fetchIncomeCollection(userId));
-  //   }
-  //   reset();
-  //   handleClose();
-  // };
 
   const handleDelete = async ({
     incomeId,
@@ -129,8 +109,11 @@ const Incomes: React.FC = () => {
         </Alert>
       )}
 
-      {/* <section className="p-5">
-        <TableContainer component={Paper} className="overflow-x-auto">
+      <section className="py-5">
+        <TableContainer
+          component={Paper}
+          className="overflow-x-auto min-w-full max-w-32 px-5"
+        >
           <Table>
             <TableHead>
               <TableRow>
@@ -151,7 +134,7 @@ const Incomes: React.FC = () => {
             <TableBody>
               {incomeEntries && incomeEntries.length > 0 ? (
                 incomeEntries.map((entry) => (
-                  <TableRow key={entry.incomeId}>
+                  <TableRow key={entry.incomeId} className="hover:bg-slate-600">
                     <TableCell>{entry.incomeId}</TableCell>
                     <TableCell>{entry.source}</TableCell>
                     <TableCell>$ {entry.amount}</TableCell>
@@ -175,16 +158,33 @@ const Incomes: React.FC = () => {
                   </TableCell>
                 </TableRow>
               )}
+              <TableRow className="hover:bg-slate-600">
+                <TableCell></TableCell>
+                <TableCell>Subtotal</TableCell>
+                <TableCell>$ {totalIncome}</TableCell>
+                <TableCell></TableCell>
+              </TableRow>
+              <TableRow className="hover:bg-slate-600">
+                <TableCell></TableCell>
+                <TableCell>VAT (15%)</TableCell>
+                <TableCell>$ {totalIncome * 0.15}</TableCell>
+                <TableCell></TableCell>
+              </TableRow>
+              <TableRow className="hover:bg-slate-600">
+                <TableCell></TableCell>
+                <TableCell>Total</TableCell>
+                <TableCell>$ {totalIncome - totalIncome * 0.15}</TableCell>
+                <TableCell></TableCell>
+              </TableRow>
             </TableBody>
           </Table>
         </TableContainer>
-      </section> */}
-
+      </section>
       <IncomeForm />
-      <div className="overflow-x-auto min-w-full max-w-32 px-5">
+      {/* <div className="overflow-x-auto min-w-full max-w-32 px-5">
         <table className="table-auto text-sm md:text-base w-full">
           <thead>
-            <tr className="text-left border-b border-opacity-20 dark:border-gray-300">
+            <tr className="border-b border-opacity-20 dark:border-gray-300">
               <th className="p-2 md:p-3">Income ID</th>
               <th className="p-2 md:p-3">Source</th>
               <th className="p-2 md:p-3">Amount</th>
@@ -253,7 +253,7 @@ const Incomes: React.FC = () => {
             </tr>
           </tbody>
         </table>
-      </div>
+      </div> */}
     </section>
   );
 };

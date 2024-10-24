@@ -15,11 +15,12 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Typography,
   Alert,
   Paper,
 } from "@mui/material";
 import { Helmet } from "react-helmet";
+import SectionTitle from "../../components/SectionTitle";
+import { fetchTotalRevenue } from "../../app/api/revenueGrowthAPI";
 
 const Expenses: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -33,11 +34,15 @@ const Expenses: React.FC = () => {
     dispatch(getCurrentUser());
     if (user?._id) {
       dispatch(fetchExpenses(user._id));
+      dispatch(fetchTotalRevenue(user._id));
     }
   }, [dispatch, user._id]);
 
   const { expenseEntries, loading, error } = useAppSelector(
     (state: RootState) => state.expenses
+  );
+  const { totalExpenses } = useAppSelector(
+    (state: RootState) => state.totalRevenueGrowth.totalRevenueGrowth
   );
 
   return (
@@ -46,11 +51,12 @@ const Expenses: React.FC = () => {
         <meta charSet="utf-8" />
         <title>Expenses - RevBoost Solutions</title>
       </Helmet>
+      <SectionTitle
+        title={`Expenses Tracking of ${user?.name}`}
+        intro={"Your Expenses"}
+        content="All your expense entries & add new expense!"
+      />
       <Box sx={{ padding: 4 }}>
-        <Typography variant="h4" gutterBottom>
-          Your Expenses
-        </Typography>
-
         {loading && (
           <Box display="flex" justifyContent="center" marginY={2}>
             <CircularProgress />
@@ -63,7 +69,10 @@ const Expenses: React.FC = () => {
           </Alert>
         )}
 
-        <TableContainer component={Paper}>
+        <TableContainer
+          component={Paper}
+          className="overflow-x-auto min-w-full max-w-32 px-5"
+        >
           <Table>
             <TableHead>
               <TableRow>
@@ -87,7 +96,10 @@ const Expenses: React.FC = () => {
             <TableBody>
               {expenseEntries && expenseEntries.length > 0 ? (
                 expenseEntries.map((entry) => (
-                  <TableRow key={entry.expenseId}>
+                  <TableRow
+                    key={entry.expenseId}
+                    className="hover:bg-slate-600"
+                  >
                     <TableCell>{entry.expenseId}</TableCell>
                     <TableCell>{entry.item}</TableCell>
                     <TableCell>{entry.quantity}</TableCell>
@@ -102,6 +114,27 @@ const Expenses: React.FC = () => {
                   </TableCell>
                 </TableRow>
               )}
+              <TableRow className="hover:bg-slate-600">
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+                <TableCell>Subtotal</TableCell>
+                <TableCell>$ {totalExpenses}</TableCell>
+              </TableRow>
+              <TableRow className="hover:bg-slate-600">
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+                <TableCell>VAT Deduction</TableCell>
+                <TableCell>$ {totalExpenses * 0.25}</TableCell>
+              </TableRow>
+              <TableRow className="hover:bg-slate-600">
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+                <TableCell>Total</TableCell>
+                <TableCell>$ {totalExpenses - totalExpenses * 0.25}</TableCell>
+              </TableRow>
             </TableBody>
           </Table>
         </TableContainer>
