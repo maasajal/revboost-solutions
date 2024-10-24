@@ -58,7 +58,7 @@ const AllUsersList: React.FC = () => {
         setActiveTab(value)
         setEmail("")
     };
- 
+
     const placeholderImage = "https://via.placeholder.com/96";
 
     return (
@@ -90,45 +90,49 @@ const AllUsersList: React.FC = () => {
                     </button>
                 </form>
             </div>
-            {loading ? "Loading" : <div className="mt-4 p-4 border border-gray-300 rounded overflow-x-auto">
-                {usersData.length === 0 ? (
-                    <div>No users found</div>
-                ) : (
-                    <table className="min-w-full table-auto">
-                        <thead>
-                            <tr className="bg-gray-200">
-                                <th className="px-4 py-2 text-left">Photo</th>
-                                <th className="px-4 py-2 text-left">Name</th>
-                                <th className="px-4 py-2 text-left">Email</th>
-                                <th className="px-4 py-2 text-left">Plan</th>
-                                <th className="px-4 py-2 text-left">Status</th>
-                                <th className="px-4 py-2 text-left">Role</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {usersData.map((user) => (
-                                <tr key={user.id} className="hover:bg-gray-100">
-                                    <td className="px-4 py-2">
-                                        <img
-                                            src={user.photo || placeholderImage}
-                                            alt={user.name}
-                                            className="w-14 h-14 rounded-full object-cover"
-                                            onError={(e) => {
-                                                e.currentTarget.src = placeholderImage; // Set placeholder on error
-                                            }}
-                                        />
-                                    </td>
-                                    <td className="px-4 py-2">{user.name}</td>
-                                    <td className="px-4 py-2">{user.email}</td>
-                                    <td className="px-4 py-2">{user.subscriptionPlan}</td>
-                                    <td className="px-4 py-2">{user.subscriptionStatus}</td>
-                                    <td className="px-4 py-2">{user.role}</td>
+            <div className="overflow-x-auto min-w-full max-w-32">
+
+                {loading ? "Loading" : <div className="mt-4 p-4 border border-gray-300 rounded overflow-x-auto">
+                    {usersData.length === 0 ? (
+                        <div>No users found</div>
+                    ) : (
+                        <table className="min-w-full table-auto">
+                            <thead>
+                                <tr className="bg-gray-200">
+                                    <th className="px-4 py-2 text-left">Photo</th>
+                                    <th className="px-4 py-2 text-left">Name</th>
+                                    <th className="px-4 py-2 text-left">Email</th>
+                                    <th className="px-4 py-2 text-left">Plan</th>
+                                    <th className="px-4 py-2 text-left">Status</th>
+                                    <th className="px-4 py-2 text-left">Role</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                )}
-            </div>}
+                            </thead>
+                            <tbody>
+                                {usersData.map((user) => (
+                                    <tr key={user.id} className="hover:bg-gray-100">
+                                        <td className="px-4 py-2">
+                                            <img
+                                                src={user.photo || placeholderImage}
+                                                alt={user.name}
+                                                className="w-14 h-14 rounded-full object-cover"
+                                                onError={(e) => {
+                                                    e.currentTarget.src = placeholderImage; // Set placeholder on error
+                                                }}
+                                            />
+                                        </td>
+                                        <td className="px-4 py-2">{user.name}</td>
+                                        <td className="px-4 py-2">{user.email}</td>
+                                        <td className="px-4 py-2">{user.subscriptionPlan}</td>
+                                        <td className="px-4 py-2">{user.subscriptionStatus}</td>
+                                        <td className="px-4 py-2">{user.role}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    )}
+                </div>}
+            </div>
+
 
         </div>
     );

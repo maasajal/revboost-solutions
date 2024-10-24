@@ -9,7 +9,7 @@ interface TaxStatus {
 }
 const TaxTable = () => {
     const [tax, setTax] = useState<TaxStatus[]>([]);
-    const [loading, setLoading] = useState<boolean>(false); 
+    const [loading, setLoading] = useState<boolean>(false);
     const axiosSecure = useAxiosSecure()
 
     const getTaxData = async () => {
@@ -57,10 +57,7 @@ const TaxTable = () => {
                                         <td className="border px-4 py-2">{<p>${income.tax_amount}</p>}</td>
                                         <td className="border px-4 py-2">{income.vat_status}</td>
                                     </tr>
-                                })}
-
-
-
+                                })} 
                         </tbody>
                     </table>
                 </div>
