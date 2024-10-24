@@ -1,29 +1,37 @@
-import { Button, Tooltip } from "@mui/material";
-import { useEffect } from "react";
-import { getCurrentUser } from "../../../app/api/currentUserAPI";
-import { fetchIncomes } from "../../../app/features/companyIncome/incomesSlice";
-import User from "../../../app/features/users/UserType";
-import { useAppDispatch } from "../../../app/hooks/useAppDispatch";
-import { useAppSelector } from "../../../app/hooks/useAppSelector";
-import { RootState } from "../../../app/store/store";
+import { useEffect, useState } from "react";
+import useAxiosSecure from "../../../app/hooks/useAxiosSecure";
 import { useDate } from "../../../useHook/useDate";
-
+interface TaxStatus {
+    month: string;        // e.g., "October 2024"
+    totalIncome: number;  // e.g., 5242748
+    vat_status: string;   // e.g., "pending"
+    tax_rate: number;     // e.g., 25
+    tax_amount: number;   // e.g., 560687
+}
 const TaxTable = () => {
-    const dispatch = useAppDispatch();
+    const [tax, setTax] = useState<TaxStatus[]>([]);
+    const [loading, setLoading] = useState<boolean>(false);
     const date = useDate;
-    const { incomeEntries, loading } = useAppSelector((state: RootState) => state.allIncome);
-    const {
-        _id: userId,
-    } = useAppSelector((state: RootState) => state.currentUser.user) as User;
-    useEffect(() => {
-        dispatch(getCurrentUser());
-        if (userId) {
-            dispatch(fetchIncomes(userId));
+    const axiosSecure = useAxiosSecure()
+
+    const getTaxData = async () => {
+        try {
+            setLoading(true)
+            const res = await axiosSecure.post(`/incomes/tax-status`, { name: "rajiul" })
+            setTax(res.data)
+            setLoading(false)
+        } catch (error) {
+            console.log(error)
         }
-    }, [dispatch, userId]);
-    if (loading) {
-        return <>Loading</>
-    } 
+    }
+    useEffect(() => {
+        getTaxData()
+    }, [])
+
+    if (loading) return <>Data Fetching</>
+    if (!tax.length) return <>you should add your income data</>
+
+
     return (
         <div>
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -33,31 +41,22 @@ const TaxTable = () => {
                         <thead>
                             <tr>
                                 <th className="px-4 py-2">Date</th>
-                                <th className="px-4 py-2">Issue</th>
-                                <th className="px-4 py-2">Income</th>
+                                <th className="px-4 py-2">Solid Income</th>
                                 <th className="px-4 py-2">(%)</th>
-                                <th className="px-4 py-2">Status</th>
-                                <th className="px-4 py-2">Final income</th>
+                                <th className="px-4 py-2">Tax amount</th> 
                             </tr>
                         </thead>
                         <tbody>
                             {
-                                incomeEntries.length ? incomeEntries.map(income => {
+                                tax.map(income => {
                                     return <tr>
-                                        <td className="border px-4 py-2"> <p>{date(income.date)}</p></td>
-                                        <td className="border px-4 py-2">{<p>{income.source}</p>}</td>
-                                        <td className="border px-4 py-2">{income.amount}</td>
-                                        <td className="border px-4 py-2 ">5%</td>
-                                        <td className="border px-4 py-2 text-primary cursor-pointer ">
-
-                                            <Tooltip title="If you complete your tax then click" arrow>
-                                                <Button>Pending</Button>
-                                            </Tooltip>
-                                        </td>
-                                        <td className="border px-4 py-2">----</td>
+                                        <td className="border px-4 py-2"> <p>{income.month}</p></td>
+                                        <td className="border px-4 py-2">{income.totalIncome}</td>
+                                        <td className="border px-4 py-2">{income.tax_rate}%</td>
+                                        <td className="border px-4 py-2">{<p>{income.tax_amount}</p>}</td>
+                                        <td className="border px-4 py-2">{income.vat_status}</td> 
                                     </tr>
-                                }) : ""
-                            }
+                                })}
 
 
 
