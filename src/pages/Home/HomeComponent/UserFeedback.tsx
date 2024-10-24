@@ -1,4 +1,3 @@
-import { FC } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Rating, ThinRoundedStar } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
@@ -29,59 +28,57 @@ const ratingStyle = {
 
 // Static testimonial data used directly inside the component
 const testimonials: Testimonial[] = [
-    {
-      name: "Abdullah Sajal",
-      image: "https://i.postimg.cc/DzGZYHXg/abdullah-sajal-vai.jpg",
-      designation: "CEO & Founder",
-      rating: 5,
-      comment:
-        "RevBoost Solution has simplified our financial management. Their income tracking and rollbase management features are incredibly useful, and the monthly charts provide clear insights into our business. We’re now better organized and can make more informed decisions. Highly recommend!",
-    },
-    {
-      name: "MD TORIKUL ISLAM",
-      image: "https://i.postimg.cc/d1bmvWPq/profile-pic.png",
-      designation: "Business Owner",
-      rating: 4.8,
-      comment:
-        "RevBoost Solution has made managing taxes and finances easier. Their rollbase management and income tracking features give us clear visibility into our performance. The charts are excellent for tracking monthly and yearly progress. Very satisfied with their services.",
-    },
-    {
-      name: "Sakib Hasan",
-      image: "https://i.postimg.cc/6QCWhZkb/sakib-vai.jpg",
-      designation: "Business Owner",
-      rating: 5,
-      comment:
-        "Using RevBoost Solution has improved our financial tracking. The charts make it easy to monitor performance, and their income and tax management tools are extremely helpful. We now have a much better understanding of our monthly financial health.",
-    },
-    {
-      name: "Mohsin Ahmed Arfat",
-      image: "https://i.postimg.cc/Pr6PLmHm/mohosin-vat.jpg",
-      designation: "CEO & Founder",
-      rating: 4,
-      comment:
-        "RevBoost Solution offers great financial tracking tools. The income, expense, and tax management features have improved our business efficiency. We also appreciate the rollbase management, which makes monitoring progress easy. Great value for what they offer.",
-    },
-    {
-      name: "Md Rajiul Islam",
-      image: "https://i.postimg.cc/4dZJ2dZf/rajiul-vai.jpg",
-      designation: "Business Owner",
-      rating: 4.7,
-      comment:
-        "RevBoost Solution has been key in keeping our finances organized. Their income tracking, expense monitoring, and VAT management are top-notch. The charts make it easy to visualize our monthly performance. We are really pleased with their service.",
-    },
-    {
-      name: "Masum Billah Sakib",
-      image: "https://i.postimg.cc/Z5n97r2j/m-ASUMbillah.jpg",
-      designation: "Business Owner",
-      rating: 4.9,
-      comment:
-        "Since using RevBoost Solution, we've improved our income and tax tracking. The charts provide valuable insights into monthly trends, and the rollbase management feature is excellent for financial organization. I highly recommend their services.",
-    },
-  ];
-  
-  
+  {
+    name: "Abdullah Sajal",
+    image: "https://i.postimg.cc/DzGZYHXg/abdullah-sajal-vai.jpg",
+    designation: "CEO & Founder",
+    rating: 5,
+    comment:
+      "RevBoost Solution has simplified our financial management. Their income tracking and rollbase management features are incredibly useful, and the monthly charts provide clear insights into our business. We’re now better organized and can make more informed decisions. Highly recommend!",
+  },
+  {
+    name: "MD TORIKUL ISLAM",
+    image: "https://i.postimg.cc/d1bmvWPq/profile-pic.png",
+    designation: "Business Owner",
+    rating: 4.8,
+    comment:
+      "RevBoost Solution has made managing taxes and finances easier. Their rollbase management and income tracking features give us clear visibility into our performance. The charts are excellent for tracking monthly and yearly progress. Very satisfied with their services.",
+  },
+  {
+    name: "Sakib Hasan",
+    image: "https://i.postimg.cc/6QCWhZkb/sakib-vai.jpg",
+    designation: "Business Owner",
+    rating: 5,
+    comment:
+      "Using RevBoost Solution has improved our financial tracking. The charts make it easy to monitor performance, and their income and tax management tools are extremely helpful. We now have a much better understanding of our monthly financial health.",
+  },
+  {
+    name: "Mohsin Ahmed Arfat",
+    image: "https://i.postimg.cc/Pr6PLmHm/mohosin-vat.jpg",
+    designation: "CEO & Founder",
+    rating: 4,
+    comment:
+      "RevBoost Solution offers great financial tracking tools. The income, expense, and tax management features have improved our business efficiency. We also appreciate the rollbase management, which makes monitoring progress easy. Great value for what they offer.",
+  },
+  {
+    name: "Md Rajiul Islam",
+    image: "https://i.postimg.cc/4dZJ2dZf/rajiul-vai.jpg",
+    designation: "Business Owner",
+    rating: 4.7,
+    comment:
+      "RevBoost Solution has been key in keeping our finances organized. Their income tracking, expense monitoring, and VAT management are top-notch. The charts make it easy to visualize our monthly performance. We are really pleased with their service.",
+  },
+  {
+    name: "Masum Billah Sakib",
+    image: "https://i.postimg.cc/Z5n97r2j/m-ASUMbillah.jpg",
+    designation: "Business Owner",
+    rating: 4.9,
+    comment:
+      "Since using RevBoost Solution, we've improved our income and tax tracking. The charts provide valuable insights into monthly trends, and the rollbase management feature is excellent for financial organization. I highly recommend their services.",
+  },
+];
 
-const UserFeedback: FC = () => {
+const UserFeedback: React.FC = () => {
   return (
     <section id="testimonials">
       <div className="px-3 sm:px-6 md:px-20">
