@@ -73,7 +73,7 @@ const ExpenseForm: React.FC = () => {
     <div className="space-y-4">
       {/* Button to open modal */}
       <Button className="animate-bounce" onClick={handleOpen}>
-        Add Expenses Details
+        Add Expense Details
       </Button>
 
       {/* Modal component */}
@@ -100,18 +100,17 @@ const ExpenseForm: React.FC = () => {
               })}
               label="Unique Expense Id"
               variant="outlined"
+              placeholder="Any things to identify the expense"
               error={!!errors.expenseId}
               helperText={errors.expenseId?.message}
             />
 
             <TextField
               id="ExpenseSector"
-              {...register("item", {
-                required: "ExpenseSector is required",
-                min: { value: 0, message: "Amount must be positive" },
-              })}
+              {...register("item", { required: "ExpenseSector is required" })}
               label="Expense Sector"
               variant="outlined"
+              placeholder="Expense Sector"
               error={!!errors.item}
               helperText={errors.item?.message}
             />
@@ -119,91 +118,34 @@ const ExpenseForm: React.FC = () => {
             <TextField
               id="quantity"
               type="number"
-              {...register("quantity", { required: "quantity is required" })}
+              {...register("quantity", {
+                required: "quantity is required",
+                min: { value: 0, message: "Amount must be positive" },
+              })}
               label="Quantity"
               variant="outlined"
+              placeholder="How many item in the expense"
               error={!!errors.quantity}
               helperText={errors.quantity?.message}
             />
 
             <TextField
               id="unitPrice"
-              {...register("unitPrice", { required: "unitPrice is required" })}
+              {...register("unitPrice", {
+                required: "unitPrice is required",
+                min: { value: 0, message: "Amount must be positive" },
+              })}
               label="Unit Price"
               variant="outlined"
+              placeholder="How much the price of the product/piece"
               error={!!errors.unitPrice}
               helperText={errors.unitPrice?.message}
             />
 
             <Button type="submit" variant="contained" color="success">
-              Add Expenses
+              Add Expense
             </Button>
           </form>
-          {/* <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="gap-6 grid grid-cols-1 md:grid-cols-2"
-          >
-            <TextField
-              id="UniqueExpenseId"
-              {...register("expenseId", {
-                required: "Expense UniqueExpenseId is required",
-              })}
-              label="Unique Expense Id"
-              variant="outlined"
-            />
-            {errors.expenseId && (
-              <span className="text-red-400">{errors.expenseId.message}</span>
-            )}
-
-            <TextField
-              id="ExpenseSector"
-              {...register("item", {
-                required: "ExpenseSector is required",
-                min: { value: 0, message: "Amount must be positive" },
-              })}
-              label="Expense Sector"
-              variant="outlined"
-            />
-            {errors.item && (
-              <span className="text-red-400">{errors.item.message}</span>
-            )}
-
-            <TextField
-              id="quantity"
-              type="number"
-              {...register("quantity", { required: "quantity is required" })}
-              label="Quantity"
-              variant="outlined"
-            />
-            {errors.quantity && (
-              <span className="text-red-400">{errors.quantity.message}</span>
-            )}
-
-            <TextField
-              id="unitPrice"
-              {...register("unitPrice", { required: "unitPrice is required" })}
-              label="Unit Price"
-              variant="outlined"
-            />
-            {errors.unitPrice && (
-              <span className="text-red-400">{errors.unitPrice.message}</span>
-            )}
-
-            <button
-              type="submit"
-              style={{
-                padding: "10px",
-                backgroundColor: "#4CAF50",
-                color: "white",
-                border: "none",
-              }}
-            >
-              Add Expenses
-            </button>
-            <Button type="submit" variant="contained" color="success">
-              Add Expenses
-            </Button>
-          </form> */}
         </Box>
       </Modal>
     </div>
