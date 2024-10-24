@@ -1,7 +1,7 @@
 import Banner from "./HomeComponent/Banner";
 import FAQ from "./HomeComponent/FAQ";
 import Sectors from "./HomeComponent/Sectors";
-import Testimonials from "./HomeComponent/Testimonials";
+// import Testimonials from "./HomeComponent/Testimonials";
 import UnlockBusiness from "./HomeComponent/UnlockBusiness";
 import { Helmet } from "react-helmet";
 import UserFeedback from "./HomeComponent/UserFeedback";
