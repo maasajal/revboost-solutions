@@ -9,8 +9,7 @@ interface YearMonthSelectorProps {
     years: number[];
     fetchIncomesData: (year: number | null, month: string | null) => Promise<void>
     loading: boolean;
-    refetch: boolean;
-    // setRefetch: React.Dispatch<React.SetStateAction<boolean>>
+    refetch: boolean; 
 }
 
 const VatFilter: React.FC<YearMonthSelectorProps> = ({ years, fetchIncomesData, loading, refetch }) => {
