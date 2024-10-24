@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+// import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchPayroll,
@@ -7,7 +7,7 @@ import {
 } from "../../app/features/payroll/payrollSlice";
 import { AppDispatch, RootState } from "../../app/store/store";
 import toast from "react-hot-toast";
-import SelectField from "./payrollComponents/SelectField";
+// import SelectField from "./payrollComponents/SelectField";
 import PayrollUpdateModal from "./payrollComponents/PayrollUpdateModal";
 import User from "../../app/features/users/UserType";
 
@@ -23,7 +23,7 @@ interface Payroll {
 }
 
 const PayrollReports = () => {
-  const { register } = useForm<{ month: string }>();
+  // const { register } = useForm<{ month: string }>();
   const { payrolls } = useSelector((state: RootState) => state.payroll);
   const dispatch: AppDispatch = useDispatch();
 
@@ -59,21 +59,21 @@ const PayrollReports = () => {
     }
   };
 
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-  const currentMonth = months[new Date().getMonth()];
+  // const months = [
+  //   "January",
+  //   "February",
+  //   "March",
+  //   "April",
+  //   "May",
+  //   "June",
+  //   "July",
+  //   "August",
+  //   "September",
+  //   "October",
+  //   "November",
+  //   "December",
+  // ];
+  // const currentMonth = months[new Date().getMonth()];
 
   return (
     <div className="space-y-6 border-2 p-4 my-10">
@@ -87,7 +87,7 @@ const PayrollReports = () => {
         userId={_id}
       />
 
-      <div className="flex justify-between items-center">
+      {/* <div className="flex justify-between items-center">
         <SelectField
           label=""
           options={months}
@@ -97,7 +97,7 @@ const PayrollReports = () => {
         <div>
           <h6>Total: {payrolls.length}</h6>
         </div>
-      </div>
+      </div> */}
       <div className="dark:text-gray-800">
         <div className="overflow-x-auto">
           <table className="min-w-full text-xs">
@@ -110,6 +110,7 @@ const PayrollReports = () => {
                 <th className="p-3 text-center">Bonus</th>
                 <th className="p-3 text-center">Tax Deduction</th>
                 <th className="p-3 text-center">Net Pay</th>
+                <th className="p-3 text-center">Month</th>
                 <th className="p-3 text-center">Actions</th>
               </tr>
             </thead>
@@ -128,6 +129,7 @@ const PayrollReports = () => {
                   <td className="p-3 text-center">
                     {payroll?.salary + payroll?.bonus - payroll?.taxDeduction}
                   </td>
+                  <td className="p-3 text-center">{payroll?.month}</td>
                   <td className="p-3 text-right space-x-2">
                     <button
                       onClick={() => handleEdit(payroll)}
