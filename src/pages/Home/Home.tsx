@@ -4,6 +4,7 @@ import Sectors from "./HomeComponent/Sectors";
 import Testimonials from "./HomeComponent/Testimonials";
 import UnlockBusiness from "./HomeComponent/UnlockBusiness";
 import { Helmet } from "react-helmet";
+import UserFeedback from "./HomeComponent/UserFeedback";
 
 const Home: React.FC = () => {
   return (
@@ -18,7 +19,8 @@ const Home: React.FC = () => {
       </Helmet>
       <Banner></Banner>
       <UnlockBusiness />
-      <Testimonials></Testimonials>
+      {/* <Testimonials></Testimonials> */}
+      <UserFeedback></UserFeedback>
       <Sectors></Sectors>
       <FAQ />
     </div>
