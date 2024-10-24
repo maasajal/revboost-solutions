@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../app/hooks/useAxiosSecure";
-import { useDate } from "../../../useHook/useDate";
 interface TaxStatus {
     month: string;        // e.g., "October 2024"
     totalIncome: number;  // e.g., 5242748
@@ -10,8 +9,7 @@ interface TaxStatus {
 }
 const TaxTable = () => {
     const [tax, setTax] = useState<TaxStatus[]>([]);
-    const [loading, setLoading] = useState<boolean>(false);
-    const date = useDate;
+    const [loading, setLoading] = useState<boolean>(false); 
     const axiosSecure = useAxiosSecure()
 
     const getTaxData = async () => {
@@ -43,7 +41,8 @@ const TaxTable = () => {
                                 <th className="px-4 py-2">Date</th>
                                 <th className="px-4 py-2">Solid Income</th>
                                 <th className="px-4 py-2">(%)</th>
-                                <th className="px-4 py-2">Tax amount</th> 
+                                <th className="px-4 py-2">Tax amount</th>
+                                <th className="px-4 py-2">Vat Status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -51,10 +50,12 @@ const TaxTable = () => {
                                 tax.map(income => {
                                     return <tr>
                                         <td className="border px-4 py-2"> <p>{income.month}</p></td>
-                                        <td className="border px-4 py-2">{income.totalIncome}</td>
+                                        <td className={`${income.vat_status === "pending" ? "text-primary" : "text-green-600"} border px-4 py-2`}>
+                                            {income.totalIncome}
+                                        </td>
                                         <td className="border px-4 py-2">{income.tax_rate}%</td>
-                                        <td className="border px-4 py-2">{<p>{income.tax_amount}</p>}</td>
-                                        <td className="border px-4 py-2">{income.vat_status}</td> 
+                                        <td className="border px-4 py-2">{<p>${income.tax_amount}</p>}</td>
+                                        <td className="border px-4 py-2">{income.vat_status}</td>
                                     </tr>
                                 })}
 

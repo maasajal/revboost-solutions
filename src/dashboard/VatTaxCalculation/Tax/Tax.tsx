@@ -1,5 +1,4 @@
 import { Helmet } from "react-helmet";
-import TaxPending from "./TaxPending";
 import TaxTable from "./TaxTable";
 
 const Tax = () => {
@@ -9,8 +8,7 @@ const Tax = () => {
         <meta charSet="utf-8" />
         <title>TAX - RevBoost Solutions</title>
       </Helmet>
-      <TaxTable />
-      <TaxPending />
+      <TaxTable /> 
     </div>
   );
 };
