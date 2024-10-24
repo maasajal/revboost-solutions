@@ -58,8 +58,7 @@ const AllUsersList: React.FC = () => {
         setActiveTab(value)
         setEmail("")
     };
-
-    if (!usersData.length) return <>Not found</>
+ 
     const placeholderImage = "https://via.placeholder.com/96";
 
     return (
