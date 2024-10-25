@@ -297,25 +297,13 @@ const About = () => {
                 </h2>
 
                 <p className="mt-3 text-gray-600 dark:text-gray-400">
-                  It is a long established fact that a reader will be distracted
-                  by the readable content of a page when looking at its layout.
-                  The point of using Lorem Ipsum is that it has a more-or-less
-                  normal distribution of letters, as opposed to using 'Content
-                  here, content here', making it look like readable English.
-                  Many desktop publishing packages and web page editors now use
-                  Lorem Ipsum as their default model text, and a search for
-                  'lorem ipsum' will uncover many web sites still in their
-                  infancy.
+                At Revboost, we believe that sustainable growth is achieved through informed financial management, practical skills, and dedicated effort. Our platform offers businesses the tools they need to streamline revenue tracking, improve financial clarity, and support strategic decision-making. By integrating automation and real-time insights, Revboost empowers companies to focus on growth with confidence.
                 </p>
                 <h3 className="text-3xl font-semibold text-gray-800 dark:text-white lg:text-4xl">
                   <span className="text-blue-500 ">Your road to success</span>
                 </h3>
                 <p className="mt-3 text-gray-600 dark:text-gray-400">
-                  The proposed research aims to develop an advanced Company
-                  Revenue Generation Platform. To integrate key features like
-                  lead management, sales tracking, and revenue analytics. To
-                  explore the application of behavioral analytics in
-                  micro-segmentation for targeted revenue generation strategies.
+                Revboost is designed to optimize and simplify your business's revenue generation journey. Our advanced Company Revenue Generation Platform includes essential features such as lead management, sales tracking, and revenue analytics. Using behavioral analytics, Revboost enables precise customer segmentation, enhancing targeted revenue strategies and opening the door to more effective and efficient revenue growth.
                 </p>
                 <Link to={`/pricing`}>
                   <button className="w-full px-5 py-2 mt-6 text-sm tracking-wider text-white uppercase transition-colors duration-300 transform bg-blue-600 rounded-lg lg:w-auto hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
