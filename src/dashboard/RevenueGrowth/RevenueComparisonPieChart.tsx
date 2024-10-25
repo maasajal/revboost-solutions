@@ -32,10 +32,9 @@ const RevenueComparisonPieChart: React.FC = () => {
   const { loading, error } = useAppSelector(
     (state: RootState) => state.totalRevenueGrowth
   );
-  const { totalIncome, totalExpenses, growthPercentage } =
-    useAppSelector(
-      (state: RootState) => state.totalRevenueGrowth.totalRevenueGrowth
-    );
+  const { totalIncome, totalExpenses, growthPercentage } = useAppSelector(
+    (state: RootState) => state.totalRevenueGrowth.totalRevenueGrowth
+  );
 
   const data = [
     { name: "Total Incomes ($)", value: totalIncome || 0 },
@@ -51,7 +50,7 @@ const RevenueComparisonPieChart: React.FC = () => {
   return (
     <div className="chart-container">
       <h3 className="text-center my-4">Income vs Expenses vs Revenue Growth</h3>
-      <ResponsiveContainer width="100%" height={300}>
+      <ResponsiveContainer width="100%" height={400}>
         <PieChart>
           <Pie
             data={data}
