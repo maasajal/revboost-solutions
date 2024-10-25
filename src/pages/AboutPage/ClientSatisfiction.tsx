@@ -25,7 +25,7 @@ const CountUp: React.FC<CountUpProps> = ({ target }) => {
             }
           };
 
-          increment(); 
+          increment();
           const currentRef = ref.current;
           if (currentRef) {
             observer.unobserve(currentRef);
@@ -49,7 +49,7 @@ const CountUp: React.FC<CountUpProps> = ({ target }) => {
   return (
     <div ref={ref} className="flex flex-col justify-center align-middle">
       <p className="text-3xl font-semibold leading-none">{count} +</p>
-      <hr className="border-red-400 border-2" />
+      <hr className="border-deepColor border-2" />
     </div>
   );
 };
@@ -64,7 +64,7 @@ const ClientSatisfiction = () => {
       />
       <div className="container grid grid-cols-1 gap-6 mx-auto sm:grid-cols-2 xl:grid-cols-4">
         <div className="flex p-4 space-x-4 rounded-lg md:space-x-6 dark:bg-gray-50 dark:text-gray-800">
-          <div className="flex justify-center p-2 align-middle rounded-lg sm:p-4 dark:bg-red-400">
+          <div className="flex justify-center p-2 align-middle rounded-lg sm:p-4 dark:bg-deepColor">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 512 512"
@@ -80,7 +80,7 @@ const ClientSatisfiction = () => {
           <p className="capitalize">Total Client</p>
         </div>
         <div className="flex p-4 space-x-4 rounded-lg md:space-x-6 dark:bg-gray-50 dark:text-gray-800">
-          <div className="flex justify-center p-2 align-middle rounded-lg sm:p-4 dark:bg-red-400">
+          <div className="flex justify-center p-2 align-middle rounded-lg sm:p-4 dark:bg-deepColor">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 512 512"
@@ -94,7 +94,7 @@ const ClientSatisfiction = () => {
           <p className="capitalize">Country Services</p>
         </div>
         <div className="flex p-4 space-x-4 rounded-lg md:space-x-6 dark:bg-gray-50 dark:text-gray-800">
-          <div className="flex justify-center p-2 align-middle rounded-lg sm:p-4 dark:bg-red-400">
+          <div className="flex justify-center p-2 align-middle rounded-lg sm:p-4 dark:bg-deepColor">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 512 512"
@@ -113,7 +113,7 @@ const ClientSatisfiction = () => {
           <p className="capitalize">Total Project</p>
         </div>
         <div className="flex p-4 space-x-4 rounded-lg md:space-x-6 dark:bg-gray-50 dark:text-gray-800">
-          <div className="flex justify-center p-2 align-middle rounded-lg sm:p-4 dark:bg-red-400">
+          <div className="flex justify-center p-2 align-middle rounded-lg sm:p-4 dark:bg-deepColor">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 512 512"

@@ -22,6 +22,7 @@ import {
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { getCurrentUser } from "../../app/api/currentUserAPI";
 import { Helmet } from "react-helmet";
+import SectionTitle from "../../components/SectionTitle";
 
 // Define types for the package data
 interface Package {
@@ -148,8 +149,8 @@ const Pricing: React.FC = () => {
               fullWidth
               onClick={() => handleSubscriptionClick(pkg)}
               sx={{
-                backgroundColor: "#f50057",
-                "&:hover": { backgroundColor: "#d32f2f" },
+                backgroundColor: "#1E2E61",
+                "&:hover": { backgroundColor: "#2E568A" },
               }}
             >
               Start your 14-days free trial
@@ -273,12 +274,13 @@ const Pricing: React.FC = () => {
 
       {/* Add-on Repository Section */}
       <Box sx={{ mb: 5 }}>
-        <Typography variant="h4" align="center" mt={3}>
+        {/* <Typography variant="h4" align="center" mt={3}>
           Our Add-on Repository
         </Typography>
         <Typography variant="body1" align="center">
           (Billed annually)
-        </Typography>
+        </Typography> */}
+        <SectionTitle title="Our Add-on Repository" content="Billed annually" />
 
         <Grid container spacing={3} justifyContent="center" sx={{ mt: 3 }}>
           {/* Users Card */}
@@ -357,9 +359,11 @@ const Pricing: React.FC = () => {
 
       {/* FAQ Section */}
       <div className="faq-section bg-gray-100 py-10 px-5 md:px-20 container mx-auto rounded-xl">
-        <h2 className="text-center text-4xl font-bold mb-10">
-          Frequently Asked Questions
-        </h2>
+        <SectionTitle
+          title="Frequently Asked Questions"
+          intro="FAQs"
+          content="Our pricing related questions & answers"
+        />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {questions.map((item, index) => (
             <div key={index} className="faq-item">

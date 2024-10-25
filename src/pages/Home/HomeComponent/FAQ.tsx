@@ -36,9 +36,9 @@ const FAQ = () => {
         content="A list of common questions and answers designed to provide quick and helpful information on a specific topic or service."
       />
 
-      <div className="lg:flex bg-white rounded-lg">
-        <div className="bg-[#F79385] flex items-center px-6 rounded-l-lg">
-          <img src={questionImg} alt="" />
+      <div className="lg:flex bg-gray-300 rounded-xl">
+        <div className="bg-gray-600 flex items-center px-6 rounded-l-xl">
+          <img src={questionImg} alt="FAQs" />
         </div>
 
         {/* accordian */}
@@ -65,47 +65,6 @@ const FAQ = () => {
           ))}
         </div>
       </div>
-
-      {/* <div className="lg:flex gap-6 items-start mt-10">
-        <div className="relative w-full  lg:w-1/2 mb-10 lg:mb-0 flex justify-center">
-          {!isLoaded && (
-            <div className="skeleton h-32 w-32 absolute inset-0"></div>
-          )}
-          <img
-            src={faqImage}
-            alt="FAQ"
-            onLoad={() => setIsLoaded(true)}
-            className={`transition-opacity  duration-300 ${
-              isLoaded ? "opacity-100" : "opacity-0"
-            } rounded-lg w-full max-w-xl`}
-          />
-        </div>
-
-        <div className="join join-vertical w-full border border-[#FF0000]  ">
-          {faq.map((item, index) => (
-            <div
-              key={index}
-              className="collapse collapse-arrow join-item border-t border-[#FF0000] last:border-b"
-            >
-              <input
-                type="radio"
-                name="my-accordion-4"
-                defaultChecked={index === 0}
-              />
-              <div className="collapse-title font-sans text-xl font-medium">
-                <h5>{item.title}</h5>
-              </div>
-              <div className="collapse-content bg-base-200">
-                {item.description.map((desc, i) => (
-                  <p className="mb-1 pt-4" key={i}>
-                    {desc}
-                  </p>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div> */}
     </section>
   );
 };
