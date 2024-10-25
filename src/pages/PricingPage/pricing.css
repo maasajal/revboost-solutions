@@ -1,6 +1,5 @@
 .react-tabs__tab--selected {
-  border: 1px solid darkred;
   border-radius: 100px;
-  background: darkred;
+  background: #1E2E61;
   color: white;
 }

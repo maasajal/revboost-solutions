@@ -10,16 +10,21 @@ export default {
         roboto: "'Roboto', sans-serif",
       },
       colors: {
-        primary: "#FF0000", // Text color: red
+        primary: "#4ea7dd", // Text color: lightblue
         secondary: "#8B0000", // Text color: dark red
         highlight: "#FF5722", // highlight color
         sectionBgColor: "#F7F7F7", // bg color for sections
         lightRedBg: "#FFE6E6", // background color
-        btnBgColor: "#8B0000", // Button bg color
+        btnBgColor: "#1E2E61", // Button bg color
         btnBgHoverColor: "#CC0000", // Button bg hover color
         dashboardNavbarBG: "#FFCCCC", // Dashboard navbar bg color
         footerBGColor: "#2C3E50", // Footer bg color
-        logoMainColor: "#1f3060",
+        logoMainColor: "#1F3060",
+        baseColor: "#FCFCFC",
+        deepColor: "#1E2E61",
+        midColor: "#2E568A",
+        semiColor: "#3E7EB3",
+        lightColor: "#4EA7DD",
       },
       backgroundImage: {
         bannerImg:

@@ -97,7 +97,11 @@ const ContactForm = () => {
                   helperText={errors.details ? "Details are required" : ""}
                 />
               </div>
-              <Button className="mt-4" variant="contained" type="submit">
+              <Button
+                className="mt-4"
+                variant="contained"
+                type="submit"
+              >
                 Submit
               </Button>
             </div>

@@ -36,8 +36,7 @@ const TeamMembers = () => {
       linkedin: "https://www.linkedin.com/in/mohsin-ahmed-arfat/",
       gitHub: "https://github.com/mohsinahmedarfat",
     },
-   
-    
+
     {
       id: 5,
       name: "Md Rajiul Islam",
@@ -47,7 +46,7 @@ const TeamMembers = () => {
       linkedin: "www.linkedin.com/in/rajiul-islam-rayhan",
       gitHub: "https://github.com/sakibhasansufi",
     },
-    
+
     {
       id: 6,
       name: "Masum Billah Sakib",
@@ -66,7 +65,7 @@ const TeamMembers = () => {
           <>
             <div
               key={data.id}
-              className="flex flex-col items-center p-8 transition-colors duration-300 transform cursor-pointer group hover:bg-red-400 rounded-xl"
+              className="flex flex-col items-center p-8 transition-colors duration-300 transform cursor-pointer group bg-gray-300 hover:bg-midColor rounded-xl"
             >
               <img
                 className="object-cover w-32 h-32 rounded-full ring-4 ring-gray-300"
@@ -74,18 +73,18 @@ const TeamMembers = () => {
                 alt="loading.."
               />
 
-              <h1 className="mt-4 text-2xl font-semibold text-gray-700 capitalize dark:text-white group-hover:text-white">
+              <h1 className="mt-4 text-2xl font-semibold text-gray-700 capitalize group-hover:text-white">
                 {data.name}
               </h1>
 
-              <p className="mt-2 text-gray-500 capitalize dark:text-gray-300 group-hover:text-gray-300">
+              <p className="mt-2 group-hover:text-white capitalize">
                 {data.role}
               </p>
 
               <div className="flex mt-3 -mx-2">
                 <a
                   href={data.linkedin}
-                  className="mx-2 text-gray-600 dark:text-gray-300 hover:text-gray-500 dark:hover:text-gray-300 group-hover:text-white"
+                  className="mx-2 dark:hover:text-gray-300 group-hover:text-white"
                   aria-label="linkedin"
                 >
                   <svg
@@ -101,7 +100,7 @@ const TeamMembers = () => {
 
                 <a
                   href={data.facebook}
-                  className="mx-2 text-gray-600 dark:text-gray-300 hover:text-gray-500 dark:hover:text-gray-300 group-hover:text-white"
+                  className="mx-2 hover:text-gray-500 dark:hover:text-gray-300 group-hover:text-white"
                   aria-label="Facebook"
                 >
                   <svg
@@ -116,7 +115,7 @@ const TeamMembers = () => {
 
                 <a
                   href={data.gitHub}
-                  className="mx-2 text-gray-600 dark:text-gray-300 hover:text-gray-500 dark:hover:text-gray-300 group-hover:text-white"
+                  className="mx-2 hover:text-gray-500 dark:hover:text-gray-300 group-hover:text-white"
                   aria-label="Github"
                 >
                   <svg
