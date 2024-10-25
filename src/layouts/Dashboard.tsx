@@ -27,7 +27,6 @@ import revTheme from "../components/utils/theme";
 import { AiTwotoneCalculator } from "react-icons/ai";
 import { Breadcrumbs } from "@mui/material";
 import MessageIcon from "@mui/icons-material/Message";
-import ChatIcon from "@mui/icons-material/Chat";
 
 // Define the `FeaturePages` component to display the content based on the current path
 function FeaturePages({ pathname }: { pathname: string }) {
@@ -152,11 +151,6 @@ export default function DashboardLayoutBasic(props: DemoProps) {
                 segment: "messages",
                 title: "All Message",
                 icon: <MessageIcon />,
-              },
-              {
-                segment: "messages-details/:id",
-                title: "Messages Details",
-                icon: <ChatIcon />,
               },
             ],
           },

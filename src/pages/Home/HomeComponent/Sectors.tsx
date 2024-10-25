@@ -20,8 +20,7 @@ const Sectors = () => {
           <div className="card-body items-center text-center">
             <h2 className="card-title pt-5">Small Business</h2>
             <p>
-              It is a long established fact that a reader will be distracted by
-              the readable content of a page when looking at its layout.{" "}
+            Simplify your financial management with RevBoost. Track income, expenses, taxes, and VAT effortlessly, giving you more time to focus on growing your business. Let our intuitive dashboard help you stay on top of your financial health.
             </p>
           </div>
         </div>
@@ -33,8 +32,7 @@ const Sectors = () => {
           <div className="card-body items-center text-center">
             <h2 className="card-title">Startup</h2>
             <p>
-              It is a long established fact that a reader will be distracted by
-              the readable content of a page when looking at its layout.
+            Launch your startup with confidence using RevBoost’s comprehensive financial tools. From tracking expenses to managing taxes, our platform gives you the insights you need to scale your business efficiently and stay financially organized.
             </p>
           </div>
         </div>
@@ -46,8 +44,7 @@ const Sectors = () => {
           <div className="card-body items-center text-center">
             <h2 className="card-title">Consultancy House</h2>
             <p>
-              It is a long established fact that a reader will be distracted by
-              the readable content of a page when looking at its layout.
+            Maximize your consultancy firm's financial performance with RevBoost. Easily manage income, expenses, and tax obligations while gaining valuable insights through our detailed reports and charts. Make data-driven decisions for long-term success.
             </p>
           </div>
         </div>

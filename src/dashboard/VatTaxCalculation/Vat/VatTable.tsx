@@ -28,8 +28,7 @@ interface Income {
     refetch: boolean
 
 }
-const VatTable: React.FC<Income> = ({ incomes, setRefetch, refetch }) => {
-    console.log(incomes._id)
+const VatTable: React.FC<Income> = ({ incomes, setRefetch, refetch }) => { 
     const userId = incomes._id
     const date = useDate;
     const dayName = useDayName;
@@ -62,8 +61,7 @@ const VatTable: React.FC<Income> = ({ incomes, setRefetch, refetch }) => {
                             </tr>
                         </thead>
                         <tbody className="">
-                            {incomes?.incomeEntries.length ? incomes.incomeEntries.map((item, index) => {
-                                console.log("item", item)
+                            {incomes?.incomeEntries.length ? incomes.incomeEntries.map((item, index) => { 
                                 return <tr
                                     key={index}
                                     className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50"

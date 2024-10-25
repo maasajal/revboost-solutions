@@ -9,14 +9,25 @@ import {
   Box,
   Button,
   CircularProgress,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
   TextField,
   Typography,
 } from "@mui/material";
+
 import { useForm, SubmitHandler } from "react-hook-form";
 import { updateUser } from "../../app/api/usersAPI";
 import Swal from "sweetalert2";
 import revTheme from "../../components/utils/theme";
 import { Helmet } from "react-helmet";
+import { fetchPayments } from "../../app/features/payments/paymentsSlice";
+import SectionTitle from "../../components/SectionTitle";
+import RevButton from "../../components/RevButton";
 
 interface UpdateUserData {
   photo: string;
@@ -24,10 +35,6 @@ interface UpdateUserData {
 }
 const Profile: React.FC = () => {
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(getCurrentUser()); // Fetch all users
-  }, [dispatch]);
 
   const user = useAppSelector(
     (state: RootState) => state.currentUser.user
@@ -46,6 +53,17 @@ const Profile: React.FC = () => {
     subscriptionStatus,
     features,
   } = user;
+
+  useEffect(() => {
+    dispatch(getCurrentUser()); // Fetch all users
+    if (user?._id) {
+      dispatch(fetchPayments(user._id));
+    }
+  }, [dispatch, user]);
+
+  const { paymentEntries } = useAppSelector(
+    (state: RootState) => state.payments
+  );
 
   const { register, handleSubmit } = useForm<User>({
     defaultValues: {
@@ -75,12 +93,19 @@ const Profile: React.FC = () => {
       timer: 1500,
     });
   };
+  const handlePayment = async () => {
+    try {
+      console.log("Payment waiting!");
+    } catch (error) {
+      console.error("Payment initiation error: ", error);
+    }
+  };
 
   return (
     <section className="container mx-auto px-5 space-y-5">
       <Helmet>
         <meta charSet="utf-8" />
-        <title>{name} - RevBoost Solutions</title>
+        <title>{`${name} - RevBoost Solutions`}</title>
       </Helmet>
       <h1 className="text-center">User Profile</h1>
       <div>
@@ -211,6 +236,82 @@ const Profile: React.FC = () => {
           Save Changes
         </Button>
       </form>
+
+      <SectionTitle
+        title="All your payment here"
+        intro="Payments"
+        content="Check out due date & pay on-time!"
+      />
+      <TableContainer
+        component={Paper}
+        className="overflow-x-auto min-w-full max-w-32 px-5"
+      >
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>
+                <strong>Transaction ID</strong>
+              </TableCell>
+              <TableCell>
+                <strong>Due Date</strong>
+              </TableCell>
+              <TableCell>
+                <strong>Pay Date</strong>
+              </TableCell>
+              <TableCell>
+                <strong>Payment Status</strong>
+              </TableCell>
+              <TableCell>
+                <strong>Amount</strong>
+              </TableCell>
+              <TableCell>
+                <strong>Action</strong>
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {paymentEntries && paymentEntries.length > 0 ? (
+              paymentEntries.map((pay) => (
+                <TableRow
+                  key={pay.transactionId}
+                  className="hover:bg-slate-600"
+                >
+                  <TableCell>{pay.transactionId}</TableCell>
+                  <TableCell>
+                    {pay?.due_date &&
+                      new Date(pay.due_date).toLocaleDateString()}
+                  </TableCell>
+                  <TableCell>
+                    {pay?.paymentDate &&
+                      new Date(pay.paymentDate).toLocaleDateString()}
+                  </TableCell>
+                  <TableCell>{pay.payment_status}</TableCell>
+                  <TableCell>$ {pay.amount}</TableCell>
+                  <TableCell>
+                    {pay.payment_status === "pending" ? (
+                      <Button onClick={handlePayment}>
+                        <RevButton name="Pay Now" />
+                      </Button>
+                    ) : (
+                      <Box>
+                        <Button disabled>
+                          <RevButton name="Done" />
+                        </Button>
+                      </Box>
+                    )}
+                  </TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={6} align="center">
+                  No Payments found!
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </section>
   );
 };
