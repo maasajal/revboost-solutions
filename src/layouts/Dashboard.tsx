@@ -39,10 +39,10 @@ function FeaturePages({ pathname }: { pathname: string }) {
         textAlign: "center",
       }}
     >
-      <Breadcrumbs aria-label="breadcrumb" className="pl-5">
+      <Breadcrumbs aria-label="breadcrumb" className="pl-5 hidden">
         <Typography sx={{ color: "text.primary" }}>Path: {pathname}</Typography>
       </Breadcrumbs>
-      <main className="py-10 px-5 min-h-screen">
+      <main className="px-2 md:px-5 min-h-screen">
         <Outlet />
       </main>
     </Box>
