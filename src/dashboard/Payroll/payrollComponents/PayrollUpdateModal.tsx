@@ -10,6 +10,7 @@ import {
   fetchPayroll,
   updatePayroll,
 } from "../../../app/features/payroll/payrollSlice";
+import RevButton from "../../../components/RevButton";
 
 type Inputs = {
   _id: string;
@@ -175,17 +176,10 @@ const PayrollUpdateModal = ({
             </div>
 
             <div className="form-control mt-6 flex flex-row justify-between items-center">
-              <div>
-                <button className="btn bg-[#FF6B6B] hover:bg-[#FF5252] text-white w-full uppercase">
-                  Update
-                </button>
-              </div>
-
-              <div>
-                <Button onClick={onClose} variant="contained">
-                  Close Modal
-                </Button>
-              </div>
+              <RevButton type="submit" name="Update" />
+              <Button onClick={onClose} variant="contained">
+                Close Modal
+              </Button>
             </div>
           </form>
         </Box>

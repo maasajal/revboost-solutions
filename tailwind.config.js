@@ -16,6 +16,7 @@ export default {
         sectionBgColor: "#F7F7F7", // bg color for sections
         lightRedBg: "#FFE6E6", // background color
         btnBgColor: "#1E2E61", // Button bg color
+        btnHoverColor: "#2E568A", // Button bg color
         btnBgHoverColor: "#CC0000", // Button bg hover color
         dashboardNavbarBG: "#FFCCCC", // Dashboard navbar bg color
         footerBGColor: "#2C3E50", // Footer bg color

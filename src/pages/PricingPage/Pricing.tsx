@@ -1,28 +1,28 @@
-import React, { useEffect, useState } from "react";
-import { IoCheckmarkDoneCircleOutline } from "react-icons/io5";
-import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
-import "react-tabs/style/react-tabs.css";
-import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
-import "../../../src/pages/PricingPage/pricing.css";
-import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../../app/hooks/useAppDispatch";
-import { RootState } from "../../app/store/store";
-import { useAppSelector } from "../../app/hooks/useAppSelector";
-import { updateUser } from "../../app/api/usersAPI";
-import User from "../../app/features/users/UserType";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import {
+  Box,
+  Button,
   Card,
   CardContent,
-  Typography,
-  Button,
   Divider,
-  Box,
   Grid,
+  Typography,
 } from "@mui/material";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import { getCurrentUser } from "../../app/api/currentUserAPI";
+import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import SectionTitle from "../../components/SectionTitle";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import { IoCheckmarkDoneCircleOutline } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
+import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
+import "react-tabs/style/react-tabs.css";
+import "../../../src/pages/PricingPage/pricing.css";
+import { getCurrentUser } from "../../app/api/currentUserAPI";
+import { updateUser } from "../../app/api/usersAPI";
+import User from "../../app/features/users/UserType";
+import { useAppDispatch } from "../../app/hooks/useAppDispatch";
+import { useAppSelector } from "../../app/hooks/useAppSelector";
+import { RootState } from "../../app/store/store";
 
 // Define types for the package data
 interface Package {
@@ -87,7 +87,7 @@ const Pricing: React.FC = () => {
       try {
         const requestBody: UpdateMembershipRequest = {
           role: "member",
-          subscriptionStatus: "active",
+          subscriptionStatus: "request",
           subscriptionPlan: pkg.packageName,
           features: pkg?.planFeature,
         };

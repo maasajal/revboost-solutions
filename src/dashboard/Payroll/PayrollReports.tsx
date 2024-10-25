@@ -10,6 +10,9 @@ import toast from "react-hot-toast";
 // import SelectField from "./payrollComponents/SelectField";
 import PayrollUpdateModal from "./payrollComponents/PayrollUpdateModal";
 import User from "../../app/features/users/UserType";
+import DeleteIcon from "@mui/icons-material/Delete";
+import RevButton from "../../components/RevButton";
+import EditIcon from '@mui/icons-material/Edit';
 
 interface Payroll {
   _id: string;
@@ -101,8 +104,8 @@ const PayrollReports = () => {
       <div>
         <div className="overflow-x-auto min-w-full max-w-32">
           <table className="min-w-full text-xs">
-            <thead className="bg-red-400">
-              <tr className="text-left">
+            <thead>
+              <tr className="bg-lightColor">
                 <th className="p-3">Id</th>
                 <th className="p-3">Name</th>
                 <th className="p-3">Position</th>
@@ -118,7 +121,7 @@ const PayrollReports = () => {
               {payrolls.map((payroll, idx) => (
                 <tr
                   key={idx}
-                  className="border-b border-opacity-20 border-gray-300 bg-gray-50"
+                  className="border-b border-opacity-20 border-gray-300 hover:bg-gray-50 hover:text-black"
                 >
                   <td className="p-3">{payroll?._id?.slice(-5) || "N/A"}</td>
                   <td className="p-3">{payroll?.employeeName}</td>
@@ -131,18 +134,15 @@ const PayrollReports = () => {
                   </td>
                   <td className="p-3 text-center">{payroll?.month}</td>
                   <td className="p-3 text-right space-x-2">
-                    <button
+
+                    <RevButton
+                      name={<EditIcon />}
                       onClick={() => handleEdit(payroll)}
-                      className="px-3 py-1 font-semibold rounded-md bg-red-400 text-gray-50 hover:bg-opacity-90"
-                    >
-                      Edit
-                    </button>
-                    <button
+                    />
+                    <RevButton
+                      name={<DeleteIcon />}
                       onClick={() => handleDelete(payroll?._id)}
-                      className="px-3 py-1 font-semibold rounded-md bg-red-400 text-gray-50 hover:bg-opacity-90"
-                    >
-                      Delete
-                    </button>
+                    />
                   </td>
                 </tr>
               ))}

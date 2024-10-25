@@ -3,7 +3,6 @@ import {
   Box,
   Modal,
   TextField,
-  Button,
   Typography,
   InputAdornment,
 } from "@mui/material";
@@ -17,6 +16,7 @@ import {
   addOrUpdateIncome,
   fetchIncomes,
 } from "../../app/features/companyIncome/incomesSlice";
+import RevButton from "../../components/RevButton";
 
 const style = {
   position: "absolute",
@@ -77,9 +77,11 @@ const IncomeForm: React.FC = () => {
 
   return (
     <div className="space-y-4">
-      <Button className="animate-bounce" onClick={handleOpen}>
-        Add a new Income
-      </Button>
+      <RevButton
+        name="Add a new Income"
+        onClick={handleOpen}
+        className="animate-bounce"
+      />
 
       <Modal
         open={open}
@@ -147,10 +149,7 @@ const IncomeForm: React.FC = () => {
               error={!!errors.date}
               helperText={errors.date?.message}
             />
-
-            <Button type="submit" variant="contained" color="success">
-              Add Income
-            </Button>
+            <RevButton type="submit" name="Add Income" />
           </form>
         </Box>
       </Modal>
