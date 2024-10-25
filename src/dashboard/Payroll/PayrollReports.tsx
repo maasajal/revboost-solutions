@@ -98,8 +98,8 @@ const PayrollReports = () => {
           <h6>Total: {payrolls.length}</h6>
         </div>
       </div> */}
-      <div className="dark:text-gray-800">
-        <div className="overflow-x-auto">
+      <div>
+        <div className="overflow-x-auto min-w-full max-w-32">
           <table className="min-w-full text-xs">
             <thead className="bg-red-400">
               <tr className="text-left">

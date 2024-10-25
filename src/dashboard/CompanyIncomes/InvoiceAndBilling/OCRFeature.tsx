@@ -26,26 +26,30 @@ const OCRFeature = () => {
     }
   };
   return (
-    <div>
-      <div className="p-12 shadow-lg">
-      <div className="shadow-xl bg-blue-100 rounded  px-12 py-4">
+    <div className="px-4 lg:px-10 py-4 shadow-lg space-y-8">
+      <div className="shadow-xl bg-blue-100 rounded px-4 lg:px-12 py-4 space-y-5">
         <h5>Give Your PDF Here</h5>
-        <div className="flex justify-center items-center gap-4">
+        <div className="flex flex-wrap justify-center items-center gap-4">
           <FormLabel className="text-sm">Upload Image for OCR:</FormLabel>
           <input
             type="file"
             accept="image/*"
             onChange={handleImageUpload}
             // className=" p-3 rounded focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
-            className="px-8 py-6 border-2 border-dashed rounded-md dark:border-gray-300 dark:text-gray-600 dark:bg-gray-100"
+            className="px-2 lg:px-8 py-6 border-2 border-dashed rounded-md dark:border-gray-300 dark:text-gray-600 dark:bg-gray-100 min-w-20"
           />
-          <Button className="animate-pulse" onClick={extractTextFromImage} color="info" variant="contained">
+          <Button
+            className="animate-pulse"
+            onClick={extractTextFromImage}
+            color="info"
+            variant="contained"
+          >
             Extract Text
           </Button>
         </div>
       </div>
-      <div className="shadow-xl rounded-lg bg-blue-100  p-6">
-        <div className="flex justify-start items-start">
+      <div className="shadow-xl rounded-lg bg-blue-100 p-6">
+        <div className="flex flex-wrap justify-start items-start">
           <FormLabel>Extracted Text:</FormLabel>
           <TextareaAutosize
             className="text-sm w-full rounded-lg p-4"
@@ -53,7 +57,6 @@ const OCRFeature = () => {
             readOnly
           ></TextareaAutosize>
         </div>
-      </div>
       </div>
     </div>
   );
