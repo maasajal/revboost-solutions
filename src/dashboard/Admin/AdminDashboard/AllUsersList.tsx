@@ -1,9 +1,24 @@
+import {
+    Avatar,
+    Box,
+    CircularProgress,
+    Modal,
+    Paper,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    Typography
+} from '@mui/material';
 import React, { useEffect, useState } from "react";
 import { IoMdSearch } from "react-icons/io";
 import useAxiosSecure from "../../../app/hooks/useAxiosSecure";
+import UpdateStatus from './UpdateStatus';
 
 interface User {
-    id: string;
+    _id: string;
     name: string;
     email: string;
     photo?: string;
@@ -19,16 +34,44 @@ const TABS = [
     { label: "User", value: "user" },
 ];
 
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: {
+        xs: '90%', // Mobile devices
+        sm: '70%', // Small devices (tablets)
+        md: '50%', // Medium devices (desktops)
+        lg: '33%', // Large devices (larger desktops)
+    },
+    bgcolor: 'background.paper',
+    boxShadow: 24,
+    p: 4,
+};
+
 const AllUsersList: React.FC = () => {
     const axiosSecure = useAxiosSecure();
     const [activeTab, setActiveTab] = useState<string>("all");
     const [usersData, setUsersData] = useState<User[]>([]);
     const [email, setEmail] = useState("");
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
+    const [open, setOpen] = useState(false);
+    const [selectedUser, setSelectedUser] = useState<User | null>(null);
+    const [refetch, setRefetch] = useState(true)
 
-    // Fetch users based on the active tab and email
+    const handleOpen = (user: User) => {
+        setSelectedUser(user);
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setSelectedUser(null); // Reset selected user on close
+        setOpen(false);
+    };
+
     const getUsers = async () => {
-        setLoading(true)
+        setLoading(true);
         try {
             const params = {
                 tab: activeTab,
@@ -37,42 +80,44 @@ const AllUsersList: React.FC = () => {
             };
             const response = await axiosSecure.get("/users", { params });
             setUsersData(response.data);
-            console.log(response.data);
-            setLoading(false)
-
+            setLoading(false);
         } catch (error) {
             console.error("Error fetching users:", error);
         }
     };
 
     useEffect(() => {
-        getUsers(); // Fetch users whenever activeTab or email changes
-    }, [activeTab, email]);
+        getUsers();
+    }, [activeTab, email,refetch]);
 
     const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const emailInput = (e.target as HTMLFormElement).elements.namedItem("email") as HTMLInputElement;
         setEmail(emailInput.value);
     };
+
     const handleActive = (value: string) => {
-        setActiveTab(value)
-        setEmail("")
+        setActiveTab(value);
+        setEmail("");
     };
 
     const placeholderImage = "https://via.placeholder.com/96";
 
     return (
-        <div className="p-4">
-            <div className="mb-8 flex items-center justify-between gap-8">
+        <div className="p-4 max-w-full">
+            <div className="mb-8 flex flex-wrap items-center justify-between gap-4 md:flex-nowrap">
                 <h2 className="text-xl font-semibold">RevBoost Solution Members</h2>
             </div>
             <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-                <div className="flex border-b border-gray-300">
+                <div className="flex flex-wrap border-b border-gray-300">
                     {TABS.map(({ label, value }) => (
                         <button
                             key={value}
                             onClick={() => handleActive(value)}
-                            className={`py-2 px-4 border-b-2 font-medium ${activeTab === value ? "border-blue-500 text-blue-500" : "border-transparent text-gray-600"} hover:text-blue-500`}
+                            className={`py-2 px-4 border-b-2 font-medium ${activeTab === value
+                                ? "border-blue-500 text-blue-500"
+                                : "border-transparent text-gray-600"
+                                } hover:text-blue-500`}
                         >
                             {label}
                         </button>
@@ -90,50 +135,75 @@ const AllUsersList: React.FC = () => {
                     </button>
                 </form>
             </div>
-            <div className="overflow-x-auto min-w-full max-w-32">
-
-                {loading ? "Loading" : <div className="mt-4 p-4 border border-gray-300 rounded overflow-x-auto">
-                    {usersData.length === 0 ? (
-                        <div>No users found</div>
-                    ) : (
-                        <table className="min-w-full table-auto">
-                            <thead>
-                                <tr className="bg-gray-200">
-                                    <th className="px-4 py-2 text-left">Photo</th>
-                                    <th className="px-4 py-2 text-left">Name</th>
-                                    <th className="px-4 py-2 text-left">Email</th>
-                                    <th className="px-4 py-2 text-left">Plan</th>
-                                    <th className="px-4 py-2 text-left">Status</th>
-                                    <th className="px-4 py-2 text-left">Role</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {usersData.map((user) => (
-                                    <tr key={user.id} className="hover:bg-gray-100">
-                                        <td className="px-4 py-2">
-                                            <img
-                                                src={user.photo || placeholderImage}
-                                                alt={user.name}
-                                                className="w-14 h-14 rounded-full object-cover"
-                                                onError={(e) => {
-                                                    e.currentTarget.src = placeholderImage; // Set placeholder on error
-                                                }}
-                                            />
-                                        </td>
-                                        <td className="px-4 py-2">{user.name}</td>
-                                        <td className="px-4 py-2">{user.email}</td>
-                                        <td className="px-4 py-2">{user.subscriptionPlan}</td>
-                                        <td className="px-4 py-2">{user.subscriptionStatus}</td>
-                                        <td className="px-4 py-2">{user.role}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    )}
-                </div>}
+            <div className="overflow-x-auto">
+                {loading ? (
+                    <div className="flex justify-center items-center h-24">
+                        <CircularProgress />
+                    </div>
+                ) : (
+                    <div className="mt-4 p-4 border border-gray-300 rounded overflow-x-auto">
+                        {usersData.length === 0 ? (
+                            <Typography variant="body1" align="center">
+                                No users found
+                            </Typography>
+                        ) : (
+                            <TableContainer
+                                className="overflow-x-auto min-w-full max-w-32 px-5"
+                                component={Paper}>
+                                <Table aria-label="user table">
+                                    <TableHead>
+                                        <TableRow>
+                                            <TableCell>Photo</TableCell>
+                                            <TableCell>Name</TableCell>
+                                            <TableCell>Email</TableCell>
+                                            <TableCell>Plan</TableCell>
+                                            <TableCell>Status</TableCell>
+                                            <TableCell>Role</TableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {usersData.map((user) => (
+                                            <TableRow key={user._id} hover>
+                                                <TableCell>
+                                                    <Avatar
+                                                        src={user.photo || placeholderImage}
+                                                        alt={user.name}
+                                                        onError={(e) => {
+                                                            (e.currentTarget as HTMLImageElement).src = placeholderImage;
+                                                        }}
+                                                        sx={{ width: 56, height: 56 }}
+                                                    />
+                                                </TableCell>
+                                                <TableCell>{user.name}</TableCell>
+                                                <TableCell>{user.email}</TableCell>
+                                                <TableCell>{user.subscriptionPlan}</TableCell>
+                                                <TableCell>
+                                                    <button onClick={() => handleOpen(user)} style={{ cursor: 'pointer' }}>
+                                                        {user.subscriptionStatus}
+                                                    </button>
+                                                </TableCell>
+                                                <TableCell>{user.role}</TableCell>
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                            </TableContainer>
+                        )}
+                    </div>
+                )}
             </div>
-
-
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-title"
+                aria-describedby="modal-description"
+            >
+                <Box sx={style}>
+                    <h5>UPDATE USER STATUS</h5>
+                    {selectedUser && <UpdateStatus user={selectedUser} refetch={refetch} setRefetch={setRefetch} />}
+                </Box>
+            </Modal>
+    
         </div>
     );
 };
