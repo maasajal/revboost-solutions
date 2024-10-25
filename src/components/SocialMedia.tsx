@@ -17,7 +17,7 @@ const SocialMedia = () => {
         <div>
           <p className="social-media">
             <CiMail className=" text-xl" />
-            <a target="_blank" href="mailto:revbostsolution@gmail.com">
+            <a target="_blank" href="mailto:revbostsolutions@gmail.com">
               revboost@solutions.com
             </a>
           </p>
