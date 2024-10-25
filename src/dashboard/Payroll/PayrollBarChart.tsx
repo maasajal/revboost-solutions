@@ -94,9 +94,9 @@ const PayrollBarChart = () => {
           <YAxis />
           <Tooltip />
           <Legend />
-          <Bar dataKey="salary" fill="#ff0000" />
-          <Bar dataKey="bonus" fill="#008000" />
-          <Bar dataKey="tax" fill="#0000ff" />
+          <Bar dataKey="salary" fill="#0000ff" />
+          <Bar dataKey="bonus" fill="#3b82f6" />
+          <Bar dataKey="tax" fill="#22d3ee" />
         </BarChart>
       </ResponsiveContainer>
     </div>
