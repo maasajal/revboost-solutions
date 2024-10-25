@@ -159,7 +159,7 @@ const PayrollForm = () => {
         />
 
         <div className="form-control mt-6">
-          <button className="btn bg-[#FF6B6B] hover:bg-[#FF5252] text-white w-full">
+          <button className="btn bg-deepColor hover:bg-semiColor text-white w-full border-none">
             {isLoading ? (
               <FaSpinner className="animate-spin text-2xl" />
             ) : (

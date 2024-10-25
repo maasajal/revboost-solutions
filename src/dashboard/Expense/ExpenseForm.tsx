@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Box, Modal, TextField, Button, Typography } from "@mui/material";
+import { Box, Modal, TextField, Typography } from "@mui/material";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { ExpenseEntry } from "../../app/features/expenses/IExpense";
 import { useAppSelector } from "../../app/hooks/useAppSelector";
@@ -10,6 +10,7 @@ import {
   fetchExpenses,
 } from "../../app/features/expenses/expenseSlice";
 import { useAppDispatch } from "../../app/hooks/useAppDispatch";
+import RevButton from "../../components/RevButton";
 
 const style = {
   position: "absolute",
@@ -72,9 +73,11 @@ const ExpenseForm: React.FC = () => {
   return (
     <div className="space-y-4">
       {/* Button to open modal */}
-      <Button className="animate-bounce" onClick={handleOpen}>
-        Add Expense Details
-      </Button>
+      <RevButton
+        name="Add Expense Details"
+        onClick={handleOpen}
+        className="animate-bounce"
+      />
 
       {/* Modal component */}
       <Modal
@@ -141,10 +144,7 @@ const ExpenseForm: React.FC = () => {
               error={!!errors.unitPrice}
               helperText={errors.unitPrice?.message}
             />
-
-            <Button type="submit" variant="contained" color="success">
-              Add Expense
-            </Button>
+            <RevButton type="submit" name="Add Expense" onClick={handleOpen} />
           </form>
         </Box>
       </Modal>

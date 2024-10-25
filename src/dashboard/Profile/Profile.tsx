@@ -7,7 +7,6 @@ import User from "../../app/features/users/UserType";
 import {
   Avatar,
   Box,
-  Button,
   CircularProgress,
   Paper,
   Table,
@@ -227,14 +226,7 @@ const Profile: React.FC = () => {
             </ul>
           </div>
         </div>
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          className="mt-6 w-full"
-        >
-          Save Changes
-        </Button>
+        <RevButton type="submit" name="Save Changes" className="mt-6" />
       </form>
 
       <SectionTitle
@@ -289,14 +281,10 @@ const Profile: React.FC = () => {
                   <TableCell>$ {pay.amount}</TableCell>
                   <TableCell>
                     {pay.payment_status === "pending" ? (
-                      <Button onClick={handlePayment}>
-                        <RevButton name="Pay Now" />
-                      </Button>
+                      <RevButton name="Pay Now" onClick={handlePayment} />
                     ) : (
                       <Box>
-                        <Button disabled>
-                          <RevButton name="Done" />
-                        </Button>
+                        <RevButton name="Done" disabled />
                       </Box>
                     )}
                   </TableCell>

@@ -16,7 +16,7 @@ import { RootState } from "../../app/store/store";
 import { CircularProgress } from "@mui/material";
 
 // Colors for the chart segments
-const COLORS = ["#0088FE", "#FF0000", "#AA47BC"];
+const COLORS = ["#4EA7DD", "#3E7EB3", "#2E568A", "#1E2E61"];
 
 const RevenueComparisonPieChart: React.FC = () => {
   const dispatch = useAppDispatch();

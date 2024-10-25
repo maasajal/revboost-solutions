@@ -55,36 +55,36 @@ const dashNavLinks = [
   {
     navName: "Company Profile",
     path: "/dashboard/profile",
-    icon: <FaHome className="text-2xl text-secondary" />,
+    icon: <FaHome className="text-2xl text-lightColor" />,
   },
   {
     navName: "Company Incomes",
     path: "/dashboard/incomes",
-    icon: <PiInvoiceBold className="text-2xl text-secondary" />,
+    icon: <PiInvoiceBold className="text-2xl text-lightColor" />,
   },
   {
     navName: "Company Expenses",
     path: "/dashboard/expenses",
-    icon: <GiExpense className="text-2xl text-secondary" />,
+    icon: <GiExpense className="text-2xl text-lightColor" />,
   },
   {
     navName: "Revenue Growth",
     path: "/dashboard/revenue-growth",
-    icon: <GiTreeGrowth className="text-2xl text-secondary" />,
+    icon: <GiTreeGrowth className="text-2xl text-lightColor" />,
   },
   {
     navName: "Payroll Management",
     path: "/dashboard/payroll",
-    icon: <AiOutlineCreditCard className="text-2xl text-secondary" />,
+    icon: <AiOutlineCreditCard className="text-2xl text-lightColor" />,
   },
   {
     navName: "VAT & TAX Calculation",
     path: "/dashboard/vat",
-    icon: <AiTwotoneCalculator className="text-2xl text-secondary" />,
+    icon: <AiTwotoneCalculator className="text-2xl text-lightColor" />,
   },
   {
     navName: "Invoice & Billing",
     path: "/dashboard/invoice-&-billing",
-    icon: <FaFileInvoiceDollar className="text-2xl text-secondary" />,
+    icon: <FaFileInvoiceDollar className="text-2xl text-lightColor" />,
   },
 ];

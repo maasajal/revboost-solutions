@@ -30,6 +30,7 @@ import {
 import { Helmet } from "react-helmet";
 import OCRFeature from "./OCRFeature";
 import SectionTitle from "../../../components/SectionTitle";
+import RevButton from "../../../components/RevButton";
 
 // type InvoiceData = {
 //   companyEmail: string;
@@ -285,13 +286,12 @@ const Invoice = () => {
                         />
                       )}
                     />
-                    <button
-                      className="w-full  mt-4 p-3 rounded  bg-red-300 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 "
+                    <RevButton
+                      name="Remove Item"
+                      className="w-full rounded focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 "
                       type="button"
                       onClick={() => remove(index)}
-                    >
-                      Remove Item
-                    </button>
+                    />
                   </div>
                 ))}
               </div>
@@ -311,16 +311,15 @@ const Invoice = () => {
                 >
                   Add Item (optional)
                 </button>
-                <button
+                <RevButton
+                  name={loading ? "Saving..." : "Save Invoice"}
                   type="submit"
                   className={
                     loading === true
-                      ? `animate-bounce w-full btn text-sm font-bold tracking-wide uppercase rounded dark:bg-red-400 dark:text-gray-50`
-                      : `w-full btn text-sm font-bold tracking-wide uppercase rounded dark:bg-blue-400 dark:text-gray-50`
+                      ? `animate-bounce w-full btn text-sm font-bold tracking-wide uppercase rounded dark:text-gray-50`
+                      : `w-full btn text-sm font-bold tracking-wide uppercase rounded`
                   }
-                >
-                  {loading ? "Saving..." : "Save Invoice"}
-                </button>
+                />
                 {/* Error Message */}
                 {/* {error && <p className="text-red-400">{error}</p>} */}
               </div>
