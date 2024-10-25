@@ -29,6 +29,7 @@ import {
 } from "@mui/material";
 import { Helmet } from "react-helmet";
 import OCRFeature from "./OCRFeature";
+import SectionTitle from "../../../components/SectionTitle";
 
 // type InvoiceData = {
 //   companyEmail: string;
@@ -58,17 +59,15 @@ function getDate() {
 
 const Invoice = () => {
   const dispatch = useDispatch<AppDispatch>();
-  
- // Get current user data
- const user = useAppSelector(
-  (state: RootState) => state.currentUser.user
-) as User;
 
-  const { _id: userId , email: userEmail} = useAppSelector(
-    (state) => state.currentUser.user
+  // Get current user data
+  const user = useAppSelector(
+    (state: RootState) => state.currentUser.user
   ) as User;
 
- 
+  const { _id: userId, email: userEmail } = useAppSelector(
+    (state) => state.currentUser.user
+  ) as User;
 
   useEffect(() => {
     dispatch(getCurrentUser());
@@ -78,11 +77,10 @@ const Invoice = () => {
     }
   }, [dispatch, user._id]);
 
-
   // // for user
   // useEffect(() => {
   //   dispatch(fetchInvoices());
-    
+
   // }, [dispatch]);
 
   // const [currentDate, setCurrentDate] = useState(getDate());
@@ -94,8 +92,6 @@ const Invoice = () => {
   console.log(loading, error, invoices);
 
   // const [currentDate, setCurrentDate] = useState(getDate());
-
-
 
   // Initialize React Hook Form
   const { register, control, handleSubmit } = useForm<InvoiceData>({
@@ -132,16 +128,13 @@ const Invoice = () => {
     //   totalAmount: item.quantity * item.unitPrice,
     // }));
 
-    
     const invoiceData: InvoiceData = { ...data };
-    const savedInvoice = await dispatch(
-      createInvoice(invoiceData)
-    )
+    const savedInvoice = await dispatch(createInvoice(invoiceData));
 
     // Dispatch the createInvoice thunk
     await dispatch(createInvoice(invoiceData));
-    if (createInvoice.fulfilled.match(savedInvoice)){
-      dispatch(fetchIndivitualInvoices(userId))
+    if (createInvoice.fulfilled.match(savedInvoice)) {
+      dispatch(fetchIndivitualInvoices(userId));
     }
   };
 
@@ -151,16 +144,20 @@ const Invoice = () => {
         <meta charSet="utf-8" />
         <title>Invoicing & Billing - RevBoost Solutions</title>
       </Helmet>
-      <section className="container mx-auto mt-10 space-y-8">
-        <h2>Company Invoice</h2>
+      <section className="container mx-auto space-y-10 min-w-full max-w-32">
+        <SectionTitle
+          title="Company Invoice"
+          intro="Invoice"
+          content="Generate your invoice by uploading an image!"
+        />
         {/* pdf reader */}
         <OCRFeature></OCRFeature>
         <div>
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="space-y-4 shadow-lg p-12"
+            className="space-y-4 shadow-lg px-4 lg:px-10 py-12"
           >
-            <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               <div className="space-y-4">
                 <div className="shadow-2xl rounded">
                   <label className="text-sm">Company Email</label>
@@ -235,70 +232,72 @@ const Invoice = () => {
                 </div>
               </div>
               {/* testing */}
-              <h3 className="flex text-center justify-center items-center">
-                Items:
-              </h3>
-              {fields.map((item, index) => (
-                <div key={item.id} className="space-y-2 shadow-2xl">
-                  <label>No</label>
-                  <Controller
-                    name={`items.${index}.no`}
-                    control={control}
-                    render={({ field }) => (
-                      <input
-                        type="number"
-                        className="w-full p-3 rounded focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
-                        {...field}
-                      />
-                    )}
-                  />
-                  <label>Item</label>
-                  <input
-                    {...register(`items.${index}.item`)}
-                    className="w-full p-3 rounded focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
-                    required
-                  />
-                  <label>Quantity</label>
-                  <input
-                    type="number"
-                    {...register(`items.${index}.quantity`)}
-                    className="w-full p-3 rounded  focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
-                    required
-                  />
-                  <label>Unit Price</label>
-                  <input
-                    type="number"
-                    {...register(`items.${index}.unitPrice`)}
-                    className="w-full p-3 rounded  focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
-                    required
-                  />
-                  <label>Total Amount</label>
-                  <Controller
-                    name={`items.${index}.totalAmount`}
-                    control={control}
-                    render={({ field }) => (
-                      <input
-                        type="number"
-                        className="w-full p-3 rounded  focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
-                        // defaultValue={item.quantity * item.unitPrice}
-                        // placeholder={ `${item.quantity * item.unitPrice}`}
-                        {...field}
-                        readOnly
-                      />
-                    )}
-                  />
-                  <button
-                    className="w-full  mt-4 p-3 rounded  bg-red-300 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 "
-                    type="button"
-                    onClick={() => remove(index)}
-                  >
-                    Remove Item
-                  </button>
-                </div>
-              ))}
-              <div className="flex gap-4 max-h-12 shadow-2xl">
+            </div>
+            <h3 className="py-5">Items:</h3>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+              <div>
+                {fields.map((item, index) => (
+                  <div key={item.id} className="space-y-2 shadow-2xl">
+                    <label>No</label>
+                    <Controller
+                      name={`items.${index}.no`}
+                      control={control}
+                      render={({ field }) => (
+                        <input
+                          type="number"
+                          className="w-full p-3 rounded focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
+                          {...field}
+                        />
+                      )}
+                    />
+                    <label>Item</label>
+                    <input
+                      {...register(`items.${index}.item`)}
+                      className="w-full p-3 rounded focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
+                      required
+                    />
+                    <label>Quantity</label>
+                    <input
+                      type="number"
+                      {...register(`items.${index}.quantity`)}
+                      className="w-full p-3 rounded  focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
+                      required
+                    />
+                    <label>Unit Price</label>
+                    <input
+                      type="number"
+                      {...register(`items.${index}.unitPrice`)}
+                      className="w-full p-3 rounded  focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
+                      required
+                    />
+                    <label>Total Amount</label>
+                    <Controller
+                      name={`items.${index}.totalAmount`}
+                      control={control}
+                      render={({ field }) => (
+                        <input
+                          type="number"
+                          className="w-full p-3 rounded  focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
+                          // defaultValue={item.quantity * item.unitPrice}
+                          // placeholder={ `${item.quantity * item.unitPrice}`}
+                          {...field}
+                          readOnly
+                        />
+                      )}
+                    />
+                    <button
+                      className="w-full  mt-4 p-3 rounded  bg-red-300 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 "
+                      type="button"
+                      onClick={() => remove(index)}
+                    >
+                      Remove Item
+                    </button>
+                  </div>
+                ))}
+              </div>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 px-3 shadow-2xl">
                 <button
-                  className="w-full p-3  rounded  focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
+                  className="w-full btn rounded  focus:border-red-400 focus:ring-red-300 focus:ring-opacity-40 dark:focus:border-red-300 focus:outline-none focus:ring"
                   type="button"
                   onClick={() =>
                     append({
@@ -310,14 +309,14 @@ const Invoice = () => {
                     })
                   }
                 >
-                  Add Item ( optional )
+                  Add Item (optional)
                 </button>
                 <button
                   type="submit"
                   className={
                     loading === true
-                      ? `animate-bounce w-full p-3 text-sm font-bold tracking-wide uppercase rounded dark:bg-red-400 dark:text-gray-50`
-                      : `w-full p-3 text-sm font-bold tracking-wide uppercase rounded dark:bg-blue-400 dark:text-gray-50`
+                      ? `animate-bounce w-full btn text-sm font-bold tracking-wide uppercase rounded dark:bg-red-400 dark:text-gray-50`
+                      : `w-full btn text-sm font-bold tracking-wide uppercase rounded dark:bg-blue-400 dark:text-gray-50`
                   }
                 >
                   {loading ? "Saving..." : "Save Invoice"}
@@ -332,7 +331,7 @@ const Invoice = () => {
         {/* Add Item */}
 
         {/* Table */}
-        <div className="space-y-6 border-2 p-12 shadow-2xl rounded-lg">
+        <div className="space-y-6 border-2 px-4 lg:px-10 py-12 shadow-2xl rounded-lg">
           <h2 className="mb-4 text-center text-2xl font-bold leading-tight">
             Your Invoice
           </h2>
@@ -354,7 +353,10 @@ const Invoice = () => {
               <p className="text-red-400">Due Date:</p>
             </div>
           </div>
-          <TableContainer component={Paper} className="overflow-x-auto">
+          <TableContainer
+            component={Paper}
+            className="overflow-x-auto min-w-full max-w-32"
+          >
             <Table>
               <TableHead className="bg-blue-300 border-b border-opacity-20">
                 <TableRow>
