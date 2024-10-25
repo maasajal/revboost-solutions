@@ -10,6 +10,7 @@ import { AppDispatch, RootState } from "../../../app/store/store";
 import {
   createInvoice,
   fetchIndivitualInvoices,
+  fetchInvoices,
   InvoiceData,
 } from "../../../app/features/companyIncome/invoiceSlice";
 import { useEffect } from "react";
@@ -73,6 +74,7 @@ const Invoice = () => {
     dispatch(getCurrentUser());
     if (user?._id) {
       dispatch(fetchIndivitualInvoices(user._id));
+      dispatch(fetchInvoices());
     }
   }, [dispatch, user._id]);
 
