@@ -6,6 +6,7 @@ import { setUser } from "../app/features/firebaseAuthentication/authSlice";
 import { auth } from "../firebase/firebase.config";
 import Footer from "../pages/Shared/footer/Footer";
 import ResponsiveAppBar from "../pages/Shared/Navbar/ResponsiveAppBar";
+import ScrollToTop from "../components/ScrollToTop";
 
 const Main: React.FC = () => {
   const dispatch = useDispatch();
@@ -26,6 +27,7 @@ const Main: React.FC = () => {
     <div>
       <ResponsiveAppBar />
       <main className="font-roboto">
+        <ScrollToTop />
         <Outlet />
       </main>
       <Footer></Footer>
