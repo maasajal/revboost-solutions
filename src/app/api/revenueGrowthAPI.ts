@@ -183,9 +183,7 @@ export const getMonthlyRevenue = createAsyncThunk(
       return response.data;
     } catch (error: any) {
       console.error("Error fetching monthly revenue: ", error.message);
-      return rejectWithValue(
-        error.message?.data || "Error fetching monthly revenue"
-      );
+      return rejectWithValue(error.message?.data);
     }
   }
 );
@@ -196,11 +194,7 @@ export const fetchRevenueGrowth = (userId: string) => async (dispatch: any) => {
     const response = await axiosSecure.get(`/revenue-growth/${userId}`);
     dispatch(fetchRevenueGrowthSuccess(response.data));
   } catch (error: any) {
-    dispatch(
-      fetchRevenueGrowthFailure(
-        error.message || "Failed to fetch revenue growth data"
-      )
-    );
+    dispatch(fetchRevenueGrowthFailure(error.message));
   }
 };
 

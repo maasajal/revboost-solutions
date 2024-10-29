@@ -29,7 +29,7 @@ const RevenueComparisonPieChart: React.FC = () => {
     }
   }, [dispatch, currentUser?._id]);
 
-  const { loading, error } = useAppSelector(
+  const { loading } = useAppSelector(
     (state: RootState) => state.totalRevenueGrowth
   );
   const { totalIncome, totalExpenses, growthPercentage } = useAppSelector(
@@ -45,7 +45,6 @@ const RevenueComparisonPieChart: React.FC = () => {
     },
   ];
   if (loading) return <CircularProgress size="3rem" />;
-  if (error) return <p>Error: {error}</p>;
 
   return (
     <div className="chart-container">

@@ -39,7 +39,7 @@ const RevenueForecastChart: React.FC = () => {
       dispatch(fetchTotalRevenue(currentUser._id));
     }
   }, [dispatch, currentUser?._id]);
-  const { loading, error } = useAppSelector(
+  const { loading } = useAppSelector(
     (state: RootState) => state.totalRevenueGrowth
   );
 
@@ -88,7 +88,6 @@ const RevenueForecastChart: React.FC = () => {
   ];
 
   if (loading) return <CircularProgress size="3rem" />;
-  if (error) return <p>Error: {error}</p>;
   return (
     <div className="chart-container">
       <h3 className="text-center my-4">24-Month Revenue Forecast</h3>
