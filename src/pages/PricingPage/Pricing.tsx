@@ -358,7 +358,7 @@ const Pricing: React.FC = () => {
       </Box>
 
       {/* FAQ Section */}
-      <div className="faq-section bg-gray-100 py-10 px-5 md:px-20 container mx-auto rounded-xl">
+      <div id="pricing_faqs" className="faq-section bg-gray-100 py-10 px-5 md:px-20 container mx-auto rounded-xl">
         <SectionTitle
           title="Frequently Asked Questions"
           intro="FAQs"

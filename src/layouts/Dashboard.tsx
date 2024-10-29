@@ -27,6 +27,7 @@ import revTheme from "../components/utils/theme";
 import { AiTwotoneCalculator } from "react-icons/ai";
 import { Breadcrumbs } from "@mui/material";
 import MessageIcon from "@mui/icons-material/Message";
+import ScrollToTop from "../components/ScrollToTop";
 
 // Define the `FeaturePages` component to display the content based on the current path
 function FeaturePages({ pathname }: { pathname: string }) {
@@ -43,6 +44,7 @@ function FeaturePages({ pathname }: { pathname: string }) {
         <Typography sx={{ color: "text.primary" }}>Path: {pathname}</Typography>
       </Breadcrumbs>
       <main className="px-2 md:px-5 min-h-screen">
+        <ScrollToTop />
         <Outlet />
       </main>
     </Box>
