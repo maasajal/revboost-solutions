@@ -17,7 +17,7 @@ export const fetchIncomes = createAsyncThunk(
       return response.data;
     } catch (error: any) {
       console.error("Error fetching incomes: ", error.message);
-      return rejectWithValue(error.message?.data || "Error fetching incomes");
+      return rejectWithValue(error.message?.data);
     }
   }
 );

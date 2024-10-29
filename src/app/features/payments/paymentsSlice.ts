@@ -17,7 +17,7 @@ export const fetchPayments = createAsyncThunk(
       return response.data;
     } catch (error: any) {
       console.error("Error fetching payments: ", error.message);
-      return rejectWithValue(error.message?.data || "Error fetching payments");
+      return rejectWithValue(error.message?.data);
     }
   }
 );

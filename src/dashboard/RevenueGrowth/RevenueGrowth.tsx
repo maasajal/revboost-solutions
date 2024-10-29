@@ -13,7 +13,7 @@ import User from "../../app/features/users/UserType";
 import { fetchRevenueData } from "../../app/features/revenueGrowth/revenueSlice";
 import { getCurrentUser } from "../../app/api/currentUserAPI";
 import { RootState } from "../../app/store/store";
-import { Alert, Box, CircularProgress, Grid, Typography } from "@mui/material";
+import { Box, CircularProgress, Grid, Typography } from "@mui/material";
 import RevenueCard from "./RevenueCard";
 import { Helmet } from "react-helmet";
 import SectionTitle from "../../components/SectionTitle";
@@ -33,7 +33,7 @@ const RevenueGrowth: React.FC = () => {
     }
   }, [dispatch, currentUser._id]);
 
-  const { loading, error } = useAppSelector(
+  const { loading } = useAppSelector(
     (state: RootState) => state.monthlyRevenue
   );
 
@@ -83,11 +83,6 @@ const RevenueGrowth: React.FC = () => {
         <Box display="flex" justifyContent="center" marginY={2}>
           <CircularProgress />
         </Box>
-      )}
-      {error && (
-        <Alert severity="error" sx={{ marginY: 2 }}>
-          {error}
-        </Alert>
       )}
 
       <section className="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-8 py-10">

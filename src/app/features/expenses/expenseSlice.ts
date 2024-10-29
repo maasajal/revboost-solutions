@@ -18,7 +18,7 @@ export const fetchExpenses = createAsyncThunk(
       return response.data;
     } catch (error: any) {
       console.error("Error fetching expenses: ", error.message);
-      return rejectWithValue(error.message?.data || "Error fetching expenses");
+      return rejectWithValue(error.message?.data);
     }
   }
 );
