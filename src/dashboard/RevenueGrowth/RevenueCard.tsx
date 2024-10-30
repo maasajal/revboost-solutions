@@ -1,4 +1,11 @@
-import { Card, CardContent, Typography, Box } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  Typography,
+  Box,
+  CardHeader,
+  Divider,
+} from "@mui/material";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 
@@ -22,28 +29,63 @@ const RevenueCard: React.FC<RevenueCardProps> = ({
   const isGrowthPositive = parseFloat(growth) > 0;
 
   return (
-    <Card sx={{ minWidth: 275 }}>
+    <Card
+      sx={{
+        borderRadius: 4,
+        boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
+        py: 3,
+        "&:hover": {
+          boxShadow: "0 6px 24px rgba(0, 0, 0, 0.15)",
+          transform: "translateY(-5px)",
+          transition: "all 0.3s ease",
+        },
+      }}
+    >
+      <CardHeader title={title} />
+      <Divider />
       <CardContent className="space-y-5">
-        <Typography variant="h4" component="div">
-          {title}
-        </Typography>
-        <Box display="flex" justifyContent="space-between" alignItems="center">
-          <Typography
-            variant="body2"
-            color={isGrowthPositive ? "success.main" : "error.main"}
-          >
-            {previous_time ? previous_time : "Previous Month"}: $ {previous}
+        <Box
+          display="grid"
+          justifyContent="center"
+          alignItems="center"
+          sx={{ mt: 2, mb: 3, minHeight: 80 }}
+        >
+          <Typography variant="body2">
+            {previous_time || "Previous Period"}: ${" "}
+            <Box
+              component="span"
+              color={isGrowthPositive ? "success.main" : "error.main"}
+              fontWeight="bold"
+              fontSize={18}
+            >
+              {previous}
+            </Box>
           </Typography>
-          <Typography
-            variant="body2"
-            color={isGrowthPositive ? "success.main" : "error.main"}
-          >
-            {current_time ? current_time : "Current Month"}: $ {current}
+
+          <Typography variant="body2">
+            {current_time || "Current Period"}: ${" "}
+            <Box
+              component="span"
+              color={isGrowthPositive ? "success.main" : "error.main"}
+              fontWeight="bold"
+              fontSize={18}
+            >
+              {current}
+            </Box>
           </Typography>
         </Box>
+        <Divider />
         <Typography
           variant="h6"
+          fontWeight="bold"
           color={isGrowthPositive ? "success.main" : "error.main"}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 1,
+          }}
+          className="animate-bounce"
         >
           {isGrowthPositive ? <ArrowUpwardIcon /> : <ArrowDownwardIcon />}
           {growth} Growth

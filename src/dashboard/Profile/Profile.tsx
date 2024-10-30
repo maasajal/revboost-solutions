@@ -240,7 +240,7 @@ const Profile: React.FC = () => {
       >
         <Table>
           <TableHead>
-            <TableRow>
+            <TableRow className="bg-lightColor">
               <TableCell>
                 <strong>Transaction ID</strong>
               </TableCell>
@@ -264,10 +264,7 @@ const Profile: React.FC = () => {
           <TableBody>
             {paymentEntries && paymentEntries.length > 0 ? (
               paymentEntries.map((pay) => (
-                <TableRow
-                  key={pay.transactionId}
-                  className="hover:bg-slate-600"
-                >
+                <TableRow key={pay.transactionId}>
                   <TableCell>{pay.transactionId}</TableCell>
                   <TableCell>
                     {pay?.due_date &&
