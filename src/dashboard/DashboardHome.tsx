@@ -7,6 +7,7 @@ import RevenueForecastChart from "./RevenueGrowth/RevenueForecastChart";
 import RevenueComparisonPieChart from "./RevenueGrowth/RevenueComparisonPieChart";
 import { Helmet } from "react-helmet";
 import SectionTitle from "../components/SectionTitle";
+import RevenueBarChart from "./RevenueGrowth/RevenueBarChart";
 
 const DashboardHome: React.FC = () => {
   return (
@@ -20,6 +21,7 @@ const DashboardHome: React.FC = () => {
         intro={"Dashboard"}
         content="Company Revenue Growth Live!"
       />
+      <RevenueBarChart />
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 py-10">
         <div className="h-full py-10 px-5 rounded-xl border">
           <RevenueForecastChart />
