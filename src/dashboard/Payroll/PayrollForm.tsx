@@ -6,10 +6,15 @@ import {
   fetchPayroll,
 } from "../../app/features/payroll/payrollSlice";
 import { AppDispatch, RootState } from "../../app/store/store";
-import FormField from "./payrollComponents/FormField";
-import SelectField from "./payrollComponents/SelectField";
-import { FaSpinner } from "react-icons/fa";
+import {
+  Box,
+  CircularProgress,
+  MenuItem,
+  TextField,
+  Typography,
+} from "@mui/material";
 import User from "../../app/features/users/UserType";
+import RevButton from "../../components/RevButton";
 
 interface Payroll {
   _id: string;
@@ -53,9 +58,7 @@ const PayrollForm = () => {
     reset,
     formState: { errors },
   } = useForm<Inputs>();
-
   const { isLoading } = useSelector((state: RootState) => state.payroll);
-
   const dispatch: AppDispatch = useDispatch();
 
   // Get current user data
@@ -63,15 +66,11 @@ const PayrollForm = () => {
     (state: RootState) => state.currentUser.user
   ) as User;
   const { _id, email } = user;
-  console.log(_id, email);
 
   const onSubmit: SubmitHandler<Inputs> = async (data: Payroll) => {
-    console.log(data);
-
-    // Format the data according to your backend API structure
     const payload: IPayload = {
-      userId: _id, // Current user's ID
-      userEmail: email, // Current user's email
+      userId: _id,
+      userEmail: email,
       payrollEntries: [
         {
           employeeName: data.employeeName,
@@ -86,12 +85,11 @@ const PayrollForm = () => {
 
     try {
       await dispatch(addPayroll(payload));
-      await dispatch(fetchPayroll(_id)); // Fetch the updated list of payrolls
+      await dispatch(fetchPayroll(_id));
       toast.success("Saved Successfully.");
       reset();
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
-      toast.error("Failed to save payroll."); // Show error message
+      toast.error("Failed to save payroll.");
     }
   };
 
@@ -112,68 +110,105 @@ const PayrollForm = () => {
   const currentMonth = months[new Date().getMonth()];
 
   return (
-    <div>
-      <form
+    <section className="py-5 space-y-5">
+      <Typography variant="h5" gutterBottom>
+        Payroll Form
+      </Typography>
+      <Box
+        component="form"
         onSubmit={handleSubmit(onSubmit)}
-        className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4"
+        display="grid"
+        gap={2}
+        className="gap-6 grid grid-cols-1 md:grid-cols-2"
       >
-        <FormField
+        <TextField
+          id="employeeName"
+          {...register("employeeName", {
+            required: "Employee name is required",
+          })}
           label="Employee Name"
-          type="text"
-          register={register("employeeName", { required: true })}
-          error={errors.employeeName}
+          placeholder="Enter the employee's full name"
+          variant="outlined"
+          error={!!errors.employeeName}
+          helperText={errors.employeeName?.message}
+          fullWidth
         />
-        <FormField
+
+        <TextField
+          id="position"
+          {...register("position", { required: "Position is required" })}
           label="Position"
-          type="text"
-          register={register("position", { required: true })}
-          error={errors.position}
+          placeholder="Enter the employee's position (e.g., Software Engineer)"
+          variant="outlined"
+          error={!!errors.position}
+          helperText={errors.position?.message}
+          fullWidth
         />
 
-        <FormField
+        <TextField
+          id="salary"
+          {...register("salary", { required: "Salary is required" })}
           label="Salary"
+          placeholder="Enter the monthly salary in USD"
+          variant="outlined"
           type="number"
-          register={register("salary", { required: true })}
-          error={errors.salary}
+          error={!!errors.salary}
+          helperText={errors.salary?.message}
+          fullWidth
         />
-        <FormField
+
+        <TextField
+          id="bonus"
+          {...register("bonus", { required: "Bonus is required" })}
           label="Bonus"
+          placeholder="Enter any bonus amount in USD"
+          variant="outlined"
           type="number"
-          register={register("bonus", { required: true })}
-          error={errors.bonus}
+          error={!!errors.bonus}
+          helperText={errors.bonus?.message}
+          fullWidth
         />
 
-        <FormField
+        <TextField
+          id="taxDeduction"
+          {...register("taxDeduction", {
+            required: "Tax Deduction is required",
+          })}
           label="Tax Deduction"
+          placeholder="Enter the tax deduction amount in USD"
+          variant="outlined"
           type="number"
-          register={register("taxDeduction", { required: true })}
-          error={errors.taxDeduction}
+          error={!!errors.taxDeduction}
+          helperText={errors.taxDeduction?.message}
+          fullWidth
         />
 
-        <SelectField
+        <TextField
+          id="month"
+          {...register("month", { required: "Month is required" })}
+          select
           label="Month"
-          options={months}
+          placeholder="Select the month for payroll"
           defaultValue={currentMonth}
-          register={register("month", { required: true })}
-          error={errors.month}
-        />
+          variant="outlined"
+          error={!!errors.month}
+          helperText={errors.month?.message}
+          fullWidth
+        >
+          {months.map((month) => (
+            <MenuItem key={month} value={month}>
+              {month}
+            </MenuItem>
+          ))}
+        </TextField>
 
-        <div className="form-control mt-6">
-          <button className="btn bg-deepColor hover:bg-semiColor text-white w-full border-none">
-            {isLoading ? (
-              <FaSpinner className="animate-spin text-2xl" />
-            ) : (
-              "Save"
-            )}
-          </button>
-        </div>
-        {/* <div className="form-control mt-6">
-          <button className="btn bg-[#FF6B6B] hover:bg-[#FF5252] text-white w-full">
-            Save
-          </button>
-        </div> */}
-      </form>
-    </div>
+        <RevButton
+          type="submit"
+          disabled={isLoading}
+          name={isLoading ? <CircularProgress size={24} /> : "Save"}
+        />
+      </Box>
+    </section>
   );
 };
 
