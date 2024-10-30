@@ -13,10 +13,11 @@ import User from "../../app/features/users/UserType";
 import { fetchRevenueData } from "../../app/features/revenueGrowth/revenueSlice";
 import { getCurrentUser } from "../../app/api/currentUserAPI";
 import { RootState } from "../../app/store/store";
-import { Box, CircularProgress, Grid, Typography } from "@mui/material";
+import { Box, CircularProgress, Grid } from "@mui/material";
 import RevenueCard from "./RevenueCard";
 import { Helmet } from "react-helmet";
 import SectionTitle from "../../components/SectionTitle";
+import RevenueBarChart from "./RevenueBarChart";
 
 const RevenueGrowth: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -84,6 +85,7 @@ const RevenueGrowth: React.FC = () => {
           <CircularProgress />
         </Box>
       )}
+      <RevenueBarChart />
 
       <section className="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-8 py-10">
         <Grid item xs={2} sm={4} md={4}>
@@ -127,24 +129,6 @@ const RevenueGrowth: React.FC = () => {
           />
         </Grid>
       </section>
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-8 py-10">
-        <Typography variant="body2" className={`p-4 rounded-md shadow-xl`}>
-          <p className="text-lg">Last 6 Months Revenue:</p>
-          <h2 className="text-3xl font-bold"> $ {currentHalfYearRevenue}</h2>
-        </Typography>
-        <Typography variant="body2" className={`p-4 rounded-md shadow-xl`}>
-          <p className="text-lg">Last 12 Months Revenue:</p>
-          <h2 className="text-3xl font-bold">$ {currentYearRevenue}</h2>
-        </Typography>
-
-        <Typography variant="body2" className={`p-4 rounded-md shadow-xl`}>
-          <p className="text-lg">Last 24 Months Revenue:</p>
-          <h2 className="text-3xl font-bold">
-            $ {currentYearRevenue + previousYearRevenue}
-          </h2>
-        </Typography>
-      </div>
 
       <SectionTitle
         title="Revenue Forecast & Total Comparison Growth %"
