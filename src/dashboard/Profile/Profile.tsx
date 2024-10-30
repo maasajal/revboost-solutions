@@ -27,11 +27,13 @@ import { Helmet } from "react-helmet";
 import { fetchPayments } from "../../app/features/payments/paymentsSlice";
 import SectionTitle from "../../components/SectionTitle";
 import RevButton from "../../components/RevButton";
+import TransitionsModal from "../Payment/TransitionsModal";
 
 interface UpdateUserData {
   photo: string;
   mobile: string;
 }
+
 const Profile: React.FC = () => {
   const dispatch = useAppDispatch();
 
@@ -76,9 +78,8 @@ const Profile: React.FC = () => {
       features,
     },
   });
-  // Form submission handler
+
   const onSubmit: SubmitHandler<User> = async (data) => {
-    // Handle the form submission logic, e.g., updating the profile
     const updateUserData: UpdateUserData = {
       photo: data.photo,
       mobile: data.mobile,
@@ -91,13 +92,6 @@ const Profile: React.FC = () => {
       showConfirmButton: false,
       timer: 1500,
     });
-  };
-  const handlePayment = async () => {
-    try {
-      console.log("Payment waiting!");
-    } catch (error) {
-      console.error("Payment initiation error: ", error);
-    }
   };
 
   return (
@@ -278,7 +272,7 @@ const Profile: React.FC = () => {
                   <TableCell>$ {pay.amount}</TableCell>
                   <TableCell>
                     {pay.payment_status === "pending" ? (
-                      <RevButton name="Pay Now" onClick={handlePayment} />
+                      <TransitionsModal amount={pay.amount} />
                     ) : (
                       <Box>
                         <RevButton name="Done" disabled />
