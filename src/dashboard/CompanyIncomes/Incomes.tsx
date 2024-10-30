@@ -116,7 +116,7 @@ const Incomes: React.FC = () => {
         >
           <Table>
             <TableHead>
-              <TableRow>
+              <TableRow className="bg-lightColor">
                 <TableCell>
                   <strong>ID</strong>
                 </TableCell>
@@ -134,7 +134,7 @@ const Incomes: React.FC = () => {
             <TableBody>
               {incomeEntries && incomeEntries.length > 0 ? (
                 incomeEntries.map((entry) => (
-                  <TableRow key={entry.incomeId} className="hover:bg-slate-600">
+                  <TableRow key={entry.incomeId}>
                     <TableCell>{entry.incomeId}</TableCell>
                     <TableCell>{entry.source}</TableCell>
                     <TableCell>$ {entry.amount}</TableCell>
@@ -158,19 +158,19 @@ const Incomes: React.FC = () => {
                   </TableCell>
                 </TableRow>
               )}
-              <TableRow className="hover:bg-slate-600">
+              <TableRow>
                 <TableCell></TableCell>
                 <TableCell>Subtotal</TableCell>
                 <TableCell>$ {totalIncome}</TableCell>
                 <TableCell></TableCell>
               </TableRow>
-              <TableRow className="hover:bg-slate-600">
+              <TableRow>
                 <TableCell></TableCell>
                 <TableCell>VAT (15%)</TableCell>
                 <TableCell>$ {totalIncome * 0.15}</TableCell>
                 <TableCell></TableCell>
               </TableRow>
-              <TableRow className="hover:bg-slate-600">
+              <TableRow>
                 <TableCell></TableCell>
                 <TableCell>Total</TableCell>
                 <TableCell>$ {totalIncome - totalIncome * 0.15}</TableCell>

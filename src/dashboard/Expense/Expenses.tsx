@@ -75,7 +75,7 @@ const Expenses: React.FC = () => {
         >
           <Table>
             <TableHead>
-              <TableRow>
+              <TableRow className="bg-lightColor">
                 <TableCell>
                   <strong>ID</strong>
                 </TableCell>
@@ -96,10 +96,7 @@ const Expenses: React.FC = () => {
             <TableBody>
               {expenseEntries && expenseEntries.length > 0 ? (
                 expenseEntries.map((entry) => (
-                  <TableRow
-                    key={entry.expenseId}
-                    className="hover:bg-slate-600"
-                  >
+                  <TableRow key={entry.expenseId}>
                     <TableCell>{entry.expenseId}</TableCell>
                     <TableCell>{entry.item}</TableCell>
                     <TableCell>{entry.quantity}</TableCell>
@@ -114,21 +111,21 @@ const Expenses: React.FC = () => {
                   </TableCell>
                 </TableRow>
               )}
-              <TableRow className="hover:bg-slate-600">
+              <TableRow>
                 <TableCell></TableCell>
                 <TableCell></TableCell>
                 <TableCell></TableCell>
                 <TableCell>Subtotal</TableCell>
                 <TableCell>$ {totalExpenses}</TableCell>
               </TableRow>
-              <TableRow className="hover:bg-slate-600">
+              <TableRow>
                 <TableCell></TableCell>
                 <TableCell></TableCell>
                 <TableCell></TableCell>
                 <TableCell>VAT Deduction</TableCell>
                 <TableCell>$ {totalExpenses * 0.25}</TableCell>
               </TableRow>
-              <TableRow className="hover:bg-slate-600">
+              <TableRow>
                 <TableCell></TableCell>
                 <TableCell></TableCell>
                 <TableCell></TableCell>
