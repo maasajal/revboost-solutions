@@ -30,7 +30,7 @@ const TransitionsModal: React.FC<{ amount: number }> = ({ amount }) => {
 
   return (
     <div>
-      <RevButton name="Go to Pay" onClick={handleOpen} />
+      <RevButton name="Pay" onClick={handleOpen} />
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
