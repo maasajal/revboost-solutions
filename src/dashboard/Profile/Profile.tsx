@@ -265,8 +265,10 @@ const Profile: React.FC = () => {
                       new Date(pay.due_date).toLocaleDateString()}
                   </TableCell>
                   <TableCell>
-                    {pay?.paymentDate &&
-                      new Date(pay.paymentDate).toLocaleDateString()}
+                    {pay?.due_date < new Date()
+                      ? "Overdue"
+                      : pay?.paymentDate &&
+                        new Date(pay.paymentDate).toLocaleDateString()}
                   </TableCell>
                   <TableCell>{pay.payment_status}</TableCell>
                   <TableCell>$ {pay.amount}</TableCell>
@@ -275,7 +277,7 @@ const Profile: React.FC = () => {
                       <TransitionsModal amount={pay.amount} />
                     ) : (
                       <Box>
-                        <RevButton name="Done" disabled />
+                        <RevButton name="Paid" disabled />
                       </Box>
                     )}
                   </TableCell>
