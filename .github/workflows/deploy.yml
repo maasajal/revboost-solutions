@@ -37,6 +37,7 @@ jobs:
           VITE_storageBucket=${{secrets.VITE_storageBucket}} \
           VITE_messagingSenderId=${{secrets.VITE_messagingSenderId}} \
           VITE_appId=${{secrets.VITE_appId}} \
+          VITE_PAYMENT_PK=${{secrets.VITE_PAYMENT_PK}} \
           npm run build
 
       # Step 5: Deploy to Hostinger via FTP
