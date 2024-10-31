@@ -6,6 +6,7 @@ import {
   CardContent,
   Divider,
   Grid,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
@@ -23,7 +24,7 @@ import User from "../../app/features/users/UserType";
 import { useAppDispatch } from "../../app/hooks/useAppDispatch";
 import { useAppSelector } from "../../app/hooks/useAppSelector";
 import { RootState } from "../../app/store/store";
-
+import DoneIcon from "@mui/icons-material/Done";
 // Define types for the package data
 interface Package {
   packageName: string;
@@ -50,9 +51,6 @@ const Pricing: React.FC = () => {
   const user = useAppSelector(
     (state: RootState) => state.currentUser?.user
   ) as User | null;
-  // const { _id, name, email, role, subscriptionPlan, subscriptionStatus } =
-  //   user || {};
-  // console.log(_id, name, email, role, subscriptionPlan, subscriptionStatus);
 
   useEffect(() => {
     dispatch(getCurrentUser());
@@ -109,24 +107,38 @@ const Pricing: React.FC = () => {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          p: 3,
           height: "100%",
           boxShadow: 3,
           background: "white",
+          borderRadius: 5,
         }}
       >
-        <CardContent sx={{ flexGrow: 1 }}>
+        <Typography
+          variant="h5"
+          component="h2"
+          align="center"
+          fontWeight="bold"
+          gutterBottom
+          sx={{ textTransform: "uppercase", letterSpacing: 2 }}
+          className={`${user?.subscriptionStatus === "active" && user.subscriptionPlan === pkg.packageName ? "bg-lightColor p-2 text-white py-5" : "bg-slate-300 py-5"}`}
+        >
+          {user?.subscriptionPlan === pkg.packageName && <DoneIcon />}{" "}
+          {pkg.packageName}
+        </Typography>
+        <CardContent sx={{ flexGrow: 1, p: 3 }}>
           <Box component="section">
-            <Typography
+            {/* <Typography
               variant="h5"
               component="h2"
               align="center"
               fontWeight="bold"
               gutterBottom
               sx={{ textTransform: "uppercase", letterSpacing: 2 }}
+              className={`${user?.subscriptionStatus === "active" && user.subscriptionPlan === pkg.packageName ? "bg-lightColor p-2 text-white rounded-full" : ""}`}
             >
+              {user?.subscriptionPlan === pkg.packageName && <DoneIcon />}{" "}
               {pkg.packageName}
-            </Typography>
+            </Typography> */}
             <Typography variant="h3" gutterBottom>
               <Typography component="span" variant="h6">
                 $
@@ -142,19 +154,31 @@ const Pricing: React.FC = () => {
             </Typography>
           </Box>
           <Box sx={{ mt: 3 }}>
-            <Button
-              disabled={user?.role === "admin"}
-              variant="contained"
-              color="secondary"
-              fullWidth
-              onClick={() => handleSubscriptionClick(pkg)}
-              sx={{
-                backgroundColor: "#1E2E61",
-                "&:hover": { backgroundColor: "#2E568A" },
-              }}
+            <Tooltip
+              title={
+                user?.subscriptionPlan === pkg.packageName
+                  ? "This package is active"
+                  : "If you want to change the package, please contact us"
+              }
+              placement="bottom"
             >
-              Start your 14-days free trial
-            </Button>
+              <Button
+                disabled={user?.role === "admin"}
+                variant="contained"
+                color="secondary"
+                fullWidth
+                onClick={() => handleSubscriptionClick(pkg)}
+                sx={{
+                  backgroundColor: "#1E2E61",
+                  py: 1.5,
+                  "&:hover": { backgroundColor: "#2E568A" },
+                }}
+              >
+                {user?.subscriptionPlan === pkg.packageName
+                  ? "Active Package"
+                  : "Start your 14-days free trial"}
+              </Button>
+            </Tooltip>
           </Box>
           <Grid container spacing={1} sx={{ mt: 4 }}>
             {pkg.features.map((feature, index) => (
@@ -358,7 +382,10 @@ const Pricing: React.FC = () => {
       </Box>
 
       {/* FAQ Section */}
-      <div id="pricing_faqs" className="faq-section bg-gray-100 py-10 px-5 md:px-20 container mx-auto rounded-xl">
+      <div
+        id="pricing_faqs"
+        className="faq-section bg-gray-100 py-10 px-5 md:px-20 container mx-auto rounded-xl"
+      >
         <SectionTitle
           title="Frequently Asked Questions"
           intro="FAQs"
