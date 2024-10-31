@@ -41,10 +41,10 @@ const UnlockBusiness = () => {
         intro="Why choose us"
         content="Check out what are we offering"
       />
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10" data-aos="zoom-in-up" data-aos-duration="2000">
         {unlockBusiness.map((item, index) => (
           <div key={index} className="card bg-base-100 shadow-xl">
-            <div className="card-body items-center text-center">
+            <div className="card-body items-center text-center" data-aos="fade-up">
               <h2 className="card-title">{item.offerName}</h2>
             </div>
             <figure className="pb-10">

@@ -37,12 +37,12 @@ const FAQ = () => {
       />
 
       <div className="lg:flex bg-gray-300 rounded-xl">
-        <div className="bg-gray-600 flex items-center px-6 rounded-l-xl">
+        <div className="bg-gray-600 flex items-center px-6 rounded-l-xl" data-aos="fade-down-right" data-aos-duration="2000">
           <img src={questionImg} alt="FAQs" />
         </div>
 
         {/* accordian */}
-        <div className="join join-vertical w-full p-6">
+        <div className="join join-vertical w-full p-6" data-aos="fade-down-left" data-aos-duration="2000">
           {faq.map((item, index) => (
             <div
               key={index}
