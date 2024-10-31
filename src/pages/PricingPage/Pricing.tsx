@@ -102,7 +102,9 @@ const Pricing: React.FC = () => {
   // Function to render package cards
   const renderPackageCard = (pkg: Package) => {
     return (
-      <Card
+      <Card data-aos="fade-down"
+      data-aos-easing="linear"
+      data-aos-duration="1500"
         sx={{
           display: "flex",
           flexDirection: "column",
@@ -249,7 +251,9 @@ const Pricing: React.FC = () => {
         />
       </Helmet>
       {/* Hero Section */}
-      <section className="bg-backgroundImg">
+      <section className="bg-backgroundImg" data-aos="fade-down"
+     data-aos-easing="linear"
+     data-aos-duration="1500">
         <p className="text-center inter font-bold py-10 text-4xl md:text-6xl lg:text-6xl">
           <span className="text-primary">Choose the plan</span> that fits <br />
           your business needs!
@@ -309,7 +313,7 @@ const Pricing: React.FC = () => {
         <Grid container spacing={3} justifyContent="center" sx={{ mt: 3 }}>
           {/* Users Card */}
           <Grid item xs={12} md={4}>
-            <Card sx={{ boxShadow: 3 }}>
+            <Card sx={{ boxShadow: 3 }} data-aos="fade-zoom-in">
               <CardContent>
                 <Typography
                   variant="h6"
@@ -333,7 +337,9 @@ const Pricing: React.FC = () => {
 
           {/* Timesheet User Card */}
           <Grid item xs={12} md={4}>
-            <Card sx={{ boxShadow: 3 }}>
+            <Card sx={{ boxShadow: 3 }} data-aos="fade-zoom-in"
+     data-aos-easing="linear"
+     data-aos-duration="1500">
               <CardContent>
                 <Typography
                   variant="h6"
@@ -357,7 +363,7 @@ const Pricing: React.FC = () => {
 
           {/* Client Card */}
           <Grid item xs={12} md={4}>
-            <Card sx={{ boxShadow: 3 }}>
+            <Card sx={{ boxShadow: 3 }} data-aos="fade-zoom-in">
               <CardContent>
                 <Typography
                   variant="h6"
@@ -391,7 +397,8 @@ const Pricing: React.FC = () => {
           intro="FAQs"
           content="Our pricing related questions & answers"
         />
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6" data-aos="fade-up"
+     data-aos-anchor-placement="bottom-bottom">
           {questions.map((item, index) => (
             <div key={index} className="faq-item">
               <div
