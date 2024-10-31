@@ -9,7 +9,7 @@ import walmart from "../../../assets/companies-logo/walmart.svg";
 
 const Banner = () => {
   return (
-    <div>
+    <div data-aos="fade-down">
       {/* red colored banner */}
       <div>
         <section className="relative bg-bannerImg bg-repeat bg-cover bg-center py-28 w-full">
@@ -42,7 +42,7 @@ const Banner = () => {
       </div>
 
       {/* companies */}
-      <div className="bg-white shadow-lg p-5 rounded-2xl w-3/4 mx-auto mt-10 md:-mt-10 relative z-10">
+      <div className="bg-white shadow-lg p-5 rounded-2xl w-3/4 mx-auto mt-10 md:-mt-10 relative z-10" data-aos="fade-down" data-aos-duration="2000">
         <h1 className="text-center mb-7 leading-normal">
           Trusted By{" "}
           <span className="text-primary">Businesses and Companies</span> World

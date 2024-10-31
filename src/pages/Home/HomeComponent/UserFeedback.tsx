@@ -113,7 +113,7 @@ const UserFeedback: React.FC = () => {
           >
             {testimonials.map((review, index) => (
               <SwiperSlide key={index}>
-                <div className="card card-compact bg-base-100 shadow-xl">
+                <div className="card card-compact bg-base-100 shadow-xl" data-aos="flip-left" data-aos-duration="2000">
                   <figure>
                     <img
                       src={review.image}
