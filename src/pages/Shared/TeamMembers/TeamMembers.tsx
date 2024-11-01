@@ -63,7 +63,7 @@ const TeamMembers = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {teamMembersData.map((data) => (
           <>
-            <div
+            <div data-aos="zoom-out"
               key={data.id}
               className="flex flex-col items-center p-8 transition-colors duration-300 transform cursor-pointer group bg-gray-300 hover:bg-midColor rounded-xl"
             >

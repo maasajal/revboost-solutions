@@ -33,14 +33,14 @@ const About = () => {
           content="ABOUT US"
         />
         <div className=" flex flex-col justify-center items-center mx-auto lg:flex-row lg:justify-around">
-          <div className="items-center justify-center lg:mt-0 h-96 sm:h-80 lg:h-96 xl:h-112 2xl:h-128">
+          <div className="items-center justify-center lg:mt-0 h-96 sm:h-80 lg:h-96 xl:h-112 2xl:h-128" data-aos="zoom-in-down">
             <img
               src={coverPhoto}
               alt=""
               className="object-contain h-72 sm:h-80 lg:h-96 rounded-[3%] xl:h-112 xl:rounded-[3%] 2xl:h-128 2xl:rounded-[3%]"
             />
           </div>
-          <div className="flex-col space-y-4 justify-center p-6 text-center rounded-sm -mt-24 md:mt-10 lg:max-w-md xl:max-w-lg lg:text-left">
+          <div className="flex-col space-y-4 justify-center p-6 text-center rounded-sm -mt-24 md:mt-10 lg:max-w-md xl:max-w-lg lg:text-left" data-aos="zoom-in-down">
             <h2>Who are we?</h2>
             <p>
               Revboost offers a streamlined, automated approach to financial
@@ -86,7 +86,8 @@ const About = () => {
             intro="Our Solution"
             content="Solution For Your Bussiness"
           />
-          <div className=" w-full mx-auto my-8 space-y-4 text-center xl:col-span-2 xl:text-left">
+          <div className=" w-full mx-auto my-8 space-y-4 text-center xl:col-span-2 xl:text-left" data-aos="fade-up"
+     data-aos-anchor-placement="top-bottom">
             <p className="dark:text-gray-600 text-center w-3/4 mx-auto">
               We're proposing to build a web-based platform, "RevBoost,"
               designed to help your business streamline and optimize its revenue
@@ -101,7 +102,7 @@ const About = () => {
                 <div className="grid content-center gap-4">
                   {/* demo */}
 
-                  <div className="p-6 rounded shadow-md dark:bg-gray-50">
+                  <div className="p-6 rounded shadow-md dark:bg-gray-50" data-aos="zoom-in-up">
                     <p>
                       Revboost generates detailed tax reports, outlining the
                       total VAT collected and the taxes owed. This not only
@@ -122,7 +123,7 @@ const About = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="p-6 rounded shadow-md dark:bg-gray-50">
+                  <div className="p-6 rounded shadow-md dark:bg-gray-50" data-aos="zoom-in-up">
                     <p>
                       By reducing the risk of errors and potential fines, Aurora
                       provides peace of mind to business owners, knowing that
@@ -143,7 +144,7 @@ const About = () => {
                     </div>
                   </div>
                 </div>
-                <div className="grid content-center gap-4">
+                <div className="grid content-center gap-4" data-aos="zoom-in-up">
                   <div className="p-6 rounded shadow-md dark:bg-gray-50">
                     <p>
                       This level of financial clarity and control can drive more
@@ -220,7 +221,7 @@ const About = () => {
           intro=" Evolving to Meet Your Financial Needs"
           content="How RevBoost is Transforming Financial Solutions"
         />
-        <div className="container max-w-5xl px-4 py-12 mx-auto">
+        <div className="container max-w-5xl px-4 py-12 mx-auto" data-aos="zoom-in-down">
           <div className="grid gap-4 mx-4 sm:grid-cols-12">
             <div className="col-span-12 sm:col-span-3">
               <div className="text-center sm:text-left mb-14 before:block before:w-24 before:h-3 before:mb-5 before:rounded-md before:mx-auto sm:before:mx-0 before:dark:bg-deepColor">
@@ -284,7 +285,7 @@ const About = () => {
           intro="Why Chose Us"
           content="Skills, Strategy, and Results"
         />
-        <div className="container px-6 py-16 mx-auto shadow-lg rounded-2xl bg-gray-100">
+        <div className="container px-6 py-16 mx-auto shadow-lg rounded-2xl bg-gray-100" data-aos="zoom-in">
           <div className="items-center lg:flex">
             <div className="w-full lg:w-1/2">
               <div className="lg:max-w-lg space-y-4">
