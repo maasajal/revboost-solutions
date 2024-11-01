@@ -1,5 +1,5 @@
-import { useEffect, useState, useRef } from 'react';
-import SectionTitle from '../../components/SectionTitle';
+import { useEffect, useState, useRef } from "react";
+import SectionTitle from "../../components/SectionTitle";
 
 interface CountUpProps {
   target: number;
@@ -48,7 +48,7 @@ const CountUp: React.FC<CountUpProps> = ({ target }) => {
 
   return (
     <div ref={ref} className="flex flex-col justify-center align-middle">
-      <p className="text-3xl font-semibold leading-none">{count} +</p>
+      <p className="text-3xl font-semibold leading-none">{count}+</p>
       <hr className="border-deepColor border-2" />
     </div>
   );
@@ -56,14 +56,17 @@ const CountUp: React.FC<CountUpProps> = ({ target }) => {
 
 const ClientSatisfiction = () => {
   return (
-    <section className="p-6 my-6 bg-gray-100 dark:text-gray-800">
+    <section className="p-6 my-6 bg-gray-100 dark:text-gray-800 rounded-2xl">
       <SectionTitle
         title="GLOBAL SERVICES AND SATISFIED CLIENTS"
         intro="Trusted Worldwide"
         content="Clients, Projects, and Global Reach"
       />
-      <div className="container grid grid-cols-1 gap-6 mx-auto sm:grid-cols-2 xl:grid-cols-4">
-        <div className="flex p-4 space-x-4 rounded-lg md:space-x-6 dark:bg-gray-50 dark:text-gray-800">
+      <div
+        className="container grid grid-cols-1 gap-6 mx-auto sm:grid-cols-2 xl:grid-cols-4"
+        data-aos="zoom-in-down"
+      >
+        <div className="flex items-center justify-between p-4 space-x-4 rounded-lg md:space-x-6 dark:bg-gray-50 dark:text-gray-800">
           <div className="flex justify-center p-2 align-middle rounded-lg sm:p-4 dark:bg-deepColor">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -79,7 +82,7 @@ const ClientSatisfiction = () => {
           <CountUp target={1200} />
           <p className="capitalize">Total Client</p>
         </div>
-        <div className="flex p-4 space-x-4 rounded-lg md:space-x-6 dark:bg-gray-50 dark:text-gray-800">
+        <div className="flex items-center justify-between p-4 space-x-4 rounded-lg md:space-x-6 dark:bg-gray-50 dark:text-gray-800">
           <div className="flex justify-center p-2 align-middle rounded-lg sm:p-4 dark:bg-deepColor">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -93,7 +96,7 @@ const ClientSatisfiction = () => {
           <CountUp target={50} />
           <p className="capitalize">Country Services</p>
         </div>
-        <div className="flex p-4 space-x-4 rounded-lg md:space-x-6 dark:bg-gray-50 dark:text-gray-800">
+        <div className="flex items-center justify-between p-4 space-x-4 rounded-lg md:space-x-6 dark:bg-gray-50 dark:text-gray-800">
           <div className="flex justify-center p-2 align-middle rounded-lg sm:p-4 dark:bg-deepColor">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -112,7 +115,7 @@ const ClientSatisfiction = () => {
           <CountUp target={4000} />
           <p className="capitalize">Total Project</p>
         </div>
-        <div className="flex p-4 space-x-4 rounded-lg md:space-x-6 dark:bg-gray-50 dark:text-gray-800">
+        <div className="flex items-center justify-between p-4 space-x-4 rounded-lg md:space-x-6 dark:bg-gray-50 dark:text-gray-800">
           <div className="flex justify-center p-2 align-middle rounded-lg sm:p-4 dark:bg-deepColor">
             <svg
               xmlns="http://www.w3.org/2000/svg"

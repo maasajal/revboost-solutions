@@ -102,7 +102,7 @@ const UserFeedback: React.FC = () => {
             }}
             pagination={{ clickable: true }}
             modules={[EffectCoverflow, Pagination, Autoplay]}
-            className="mySwiper"
+            className="mySwiper -mb-[130px]"
             breakpoints={{
               320: { slidesPerView: 1 },
               640: { slidesPerView: 2 },
@@ -113,7 +113,7 @@ const UserFeedback: React.FC = () => {
           >
             {testimonials.map((review, index) => (
               <SwiperSlide key={index}>
-                <div className="card card-compact bg-base-100 shadow-xl">
+                <div className="card card-compact bg-base-100 shadow-xl" data-aos="flip-left" data-aos-duration="2000">
                   <figure>
                     <img
                       src={review.image}

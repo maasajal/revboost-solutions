@@ -4,7 +4,7 @@ import { MdOutlinePhoneInTalk } from "react-icons/md";
 import { SlSocialFacebook } from "react-icons/sl";
 const SocialMedia = () => {
   return (
-    <div className="space-y-3 px-6">
+    <div className="space-y-3 px-6" data-aos="zoom-in-right">
       <h2>Contact Us</h2>
       <p className=" text-sm font-montserrat">
         <span className="font-bold">Consultation:</span> Once you fill out the "Contact Us" form, we will schedule a meeting to discuss your specific needs and gather more details about your inquiry.

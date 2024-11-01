@@ -37,7 +37,7 @@ const ContactForm = () => {
   };
 
   return (
-    <div>
+    <div data-aos="zoom-in">
       <div className="border-2 rounded-xl shadow-lg hover:shadow-xl relative mt-10 md:mt-0">
         <div className="p-6 space-y-6">
           <form onSubmit={handleSubmit(onSubmit)}>
