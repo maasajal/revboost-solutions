@@ -48,7 +48,7 @@ const Login = () => {
       </Helmet>
       <div className="flex flex-col sm:flex-row md:flex-row lg:flex-row w-full">
         {/* Left Section */}
-        <div className="flex-1 bg-[#FF08008C] flex flex-col items-center pt-10 px-5">
+        <div className="flex-1 bg-[#FF08008C] flex flex-col items-center pt-10 px-5" >
           <Link to="/">
             <img src={logo} alt="logo" className="w-1/3 2xl:w-1/4 mx-auto" />
           </Link>
@@ -63,7 +63,7 @@ const Login = () => {
         </div>
 
         {/* Right Section (Form) */}
-        <div className="flex-1 bg-white p-10 lg:pl-40 xl:py-32 2xl:pr-40 2xl:py-52 flex flex-col justify-center">
+        <div className="flex-1 bg-white p-10 lg:pl-40 xl:py-32 2xl:pr-40 2xl:py-52 flex flex-col justify-center" data-aos="zoom-in">
           <form onSubmit={handleSubmit(onSubmit)} className="w-full">
             <h2 className="text-3xl font-semibold text-center mb-6">
               Welcome back
