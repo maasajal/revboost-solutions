@@ -15,7 +15,9 @@ const Contact: React.FC = () => {
           content="Have questions about RevBoost Solutions? Contact us today to learn more about our revenue growth, expense tracking, payroll, and financial forecasting tools. We're here to help your business succeed!"
         />
       </Helmet>
-      <Box
+      <Box data-aos="fade-down"
+     data-aos-easing="linear"
+     data-aos-duration="1500"
         sx={{
           textAlign: "center",
           border: 1,
