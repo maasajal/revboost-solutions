@@ -68,7 +68,7 @@ const Register = () => {
         </div>
 
         {/* Right Section (Form) */}
-        <div className="flex-1 bg-white p-10 lg:pl-40 2xl:pr-40 flex flex-col justify-center xl:py-20 2xl:py-40">
+        <div className="flex-1 bg-white p-10 lg:pl-40 2xl:pr-40 flex flex-col justify-center xl:py-20 2xl:py-40" data-aos="zoom-in">
           <form onSubmit={handleSubmit(onSubmit)} className="w-full">
             <h2 className="text-3xl font-semibold text-center mb-6">
               Create Account
