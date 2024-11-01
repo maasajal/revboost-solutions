@@ -102,7 +102,7 @@ const UserFeedback: React.FC = () => {
             }}
             pagination={{ clickable: true }}
             modules={[EffectCoverflow, Pagination, Autoplay]}
-            className="mySwiper"
+            className="mySwiper -mb-[130px]"
             breakpoints={{
               320: { slidesPerView: 1 },
               640: { slidesPerView: 2 },

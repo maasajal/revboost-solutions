@@ -5,7 +5,7 @@ import consultancy from "../../../assets/sectors/image 7.png";
 
 const Sectors = () => {
   return (
-    <div className="container mx-auto px-5"  data-aos="fade-up" data-aos-duration="2000">
+    <div className="container mx-auto px-5 -mb-[30px]"  data-aos="fade-up" data-aos-duration="2000">
       <SectionTitle
         title="Tailor your business with us"
         intro="Sectors"
@@ -13,9 +13,8 @@ const Sectors = () => {
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="card bg-base-100 shadow-xl" data-aos="fade-right"
-     data-aos-offset="300"
-     data-aos-easing="ease-in-sine">
+        <div className="card bg-base-100 shadow-xl" data-aos="fade-up"
+     data-aos-anchor-placement="top-bottom">
           <figure className="px-10 pt-10">
             <img src={business} alt="Shoes" className="rounded-xl" />
           </figure>
@@ -27,7 +26,8 @@ const Sectors = () => {
           </div>
         </div>
 
-        <div className="card bg-base-100 shadow-xl" data-aos="zoom-in-up" data-aos-duration="2000">
+        <div className="card bg-base-100 shadow-xl" data-aos="fade-up"
+     data-aos-anchor-placement="top-bottom">
           <figure className="px-10 ">
             <img src={startup} alt="Shoes" className="rounded-xl" />
           </figure>
@@ -39,9 +39,8 @@ const Sectors = () => {
           </div>
         </div>
 
-        <div className="card bg-base-100 shadow-xl" data-aos="fade-left"
-     data-aos-offset="300"
-     data-aos-easing="ease-in-sine">
+        <div className="card bg-base-100 shadow-xl" data-aos="fade-up"
+     data-aos-anchor-placement="top-bottom">
           <figure className="px-10 pt-10">
             <img src={consultancy} alt="Shoes" className="rounded-xl" />
           </figure>

@@ -36,13 +36,13 @@ const FAQ = () => {
         content="A list of common questions and answers designed to provide quick and helpful information on a specific topic or service."
       />
 
-      <div className="lg:flex bg-gray-300 rounded-xl">
-        <div className="bg-gray-600 flex items-center px-6 rounded-l-xl" data-aos="fade-down-right" data-aos-duration="2000">
+      <div className="lg:flex bg-gray-300 rounded-xl" data-aos="zoom-in">
+        <div className="bg-gray-600 flex items-center px-6 rounded-l-xl">
           <img src={questionImg} alt="FAQs" />
         </div>
 
         {/* accordian */}
-        <div className="join join-vertical w-full p-6" data-aos="fade-down-left" data-aos-duration="2000">
+        <div className="join join-vertical w-full p-6">
           {faq.map((item, index) => (
             <div
               key={index}
