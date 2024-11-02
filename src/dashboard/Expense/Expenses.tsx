@@ -56,7 +56,7 @@ const Expenses: React.FC = () => {
         intro={"Your Expenses"}
         content="All your expense entries & add new expense!"
       />
-      <Box sx={{ padding: 4 }}>
+      <Box sx={{ padding: 4 }} data-aos="zoom-in-down">
         {loading && (
           <Box display="flex" justifyContent="center" marginY={2}>
             <CircularProgress />
