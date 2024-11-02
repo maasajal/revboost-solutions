@@ -153,7 +153,7 @@ const Invoice = () => {
         />
         {/* pdf reader */}
         <OCRFeature></OCRFeature>
-        <div>
+        <div data-aos="zoom-in-down">
           <form
             onSubmit={handleSubmit(onSubmit)}
             className="space-y-4 shadow-lg px-4 lg:px-10 py-12"

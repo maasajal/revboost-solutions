@@ -88,7 +88,7 @@ const RevenueGrowth: React.FC = () => {
       <RevenueBarChart />
 
       <section className="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-8 py-10">
-        <Grid item xs={2} sm={4} md={4}>
+        <Grid item xs={2} sm={4} md={4} data-aos="zoom-in-down">
           <RevenueCard
             title={"Monthly Revenue"}
             current_time={""}
@@ -98,7 +98,7 @@ const RevenueGrowth: React.FC = () => {
             growth={monthlyGrowth}
           />
         </Grid>
-        <Grid item xs={2} sm={4} md={4}>
+        <Grid item xs={2} sm={4} md={4} data-aos="zoom-in-down">
           <RevenueCard
             title={"Quarterly Revenue"}
             current_time={currentQuarter}
@@ -108,7 +108,7 @@ const RevenueGrowth: React.FC = () => {
             growth={quarterlyGrowth}
           />
         </Grid>
-        <Grid item xs={2} sm={4} md={4}>
+        <Grid item xs={2} sm={4} md={4} data-aos="zoom-in-down">
           <RevenueCard
             title={"Half Year Revenue"}
             current_time={currentHalfYear}
@@ -118,7 +118,7 @@ const RevenueGrowth: React.FC = () => {
             growth={halfYearlyGrowth}
           />
         </Grid>
-        <Grid item xs={2} sm={4} md={4}>
+        <Grid item xs={2} sm={4} md={4} data-aos="zoom-in-down">
           <RevenueCard
             title={"Yearly Revenue"}
             current_time={currentYear}

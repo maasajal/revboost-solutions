@@ -79,7 +79,7 @@ const PayrollReports = () => {
   // const currentMonth = months[new Date().getMonth()];
 
   return (
-    <div className="space-y-6 border-2 p-4 my-10">
+    <div className="space-y-6 border-2 p-4 my-10" data-aos="zoom-in-down">
       <h2 className="mb-4 text-center text-2xl font-bold leading-tight">
         Employee Payroll Reports
       </h2>
