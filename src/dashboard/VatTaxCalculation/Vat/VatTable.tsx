@@ -43,7 +43,7 @@ const VatTable: React.FC<Income> = ({ incomes, setRefetch, refetch }) => {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full" data-aos="zoom-in-down">
       <div className="p-4 mx-auto">
         <h2 className="mb-4 text-lg font-semibold leading-tight md:text-xl">
           Invoices
