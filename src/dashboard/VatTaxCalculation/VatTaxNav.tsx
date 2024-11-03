@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 const VatTaxNav = () => {
   return (
-    <div className="flex gap-4 justify-center">
+    <div className="flex gap-4 justify-center" data-aos="zoom-in-down">
       <NavLink
         to="/dashboard/vat"
         end

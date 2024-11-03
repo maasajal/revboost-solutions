@@ -95,7 +95,7 @@ const RevenueBarChart: React.FC = () => {
   ];
 
   return (
-    <Box
+    <Box data-aos="zoom-in"
       sx={{
         textAlign: "center",
         padding: "20px",

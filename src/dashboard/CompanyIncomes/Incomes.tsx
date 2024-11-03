@@ -109,7 +109,7 @@ const Incomes: React.FC = () => {
         </Alert>
       )}
 
-      <section className="py-5">
+      <section className="py-5" data-aos="zoom-in-down">
         <TableContainer
           component={Paper}
           className="overflow-x-auto min-w-full max-w-32 px-5"

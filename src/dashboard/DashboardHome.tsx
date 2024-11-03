@@ -37,7 +37,7 @@ const DashboardHome: React.FC = () => {
       />
       <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-10 py-20">
         {dashNavLinks.map((nav) => (
-          <div key={nav.path} className="p-10 rounded-xl shadow-xl">
+          <div key={nav.path} className="p-10 rounded-xl shadow-xl" data-aos="zoom-in-up">
             <NavLink
               to={nav.path}
               className="py-2 gap-4 flex flex-col items-center "

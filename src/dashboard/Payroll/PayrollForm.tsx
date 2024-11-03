@@ -110,7 +110,7 @@ const PayrollForm = () => {
   const currentMonth = months[new Date().getMonth()];
 
   return (
-    <section className="py-5 space-y-5">
+    <section className="py-5 space-y-5" data-aos="zoom-in-down">
       <Typography variant="h5" gutterBottom>
         Payroll Form
       </Typography>

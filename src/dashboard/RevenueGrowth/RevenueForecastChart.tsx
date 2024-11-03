@@ -89,7 +89,7 @@ const RevenueForecastChart: React.FC = () => {
 
   if (loading) return <CircularProgress size="3rem" />;
   return (
-    <div className="chart-container">
+    <div className="chart-container" data-aos="zoom-in-up">
       <h3 className="text-center my-4">24-Month Revenue Forecast</h3>
       <p>Total Forecast: $ {totalRevenueGrowth.forecast}</p>
       <ResponsiveContainer width="100%" height={300}>
