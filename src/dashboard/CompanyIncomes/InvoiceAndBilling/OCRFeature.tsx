@@ -26,7 +26,7 @@ const OCRFeature = () => {
     }
   };
   return (
-    <div className="px-4 lg:px-10 py-4 shadow-lg space-y-8">
+    <div className="px-4 lg:px-10 py-4 shadow-lg space-y-8" data-aos="zoom-in-down">
       <div className="shadow-xl bg-blue-100 rounded px-4 lg:px-12 py-4 space-y-5">
         <h5>Give Your PDF Here</h5>
         <div className="flex flex-wrap justify-center items-center gap-4">

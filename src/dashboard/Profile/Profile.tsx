@@ -118,7 +118,7 @@ const Profile: React.FC = () => {
               </Typography>
             )}
       </div>
-      <div className="flex flex-col items-center space-y-4">
+      <div className="flex flex-col items-center space-y-4" data-aos="zoom-in-down">
         <Avatar
           src={photo}
           alt="Profile Picture"
@@ -140,7 +140,7 @@ const Profile: React.FC = () => {
           Update Profile
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <TextField
+          <TextField data-aos="zoom-in-down"
             label="Company Name"
             defaultValue={name}
             {...register("name")}
@@ -150,7 +150,7 @@ const Profile: React.FC = () => {
             fullWidth
           />
 
-          <TextField
+          <TextField data-aos="zoom-in-down"
             label="Company Email"
             defaultValue={email}
             {...register("email")}
@@ -160,21 +160,21 @@ const Profile: React.FC = () => {
             fullWidth
           />
 
-          <TextField
+          <TextField data-aos="zoom-in-down"
             label="Photo URL"
             defaultValue={photo}
             {...register("photo")}
             fullWidth
           />
 
-          <TextField
+          <TextField data-aos="zoom-in-down"
             label="Mobile"
             defaultValue={mobile}
             {...register("mobile")}
             fullWidth
           />
 
-          <TextField
+          <TextField data-aos="zoom-in-down"
             label="Role"
             defaultValue={role}
             {...register("role")}
@@ -184,7 +184,7 @@ const Profile: React.FC = () => {
             fullWidth
           />
 
-          <TextField
+          <TextField data-aos="zoom-in-down"
             label="Subscription Plan"
             defaultValue={subscriptionPlan}
             {...register("subscriptionPlan")}
@@ -194,7 +194,7 @@ const Profile: React.FC = () => {
             fullWidth
           />
 
-          <TextField
+          <TextField data-aos="zoom-in-down"
             label="Subscription Status"
             defaultValue={subscriptionStatus}
             {...register("subscriptionStatus")}
@@ -203,7 +203,7 @@ const Profile: React.FC = () => {
             }}
             fullWidth
           />
-          <div className="p-4 rounded-lg border border-gray-200 space-y-3">
+          <div className="p-4 rounded-lg border border-gray-200 space-y-3" data-aos="zoom-in-down">
             <strong className="mb-2">
               Features on the plan {subscriptionPlan}
             </strong>
@@ -228,7 +228,7 @@ const Profile: React.FC = () => {
         intro="Payments"
         content="Check out due date & pay on-time!"
       />
-      <TableContainer
+      <TableContainer data-aos="zoom-in-down"
         component={Paper}
         className="overflow-x-auto min-w-full max-w-32 px-5"
       >

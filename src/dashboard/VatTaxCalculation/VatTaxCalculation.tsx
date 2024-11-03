@@ -10,7 +10,7 @@ const VatTaxCalculation = () => {
         <meta charSet="utf-8" />
         <title>VAT & TAX Calculation - RevBoost Solutions</title>
       </Helmet>
-      <div className="flex justify-center">
+      <div className="flex justify-center" data-aos="zoom-in-down">
         <img
           className="max-h-32 object-cover mb-6 md:mb-10 shadow-2xl rounded-lg p-4"
           src={vat_tax}

@@ -47,7 +47,7 @@ const RevenueComparisonPieChart: React.FC = () => {
   if (loading) return <CircularProgress size="3rem" />;
 
   return (
-    <div className="chart-container">
+    <div className="chart-container" data-aos="zoom-in-up">
       <h3 className="text-center my-4">Income vs Expenses vs Revenue Growth</h3>
       <ResponsiveContainer width="100%" height={400}>
         <PieChart>
