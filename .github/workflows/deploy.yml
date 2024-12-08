@@ -31,12 +31,12 @@ jobs:
           VITE_EMAILJS_TEMPLATE_ID=${{secrets.VITE_EMAILJS_TEMPLATE_ID}} \
           VITE_EMAILJS_PUBLIC_KEY=${{secrets.VITE_EMAILJS_PUBLIC_KEY}} \
           VITE_API=${{secrets.VITE_API}} \
-          VITE_apiKey=${{secrets.VITE_apiKey}} \
-          VITE_authDomain=${{secrets.VITE_authDomain}} \
-          VITE_projectId=${{secrets.VITE_projectId}} \
-          VITE_storageBucket=${{secrets.VITE_storageBucket}} \
-          VITE_messagingSenderId=${{secrets.VITE_messagingSenderId}} \
-          VITE_appId=${{secrets.VITE_appId}} \
+          VITE_APIKEY=${{secrets.VITE_APIKEY}} \
+          VITE_AUTHDOMAIN=${{secrets.VITE_AUTHDOMAIN}} \
+          VITE_PROJECTID=${{secrets.VITE_PROJECTID}} \
+          VITE_STORAGEBUCKET=${{secrets.VITE_STORAGEBUCKET}} \
+          VITE_MESSAGINGSENDERID=${{secrets.VITE_MESSAGINGSENDERID}} \
+          VITE_APPID=${{secrets.VITE_APPID}} \
           VITE_PAYMENT_PK=${{secrets.VITE_PAYMENT_PK}} \
           npm run build
 
