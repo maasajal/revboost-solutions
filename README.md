@@ -10,3 +10,7 @@
 - DaisyUI
 - Redux
 - TypeScript
+
+## Host on Hostinger
+
+Subdomain
